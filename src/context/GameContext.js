@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
+import { ObjectId } from 'mongodb';
 
 const GameContext = createContext();
 
@@ -24,7 +25,7 @@ const gameReducer = (state, action) => {
         ...state,
         gameId: action.payload.gameId,
         roomCode: action.payload.roomCode,
-        playerId: action.payload.playerId,
+        playerId: new ObjectId(action.payload.playerId),
         isHost: true
       };
     
@@ -32,7 +33,7 @@ const gameReducer = (state, action) => {
       return {
         ...state,
         gameId: action.payload.gameId,
-        playerId: action.payload.playerId,
+        playerId: new ObjectId(action.payload.playerId),
         isHost: false
       };
 

@@ -17,16 +17,31 @@ const Home = () => {
       return;
     }
 
+    console.log('Attempting to create game with username:', username);
+
     // set username to local storage
     localStorage.setItem('username', username);
 
-    socket.emit('create_game', { username });
+    socket.emit('create_game', { username }, (error) => {
+      if (error) {
+        console.error('Error sending create_game event:', error);
+      } else {
+        console.log('create_game event sent successfully');
+      }
+    });
+
     socket.once('game_created', ({ gameId, roomCode, playerId }) => {
+      console.log('Game created:', { gameId, roomCode, playerId });
       dispatch({
         type: 'GAME_CREATED',
         payload: { gameId, roomCode, playerId }
       });
       navigate(`/game/${roomCode}`);
+    });
+
+    socket.once('error', ({ message }) => {
+      console.error('Server error:', message);
+      alert(message);
     });
   };
 
