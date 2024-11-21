@@ -10,7 +10,13 @@ export const SocketProvider = ({ children }) => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const newSocket = io(SOCKET_URL);
+    const newSocket = io(SOCKET_URL, {
+      withCredentials: true,
+      transports: ['websocket', 'polling'],
+      extraHeaders: {
+        'Access-Control-Allow-Origin': process.env.REACT_APP_API_URL
+      }
+    });
 
     newSocket.on('connect', () => {
       console.log('Connected to server');
