@@ -2,16 +2,64 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
+import Confetti from 'react-confetti';
 
 const GameRoom = () => {
-  const [answer, setAnswer] = useState('');
   const [hasAnswered, setHasAnswered] = useState(false);
+  const [answer, setAnswer] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const { roomCode } = useParams();
+  const navigate = useNavigate();
   const { socket } = useSocket();
   const { gameState, dispatch } = useGame();
-  const navigate = useNavigate();
 
-  console.log("gameState: ", gameState);
+  // Handle initial connection and reconnection
+  useEffect(() => {
+    if (!socket) return;
+
+    const attemptReconnection = () => {
+      const savedSession = localStorage.getItem('gameSession');
+      if (savedSession) {
+        const session = JSON.parse(savedSession);
+        if (session.roomCode === roomCode) {
+          socket.emit('reconnect_game', session);
+        } else {
+          navigate('/');
+        }
+      } else {
+        navigate('/');
+      }
+    };
+
+    if (!gameState.gameId) {
+      attemptReconnection();
+    } else {
+      setIsLoading(false);
+    }
+  }, [socket, gameState.gameId, roomCode, navigate]);
+
+  // Socket event listeners
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on('game_rejoined', (gameState) => {
+      dispatch({
+        type: 'GAME_REJOINED',
+        payload: gameState
+      });
+      setIsLoading(false);
+    });
+
+    socket.on('reconnect_failed', ({ reason }) => {
+      console.error('Reconnection failed:', reason);
+      navigate('/');
+    });
+
+    return () => {
+      socket.off('game_rejoined');
+      socket.off('reconnect_failed');
+    };
+  }, [socket, dispatch, navigate]);
 
   useEffect(() => {
     if (!socket) return;
@@ -40,6 +88,13 @@ const GameRoom = () => {
       setAnswer('');
     });
 
+    socket.on('game_completed', ({ winner }) => {
+      dispatch({
+        type: 'GAME_COMPLETED',
+        payload: { winner }
+      });
+    });
+
     socket.on('next_round', (payload) => {
       dispatch({ type: 'NEXT_ROUND', payload });
     });
@@ -53,6 +108,7 @@ const GameRoom = () => {
       socket.off('game_started');
       socket.off('player_answered');
       socket.off('round_completed');
+      socket.off('game_completed');
       socket.off('next_round');
       socket.off('error');
     };
@@ -75,32 +131,50 @@ const GameRoom = () => {
     setHasAnswered(true);
   };
 
-  const renderPlayerList = () => (
-    <div className="space-y-2">
-      <h2 className="text-xl font-semibold">Players</h2>
+  const handleLeaveGame = () => {
+    localStorage.removeItem('gameSession');
+    socket.emit('leave_game', { gameId: gameState.gameId });
+    dispatch({ type: 'RESET_GAME' });
+    navigate('/');
+  };
+
+  const renderPlayerList = () => {
+    if (!gameState.players) return null;
+    
+    return (
       <div className="space-y-2">
-        {gameState.players.map((player) => (
-          <div
-            key={player._id}
-            className="flex justify-between items-center p-2 bg-white rounded-md shadow-sm"
-          >
-            <div className="flex items-center space-x-2">
-              <span>{player.username}</span>
-              {player.isHost && (
-                <span className="px-2 py-0.5 text-xs bg-blue-100 text-blue-800 rounded-full">
-                  Host
-                </span>
-              )}
-              {gameState.pinkCowHolder === player._id && (
-                <span className="text-xl">🐄</span>
-              )}
+        <h2 className="text-xl font-semibold">Players</h2>
+        <div className="space-y-2">
+          {gameState.players.map((player) => (
+            <div
+              key={player._id}
+              className="flex justify-between items-center p-2 bg-white rounded-md shadow-sm"
+            >
+              <div className="flex items-center space-x-2">
+                <span>{player.username}</span>
+                {player.isHost && (
+                  <span className="px-2 py-0.5 text-xs bg-blue-100 text-blue-800 rounded-full">
+                    Host
+                  </span>
+                )}
+                {gameState.pinkCowHolder === player._id && (
+                  <span className="px-2 py-0.5 text-xs bg-pink-100 text-pink-800 rounded-full">
+                    🐄
+                  </span>
+                )}
+                {!player.isConnected && (
+                  <span className="px-2 py-0.5 text-xs bg-red-100 text-red-800 rounded-full">
+                    Disconnected
+                  </span>
+                )}
+              </div>
+              <span className="text-gray-600">{player.score || 0} points</span>
             </div>
-            <span>Score: {player.score}</span>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderGameContent = () => {
     if (gameState.gameStatus === 'waiting') {
@@ -173,7 +247,7 @@ const GameRoom = () => {
             </div>
           </div>
 
-          {gameState.isHost && !gameState.winner && (
+          {gameState.isHost && gameState.gameStatus === 'in-progress' && (
             <div className="text-center mt-6">
               <button
                 onClick={() => socket.emit('next_round', { gameId: gameState.gameId })}
@@ -190,7 +264,7 @@ const GameRoom = () => {
     return (
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-center">
-          Round TESTING {gameState.currentRound}
+          Round {gameState.currentRound}
         </h2>
         <p className="text-lg text-center">{gameState.currentQuestion}</p>
         
@@ -203,7 +277,7 @@ const GameRoom = () => {
           />
         </div>
         <p className="text-center">
-          {gameState.playersAnswered} of {gameState.players.length} answered
+          {gameState.playersAnswered} of {gameState.players.length} players answered
         </p>
         
         {!hasAnswered ? (
@@ -229,20 +303,87 @@ const GameRoom = () => {
     );
   };
 
-  if (gameState.winner) {
+  useEffect(() => {
+    // Clean up session when game completes
+    if (gameState.gameStatus === 'completed') {
+      localStorage.removeItem('gameSession');
+    }
+  }, [gameState.gameStatus]);
+
+  if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-10">
-        <div className="text-center space-y-8">
-          <h1 className="text-3xl font-bold">Game Over!</h1>
-          <p className="text-xl">
-            {gameState.winner.username} wins with {gameState.winner.score} points!
-          </p>
-          <button
-            className="btn btn-primary"
-            onClick={() => navigate('/')}
-          >
-            Back to Home
-          </button>
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Joining Game...</h1>
+          <p>Please wait while we connect you to the game.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (gameState.winner) {
+    // Sort players by score in descending order
+    const sortedPlayers = [...gameState.players].sort((a, b) => b.score - a.score);
+
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-blue-500 to-purple-600 flex items-center justify-center">
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={true}
+          numberOfPieces={200}
+        />
+        <div className="bg-white rounded-lg shadow-2xl p-8 m-4 max-w-sm w-full space-y-8 relative z-10">
+          <div className="text-center space-y-4">
+            <div className="text-6xl mb-4">🏆</div>
+            <h1 className="text-4xl font-bold text-gray-800">Game Over!</h1>
+            <div className="py-4">
+              <p className="text-xl font-semibold text-purple-600">
+                Congratulations!
+              </p>
+              <p className="text-2xl font-bold text-gray-800 mt-2">
+                {gameState.winner.username}
+              </p>
+              <p className="text-lg text-gray-600 mt-1">
+                wins with <span className="font-bold text-purple-600">{gameState.winner.score}</span> points!
+              </p>
+            </div>
+
+            {/* Final Scoreboard */}
+            <div className="mt-6 border-t border-gray-200 pt-6">
+              <h2 className="text-lg font-semibold text-gray-800 mb-4">Final Scores</h2>
+              <div className="space-y-2">
+                {sortedPlayers.map((player, index) => (
+                  <div 
+                    key={player._id}
+                    className={`flex justify-between items-center p-2 rounded ${
+                      player._id === gameState.winner._id ? 'bg-purple-100' : 'bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <span className="text-gray-600">{index + 1}.</span>
+                      <span className={player._id === gameState.winner._id ? 'font-semibold' : ''}>
+                        {player.username}
+                      </span>
+                      {gameState.pinkCowHolder === player._id && (
+                        <span className="text-sm">🐄</span>
+                      )}
+                    </div>
+                    <span className="font-semibold">
+                      {player.score} pts
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={handleLeaveGame}
+              className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 text-white rounded-lg font-semibold shadow-lg hover:from-purple-700 hover:to-blue-600 transform hover:scale-105 transition-all duration-200"
+            >
+              Back to Home
+            </button>
+          </div>
         </div>
       </div>
     );

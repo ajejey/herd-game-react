@@ -78,11 +78,26 @@ const gameReducer = (state, action) => {
     case 'GAME_COMPLETED':
       return {
         ...state,
-        gameStatus: 'completed'
+        gameStatus: 'completed',
+        winner: action.payload.winner
       };
 
     case 'RESET_GAME':
       return initialState;
+
+    case 'GAME_REJOINED':
+      return {
+        ...initialState,
+        gameId: action.payload.gameId,
+        playerId: action.payload.playerId,
+        roomCode: action.payload.roomCode,
+        gameStatus: 'in-progress',
+        currentRound: action.payload.gameState.currentRound,
+        currentQuestion: action.payload.gameState.currentQuestion,
+        players: action.payload.gameState.players || [],
+        pinkCowHolder: action.payload.gameState.pinkCowHolder,
+        playersAnswered: action.payload.gameState.playersAnswered || 0
+      };
 
     default:
       return state;

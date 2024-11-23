@@ -11,16 +11,20 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     const newSocket = io(SOCKET_URL, {
-      withCredentials: true,
-      transports: ['websocket', 'polling'],
-      extraHeaders: {
-        'Access-Control-Allow-Origin': process.env.REACT_APP_API_URL
-      }
+      transports: ['websocket'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000
     });
 
     newSocket.on('connect', () => {
-      console.log('Connected to server');
+      console.log('Socket connected');
       setConnected(true);
+    });
+
+    newSocket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error);
+      setConnected(false);
     });
 
     newSocket.on('disconnect', () => {
