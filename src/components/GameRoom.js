@@ -8,6 +8,7 @@ const GameRoom = () => {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [answer, setAnswer] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [isCopied, setIsCopied] = useState(false);
   const { roomCode } = useParams();
   const navigate = useNavigate();
   const { socket } = useSocket();
@@ -138,6 +139,16 @@ const GameRoom = () => {
     navigate('/');
   };
 
+  const handleCopyRoomCode = async () => {
+    try {
+      await navigator.clipboard.writeText(roomCode);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy room code:', err);
+    }
+  };
+
   const renderPlayerList = () => {
     if (!gameState.players) return null;
     
@@ -180,17 +191,47 @@ const GameRoom = () => {
     if (gameState.gameStatus === 'waiting') {
       return (
         <div className="space-y-4 text-center">
-          <p className="text-lg">Room Code: {roomCode}</p>
-          <p>Waiting for players...</p>
+          <div className="flex flex-col items-center space-y-3">
+            <p className="text-lg font-medium">Room Code:</p>
+            <div className="flex items-center space-x-2">
+              <div className="bg-white px-4 py-2 rounded-lg font-mono text-xl border border-gray-200">
+                {roomCode}
+              </div>
+              <button
+                onClick={handleCopyRoomCode}
+                className="p-2 text-purple-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg transition-colors flex items-center space-x-1"
+                title="Copy room code"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                {isCopied && <span className="text-sm">Copied!</span>}
+              </button>
+            </div>
+          </div>
+          <p className="text-gray-600">Waiting for players...</p>
           {gameState.isHost && (
             <button
               className="btn btn-primary"
               onClick={handleStartGame}
               disabled={gameState.players.length < 2}
             >
-              Start Game
+              {gameState.players.length < 2 ? 'Need at least 2 players' : 'Start Game'}
             </button>
           )}
+          <div className="mt-4">
+            <p className="text-sm text-gray-500 mb-2">Players in room:</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {gameState.players.map((player) => (
+                <div
+                  key={player._id}
+                  className="bg-purple-50 px-3 py-1 rounded-full text-purple-700 text-sm"
+                >
+                  {player.username} {player._id === gameState.hostId && '(Host)'}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       );
     }
