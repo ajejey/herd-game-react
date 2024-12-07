@@ -11,7 +11,6 @@ const Home = () => {
   const [showReconnect, setShowReconnect] = useState(false);
   const [savedSession, setSavedSession] = useState(null);
   const [activeTab, setActiveTab] = useState('join');
-  const [showInstructions, setShowInstructions] = useState(false);
   const { socket } = useSocket();
   const { dispatch } = useGame();
   const navigate = useNavigate();
