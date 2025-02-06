@@ -113,12 +113,16 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
       <Helmet>
-        <title>Herd Game - A Social Party Game | Play Online with Friends</title>
-        <meta name="description" content="Play Herd Game online - the ultimate social party game where players think like the herd! Perfect for virtual game nights with friends and family." />
-        <meta name="keywords" content="herd game, online party game, social game, multiplayer game, virtual game night, browser game" />
-        <meta property="og:title" content="Herd Game - Online Party Game" />
-        <meta property="og:description" content="Play the ultimate social party game online with friends and family. Think like the herd to win!" />
+        <title>Herd Game - Fun Party Game for Friends, Family & Teams | Play Online</title>
+        <meta name="description" content="Play Herd Game online - the ultimate social party game for any occasion! Perfect for game nights, family gatherings, team building, birthday parties, and social events. Easy to join, unlimited players!" />
+        <meta name="keywords" content="party games, family game night, team building, social games, multiplayer games, virtual hangouts, quiz games, drinking games, ice breaker games, group activities, online party, game night ideas, birthday party games, team bonding, virtual events" />
+        <meta property="og:title" content="Herd Game - The Ultimate Party Game for Everyone" />
+        <meta property="og:description" content="The perfect game for any group! Great for parties, family nights, team building, and social events. Join instantly and play with unlimited players!" />
+        <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Herd Game - Online Party Game for All Occasions" />
+        <meta name="twitter:description" content="Looking for the perfect group game? Herd Game is great for parties, family fun, team events, and social gatherings. No player limit!" />
+        <link rel="canonical" href="https://herdgame.vercel.app" />
       </Helmet>
 
       <div className="container mx-auto px-4 py-6 md:py-12 max-w-lg md:max-w-6xl">
