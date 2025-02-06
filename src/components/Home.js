@@ -123,6 +123,7 @@ const Home = () => {
         <meta name="twitter:title" content="Herd Game - Online Party Game for All Occasions" />
         <meta name="twitter:description" content="Looking for the perfect group game? Herd Game is great for parties, family fun, team events, and social gatherings. No player limit!" />
         <link rel="canonical" href="https://herdgame.vercel.app" />
+        <meta name="google-site-verification" content="7nItEeuNSAIFL_unU4Ai5p-SGizDDaJU8XRYEKdtOgk" />
       </Helmet>
 
       <div className="container mx-auto px-4 py-6 md:py-12 max-w-lg md:max-w-6xl">
