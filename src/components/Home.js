@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
 import { Helmet } from 'react-helmet';
@@ -114,8 +114,8 @@ const Home = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
       <Helmet>
         <title>Herd Board Game - Play Online | Think Like The Herd</title>
-        <meta name="description" content="Play Herd Mentality board game online - the ultimate social party game where you think like the herd to win cows! Based on Big Potato Games' popular board game. Perfect for game nights, family gatherings, team building, birthday parties, and social events. Easy to join, unlimited players!" />
-        <meta name="keywords" content="Herd Mentality, Herd Mentality board game, Herd Mentality game, board games, Big Potato Games, party games, family game night, team building, social games, multiplayer games, virtual hangouts, quiz games, ice breaker games, group activities, online party, game night ideas, birthday party games, team bonding, virtual events, think like the herd, Pink Cow, cow rustlers" />
+        <meta name="description" content="Play Herd Mentality board game online - the ultimate social party game where you think like the herd to win cows! Perfect for game nights, family gatherings, team building, birthday parties, and social events. Easy to join, unlimited players!" />
+        <meta name="keywords" content="Herd Mentality, Herd Mentality board game, Herd Mentality game, board games, party games, family game night, team building, social games, multiplayer games, virtual hangouts, quiz games, ice breaker games, group activities, online party, game night ideas, birthday party games, team bonding, virtual events, think like the herd, Pink Cow, cow rustlers" />
         <meta property="og:title" content="Herd Game - The Ultimate Party Game for Everyone" />
         <meta property="og:description" content="The perfect game for any group! Great for parties, family nights, team building, and social events. Join instantly and play with unlimited players!" />
         <meta property="og:type" content="website" />
@@ -253,7 +253,7 @@ const Home = () => {
           <div className="space-y-6">
             <div className="space-y-2">
               <h3 className="text-lg md:text-xl font-semibold text-purple-600">🎯 Objective</h3>
-              <p className="text-gray-700">Think like the herd! Match your answers with other players to score points, just like in the original Herd Game by Big Potato Games.</p>
+              <p className="text-gray-700">Think like the herd! Match your answers with other players to score points</p>
             </div>
 
             <div className="space-y-3">
@@ -312,6 +312,11 @@ const Home = () => {
 
         <footer className="text-center mt-8 text-white opacity-90 text-sm">
           <p>&copy; {new Date().getFullYear()} Herd Game. A social party game for everyone.</p>
+          <div className="mt-2 flex justify-center space-x-4">
+            <Link to="/privacy-policy" className="text-white hover:text-purple-200 transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-white hover:text-purple-200 transition-colors">Terms of Service</Link>
+            <Link to="/about-contact" className="text-white hover:text-purple-200 transition-colors">About Us / Contact</Link>
+          </div>
         </footer>
       </div>
     </div>
