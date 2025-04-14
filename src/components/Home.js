@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
 import { Helmet } from 'react-helmet';
+import Navigation from './Navigation';
 
 const Home = () => {
   const [username, setUsername] = useState('');
@@ -112,6 +113,21 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+      {/* Navigation Bar */}
+      {/* <nav className="bg-white bg-opacity-10 backdrop-blur-sm py-3 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center">
+          <div className="flex items-center text-white font-bold text-xl">
+            Herd Game
+          </div>
+          <div className="flex space-x-4 text-white text-sm md:text-base">
+            <Link to="/" className="hover:text-purple-200 transition-colors">Home</Link>
+            <Link to="/blog" className="hover:text-purple-200 transition-colors">Blog</Link>
+            <Link to="/faq" className="hover:text-purple-200 transition-colors">FAQ</Link>
+            <Link to="/about-contact" className="hover:text-purple-200 transition-colors">About</Link>
+          </div>
+        </div>
+      </nav> */}
+      <Navigation />
       <Helmet>
         <title>Herd Board Game - Play Online | Think Like The Herd</title>
         <meta name="description" content="Play Herd Mentality board game online - the ultimate social party game where you think like the herd to win cows! Perfect for game nights, family gatherings, team building, birthday parties, and social events. Easy to join, unlimited players!" />
@@ -310,12 +326,38 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Featured Content Section */}
+        <div className="bg-white bg-opacity-95 rounded-2xl shadow-xl p-6 md:p-8 mt-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Featured Articles</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-purple-50 p-5 rounded-lg">
+              <h3 className="text-xl font-semibold text-purple-800 mb-2">5 Tips for Hosting the Perfect Virtual Game Night</h3>
+              <p className="text-gray-700 mb-3">Learn how to host an engaging and fun virtual game night with friends and family using Herd Game.</p>
+              <Link to="/blog" className="text-purple-600 hover:text-purple-800 font-medium">Read More →</Link>
+            </div>
+            
+            <div className="bg-purple-50 p-5 rounded-lg">
+              <h3 className="text-xl font-semibold text-purple-800 mb-2">The Psychology Behind Herd Game</h3>
+              <p className="text-gray-700 mb-3">Discover why we enjoy thinking like others and the social science behind the game's mechanics.</p>
+              <Link to="/blog" className="text-purple-600 hover:text-purple-800 font-medium">Read More →</Link>
+            </div>
+          </div>
+          
+          <div className="mt-6 text-center">
+            <Link to="/blog" className="inline-block px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+              View All Articles
+            </Link>
+          </div>
+        </div>
+        
         <footer className="text-center mt-8 text-white opacity-90 text-sm">
           <p>&copy; {new Date().getFullYear()} Herd Game. A social party game for everyone.</p>
           <div className="mt-2 flex justify-center space-x-4">
             <Link to="/privacy-policy" className="text-white hover:text-purple-200 transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-service" className="text-white hover:text-purple-200 transition-colors">Terms of Service</Link>
             <Link to="/about-contact" className="text-white hover:text-purple-200 transition-colors">About Us / Contact</Link>
+            <Link to="/faq" className="text-white hover:text-purple-200 transition-colors">FAQ</Link>
           </div>
         </footer>
       </div>
