@@ -21,6 +21,10 @@
       "dest": "/manifest.json"
     },
     {
+      "src": "/ads.txt",
+      "dest": "/ads.txt"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
