@@ -1,11 +1,10 @@
 import React from 'react'
-import Navigation from '../Navigation'
+import BlogPostShell from './BlogPostShell'
 
 const PostSeven = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4">
-      <Navigation />
-      <article className="my-12 max-w-4xl mx-auto p-6 md:p-8 bg-white bg-opacity-90 rounded-xl backdrop-blur-sm border-gray-200 pb-8">
+    <BlogPostShell>
+      <>
         <h2 className="text-2xl font-bold text-gray-800 mb-4">From Chaos to Consensus: Why the Funniest Part of the Herd Game is the Debate After</h2>
         <p className="text-sm text-gray-500 mb-4">Published on April 14, 2025</p>
         
@@ -185,8 +184,8 @@ const PostSeven = () => {
             That's forever.
           </p>
         </div>
-      </article>
-    </div>
+      </>
+    </BlogPostShell>
   )
 }
 

@@ -1,16 +1,15 @@
 import React from 'react'
-import Navigation from '../Navigation'
+import BlogPostShell from './BlogPostShell'
 import { Helmet } from 'react-helmet'
 
 const PostEight = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4">
+    <BlogPostShell>
       <Helmet>
         <title>How to Host the Ultimate Herd Game Night (Without Lifting a Finger) - Herd Game</title>
         <meta name="description" content="Learn how to host a Herd Game night that's fun, hilarious, and easy to organize." />
       </Helmet>
-      <Navigation />
-      <article className="my-12 max-w-4xl mx-auto p-6 md:p-8 bg-white bg-opacity-90 rounded-xl backdrop-blur-sm border-gray-200 pb-8">
+      <>
         <h2 className="text-2xl font-bold text-gray-800 mb-4">How to Host the Ultimate Herd Game Night (Without Lifting a Finger)</h2>
         <p className="text-sm text-gray-500 mb-4">Published on May 15, 2025</p>
         
@@ -186,8 +185,8 @@ const PostEight = () => {
             Just gather the crew, grab the cards, and let the cow do the rest.
           </p>
         </div>
-      </article>
-    </div>
+      </>
+    </BlogPostShell>
   )
 }
 

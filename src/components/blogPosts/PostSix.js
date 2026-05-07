@@ -1,11 +1,10 @@
 import React from 'react'
-import Navigation from '../Navigation'
+import BlogPostShell from './BlogPostShell'
 
 const PostSix = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4">
-      <Navigation />
-      <article className="my-12 max-w-4xl mx-auto p-6 md:p-8 bg-white bg-opacity-90 rounded-xl backdrop-blur-sm border-gray-200 pb-8">
+    <BlogPostShell>
+      <>
         <h2 className="text-2xl font-bold text-gray-800 mb-4">How to Be the Most Average Person in the Room (and Win the Game Doing It)</h2>
         <p className="text-sm text-gray-500 mb-4">Published on May 2, 2025</p>
         
@@ -204,8 +203,8 @@ const PostSix = () => {
             A job that sounds cool but probably isn't
           </p>
         </div>
-      </article>
-    </div>
+      </>
+    </BlogPostShell>
   )
 }
 

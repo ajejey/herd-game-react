@@ -3,12 +3,18 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
 import Confetti from 'react-confetti';
+import AdSlot from './AdSlot';
+
+const ROUND_AD_SLOT = '5698170537';
+const LOBBY_AD_SLOT = '5969633275';
+const GAMEOVER_AD_SLOT = '9390003532';
 
 const GameRoom = () => {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [answer, setAnswer] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
+  const [showAdjust, setShowAdjust] = useState(false);
   const { roomCode } = useParams();
   const navigate = useNavigate();
   const { socket } = useSocket();
@@ -219,6 +225,8 @@ const GameRoom = () => {
               {gameState.players.length < 2 ? 'Need at least 2 players' : 'Start Game'}
             </button>
           )}
+          <AdSlot slot={LOBBY_AD_SLOT} format="auto" className="my-2" />
+
           <div className="mt-4">
             <p className="text-sm text-gray-500 mb-2">Players in room:</p>
             <div className="flex flex-wrap justify-center gap-2">
@@ -255,8 +263,31 @@ const GameRoom = () => {
             </div>
           </div>
 
+          <AdSlot
+            key={`round-ad-${gameState.currentRound}`}
+            slot={ROUND_AD_SLOT}
+            format="auto"
+            className="my-2"
+          />
+
           <div className="space-y-3">
             <h3 className="text-lg font-medium">Player Answers:</h3>
+            {gameState.isHost && gameState.gameStatus === 'in-progress' && (
+              <div className="flex justify-end">
+                <button
+                  onClick={() => setShowAdjust(s => !s)}
+                  className="text-xs text-gray-400 hover:text-purple-600 underline-offset-2 hover:underline transition-colors"
+                  title="Manually adjust scores for typos or synonyms"
+                >
+                  {showAdjust ? 'Hide score adjustments' : 'Dispute scores?'}
+                </button>
+              </div>
+            )}
+            {showAdjust && gameState.isHost && gameState.gameStatus === 'in-progress' && (
+              <p className="text-xs text-gray-500 italic">
+                Tap a player's <span className="text-green-700 font-medium">+</span> to award a point (typo of the herd) or <span className="text-red-700 font-medium">−</span> to remove one. Pink cow movement is unaffected.
+              </p>
+            )}
             <div className="grid gap-3">
               {gameState.roundResults.allAnswers.map((answer, index) => {
                 const player = gameState.players.find(p => p._id === answer.playerId);
@@ -281,6 +312,27 @@ const GameRoom = () => {
                     <div className="flex items-center space-x-4">
                       <span className="text-gray-600">"{answer.answer || ''}"</span>
                       <span className="text-sm">{player?.score || 0} ({scoreChange})</span>
+                      {showAdjust && gameState.isHost && gameState.gameStatus === 'in-progress' && (
+                        <span className="flex items-center ml-2 border border-gray-200 rounded-full overflow-hidden bg-gray-50">
+                          <button
+                            onClick={() => socket.emit('adjust_score', { gameId: gameState.gameId, playerId: answer.playerId, delta: -1 })}
+                            className="w-8 h-7 flex items-center justify-center text-red-600 hover:bg-red-50 text-lg font-semibold leading-none"
+                            title="Remove a point"
+                            aria-label="Remove a point"
+                          >
+                            −
+                          </button>
+                          <span className="w-px h-5 bg-gray-200" />
+                          <button
+                            onClick={() => socket.emit('adjust_score', { gameId: gameState.gameId, playerId: answer.playerId, delta: 1 })}
+                            className="w-8 h-7 flex items-center justify-center text-green-600 hover:bg-green-50 text-lg font-semibold leading-none"
+                            title="Award a point"
+                            aria-label="Award a point"
+                          >
+                            +
+                          </button>
+                        </span>
+                      )}
                     </div>
                   </div>
                 );
@@ -345,6 +397,11 @@ const GameRoom = () => {
   };
 
   useEffect(() => {
+    // Reset the adjust-scores panel whenever the round changes
+    setShowAdjust(false);
+  }, [gameState.currentRound, gameState.roundResults]);
+
+  useEffect(() => {
     // Clean up session when game completes
     if (gameState.gameStatus === 'completed') {
       localStorage.removeItem('gameSession');
@@ -389,6 +446,8 @@ const GameRoom = () => {
                 wins with <span className="font-bold text-purple-600">{gameState.winner.score}</span> points!
               </p>
             </div>
+
+            <AdSlot slot={GAMEOVER_AD_SLOT} format="auto" className="my-2" />
 
             {/* Final Scoreboard */}
             <div className="mt-6 border-t border-gray-200 pt-6">

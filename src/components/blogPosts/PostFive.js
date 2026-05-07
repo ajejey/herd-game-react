@@ -1,11 +1,10 @@
 import React from 'react'
-import Navigation from '../Navigation'
+import BlogPostShell from './BlogPostShell'
 
 const PostFive = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4">
-    <Navigation />
-    <article className="my-12 max-w-4xl mx-auto p-6 md:p-8 bg-white bg-opacity-90 rounded-xl backdrop-blur-sm border-gray-200 pb-8">
+    <BlogPostShell>
+    <>
         <h1 className="text-4xl font-bold mb-6 text-purple-900">The Secret History of Herd Mentality (And Why You'd Probably Follow a Goat if Everyone Else Did)</h1>
         <div className="prose lg:prose-xl max-w-4xl mx-auto text-gray-800">
           <p>Picture this: you're walking through a crowd. Suddenly, the people ahead of you start veering left. No one says why. But like a good little sheep-human hybrid, you follow. Why? Because everyone else is doing it.</p>
@@ -76,8 +75,8 @@ const PostFive = () => {
             </ul>
           </div>
         </div>
-      </article>
-    </div>
+      </>
+    </BlogPostShell>
   )
 }
 

@@ -1,11 +1,10 @@
 import React from 'react'
-import Navigation from '../Navigation'
+import BlogPostShell from './BlogPostShell'
 
 const PostOne = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-12 px-4">
-      <Navigation />
-    <article className="my-12 max-w-4xl mx-auto p-6 md:p-8 bg-white bg-opacity-90 rounded-xl backdrop-blur-sm border-gray-200 pb-8">
+    <BlogPostShell>
+    <>
       <h2 className="text-2xl font-bold text-gray-800 mb-4">5 Tips for Hosting the Perfect Virtual Game Night</h2>
       <p className="text-sm text-gray-500 mb-4">Published on April 12, 2025</p>
       
@@ -51,8 +50,8 @@ const PostOne = () => {
           With these tips, your virtual game night should be a success. Remember, the most important thing is to have fun and connect with your friends and family!
         </p>
       </div>
-    </article>
-    </div>
+    </>
+    </BlogPostShell>
   )
 }
 
