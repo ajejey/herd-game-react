@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MeadowLayout, { GrassStrip, fredokaStyle } from '../MeadowLayout';
+import MeadowLayout, { GrassStrip } from '../MeadowLayout';
 
 /**
  * Wrapper for individual blog post pages.
