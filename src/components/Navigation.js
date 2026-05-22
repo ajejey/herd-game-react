@@ -41,6 +41,7 @@ const Navigation = () => {
 
   const links = [
     { to: '/', label: 'Home' },
+    { to: '/say-anything', label: 'Say Anything 💬' },
     { to: '/blog', label: 'Blog' },
     { to: '/faq', label: 'FAQ' },
     { to: '/about-contact', label: 'About' }

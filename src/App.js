@@ -17,6 +17,14 @@ import PostFive from './components/blogPosts/PostFive';
 import PostSix from './components/blogPosts/PostSix';
 import PostSeven from './components/blogPosts/PostSeven';
 import PostEight from './components/blogPosts/PostEight';
+import SayAnythingHome from './components/sa/SayAnythingHome';
+import SayAnythingRoom from './components/sa/SayAnythingRoom';
+import HowToPlayPage from './components/sa/subpages/HowToPlayPage';
+import QuestionsPage from './components/sa/subpages/QuestionsPage';
+import TwoPlayerPage from './components/sa/subpages/TwoPlayerPage';
+import JackboxAlternativePage from './components/sa/subpages/JackboxAlternativePage';
+import ZoomPartyGamesPage from './components/sa/subpages/ZoomPartyGamesPage';
+import FamilyFriendlyPage from './components/sa/subpages/FamilyFriendlyPage';
 
 function App() {
   return (
@@ -40,6 +48,14 @@ function App() {
               <Route path="/blog/7" element={<PostSeven />} />
               <Route path="/blog/8" element={<PostEight />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/say-anything" element={<SayAnythingHome />} />
+              <Route path="/say-anything/room/:roomCode" element={<SayAnythingRoom />} />
+              <Route path="/say-anything/how-to-play-say-anything-board-game-online" element={<HowToPlayPage />} />
+              <Route path="/say-anything/100-funny-say-anything-game-questions" element={<QuestionsPage />} />
+              <Route path="/say-anything/can-you-play-say-anything-with-2-players" element={<TwoPlayerPage />} />
+              <Route path="/say-anything/free-alternative-to-jackbox-party-pack" element={<JackboxAlternativePage />} />
+              <Route path="/say-anything/how-to-play-party-games-on-zoom-with-friends" element={<ZoomPartyGamesPage />} />
+              <Route path="/say-anything/family-friendly-party-games-to-play-online" element={<FamilyFriendlyPage />} />
             </Routes>
           </div>
         </Router>

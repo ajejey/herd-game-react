@@ -329,6 +329,42 @@ const Home = () => {
             radial-gradient(ellipse 14px 10px at 150px 40px, rgba(45,24,16,0.05) 50%, transparent 51%);
           background-size: 180px 120px;
         }
+        @keyframes jiggle {
+          0%, 100% { transform: translateY(0) rotate(0); }
+          25%      { transform: translateY(-6px) rotate(-1.5deg); }
+          75%      { transform: translateY(-3px) rotate(1.5deg); }
+        }
+        @keyframes shimmer {
+          0%, 100% { background-position: 0% 50%; }
+          50%      { background-position: 100% 50%; }
+        }
+        .game-card {
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .game-card:hover {
+          transform: translateY(-6px) rotate(-0.5deg);
+          box-shadow: 0 24px 50px -18px rgba(45,24,16,0.4);
+        }
+        .game-card:hover .game-card-mascot {
+          animation: jiggle 0.5s ease-in-out;
+        }
+        .soon-card {
+          background: linear-gradient(120deg, #F5F0E6, #FFF5E8, #F5F0E6);
+          background-size: 200% 200%;
+          animation: shimmer 6s ease-in-out infinite;
+        }
+        .ribbon {
+          position: absolute;
+          top: 10px;
+          right: -28px;
+          transform: rotate(35deg);
+          padding: 3px 32px;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
       `}</style>
 
       <div className="cow-spots-bg absolute inset-0 pointer-events-none" />
@@ -367,7 +403,7 @@ const Home = () => {
                   Herd <span className="text-[#3D8B5A]">Game</span>
                 </h1>
                 <p style={quicksand} className="text-lg md:text-xl text-[#6B4226] mt-2 font-medium">
-                  Think like the herd. <span className="text-[#E84A8B] font-semibold">Or be the lone cow.</span>
+                  A meadow full of party games. <span className="text-[#E84A8B] font-semibold">Pick yours.</span>
                 </p>
               </div>
             </div>
@@ -379,8 +415,150 @@ const Home = () => {
           </div>
         </header>
 
+        {/* ─── GAME HUB ────────────────────────────────────────────────── */}
+        <section className="mb-10">
+          <div className="text-center mb-6">
+            <h2 style={fredoka} className="text-3xl md:text-4xl font-bold text-[#2D1810]">
+              Pick your game 🎲
+            </h2>
+            <p className="text-[#6B4226] mt-1">More games being added to the herd.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            {/* Herd Mentality — Featured */}
+            <a
+              href="#play"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#3D8B5A] p-5 overflow-hidden block group md:col-span-2 lg:col-span-1"
+            >
+              <div className="ribbon bg-[#3D8B5A] text-white">★ Popular</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0">
+                  <CowMascot className="w-20 md:w-24 drop-shadow" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Herd Mentality
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Think like the herd. Dodge the pink cow. The OG.
+                  </p>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#3D8B5A] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            {/* Say Anything */}
+            <Link
+              to="/say-anything"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#E84A8B] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#E84A8B] text-white">✨ New</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">💬</div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Say Anything
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Write the funniest answer. Bet on the judge's pick.
+                  </p>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Coming Soon — Wits & Wagers */}
+            <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
+              <div className="ribbon bg-[#8B6347] text-white">Soon</div>
+              <div className="flex items-start gap-4 opacity-80">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🎲</div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Wits &amp; Wagers
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Guess a number. Bet on whose guess is closest.
+                  </p>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#8B6347] font-semibold text-sm">
+                    Coming soon
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Coming Soon — Wavelength */}
+            <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
+              <div className="ribbon bg-[#8B6347] text-white">Soon</div>
+              <div className="flex items-start gap-4 opacity-80">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🌗</div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Wavelength
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    A spectrum. A secret target. Guess your team's mind.
+                  </p>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#8B6347] font-semibold text-sm">
+                    Coming soon
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Coming Soon — Monikers */}
+            <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
+              <div className="ribbon bg-[#8B6347] text-white">Soon</div>
+              <div className="flex items-start gap-4 opacity-80">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🎭</div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Monikers
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Describe, one-word, then charades. Pure chaos.
+                  </p>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#8B6347] font-semibold text-sm">
+                    Coming soon
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Suggest-a-game card */}
+            <a
+              href="mailto:ajejey@gmail.com?subject=New%20game%20idea%20for%20Herd"
+              className="game-card relative rounded-3xl border-4 border-dashed border-[#FFD56B] bg-[#FFFBE8] p-5 overflow-hidden block group"
+            >
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">💡</div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Got a game?
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Tell us what to build next. We're listening.
+                  </p>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold text-sm">
+                    Suggest a game <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+        </section>
+
         {/* Join / Create card */}
-        <div className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.35)] border-4 border-[#FFE8C8] p-6 md:p-8 mb-10">
+        <div id="play" className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.35)] border-4 border-[#FFE8C8] p-6 md:p-8 mb-10 scroll-mt-24">
+          <div className="text-center mb-4">
+            <p className="text-xs uppercase tracking-widest text-[#3D8B5A] font-bold">🐄 Herd Mentality</p>
+            <h2 style={fredoka} className="text-2xl md:text-3xl font-bold text-[#2D1810]">Jump into a room</h2>
+          </div>
           <div className="flex justify-center mb-6">
             <div className="inline-flex bg-[#FFF8E7] border-2 border-[#E8DFC9] rounded-full p-1">
               <button
