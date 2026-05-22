@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import MeadowLayout, { GrassStrip, fredokaStyle } from './MeadowLayout';
+import AdSlot from './AdSlot';
 
 const QA = ({ q, accent, children }) => (
   <div
@@ -145,6 +146,11 @@ const FAQ = () => {
           <p className="text-[#4A2D1B]">
             We're constantly updating this FAQ with new information based on player questions, so check back regularly!
           </p>
+        </div>
+
+        {/* Ad — bottom of FAQ */}
+        <div className="mt-6 max-h-[300px] overflow-hidden">
+          <AdSlot slot="5698170537" />
         </div>
 
         <GrassStrip className="absolute bottom-0 left-0 right-0 w-full h-5 -mb-[2px]" />

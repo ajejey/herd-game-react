@@ -1,6 +1,7 @@
 import React from 'react';
 import { fredokaStyle } from '../MeadowLayout';
 import { EyeIcon } from './icons/Icons';
+import AdSlot from '../AdSlot';
 
 export default function JudgingPhase({ game }) {
   const { state, isJudge, judge, sendAction } = game;
@@ -56,6 +57,11 @@ export default function JudgingPhase({ game }) {
             <p className="text-xs text-[#8B6347] mt-0.5">{a.username}</p>
           </div>
         ))}
+      </div>
+
+      {/* Ad — non-judges are waiting passively */}
+      <div className="mt-6 max-h-[280px] overflow-hidden">
+        <AdSlot slot="5698170537" />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { fredokaStyle } from '../MeadowLayout';
 import HowToPlay from './HowToPlay';
+import AdSlot from '../AdSlot';
 
 export default function Lobby({ game }) {
   const { state, myId, isHost, roomCode, startGame, kickPlayer } = game;
@@ -75,6 +76,11 @@ export default function Lobby({ game }) {
       ) : (
         <p className="text-center text-[#8B6347] text-sm py-2">Waiting for the host to start…</p>
       )}
+
+      {/* Ad — lobby is the longest waiting moment */}
+      <div className="mt-6 max-h-[300px] overflow-hidden">
+        <AdSlot slot="5969633275" />
+      </div>
     </div>
   );
 }

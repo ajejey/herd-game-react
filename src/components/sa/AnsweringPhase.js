@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { fredokaStyle } from '../MeadowLayout';
+import AdSlot from '../AdSlot';
 
 export default function AnsweringPhase({ game }) {
   const { state, myId, isJudge, judge, isHost, sendAction } = game;
@@ -24,6 +25,11 @@ export default function AnsweringPhase({ game }) {
             <span className="font-bold text-[#E84A8B]">{answeredCount}</span> of {eligibleCount} answered
           </p>
           <p className="text-[#8B6347] text-sm">Waiting for everyone to answer…</p>
+          {/* Ad — judge is passively waiting */}
+          <div className="mt-6 max-h-[280px] overflow-hidden">
+            <AdSlot slot="5698170537" />
+          </div>
+
           {isHost && (
             <div className="mt-4 flex gap-2 justify-center flex-wrap">
               {answeredCount > 0 && (

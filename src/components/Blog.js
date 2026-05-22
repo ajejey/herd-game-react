@@ -10,6 +10,7 @@ import PostSix from './blogPosts/PostSix';
 import PostSeven from './blogPosts/PostSeven';
 import PostEight from './blogPosts/PostEight';
 import MeadowLayout, { GrassStrip, fredokaStyle } from './MeadowLayout';
+import AdSlot from './AdSlot';
 
 const Blog = () => {
   const blogPosts = [
@@ -65,6 +66,11 @@ const Blog = () => {
               </Link>
             );
           })}
+        </div>
+
+        {/* Ad — bottom of blog list */}
+        <div className="mt-8 max-h-[300px] overflow-hidden">
+          <AdSlot slot="5698170537" />
         </div>
 
         <GrassStrip className="absolute bottom-0 left-0 right-0 w-full h-5 -mb-[2px]" />

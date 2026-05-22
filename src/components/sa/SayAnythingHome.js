@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import { useSayAnything } from '../../hooks/useSayAnything';
 import HowToPlay from './HowToPlay';
+import AdSlot from '../AdSlot';
 
 const CANONICAL_URL = 'https://herdgame.vercel.app/say-anything';
 const OG_IMAGE = 'https://herdgame.vercel.app/og-say-anything.png';
@@ -322,6 +323,11 @@ export default function SayAnythingHome() {
               {tab === 'create' ? 'Create Room' : 'Join Room'}
             </button>
           </form>
+        </div>
+
+        {/* Ad — pre-game browsing */}
+        <div className="mt-6 max-h-[280px] overflow-hidden">
+          <AdSlot slot="5969633275" />
         </div>
 
         <div className="mt-8">

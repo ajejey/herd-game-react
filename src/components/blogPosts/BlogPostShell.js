@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MeadowLayout, { GrassStrip } from '../MeadowLayout';
+import AdSlot from '../AdSlot';
 
 /**
  * Wrapper for individual blog post pages.
@@ -30,7 +31,12 @@ const BlogPostShell = ({ children }) => {
 
         {children}
 
-        <div className="mt-10 pt-6 border-t border-[#FFE8C8] flex flex-wrap gap-3 justify-between items-center text-sm">
+        {/* Ad — end of article, before footer nav */}
+        <div className="mt-10 max-h-[300px] overflow-hidden">
+          <AdSlot slot="5698170537" />
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-[#FFE8C8] flex flex-wrap gap-3 justify-between items-center text-sm">
           <Link to="/blog" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold">&larr; Back to all articles</Link>
           <Link to="/" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">Play Herd Game &rarr;</Link>
         </div>

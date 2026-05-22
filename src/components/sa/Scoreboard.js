@@ -1,5 +1,6 @@
 import React from 'react';
 import { fredokaStyle } from '../MeadowLayout';
+import AdSlot from '../AdSlot';
 
 export default function Scoreboard({ state, myId, onLeave }) {
   const sorted = [...state.players].sort((a, b) => b.score - a.score);
@@ -31,6 +32,11 @@ export default function Scoreboard({ state, myId, onLeave }) {
             <span style={fredokaStyle} className="text-2xl font-bold">{p.score}</span>
           </div>
         ))}
+      </div>
+
+      {/* Ad — game-over scoreboard, high attention */}
+      <div className="mb-4 max-h-[300px] overflow-hidden">
+        <AdSlot slot="9390003532" />
       </div>
 
       <button

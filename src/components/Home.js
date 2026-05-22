@@ -4,6 +4,7 @@ import { useSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
 import { Helmet } from 'react-helmet';
 import Navigation from './Navigation';
+import AdSlot from './AdSlot';
 
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
@@ -681,6 +682,11 @@ const Home = () => {
           <GrassStrip className="absolute bottom-0 left-0 right-0 w-full h-5 -mb-[2px]" />
         </div>
 
+        {/* Ad — between play card and how-to-play */}
+        <div className="mb-10 max-h-[300px] overflow-hidden">
+          <AdSlot slot="5969633275" />
+        </div>
+
         {/* How to Play — illustrated step cards */}
         <div className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)] border-4 border-[#FFE8C8] p-6 md:p-8 mb-10">
           <h2 style={fredoka} className="text-3xl md:text-4xl font-bold text-[#2D1810] mb-2 text-center">
@@ -781,6 +787,11 @@ const Home = () => {
           </div>
 
           <GrassStrip className="absolute bottom-0 left-0 right-0 w-full h-5 -mb-[2px]" />
+        </div>
+
+        {/* Ad — between How to Play and Featured Articles */}
+        <div className="mb-10 max-h-[300px] overflow-hidden">
+          <AdSlot slot="5698170537" />
         </div>
 
         {/* Featured articles — polaroid cards */}
