@@ -10,6 +10,8 @@ import BettingPhase from './BettingPhase';
 import RevealPhase from './RevealPhase';
 import Scoreboard from './Scoreboard';
 import HowToPlay from './HowToPlay';
+import PhaseBanner from './PhaseBanner';
+import { ScaleIcon } from './icons/Icons';
 
 export default function SayAnythingRoom() {
   const { roomCode: urlCode } = useParams();
@@ -126,7 +128,7 @@ export default function SayAnythingRoom() {
               p.id === myId ? 'bg-[#E84A8B] text-white border-[#C73B73]' : 'bg-white text-[#2D1810] border-[#FFE8C8]'
             } ${!p.connected ? 'opacity-40' : ''}`}
           >
-            {state.players[state.judgeIndex]?.id === p.id && <span>⚖️</span>}
+            {state.players[state.judgeIndex]?.id === p.id && <ScaleIcon size={16} />}
             <span>{p.username}</span>
             <span className="ml-1 font-bold">{p.score}</span>
           </div>
@@ -134,7 +136,10 @@ export default function SayAnythingRoom() {
       </div>
 
       {/* Round indicator */}
-      <p className="text-xs text-[#8B6347] mb-4">Round {state.currentRound}</p>
+      <p className="text-xs text-[#8B6347] mb-3">Round {state.currentRound}</p>
+
+      {/* Phase banner — fun context for each phase */}
+      <PhaseBanner phase={phase} isJudge={game.isJudge} />
 
       {/* Judge disconnect / stuck-round banner — host only sees the action */}
       <JudgeDisconnectBanner game={game} />

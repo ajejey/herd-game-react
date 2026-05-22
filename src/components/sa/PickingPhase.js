@@ -1,5 +1,6 @@
 import React from 'react';
 import { fredokaStyle } from '../MeadowLayout';
+import { DiceIcon, ScaleIcon } from './icons/Icons';
 
 export default function PickingPhase({ game }) {
   const { state, isJudge, judge, sendAction } = game;
@@ -9,7 +10,7 @@ export default function PickingPhase({ game }) {
     return (
       <div className="max-w-lg mx-auto">
         <div className="text-center mb-6">
-          <div className="text-4xl mb-2">⚖️</div>
+          <div className="flex justify-center mb-3"><DiceIcon size={56} /></div>
           <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810]">You're the judge!</h2>
           <p className="text-[#4A2D1B]">Pick a question for everyone to answer.</p>
         </div>
@@ -30,7 +31,7 @@ export default function PickingPhase({ game }) {
 
   return (
     <div className="text-center py-12">
-      <div className="text-5xl mb-4 animate-bounce">⚖️</div>
+      <div className="flex justify-center mb-4 animate-bounce"><ScaleIcon size={64} /></div>
       <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">
         {judge?.username} is picking a question…
       </h2>

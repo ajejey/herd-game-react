@@ -1,5 +1,6 @@
 import React from 'react';
 import { fredokaStyle } from '../MeadowLayout';
+import { EyeIcon } from './icons/Icons';
 
 export default function JudgingPhase({ game }) {
   const { state, isJudge, judge, sendAction } = game;
@@ -40,7 +41,7 @@ export default function JudgingPhase({ game }) {
       </div>
 
       <div className="text-center py-8">
-        <div className="text-5xl mb-4">🤫</div>
+        <div className="flex justify-center mb-4"><EyeIcon size={64} /></div>
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">
           {judge?.username} is choosing…
         </h2>
