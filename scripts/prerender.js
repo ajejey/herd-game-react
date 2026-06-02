@@ -15,7 +15,27 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const puppeteer = require('puppeteer');
+
+// Launch a headless browser that works in BOTH places:
+//  - Local dev (Windows/Mac): full `puppeteer` with its bundled Chromium.
+//  - Vercel/CI (Linux): `puppeteer-core` + `@sparticuz/chromium`, a self-contained
+//    Chromium that ships the shared libs (libnspr4 etc.) the build image lacks.
+async function launchBrowser() {
+  if (process.platform === 'linux') {
+    const chromium = require('@sparticuz/chromium');
+    const puppeteerCore = require('puppeteer-core');
+    return puppeteerCore.launch({
+      args: [...chromium.args, '--disable-dev-shm-usage'],
+      executablePath: await chromium.executablePath(),
+      headless: true,
+    });
+  }
+  const puppeteer = require('puppeteer');
+  return puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+  });
+}
 
 const BUILD_DIR = path.join(__dirname, '..', 'build');
 const PORT = 47284;
@@ -72,10 +92,7 @@ function outPathFor(route) {
 
   let browser;
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-    });
+    browser = await launchBrowser();
   } catch (e) {
     // Chromium unavailable (e.g. on a CI image without it). Don't break the
     // deploy — ship the normal client-rendered SPA exactly as before.
