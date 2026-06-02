@@ -42,6 +42,9 @@ import GtTeamBuildingPage from './components/gt/subpages/TeamBuildingPage';
 import GtLongDistanceCouplesPage from './components/gt/subpages/LongDistanceCouplesPage';
 import GtVideoCallGamesPage from './components/gt/subpages/VideoCallGamesPage';
 import GtClassroomGamesPage from './components/gt/subpages/ClassroomGamesPage';
+import GtNewYearsEvePage from './components/gt/subpages/NewYearsEvePage';
+import GtDrinkingGamesPage from './components/gt/subpages/DrinkingGamesPage';
+import GtFamilyReunionPage from './components/gt/subpages/FamilyReunionPage';
 
 function App() {
   return (
@@ -90,6 +93,9 @@ function App() {
               <Route path="/guesstimate/online-games-for-long-distance-couples-free" element={<GtLongDistanceCouplesPage />} />
               <Route path="/guesstimate/games-to-play-on-facetime-and-video-calls" element={<GtVideoCallGamesPage />} />
               <Route path="/guesstimate/classroom-trivia-games-no-materials-for-teachers" element={<GtClassroomGamesPage />} />
+              <Route path="/guesstimate/new-years-eve-party-games-for-adults-large-groups" element={<GtNewYearsEvePage />} />
+              <Route path="/guesstimate/drinking-party-games-online-free-for-adults" element={<GtDrinkingGamesPage />} />
+              <Route path="/guesstimate/family-reunion-games-for-adults-large-groups" element={<GtFamilyReunionPage />} />
             </Routes>
           </div>
         </Router>
