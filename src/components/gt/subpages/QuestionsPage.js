@@ -149,11 +149,11 @@ export default function QuestionsPage() {
         <script type="application/ld+json">{JSON.stringify(QUIZ_SCHEMA)}</script>
       </Helmet>
       <p>
-        <strong>Looking for trivia questions with single numerical answers?</strong> Here's a free list of 200+ family-safe questions organized by category — perfect for a betting-trivia party game like <a href="/guesstimate">Guesstimate</a>, classroom activities, road trips, or any "guess the number" game format. Each question has one verifiable answer. Mix and match across categories to balance easy and hard rounds.
+        <strong>Looking for trivia questions with single numerical answers?</strong> Here's a free list of 200+ family-safe questions organized by category — perfect for a betting-trivia <a href="https://en.wikipedia.org/wiki/Party_game" target="_blank" rel="noopener noreferrer">party game</a> like <a href="/guesstimate">Guesstimate</a>, classroom activities, road trips, or any "guess the number" game format. Each question has one verifiable answer. Mix and match across categories to balance easy and hard rounds.
       </p>
 
       <p>
-        These work especially well for <strong>betting trivia formats</strong> (Wits &amp; Wagers-style) where players guess and then bet on whose guess is closest. Numerical answers let everyone participate — even people who don't know the exact answer can guess intelligently and bet on others.
+        These work especially well for <strong>betting trivia formats</strong> (<a href="https://en.wikipedia.org/wiki/Wits_%26_Wagers" target="_blank" rel="noopener noreferrer">Wits &amp; Wagers</a>-style) where players guess and then bet on whose guess is closest — see our <a href="/guesstimate/free-alternative-to-wits-and-wagers-online">free Wits &amp; Wagers alternative</a>. Numerical answers let everyone participate — even people who don't know the exact answer can make an intelligent <a href="https://en.wikipedia.org/wiki/Estimation" target="_blank" rel="noopener noreferrer">estimate</a> and bet on others.
       </p>
 
       {CATEGORIES.map((cat, ci) => (
@@ -174,15 +174,15 @@ export default function QuestionsPage() {
 
       <h2>How to use this list</h2>
       <p>
-        For a <strong>physical party game</strong>, write questions on cards and have someone read them out. For an <strong>online game</strong>, just <a href="/guesstimate">create a Guesstimate room</a> — our game deals random questions automatically each round.
+        For a <strong>physical party game</strong>, write questions on cards and have someone read them out, much like a classic <a href="https://en.wikipedia.org/wiki/Pub_quiz" target="_blank" rel="noopener noreferrer">pub quiz</a>. For an <strong>online game</strong>, just <a href="/guesstimate">create a Guesstimate room</a> — our game deals random questions automatically each round. It's a great fit for <a href="/guesstimate/best-online-trivia-games-for-family-game-night">family game night</a>, a <a href="/guesstimate/virtual-team-building-trivia-game-for-work">virtual team-building session</a>, or a <a href="/guesstimate/how-to-host-virtual-trivia-night-on-zoom">trivia night on Zoom</a>.
       </p>
 
       <h2>Tips for writing your own number-answer questions</h2>
       <ul>
-        <li><strong>One verifiable answer.</strong> Avoid "approximately X" questions where the answer depends on the source.</li>
-        <li><strong>Avoid binary or single-digit answers.</strong> "How many sides does a triangle have?" is boring. "How many bones in the human body?" is great.</li>
-        <li><strong>Mix difficulty.</strong> Some questions everyone roughly knows (How many states in the US?), some require wild guesses (How many bones in a snake?).</li>
-        <li><strong>Stay current.</strong> Avoid time-sensitive answers ("How many tweets per day?") unless you'll update them.</li>
+        <li><strong>One verifiable answer.</strong> Avoid "approximately X" questions where the answer depends on the source — good <a href="https://en.wikipedia.org/wiki/Trivia" target="_blank" rel="noopener noreferrer">trivia</a> has a single fact to check.</li>
+        <li><strong>Avoid binary or single-digit answers.</strong> "How many sides does a triangle have?" is boring. "How many bones in the human body?" is great — these also shine in <a href="/guesstimate/price-is-right-style-party-game-online">Price Is Right-style</a> guessing rounds.</li>
+        <li><strong>Mix difficulty.</strong> Some questions everyone roughly knows (How many states in the US?), some require a wild <a href="https://en.wikipedia.org/wiki/Order_of_magnitude" target="_blank" rel="noopener noreferrer">order-of-magnitude</a> guess (How many bones in a snake?).</li>
+        <li><strong>Stay current.</strong> Avoid time-sensitive answers ("How many tweets per day?") unless you'll update them, especially for <a href="/guesstimate/christmas-and-holiday-trivia-party-games-online">holiday and seasonal trivia</a>.</li>
       </ul>
     </SubPageLayout>
   );

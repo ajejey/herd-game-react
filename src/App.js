@@ -39,6 +39,8 @@ import GtHolidayTriviaPage from './components/gt/subpages/HolidayTriviaPage';
 import GtPriceIsRightPage from './components/gt/subpages/PriceIsRightPage';
 import GtTwoPlayerTriviaPage from './components/gt/subpages/TwoPlayerTriviaPage';
 import GtTeamBuildingPage from './components/gt/subpages/TeamBuildingPage';
+import GtLongDistanceCouplesPage from './components/gt/subpages/LongDistanceCouplesPage';
+import GtVideoCallGamesPage from './components/gt/subpages/VideoCallGamesPage';
 
 function App() {
   return (
@@ -84,6 +86,8 @@ function App() {
               <Route path="/guesstimate/price-is-right-style-party-game-online" element={<GtPriceIsRightPage />} />
               <Route path="/guesstimate/trivia-games-for-2-players-online-free" element={<GtTwoPlayerTriviaPage />} />
               <Route path="/guesstimate/virtual-team-building-trivia-game-for-work" element={<GtTeamBuildingPage />} />
+              <Route path="/guesstimate/online-games-for-long-distance-couples-free" element={<GtLongDistanceCouplesPage />} />
+              <Route path="/guesstimate/games-to-play-on-facetime-and-video-calls" element={<GtVideoCallGamesPage />} />
             </Routes>
           </div>
         </Router>

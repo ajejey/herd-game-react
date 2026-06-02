@@ -19,37 +19,37 @@ export default function JackboxAltPage() {
       faqs={FAQS}
     >
       <p>
-        <strong>Looking for a free Jackbox Party Pack alternative?</strong> Jackbox is great, but every pack costs $20–30, you need Steam or a console, one person has to own and host it, and remote play means screen-sharing across Zoom. <a href="/guesstimate">Guesstimate</a> is a free in-browser party game that captures the same Jackbox-night energy — trivia, betting, big reveals — without any of the friction.
+        <strong>Looking for a free Jackbox Party Pack alternative?</strong> <a href="https://en.wikipedia.org/wiki/The_Jackbox_Party_Pack" target="_blank" rel="noopener noreferrer">Jackbox</a> is great, but every pack costs $20–30, you need Steam or a console, one person has to own and host it, and remote play means screen-sharing across Zoom. <a href="/guesstimate">Guesstimate</a> is a free in-browser party game that captures the same Jackbox-night energy — trivia, betting, big reveals — without any of the friction.
       </p>
 
       <h2>Why free Jackbox alternatives matter</h2>
       <p>
-        Jackbox Party Pack revolutionised digital party games. But the model has built-in pain points for casual play:
+        <a href="https://en.wikipedia.org/wiki/Jackbox_Games" target="_blank" rel="noopener noreferrer">Jackbox Games</a> revolutionised digital party games. But the model has built-in pain points for casual play:
       </p>
       <ul>
         <li><strong>Price</strong> — $20–30 per pack, more for current packs. Doesn't scale to "we just want to play one quick game".</li>
-        <li><strong>Platform lock-in</strong> — Steam, Switch, PS5, Xbox, or Apple TV. No web version.</li>
+        <li><strong>Platform lock-in</strong> — Steam, Switch, PS5, Xbox, or Apple TV. No <a href="https://en.wikipedia.org/wiki/Browser_game" target="_blank" rel="noopener noreferrer">web version</a>.</li>
         <li><strong>One host</strong> — someone in the group has to own the pack and have it installed.</li>
         <li><strong>Screen-sharing tax</strong> — over Zoom, the host shares their screen, which introduces lag and one-screen bottleneck.</li>
         <li><strong>Accounts</strong> — Steam, console accounts. Friction.</li>
       </ul>
       <p>
-        For a Friday night "let's play something quick with the group" — that's a lot of setup.
+        For a Friday night "let's play something quick with the group" — that's a lot of setup. Our roundup of the <a href="/guesstimate/best-online-trivia-games-for-family-game-night">best online trivia games for family game night</a> covers lighter-weight options.
       </p>
 
       <h2>How browser-based alternatives solve this</h2>
       <p>
-        Free browser party games (like Guesstimate, skribbl.io, Gartic Phone) work fundamentally differently:
+        Free <a href="https://en.wikipedia.org/wiki/Browser_game" target="_blank" rel="noopener noreferrer">browser party games</a> (like Guesstimate, skribbl.io, Gartic Phone) work fundamentally differently:
       </p>
       <ul>
         <li>Everyone opens a URL on their own device</li>
-        <li>One person creates a room → gets a 4-letter code</li>
-        <li>Friends type the code → instantly in the game</li>
+        <li>One person creates a room → gets a 4-letter code, then <a href="/guesstimate/how-to-host-virtual-trivia-night-on-zoom">hosts over Zoom</a> in seconds</li>
+        <li>Friends type the code → instantly in the game, even for <a href="/guesstimate/trivia-games-for-2-players-online-free">2-player sessions</a></li>
         <li>No download, no install, no account</li>
         <li>Each player has their own private screen — no screen sharing needed</li>
       </ul>
       <p>
-        The Zoom/Discord call provides the social glue (faces, laughs). The game runs on each device independently. <strong>No screen-share lag, no host bottleneck.</strong>
+        The Zoom/Discord call provides the social glue (faces, laughs). The game runs on each device independently — the same model behind <a href="/guesstimate/games-to-play-on-facetime-and-video-calls">games to play on FaceTime and video calls</a>. <strong>No screen-share lag, no host bottleneck.</strong>
       </p>
 
       <h2>Guesstimate vs Jackbox Trivia Murder Party</h2>
@@ -81,26 +81,26 @@ export default function JackboxAltPage() {
         </tbody>
       </table>
       <p>
-        Different mechanics, same evening. For Quiplash-style writing games specifically, see also our <a href="/say-anything">Say Anything</a> game — free, browser-based, same in-the-room energy.
+        Different mechanics, same evening. For Quiplash-style writing games specifically, see also our <a href="/say-anything">Say Anything</a> game — free, browser-based, same in-the-room energy. If pure <a href="https://en.wikipedia.org/wiki/Trivia" target="_blank" rel="noopener noreferrer">trivia</a> is your thing, the <a href="/guesstimate/how-to-play-online-trivia-betting-game">trivia-betting format</a> leans more strategic.
       </p>
 
       <h2>Free browser party-game suite (the full Jackbox replacement)</h2>
       <p>
-        Between three free browser games, you cover most of what Jackbox offers:
+        Between three free browser games, you cover most of what this style of <a href="https://en.wikipedia.org/wiki/Party_game" target="_blank" rel="noopener noreferrer">party game</a> offers:
       </p>
       <ul>
-        <li><strong>Guesstimate</strong> — trivia + betting (Wits &amp; Wagers / Trivia Murder Party-style). <a href="/guesstimate">Play here</a>.</li>
+        <li><strong>Guesstimate</strong> — trivia + betting, a <a href="/guesstimate/free-alternative-to-wits-and-wagers-online">free Wits &amp; Wagers alternative</a> with Trivia Murder Party energy. <a href="/guesstimate">Play here</a>.</li>
         <li><strong>Say Anything</strong> — answer-and-bet party game (Quiplash-style). <a href="/say-anything">Play here</a>.</li>
-        <li><strong>skribbl.io</strong> — drawing game (Drawful-style).</li>
-        <li><strong>Gartic Phone</strong> — telephone-meets-Pictionary (Tee K.O.-style).</li>
+        <li><strong>skribbl.io</strong> — drawing game (Drawful-style), a good pairing for any <a href="/">free game night lineup</a>.</li>
+        <li><strong>Gartic Phone</strong> — telephone-meets-Pictionary (Tee K.O.-style), great as a <a href="/guesstimate/kahoot-alternative-for-adults">Kahoot alternative for adults</a>.</li>
       </ul>
       <p>
-        All free. All browser-based. All in seconds with a room code.
+        All free. All browser-based. All in seconds with a room code — perfect for a <a href="/guesstimate/virtual-team-building-trivia-game-for-work">virtual team-building session</a> or a casual hangout.
       </p>
 
       <h2>When Jackbox is still worth buying</h2>
       <p>
-        We're not anti-Jackbox. There are cases where the boxed Party Pack makes sense:
+        We're not anti-Jackbox. There are cases where the boxed <a href="https://en.wikipedia.org/wiki/The_Jackbox_Party_Pack" target="_blank" rel="noopener noreferrer">Party Pack</a> makes sense:
       </p>
       <ul>
         <li>You host parties at home on a big TV with a console</li>
@@ -109,7 +109,7 @@ export default function JackboxAltPage() {
         <li>You're okay with the $25 cost and the setup</li>
       </ul>
       <p>
-        For everything else — spontaneous game nights, Zoom hangouts, "let's play with friends across the country" — free + browser-based beats $25 + screen-sharing every time.
+        For everything else — spontaneous game nights, Zoom hangouts, "let's play with friends across the country" — free + browser-based beats $25 + screen-sharing every time. It's especially handy for <a href="/guesstimate/online-games-for-long-distance-couples-free">long-distance couples</a> who play together remotely.
       </p>
 
       <h2>How to start a Guesstimate game (the Jackbox alternative)</h2>
@@ -124,15 +124,15 @@ export default function JackboxAltPage() {
       <h2>Common questions about free Jackbox alternatives</h2>
       <h3>Do free alternatives have ads?</h3>
       <p>
-        Most run on standard display ads (like a regular website) instead of charging upfront. Free with ads beats $25 paywall for casual play.
+        Most run on standard display ads (like a regular website) instead of charging upfront. Free with ads beats $25 paywall for casual play — see our wider list of <a href="/guesstimate/best-online-trivia-games-for-family-game-night">free trivia games for game night</a>.
       </p>
       <h3>Can I play a free Jackbox alternative over Discord?</h3>
       <p>
-        Yes — works the same as Zoom. Drop the link in voice channel chat, everyone opens it. No screen sharing needed since each player has their own screen.
+        Yes — works the same as Zoom. Drop the link in voice channel chat, everyone opens it. No screen sharing needed since each player has their own screen, just like hosting a <a href="/guesstimate/how-to-host-virtual-trivia-night-on-zoom">virtual trivia night</a>.
       </p>
       <h3>Are free alternatives as polished as Jackbox?</h3>
       <p>
-        Honest answer: Jackbox has higher production value (custom illustrations, voice acting, music). Free alternatives are scrappier visually but match or beat on accessibility and remote-play friction.
+        Honest answer: Jackbox has higher production value (custom illustrations, voice acting, music). Free alternatives are scrappier visually but match or beat on accessibility and remote-play friction — and the <a href="/guesstimate/online-trivia-betting-game-rules-and-scoring">betting and scoring rules</a> add depth that polish alone doesn't.
       </p>
     </SubPageLayout>
   );

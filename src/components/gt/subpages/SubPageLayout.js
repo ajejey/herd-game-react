@@ -125,6 +125,8 @@ const ALL_GUIDES = [
   { slug: 'price-is-right-style-party-game-online', title: 'Price Is Right Style Game', emoji: '💰' },
   { slug: 'trivia-games-for-2-players-online-free', title: 'Trivia Games for 2 Players', emoji: '👥' },
   { slug: 'virtual-team-building-trivia-game-for-work', title: 'Virtual Team Building Trivia', emoji: '🏢' },
+  { slug: 'online-games-for-long-distance-couples-free', title: 'Games for Long-Distance Couples', emoji: '❤️' },
+  { slug: 'games-to-play-on-facetime-and-video-calls', title: 'Games for FaceTime & Video Calls', emoji: '📱' },
 ];
 
 function RelatedGuides({ currentSlug }) {

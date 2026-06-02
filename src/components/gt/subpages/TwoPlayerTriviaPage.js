@@ -24,17 +24,17 @@ export default function TwoPlayerTriviaPage() {
 
       <h2>Why most trivia games fall flat with 2 players</h2>
       <ul>
-        <li><strong>Voting/judging mechanics need 3+.</strong> Games like Wavelength, Codenames, Say Anything need a "voter" or "judge" plus answer-writers. With 2, the mechanic collapses.</li>
-        <li><strong>Speed-trivia (like Kahoot) feels flat with 2.</strong> The "fastest fingers" rush doesn't land when there's only one opponent.</li>
-        <li><strong>Bluffing games need a group.</strong> "Hidden role" games need enough players for hidden roles to matter.</li>
+        <li><strong>Voting/judging mechanics need 3+.</strong> Games like Wavelength, <a href="https://en.wikipedia.org/wiki/Codenames_(board_game)" target="_blank" rel="noopener noreferrer">Codenames</a>, and <a href="/say-anything">Say Anything</a> need a "voter" or "judge" plus answer-writers. With 2, the mechanic collapses.</li>
+        <li><strong>Speed-trivia (like Kahoot) feels flat with 2.</strong> The "fastest fingers" rush doesn't land when there's only one opponent — a <a href="/guesstimate/kahoot-alternative-for-adults">Kahoot alternative for adults</a> with betting holds up far better.</li>
+        <li><strong>Bluffing games need a group.</strong> Most <a href="https://en.wikipedia.org/wiki/Party_game" target="_blank" rel="noopener noreferrer">party games</a> with "hidden role" mechanics need enough players for those roles to matter.</li>
       </ul>
 
       <h2>Why Guesstimate works for 2 players</h2>
       <ul>
-        <li><strong>The betting board still works.</strong> With 2 guesses, the lower one gets 5× odds and the higher gets 4× — meaningful payouts.</li>
-        <li><strong>Closest without going over creates tension.</strong> If both guess high, the lower one wins by default. If one is under and one over, the under wins. Real strategic choices.</li>
-        <li><strong>You can bet on yourself or your opponent.</strong> If you're confident your guess is closer, double-down on yourself. If you think you overshot, switch and bet on your opponent. Meta-strategy.</li>
-        <li><strong>Knowledge isn't everything.</strong> Even if your opponent knows more trivia, smart betting can level the playing field.</li>
+        <li><strong>The betting board still works.</strong> With 2 guesses, the lower one gets 5× odds and the higher gets 4× — meaningful payouts, explained fully in the <a href="/guesstimate/online-trivia-betting-game-rules-and-scoring">rules and scoring guide</a>.</li>
+        <li><strong>Closest without going over creates tension.</strong> If both guess high, the lower one wins by default. If one is under and one over, the under wins — the same <a href="/guesstimate/price-is-right-style-party-game-online">Price Is Right-style</a> logic that makes the format addictive.</li>
+        <li><strong>You can bet on yourself or your opponent.</strong> If you're confident your guess is closer, double-down on yourself. If you think you overshot, switch and bet on your opponent — read more on <a href="/guesstimate/how-to-play-online-trivia-betting-game">how the betting works</a>.</li>
+        <li><strong>Knowledge isn't everything.</strong> Even if your opponent knows more <a href="https://en.wikipedia.org/wiki/Trivia" target="_blank" rel="noopener noreferrer">trivia</a>, smart betting can level the playing field.</li>
       </ul>
 
       <h2>Best trivia games for 2 players</h2>
@@ -46,49 +46,49 @@ export default function TwoPlayerTriviaPage() {
 
       <h3>Trivia Crack — best for async 2-player</h3>
       <p>
-        <strong>2 players. Asynchronous.</strong> Turn-based trivia app. Good for couples in different time zones who play a round here and there.
+        <strong>2 players. Asynchronous.</strong> <a href="https://en.wikipedia.org/wiki/Trivia_Crack" target="_blank" rel="noopener noreferrer">Trivia Crack</a> is a turn-based trivia app — good for couples in different time zones who play a round here and there.
       </p>
 
       <h3>Codenames Duet — best for cooperative 2-player</h3>
       <p>
-        <strong>2 players. ~30 min.</strong> Not trivia, but word-association. Cooperative — you both try to identify the same words. Great change of pace from competitive trivia.
+        <strong>2 players. ~30 min.</strong> Not trivia, but word-association — the two-player edition of <a href="https://en.wikipedia.org/wiki/Codenames_(board_game)" target="_blank" rel="noopener noreferrer">Codenames</a>. Cooperative: you both try to identify the same words. Great change of pace from competitive trivia.
       </p>
 
       <h3>Custom Google Form trivia — best for special occasions</h3>
       <p>
-        Write a custom set of questions about each other (anniversaries, dates, inside jokes). High setup cost, high payoff for milestone occasions like anniversaries.
+        Write a custom set of questions about each other (anniversaries, dates, inside jokes). High setup cost, high payoff for milestone occasions — though a ready-made set of <a href="/guesstimate/200-trivia-questions-with-numerical-answers">200 numerical trivia questions</a> saves the prep work if you'd rather just play.
       </p>
 
       <h2>Use cases for 2-player trivia</h2>
 
       <h3>Date night</h3>
       <p>
-        Guesstimate's 25-minute game length fits neatly between dinner and a movie. The betting mechanic creates banter and gentle competition. The mixed-category question pool means neither partner has an automatic edge unless they're a trivia obsessive.
+        <a href="/guesstimate">Guesstimate</a>'s 25-minute game length fits neatly between dinner and a movie. The betting mechanic creates banter and gentle competition. The mixed-category question pool means neither partner has an automatic edge unless they're a trivia obsessive.
       </p>
 
       <h3>Long-distance couples</h3>
       <p>
-        Pair Guesstimate with a FaceTime, WhatsApp, or Zoom call. Both partners open the link, one creates a room, share the 4-letter code. You can see each other's faces during reveals — half the fun of trivia is the "no way the answer was that?!" reactions.
+        Pair Guesstimate with a FaceTime, WhatsApp, or Zoom call — see our guide to <a href="/guesstimate/online-games-for-long-distance-couples-free">online games for long-distance couples</a>. Both partners open the link, one creates a room, share the 4-letter code. You can see each other's faces during reveals — half the fun of trivia is the "no way the answer was that?!" reactions.
       </p>
 
       <h3>Siblings or roommates</h3>
       <p>
-        Casual evening game. Open it in two browser tabs on the same Wi-Fi, or each on your own phone in the living room. Low setup, high replay.
+        Casual evening game and an easy pick for <a href="/guesstimate/best-online-trivia-games-for-family-game-night">family game night</a>. Open it in two browser tabs on the same Wi-Fi, or each on your own phone in the living room. Low setup, high replay.
       </p>
 
       <h3>Friend catch-up calls</h3>
       <p>
-        Phone catch-ups with old friends get more interesting with a shared activity. Plays in the background of conversation without dominating it.
+        Phone catch-ups with old friends get more interesting with a shared activity — see more <a href="/guesstimate/games-to-play-on-facetime-and-video-calls">games to play on FaceTime and video calls</a>. It plays in the background of conversation without dominating it.
       </p>
 
       <h3>Parent-child quality time</h3>
       <p>
-        Works for a parent and an older kid (10+). The family-safe question pool covers history, geography, and science — both educational and competitive.
+        Works for a parent and an older kid (10+), and doubles as a <a href="/guesstimate/free-jackbox-alternative-no-download">free Jackbox alternative with no download</a>. The family-safe question pool covers history, geography, and science — both educational and competitive.
       </p>
 
       <h2>Strategy tips for 2-player Guesstimate</h2>
       <ul>
-        <li><strong>The betting choice is sharper.</strong> With only 2 answers on the board, you're choosing between yourself and your opponent. Read confidence levels.</li>
+        <li><strong>The betting choice is sharper.</strong> With only 2 answers on the board, you're choosing between yourself and your opponent — the same edge that makes Guesstimate a strong <a href="/guesstimate/free-alternative-to-wits-and-wagers-online">free alternative to Wits &amp; Wagers</a>. Read confidence levels.</li>
         <li><strong>Doubling down on yourself = high reward.</strong> If you know the answer, both chips on you = 10 points (5x × 2). Game-swinging.</li>
         <li><strong>Hedging is rare with 2.</strong> Splitting your 2 chips puts one on each answer, which guarantees scoring 1 + 0 or 1 + (whatever). Lower variance but lower upside.</li>
         <li><strong>Watch for overconfidence.</strong> If your partner usually knows a category cold, undershoot a little to stay under their guess.</li>
@@ -103,7 +103,7 @@ export default function TwoPlayerTriviaPage() {
         <li>Play 7 rounds. Highest score wins.</li>
       </ol>
       <p>
-        Optional: keep a video or audio call running for the social side.
+        Optional: keep a video or audio call running for the social side — the same setup works to <a href="/guesstimate/how-to-host-virtual-trivia-night-on-zoom">host a virtual trivia night on Zoom</a> if you later scale up past 2 players.
       </p>
     </SubPageLayout>
   );

@@ -24,8 +24,49 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "node scripts/prerender.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "prerender": {
+    "routes": [
+      "/",
+      "/blog",
+      "/blog/1",
+      "/blog/2",
+      "/blog/3",
+      "/blog/4",
+      "/blog/5",
+      "/blog/6",
+      "/blog/7",
+      "/blog/8",
+      "/faq",
+      "/about-contact",
+      "/privacy-policy",
+      "/terms-of-service",
+      "/say-anything",
+      "/say-anything/how-to-play-say-anything-board-game-online",
+      "/say-anything/100-funny-say-anything-game-questions",
+      "/say-anything/can-you-play-say-anything-with-2-players",
+      "/say-anything/free-alternative-to-jackbox-party-pack",
+      "/say-anything/how-to-play-party-games-on-zoom-with-friends",
+      "/say-anything/family-friendly-party-games-to-play-online",
+      "/guesstimate",
+      "/guesstimate/how-to-play-online-trivia-betting-game",
+      "/guesstimate/200-trivia-questions-with-numerical-answers",
+      "/guesstimate/free-alternative-to-wits-and-wagers-online",
+      "/guesstimate/best-online-trivia-games-for-family-game-night",
+      "/guesstimate/how-to-host-virtual-trivia-night-on-zoom",
+      "/guesstimate/online-trivia-betting-game-rules-and-scoring",
+      "/guesstimate/free-jackbox-alternative-no-download",
+      "/guesstimate/kahoot-alternative-for-adults",
+      "/guesstimate/christmas-and-holiday-trivia-party-games-online",
+      "/guesstimate/price-is-right-style-party-game-online",
+      "/guesstimate/trivia-games-for-2-players-online-free",
+      "/guesstimate/virtual-team-building-trivia-game-for-work",
+      "/guesstimate/online-games-for-long-distance-couples-free",
+      "/guesstimate/games-to-play-on-facetime-and-video-calls"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +89,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
+    "puppeteer": "^25.1.0",
     "tailwindcss": "^3.4.15"
   }
 }

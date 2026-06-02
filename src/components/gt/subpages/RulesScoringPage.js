@@ -19,17 +19,17 @@ export default function RulesScoringPage() {
       faqs={FAQS}
     >
       <p>
-        <strong>Want to master scoring in an online trivia betting game?</strong> This deep-dive covers everything: the payout odds on every position, when to double-down vs. hedge, how the "closest without going over" rule works, and concrete scoring examples. This guide uses <a href="/guesstimate">Guesstimate</a>'s rules but the math applies to any Wits &amp; Wagers-style game.
+        <strong>Want to master scoring in an online trivia betting game?</strong> This deep-dive covers everything: the payout odds on every position, when to double-down vs. hedge, how the "closest without going over" rule works, and concrete scoring examples. This guide uses <a href="/guesstimate">Guesstimate</a>'s rules but the math applies to any <a href="https://en.wikipedia.org/wiki/Wits_%26_Wagers" target="_blank" rel="noopener noreferrer">Wits &amp; Wagers</a>-style game.
       </p>
 
       <h2>The core mechanic in one sentence</h2>
       <p>
-        Every round: <strong>everyone writes a number, the numbers go on a board with payout odds, everyone bets 2 chips on which number is closest to the actual answer without going over, the closest-not-over wins, points are awarded.</strong>
+        Every round: <strong>everyone writes a number, the numbers go on a board with payout odds, everyone bets 2 chips on which number is closest to the actual answer without going over, the closest-not-over wins, points are awarded.</strong> It blends <a href="https://en.wikipedia.org/wiki/Trivia" target="_blank" rel="noopener noreferrer">trivia</a> knowledge with wagering, the same loop that drives our <a href="/guesstimate/how-to-play-online-trivia-betting-game">how-to-play guide</a>.
       </p>
 
       <h2>The board explained</h2>
       <p>
-        After everyone submits a guess, the unique guesses are sorted low → high on a chalkboard. Each position has a payout multiplier:
+        After everyone submits a guess, the unique guesses are sorted low → high on a chalkboard. Each position has a payout multiplier, a structure borrowed from <a href="https://en.wikipedia.org/wiki/Parimutuel_betting" target="_blank" rel="noopener noreferrer">parimutuel betting</a>:
       </p>
       <table>
         <thead>
@@ -44,12 +44,12 @@ export default function RulesScoringPage() {
         </tbody>
       </table>
       <p>
-        If two players guess the same number, they share a row (both names appear). Their guess gets one payout slot.
+        If two players guess the same number, they share a row (both names appear). Their guess gets one payout slot — a quirk worth knowing if you play <a href="/guesstimate/trivia-games-for-2-players-online-free">head-to-head with just two players</a>.
       </p>
 
       <h2>The closest-without-going-over rule</h2>
       <p>
-        When the actual answer is revealed:
+        When the actual answer is revealed, the game uses a scoring twist made famous by <a href="https://en.wikipedia.org/wiki/The_Price_Is_Right" target="_blank" rel="noopener noreferrer">The Price Is Right</a>:
       </p>
       <ul>
         <li>Find the highest guess on the board that is <strong>still ≤ actual answer</strong></li>
@@ -57,16 +57,16 @@ export default function RulesScoringPage() {
         <li>If <strong>every</strong> guess is higher than the actual answer, the lowest guess wins by default</li>
       </ul>
       <p>
-        This Price-is-Right-style rule is the strategic heart of the game. Undershooting is safe. Overshooting eliminates you.
+        This <a href="/guesstimate/price-is-right-style-party-game-online">Price-is-Right-style rule</a> is the strategic heart of the game. Undershooting is safe. Overshooting eliminates you.
       </p>
 
       <h2>How points are scored</h2>
       <ul>
         <li><strong>Writing the winning answer:</strong> +2 points (split if multiple players wrote the same winning number)</li>
-        <li><strong>Each chip on the winning row:</strong> payout × 1 point</li>
+        <li><strong>Each chip on the winning row:</strong> payout × 1 point, settled like a <a href="https://en.wikipedia.org/wiki/Parimutuel_betting" target="_blank" rel="noopener noreferrer">parimutuel pool</a></li>
       </ul>
       <p>
-        That's it. No other point sources.
+        That's it. No other point sources — a deliberately simple scoring model that makes <a href="/guesstimate/best-online-trivia-games-for-family-game-night">family game nights</a> easy to teach.
       </p>
 
       <h2>Worked examples</h2>
@@ -74,9 +74,9 @@ export default function RulesScoringPage() {
       <h3>Example 1 — The clean win</h3>
       <p>
         Question: <em>"How many bones in the adult human body?"</em><br />
-        Actual answer: <strong>206</strong>
+        Actual answer: <strong>206</strong> — the kind of prompt you'll find in our <a href="/guesstimate/200-trivia-questions-with-numerical-answers">numerical trivia question bank</a>.
       </p>
-      <p>Board (sorted, payouts in parentheses):</p>
+      <p>Board (sorted, payouts in parentheses), laid out the same way as in the <a href="/guesstimate">Guesstimate game</a>:</p>
       <table>
         <thead><tr><th>#</th><th>Guess</th><th>Payout</th><th>Author</th></tr></thead>
         <tbody>
@@ -89,15 +89,15 @@ export default function RulesScoringPage() {
       <p>
         Closest without going over: <strong>200 (Alex)</strong>. 210, 300 are all over — disqualified.
         <br />Alex scores +2 (winning author).
-        <br />Anyone who bet on Alex scores 4 per chip. A double-down on Alex = 8 points.
+        <br />Anyone who bet on Alex scores 4 per chip. A double-down on Alex = 8 points, the sort of swing that makes this a great <a href="/guesstimate/virtual-team-building-trivia-game-for-work">team-building game for work</a>.
       </p>
 
       <h3>Example 2 — All guesses are over</h3>
       <p>
         Question: <em>"How many time zones does Russia span?"</em><br />
-        Actual answer: <strong>11</strong>
+        Actual answer: <strong>11</strong> — surprising answers like this land well when you <a href="/guesstimate/how-to-host-virtual-trivia-night-on-zoom">host a virtual trivia night on Zoom</a>.
       </p>
-      <p>Board:</p>
+      <p>Board, scored just like in a live <a href="/guesstimate/games-to-play-on-facetime-and-video-calls">FaceTime or video-call session</a>:</p>
       <table>
         <thead><tr><th>#</th><th>Guess</th><th>Payout</th><th>Author</th></tr></thead>
         <tbody>
@@ -107,21 +107,21 @@ export default function RulesScoringPage() {
         </tbody>
       </table>
       <p>
-        Every guess is over 11. By the rule, the lowest guess (15, Sam) wins by default.
+        Every guess is over 11. By the rule, the lowest guess (15, Sam) wins by default — the exact payoff structure that powers our <a href="/guesstimate/free-alternative-to-wits-and-wagers-online">free Wits &amp; Wagers alternative</a>.
         <br />Sam scores +2.
         <br />Anyone who bet on Sam scores 5 per chip. A double-down on Sam = 10 points. <strong>This is why low guesses are paid 5×.</strong>
       </p>
 
       <h3>Example 3 — Doubling-down on yourself</h3>
       <p>
-        You wrote the lowest guess. You're confident the answer is below the other guesses. You double-down on yourself.
+        You wrote the lowest guess. You're confident the answer is below the other guesses. You double-down on yourself — the boldest move in any <a href="https://en.wikipedia.org/wiki/Party_game" target="_blank" rel="noopener noreferrer">party game</a> of this type.
       </p>
       <ul>
         <li>If you win: +2 (author) + (5 × 2) (chips) = <strong>+12 points</strong></li>
         <li>If you lose: +0 points, both chips gone</li>
       </ul>
       <p>
-        12 points in a single round is enough to swing most games. This is the big bet to make occasionally.
+        12 points in a single round is enough to swing most games. This is the big bet to make occasionally — and it plays beautifully in <a href="/guesstimate/online-games-for-long-distance-couples-free">long-distance couple games</a> where momentum matters.
       </p>
 
       <h2>Strategy by phase</h2>
@@ -130,29 +130,29 @@ export default function RulesScoringPage() {
       <ul>
         <li><strong>Bias low.</strong> Overshooting is fatal. Better to be slightly low than slightly high.</li>
         <li><strong>Avoid the median.</strong> If you write what you think is the obvious answer, others will too — you'll share the row and split points.</li>
-        <li><strong>Lock in a wild low guess once a game.</strong> 5× payout if it wins.</li>
+        <li><strong>Lock in a wild low guess once a game.</strong> 5× payout if it wins — a tactic that shines as a <a href="/guesstimate/kahoot-alternative-for-adults">Kahoot alternative for adults</a>.</li>
       </ul>
 
       <h3>When betting chips</h3>
       <ul>
-        <li><strong>Default to safe.</strong> Hedging (split chips on two adjacent answers) is statistically sound.</li>
+        <li><strong>Default to safe.</strong> Hedging (split chips on two adjacent answers) is statistically sound and easy to coordinate over <a href="/guesstimate/games-to-play-on-facetime-and-video-calls">video calls</a>.</li>
         <li><strong>Double-down when you're confident.</strong> If the actual answer is clearly low or high, commit.</li>
-        <li><strong>Bet on the long-shot if you wrote a high number.</strong> You can't bet on yourself if you're confident you overshot, so vote for whoever you think will be closest.</li>
+        <li><strong>Bet on the long-shot if you wrote a high number.</strong> You can't bet on yourself if you're confident you overshot, so vote for whoever you think will be closest — read more in our <a href="/guesstimate/how-to-play-online-trivia-betting-game">betting-game walkthrough</a>.</li>
       </ul>
 
       <h2>End-game scoring</h2>
       <p>
-        A full Guesstimate game is 7 rounds. Highest cumulative score wins. There's no minimum score to win — even if everyone scores 0 in a round, the next round still happens.
+        A full <a href="/guesstimate">Guesstimate</a> game is 7 rounds. Highest cumulative score wins. There's no minimum score to win — even if everyone scores 0 in a round, the next round still happens.
       </p>
       <p>
-        Tiebreaker: in a tie at the end, whoever wrote more winning answers across the game wins.
+        Tiebreaker: in a tie at the end, whoever wrote more winning answers across the game wins — a clean finish that works whether you play with friends or use it as a <a href="/guesstimate/free-jackbox-alternative-no-download">free Jackbox alternative with no download</a>.
       </p>
 
       <h2>Why this scoring works</h2>
       <ul>
-        <li><strong>Even players who don't know the answer can win.</strong> Smart betting on others' guesses scores points.</li>
+        <li><strong>Even players who don't know the answer can win.</strong> Smart betting on others' guesses scores points, which is why it travels well to <a href="/guesstimate/best-online-trivia-games-for-family-game-night">mixed-age family game nights</a>.</li>
         <li><strong>Knowledge is rewarded but not required.</strong> Knowing the exact answer scores +2 for authoring, but the betting payouts are usually the bigger source of points.</li>
-        <li><strong>Comebacks are possible.</strong> A single double-down on a 5× slot can swing 10+ points in one round.</li>
+        <li><strong>Comebacks are possible.</strong> A single double-down on a 5× slot can swing 10+ points in one round — the same drama you'll find in <a href="/say-anything">Say Anything</a> and our other party titles.</li>
         <li><strong>The closest-not-over rule punishes show-offs.</strong> Writing a precise high number rewards confidence but punishes overshoots.</li>
       </ul>
     </SubPageLayout>

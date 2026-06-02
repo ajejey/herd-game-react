@@ -331,6 +331,14 @@ export default function GuesstimateHome() {
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🏢 Virtual Team Building Trivia</h3>
               <p className="text-sm text-[#8B6347]">Remote team icebreakers and game nights.</p>
             </Link></li>
+            <li><Link to="/guesstimate/online-games-for-long-distance-couples-free" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
+              <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">❤️ Games for Long-Distance Couples</h3>
+              <p className="text-sm text-[#8B6347]">Play together over FaceTime or Zoom, free.</p>
+            </Link></li>
+            <li><Link to="/guesstimate/games-to-play-on-facetime-and-video-calls" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
+              <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">📱 Games for FaceTime &amp; Video Calls</h3>
+              <p className="text-sm text-[#8B6347]">No app — play on any call with friends.</p>
+            </Link></li>
           </ul>
         </section>
 
