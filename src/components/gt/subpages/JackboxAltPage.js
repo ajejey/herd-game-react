@@ -12,8 +12,8 @@ export default function JackboxAltPage() {
   return (
     <SubPageLayout
       slug="free-jackbox-alternative-no-download"
-      title="Free Jackbox Alternative (No Download, In Browser)"
-      description="Looking for a free Jackbox Party Pack alternative? Guesstimate runs in any browser — no Steam, no console, no purchase. Free trivia-betting party game for 2-12 friends."
+      title="The Free Jackbox Alternative — No Steam, No Download"
+      description="Guesstimate is the free Jackbox Party Pack alternative that runs in any browser — no Steam, no console, no purchase. Trivia-betting fun for 2-12 friends. Play free now →"
       h1="Free Jackbox Alternative (No Download Needed)"
       keywords="free jackbox alternative, jackbox alternatives, free jackbox, games like jackbox, free jackbox no download, jackbox alternative reddit, free quiplash alternative, free trivia murder party alternative, browser party games like jackbox"
       faqs={FAQS}

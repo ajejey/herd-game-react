@@ -12,8 +12,8 @@ export default function TwoPlayerPage() {
   return (
     <SubPageLayout
       slug="can-you-play-say-anything-with-2-players"
-      title="Can You Play Say Anything With 2 Players? (Variant Guide)"
-      description="Can you play Say Anything with 2 players? Honestly no — but here's a 2-player variant, why the game needs 3+, and the best 2-player party game alternatives."
+      title="Can You Play Say Anything With 2 Players? (Honest Answer)"
+      description="Can you play Say Anything with 2 players? Honestly, no — but get a 2-player variant, why it needs 3+, and the best 2-player party game alternatives. Read on."
       h1="Can You Play Say Anything With 2 Players?"
       keywords="can you play say anything with 2 players, say anything 2 players, say anything for couples, 2 player party games, party games for 2 people"
       faqs={FAQS}

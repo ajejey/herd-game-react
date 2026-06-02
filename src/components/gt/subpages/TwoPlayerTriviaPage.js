@@ -12,8 +12,8 @@ export default function TwoPlayerTriviaPage() {
   return (
     <SubPageLayout
       slug="trivia-games-for-2-players-online-free"
-      title="Trivia Games for 2 Players Online (Free, No Download)"
-      description="Free trivia games for 2 players online. Guesstimate works with just 2 — number guessing + betting mechanic. Perfect for couples, siblings, long-distance friends."
+      title="Trivia Games for 2 Players Online That Actually Work (Free)"
+      description="Free trivia games for 2 players online that actually work with just two — number guessing plus betting. Great for couples, siblings, and long-distance friends. Play free →"
       h1="Free Trivia Games for 2 Players Online"
       keywords="trivia games for 2 players, trivia games for couples, 2 player trivia online, trivia for two, trivia games for siblings, long distance trivia game"
       faqs={FAQS}

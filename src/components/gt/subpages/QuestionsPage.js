@@ -139,8 +139,8 @@ export default function QuestionsPage() {
   return (
     <SubPageLayout
       slug="200-trivia-questions-with-numerical-answers"
-      title="200 Trivia Questions With Numerical Answers (Free List)"
-      description="200+ free trivia questions with numerical answers — perfect for trivia night, party games, classroom activities, or playing Guesstimate online. Family-safe, organized by category."
+      title="200+ Trivia Questions With Number Answers [Free List]"
+      description="Steal 200+ free trivia questions with numerical answers, sorted by category. Perfect for party games, trivia night, or classrooms. Family-safe and ready to play. Grab them free →"
       h1="200 Trivia Questions With Numerical Answers"
       keywords="trivia questions with numerical answers, number trivia questions, guesstimate questions, wits and wagers questions, party trivia number questions, family trivia game questions"
       faqs={FAQS}

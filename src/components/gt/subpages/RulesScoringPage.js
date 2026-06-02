@@ -12,8 +12,8 @@ export default function RulesScoringPage() {
   return (
     <SubPageLayout
       slug="online-trivia-betting-game-rules-and-scoring"
-      title="Online Trivia Betting Game Rules and Scoring Explained"
-      description="Full rules and scoring breakdown for an online trivia betting game. Payout odds, double-down strategy, the closest-without-going-over rule, and example calculations."
+      title="Trivia Betting Game Rules and Scoring (Win More)"
+      description="Master online trivia betting game rules and scoring: payout odds, double-down strategy, the closest-without-going-over rule, and worked examples. Learn to win, then play free →"
       h1="Online Trivia Betting Game Rules and Scoring Explained"
       keywords="online trivia betting game rules, guesstimate scoring, wits and wagers scoring, trivia betting payout odds, closest without going over rule"
       faqs={FAQS}

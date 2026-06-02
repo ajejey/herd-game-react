@@ -122,20 +122,20 @@ export default function GuesstimateHome() {
   return (
     <MeadowLayout>
       <Helmet>
-        <title>Guesstimate - Free Online Trivia Betting Party Game</title>
-        <meta name="description" content="Play Guesstimate free online — a trivia-betting party game where you guess numerical answers and bet on which guess is closest. 2-12 players, no download. Free alternative to Wits & Wagers." />
+        <title>Guesstimate: Free Online Trivia Betting Game, No Download</title>
+        <meta name="description" content="Guess the answer, bet on who's closest. Guesstimate is a hilarious trivia party game for 2-12 players — no download, no signup. Play free in your browser →" />
         <link rel="canonical" href={CANONICAL_URL} />
         <meta name="keywords" content="guesstimate game, trivia betting game online, wits and wagers online free, wits and wagers alternative, free online trivia party game, number guessing game, browser party games, free party games with friends, online trivia games, virtual trivia night" />
 
-        <meta property="og:title" content="Guesstimate - Free Online Trivia Betting Party Game" />
-        <meta property="og:description" content="Free online trivia-betting party game. Guess the answer, bet on the winner. 2-12 players, no download. Free alternative to Wits & Wagers." />
+        <meta property="og:title" content="Guesstimate: Free Online Trivia Betting Game, No Download" />
+        <meta property="og:description" content="Guess the answer, bet on who's closest. Hilarious trivia party game for 2-12 players — no download, no signup. Play free in your browser →" />
         <meta property="og:image" content={OG_IMAGE} />
         <meta property="og:url" content={CANONICAL_URL} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Herd Game" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Guesstimate - Free Online Trivia Betting Party Game" />
-        <meta name="twitter:description" content="Free online trivia-betting party game. 2-12 players, no download." />
+        <meta name="twitter:title" content="Guesstimate: Free Online Trivia Betting Game, No Download" />
+        <meta name="twitter:description" content="Guess the answer, bet on who's closest. Trivia party game for 2-12 players — no download. Play free in your browser →" />
         <meta name="twitter:image" content={OG_IMAGE} />
 
         <script type="application/ld+json">{JSON.stringify(STRUCTURED_DATA)}</script>

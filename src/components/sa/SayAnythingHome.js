@@ -226,17 +226,17 @@ export default function SayAnythingHome() {
     <MeadowLayout>
       <Helmet>
         {/* Primary */}
-        <title>Say Anything Online - Free Party Game (3-12 Players)</title>
+        <title>Say Anything Online: Free Party Game, No Download (3-12)</title>
         <meta
           name="description"
-          content="Play Say Anything free online with 3-12 friends. No download, no signup — just share a room link and start the party game in your browser."
+          content="The party game where your opinion wins. Play Say Anything with 3-12 friends — no download, no signup. Share a room link and play free in your browser →"
         />
         <link rel="canonical" href={CANONICAL_URL} />
         <meta name="keywords" content="say anything online, say anything game online, play say anything online free, say anything multiplayer, free party games online, party games no download, browser party games, jackbox alternative free, free games with friends online, virtual party games, online party games for groups, zoom party games" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Say Anything Online - Free Party Game (3-12 Players)" />
-        <meta property="og:description" content="Play Say Anything free online with 3-12 friends. No download, no signup — just share a room link." />
+        <meta property="og:title" content="Say Anything Online: Free Party Game, No Download (3-12)" />
+        <meta property="og:description" content="The party game where your opinion wins. Play with 3-12 friends — no download, no signup. Share a room link and play free in your browser →" />
         <meta property="og:image" content={OG_IMAGE} />
         <meta property="og:url" content={CANONICAL_URL} />
         <meta property="og:type" content="website" />
@@ -244,8 +244,8 @@ export default function SayAnythingHome() {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Say Anything Online - Free Party Game" />
-        <meta name="twitter:description" content="Play Say Anything free online with 3-12 friends. No download, no signup needed." />
+        <meta name="twitter:title" content="Say Anything Online: Free Party Game, No Download (3-12)" />
+        <meta name="twitter:description" content="The party game where your opinion wins. 3-12 friends, no download, no signup. Play free in your browser →" />
         <meta name="twitter:image" content={OG_IMAGE} />
 
         {/* JSON-LD */}

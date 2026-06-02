@@ -12,8 +12,8 @@ export default function WitsWagersAltPage() {
   return (
     <SubPageLayout
       slug="free-alternative-to-wits-and-wagers-online"
-      title="Free Alternative to Wits and Wagers Online (No Download)"
-      description="Looking for a free online Wits and Wagers alternative? Guesstimate is a free browser-based trivia-betting party game with the same number-guess-and-bet mechanic. No download, 2-12 players."
+      title="The Free Wits and Wagers Alternative You Can Play Now"
+      description="Guesstimate is the free Wits and Wagers alternative with the same guess-and-bet mechanic — browser-based, no download, 2-12 players. Start a game in 30 seconds →"
       h1="Free Alternative to Wits and Wagers Online"
       keywords="free alternative to wits and wagers, wits and wagers online free, wits and wagers alternative, free trivia betting game, online wits and wagers, play wits and wagers online"
       faqs={FAQS}

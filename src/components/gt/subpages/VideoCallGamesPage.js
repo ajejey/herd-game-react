@@ -13,8 +13,8 @@ export default function VideoCallGamesPage() {
   return (
     <SubPageLayout
       slug="games-to-play-on-facetime-and-video-calls"
-      title="Games to Play on FaceTime & Video Calls (Free, No App)"
-      description="Free games to play on FaceTime, Zoom, Google Meet, or a phone call — no app, no download. Guesstimate works for 2–12 players from any browser. Perfect for catch-ups and virtual hangouts."
+      title="Games to Play on FaceTime That Actually Work (Free, No App)"
+      description="Free games to play on FaceTime, Zoom, Google Meet, or a phone call that actually work — no app, no download. 2–12 players from any browser. Start in 30 seconds →"
       h1="Games to Play on FaceTime & Video Calls"
       keywords="games to play on facetime, games to play over the phone, games to play on a video call, games to play on zoom, games to play on google meet, video call games no app, free games to play with friends online"
       faqs={FAQS}

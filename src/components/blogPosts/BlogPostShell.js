@@ -1,33 +1,83 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MeadowLayout, { GrassStrip } from '../MeadowLayout';
+import { Helmet } from 'react-helmet';
+import MeadowLayout, { GrassStrip, fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 
+const SITE = 'https://herdgame.vercel.app';
+
 /**
- * Wrapper for individual blog post pages.
- * Provides the shared meadow background, nav, themed article card, and footer.
+ * Wrapper for individual blog post pages — now owns all per-post SEO.
  *
- * Usage:
- *   <BlogPostShell>
- *     <h2>...</h2>
- *     <p>...</p>
- *   </BlogPostShell>
+ * Props:
+ *   slug          — path under /blog (e.g. "1" → /blog/1)
+ *   title         — full <title> (click-optimized, ~55-60 chars)
+ *   description   — meta description (~150-160 chars)
+ *   h1            — visible H1 (defaults to title without the " - Herd Game" suffix)
+ *   datePublished — ISO date string (e.g. "2025-04-12")
+ *   dateModified  — ISO date string (optional; defaults to datePublished)
+ *   image         — OG image URL (optional; defaults to the site OG image)
+ *   children      — article body (h2/h3/p…)
  *
- * The article body content (children) is rendered inside the prose card. The
- * existing markup (h2/h3/p) inside each post stays untouched — only colors
- * inherit via the wrapping `text-[#4A2D1B]` and accent classes will visually
- * blend with the theme. Posts can also import `fredokaStyle` if they want the
- * playful display font on titles.
+ * Renders Helmet (title/desc/canonical/OG/Twitter), an H1 + published date,
+ * and BlogPosting JSON-LD. Body content (children) renders inside the card.
  */
-const BlogPostShell = ({ children }) => {
+const BlogPostShell = ({ slug, title, description, h1, datePublished, dateModified, image, children }) => {
+  const canonical = slug ? `${SITE}/blog/${slug}` : `${SITE}/blog`;
+  const ogImage = image || `${SITE}/og-image.png`;
+  const heading = h1 || (title ? title.replace(/\s*[-|]\s*Herd Game.*$/i, '') : undefined);
+
+  const articleSchema = title
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: heading,
+        description,
+        image: ogImage,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+        author: { '@type': 'Organization', name: 'Herd Game' },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Herd Game',
+          logo: { '@type': 'ImageObject', url: `${SITE}/logo512.png` },
+        },
+        ...(datePublished ? { datePublished } : {}),
+        dateModified: dateModified || datePublished,
+      }
+    : null;
+
+  const prettyDate = datePublished
+    ? new Date(datePublished + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null;
+
   return (
     <MeadowLayout>
+      {title && (
+        <Helmet>
+          <title>{title}</title>
+          <meta name="description" content={description} />
+          <link rel="canonical" href={canonical} />
+          <meta property="og:type" content="article" />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:url" content={canonical} />
+          <meta property="og:image" content={ogImage} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content={description} />
+          <meta name="twitter:image" content={ogImage} />
+          {articleSchema && <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>}
+        </Helmet>
+      )}
       <article className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)] border-4 border-[#FFE8C8] p-6 md:p-8 herd-blog-prose">
         <div className="mb-4 flex justify-end">
           <Link to="/blog" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold text-sm">
             &larr; All articles
           </Link>
         </div>
+
+        {heading && <h1 style={fredokaStyle}>{heading}</h1>}
+        {prettyDate && <p className="text-sm text-[#8B6347] mb-6">Published {prettyDate}</p>}
 
         {children}
 

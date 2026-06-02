@@ -13,8 +13,8 @@ export default function LongDistanceCouplesPage() {
   return (
     <SubPageLayout
       slug="online-games-for-long-distance-couples-free"
-      title="Free Online Games for Long-Distance Couples (No Download)"
-      description="Free online games for long-distance couples to play together — no download, no app. Guesstimate works with 2 players over FaceTime, Zoom, or a phone call. Perfect for virtual date night."
+      title="Free Online Games for Long-Distance Couples That Work"
+      description="Free online games for long-distance couples that actually work over FaceTime, Zoom, or a phone call — no download, no app, just 2 players. Start in 30 seconds →"
       h1="Free Online Games for Long-Distance Couples"
       keywords="online games for long distance couples, games to play with long distance partner, long distance relationship games, virtual date night games, games to play over facetime couples, games to play with partner online free, ldr games"
       faqs={FAQS}

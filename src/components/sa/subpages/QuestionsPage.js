@@ -167,7 +167,7 @@ export default function QuestionsPage() {
     <SubPageLayout
       slug="100-funny-say-anything-game-questions"
       title="100 Funny Say Anything Game Questions (Free List)"
-      description="100 free Say Anything game questions to use at your next party. Funny, family-friendly, ready to play. Or skip the list and play the free online version instantly."
+      description="Grab 100 free Say Anything game questions for your next party — funny, family-friendly, and ready to play. Or play the free online version instantly. Start now."
       h1="100 Funny Say Anything Game Questions"
       keywords="say anything game questions, say anything questions list, party game questions, funny party game prompts, say anything online questions"
       faqs={FAQS}

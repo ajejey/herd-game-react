@@ -12,8 +12,8 @@ export default function TeamBuildingPage() {
   return (
     <SubPageLayout
       slug="virtual-team-building-trivia-game-for-work"
-      title="Virtual Team Building Trivia Game for Work (Free)"
-      description="Free virtual team-building trivia game for remote and hybrid teams. Guesstimate runs in any browser — no downloads, no signup, no IT approval. 2-12 players, 25 minutes."
+      title="Virtual Team Building Trivia Game for Work (Free, No Signup)"
+      description="Free virtual team-building trivia for remote and hybrid teams — runs in any browser, no downloads, no signup, no IT approval. 2-12 players, 25 minutes. Play free →"
       h1="Virtual Team Building Trivia Game for Work"
       keywords="virtual team building trivia, team building trivia game, remote team building trivia, online trivia for work, virtual happy hour trivia, team building games online free, team trivia game work"
       faqs={FAQS}

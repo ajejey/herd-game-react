@@ -12,8 +12,8 @@ export default function HolidayTriviaPage() {
   return (
     <SubPageLayout
       slug="christmas-and-holiday-trivia-party-games-online"
-      title="Christmas and Holiday Trivia Party Games Online (Free)"
-      description="Free Christmas and holiday trivia party games to play online. Browser-based, no downloads, works for office parties, family game nights, and virtual NYE celebrations."
+      title="Christmas & Holiday Trivia Party Games Online (Free, No App)"
+      description="Free Christmas and holiday trivia party games to play online — no downloads. Great for office parties, family game nights, and virtual NYE. Play free →"
       h1="Christmas and Holiday Trivia Party Games Online"
       keywords="christmas trivia games online, holiday trivia party game, christmas party games online, virtual christmas party game, online new year's eve party games, holiday trivia online free, office christmas party games online, family christmas trivia"
       faqs={FAQS}

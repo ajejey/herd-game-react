@@ -13,7 +13,7 @@ export default function JackboxAlternativePage() {
     <SubPageLayout
       slug="free-alternative-to-jackbox-party-pack"
       title="Free Alternative to Jackbox Party Pack (No Download)"
-      description="Looking for a free alternative to Jackbox Party Pack? Say Anything Online is free, plays in any browser, no Steam or console needed. Perfect for parties and Zoom calls."
+      description="Want a free alternative to Jackbox Party Pack? Say Anything Online plays in any browser — no Steam or console needed. Perfect for parties and Zoom calls. Play free."
       h1="Free Alternative to Jackbox Party Pack"
       keywords="free alternative to jackbox, jackbox alternative free, games like jackbox free, free jackbox, free quiplash alternative, jackbox without buying, free party games no download"
       faqs={FAQS}

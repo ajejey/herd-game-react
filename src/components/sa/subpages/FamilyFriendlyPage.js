@@ -12,8 +12,8 @@ export default function FamilyFriendlyPage() {
   return (
     <SubPageLayout
       slug="family-friendly-party-games-to-play-online"
-      title="Family-Friendly Party Games to Play Online (Free, Any Age)"
-      description="Free family-friendly party games to play online with kids, parents, and grandparents. No download, no signup, safe for all ages. Perfect for family game night or Zoom calls."
+      title="Free Family-Friendly Party Games to Play Online (Any Age)"
+      description="Free family-friendly party games to play online with kids, parents, and grandparents — no download, no signup, safe for all ages. Great for game night. Play now."
       h1="Family-Friendly Party Games to Play Online"
       keywords="family-friendly party games to play online, family party games online, family game night online, family friendly online games, party games for kids, party games for family game night, games for grandparents and grandkids"
       faqs={FAQS}

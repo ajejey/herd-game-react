@@ -1,5 +1,23 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import SubPageLayout from './SubPageLayout';
+
+const HOWTO_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to Play Say Anything Online',
+  description: 'Play Say Anything, a free online party game: the judge asks a question, everyone answers, then players bet on which answer the judge will secretly pick.',
+  estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '0' },
+  supply: [{ '@type': 'HowToSupply', name: 'One phone, tablet, or laptop per player (3+ players)' }],
+  step: [
+    { '@type': 'HowToStep', name: 'Create or join a room', text: 'Everyone opens herdgame.vercel.app/say-anything in a browser. One player creates a game and shares the 4-letter room code; 2 or more friends join with it.' },
+    { '@type': 'HowToStep', name: 'The judge asks a question', text: 'Each round one player is the judge and picks a free-text question for the group to answer.' },
+    { '@type': 'HowToStep', name: 'Everyone writes an answer', text: 'All players except the judge write an answer to the question.' },
+    { '@type': 'HowToStep', name: 'The judge picks a secret favorite', text: 'The judge secretly chooses their favorite answer.' },
+    { '@type': 'HowToStep', name: 'Place your bets', text: 'Each player places 2 betting tokens on the answer they think the judge secretly chose.' },
+    { '@type': 'HowToStep', name: 'Reveal and score', text: 'The pick is revealed. The author of the chosen answer scores, correct bets score, and the judge scores per correct bet. The judge role rotates. First to 7 points wins.' },
+  ],
+};
 
 const FAQS = [
   { q: 'How do you play Say Anything board game online?', a: 'Open herdgame.vercel.app/say-anything, create a room, and share the 4-letter code with 2 or more friends. Each round one player is the judge — they pick a question, everyone else writes an answer, the judge secretly picks a favorite, and the rest bet on which one. First to 7 points wins.' },
@@ -12,12 +30,15 @@ export default function HowToPlayPage() {
   return (
     <SubPageLayout
       slug="how-to-play-say-anything-board-game-online"
-      title="How to Play Say Anything Board Game Online (Full Rules)"
-      description="Learn how to play the Say Anything board game online. Full rules, scoring, judge rotation, and betting explained. Free multiplayer version, 3–12 players, no download."
+      title="How to Play Say Anything Online — Full Rules in 2 Min"
+      description="Say Anything rules made simple: judge asks, everyone answers, then bet on the judge's secret pick. Learn to play free in your browser, 3–12 players, no download →"
       h1="How to Play Say Anything Board Game Online"
       keywords="how to play say anything, say anything rules, say anything board game online, say anything game rules, say anything online"
       faqs={FAQS}
     >
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(HOWTO_SCHEMA)}</script>
+      </Helmet>
       <p>
         <strong>Wondering how to play the Say Anything board game online?</strong> This guide walks through the full rules of Say Anything — the party game from North Star Games — and shows you how to play it free in your browser with 3 to 12 friends, no download or signup required. You'll learn the judge rotation, the betting mechanic, and how scoring works.
       </p>

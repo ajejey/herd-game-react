@@ -12,8 +12,8 @@ export default function KahootAltPage() {
   return (
     <SubPageLayout
       slug="kahoot-alternative-for-adults"
-      title="Kahoot Alternative for Adults (Free, Browser, No Account)"
-      description="Looking for a Kahoot alternative built for adults? Guesstimate is a free in-browser trivia-betting game — no teacher dashboard, no kids' UI, just party-game trivia for 2-12 friends or coworkers."
+      title="Kahoot Alternative for Adults — Free, No Account"
+      description="A Kahoot alternative actually built for adults: Guesstimate is a free in-browser trivia-betting game — no teacher dashboard, no kids' UI, just party trivia for 2-12. Play free →"
       h1="Kahoot Alternative for Adults"
       keywords="kahoot alternative for adults, kahoot for adults, grown up kahoot, adult kahoot alternative, party trivia for adults online, kahoot alternatives reddit, free trivia game for adults"
       faqs={FAQS}

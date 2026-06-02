@@ -13,7 +13,7 @@ export default function ZoomPartyGamesPage() {
     <SubPageLayout
       slug="how-to-play-party-games-on-zoom-with-friends"
       title="How to Play Party Games on Zoom With Friends (Free)"
-      description="How to play party games on Zoom with friends — free, no downloads needed. Setup, best browser-based games for Zoom calls, and tips for Discord and FaceTime too."
+      description="Play party games on Zoom with friends — free, no downloads. Get setup steps, the best browser-based games for Zoom calls, plus Discord and FaceTime tips. Start now."
       h1="How to Play Party Games on Zoom With Friends"
       keywords="how to play party games on zoom, party games on zoom, zoom party games, games to play on zoom, virtual party games zoom, party games for video calls"
       faqs={FAQS}

@@ -9,6 +9,45 @@ import AdSlot from './AdSlot';
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
 
+const SITE = 'https://herdgame.vercel.app';
+const HOME_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#website`,
+      url: `${SITE}/`,
+      name: 'Herd Game',
+      description: 'Free online party games you can play in your browser — Herd Mentality, Guesstimate, and Say Anything. No download, no signup.',
+      publisher: { '@id': `${SITE}/#org` },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${SITE}/#org`,
+      name: 'Herd Game',
+      url: `${SITE}/`,
+      logo: { '@type': 'ImageObject', url: `${SITE}/logo512.png` },
+    },
+    {
+      '@type': 'VideoGame',
+      '@id': `${SITE}/#herd-mentality`,
+      name: 'Herd Mentality (Online)',
+      alternateName: ['Herd Mentality Online', 'Herd Game', 'Think Like the Herd'],
+      url: `${SITE}/`,
+      description: 'Free online version of the Herd Mentality party game. Answer questions the way you think the group will — match the majority to win, get the Pink Cow if you are the odd one out. Unlimited players, no download.',
+      image: `${SITE}/og-image.png`,
+      genre: ['Party', 'Trivia', 'Social', 'Family'],
+      gamePlatform: ['Web browser'],
+      playMode: 'MultiPlayer',
+      numberOfPlayers: { '@type': 'QuantitativeValue', minValue: 3 },
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Any (Web)',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      publisher: { '@id': `${SITE}/#org` },
+    },
+  ],
+};
+
 /* ─────────── SVG primitives (inline, no deps) ─────────── */
 
 const CowMascot = ({ className = '', style }) => (
@@ -376,17 +415,21 @@ const Home = () => {
       <Navigation />
 
       <Helmet>
-        <title>Herd Board Game - Play Online | Think Like The Herd</title>
-        <meta name="description" content="Play Herd Mentality board game online - the ultimate social party game where you think like the herd to win cows! Perfect for game nights, family gatherings, team building, birthday parties, and social events. Easy to join, unlimited players!" />
-        <meta name="keywords" content="Herd Mentality, Herd Mentality board game, Herd Mentality game, board games, party games, family game night, team building, social games, multiplayer games, virtual hangouts, quiz games, ice breaker games, group activities, online party, game night ideas, birthday party games, team bonding, virtual events, think like the herd, Pink Cow, cow rustlers" />
-        <meta property="og:title" content="Herd Game - The Ultimate Party Game for Everyone" />
-        <meta property="og:description" content="The perfect game for any group! Great for parties, family nights, team building, and social events. Join instantly and play with unlimited players!" />
+        <title>Herd Mentality Online — Free Party Game, No Download</title>
+        <meta name="description" content="Play Herd Mentality online free — think like the herd to win, dodge the Pink Cow if you're the odd one out. Unlimited players, no download, no signup. Start in seconds →" />
+        <meta name="keywords" content="Herd Mentality, Herd Mentality board game, Herd Mentality online, party games, family game night, team building, social games, multiplayer games, virtual hangouts, quiz games, ice breaker games, game night ideas, think like the herd, Pink Cow" />
+        <meta property="og:title" content="Herd Mentality Online — Free Party Game, No Download" />
+        <meta property="og:description" content="Think like the herd to win! The free online party game for friends, family, and teams. Unlimited players, no download, no signup. Play free →" />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://herdgame.vercel.app/" />
+        <meta property="og:image" content="https://herdgame.vercel.app/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Herd Game - Online Party Game for All Occasions" />
-        <meta name="twitter:description" content="Looking for the perfect group game? Herd Game is great for parties, family fun, team events, and social gatherings. No player limit!" />
-        <link rel="canonical" href="https://herdgame.vercel.app" />
+        <meta name="twitter:title" content="Herd Mentality Online — Free Party Game, No Download" />
+        <meta name="twitter:description" content="Think like the herd to win! Free online party game for friends, family & teams. No download, no signup — play instantly." />
+        <meta name="twitter:image" content="https://herdgame.vercel.app/twitter-image.png" />
+        <link rel="canonical" href="https://herdgame.vercel.app/" />
         <meta name="google-site-verification" content="7nItEeuNSAIFL_unU4Ai5p-SGizDDaJU8XRYEKdtOgk" />
+        <script type="application/ld+json">{JSON.stringify(HOME_SCHEMA)}</script>
       </Helmet>
 
       <div className="relative container mx-auto px-4 pt-24 pb-12 max-w-lg md:max-w-6xl">

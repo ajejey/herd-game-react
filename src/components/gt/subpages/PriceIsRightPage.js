@@ -12,8 +12,8 @@ export default function PriceIsRightPage() {
   return (
     <SubPageLayout
       slug="price-is-right-style-party-game-online"
-      title="Price is Right Style Party Game Online (Free Trivia Betting)"
-      description="Play a Price is Right style party game online free. Guesstimate uses the closest-without-going-over rule with trivia questions. 2-12 players, browser-based, no download."
+      title="Price is Right Style Party Game Online (Free, No Download)"
+      description="Play a Price is Right style party game online free — closest-without-going-over trivia for 2-12 players. Browser-based, no download. Start in 30 seconds →"
       h1="Price is Right Style Party Game Online"
       keywords="price is right party game, closest without going over game, price is right style trivia, price is right game online, guess the number party game, closest guess wins game"
       faqs={FAQS}

@@ -1,5 +1,23 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import SubPageLayout from './SubPageLayout';
+
+const HOWTO_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to Play Guesstimate (Online Trivia Betting Game)',
+  description: 'Play Guesstimate, a free online trivia-betting party game: guess a numerical answer, then bet on whose guess is closest without going over.',
+  totalTime: 'PT25M',
+  estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '0' },
+  supply: [{ '@type': 'HowToSupply', name: 'One phone, tablet, or laptop per player' }],
+  step: [
+    { '@type': 'HowToStep', name: 'Create or join a room', text: 'Everyone opens herdgame.vercel.app/guesstimate in a browser. One player creates a game and shares the 4-letter room code; the others join with it.', url: 'https://herdgame.vercel.app/guesstimate/how-to-play-online-trivia-betting-game#join' },
+    { '@type': 'HowToStep', name: 'Read the trivia question', text: 'Each round shows a trivia question with a single numerical answer (for example, "How many bones are in the human body?").' },
+    { '@type': 'HowToStep', name: 'Write your number guess', text: 'Every player privately submits their best numerical guess.' },
+    { '@type': 'HowToStep', name: 'Place your bets', text: 'Guesses are sorted low-to-high on a chalkboard with payout odds (5x down to 1x). Each player places 2 chips on the guess they think is closest without going over.' },
+    { '@type': 'HowToStep', name: 'Reveal and score', text: 'The real answer is revealed. The closest guess WITHOUT going over wins. The author of the winning guess scores, and players who bet on it earn their payout. Highest score after 7 rounds wins.' },
+  ],
+};
 
 const FAQS = [
   { q: 'How do you play an online trivia betting game?', a: 'Each round a trivia question with a numerical answer appears. Every player writes a number guess. Guesses sort onto a chalkboard with payout odds. Players each place 2 chips on any guess. The actual answer is revealed and the closest guess WITHOUT going over wins. Authors of the winning guess and players who bet correctly score points.' },
@@ -18,6 +36,9 @@ export default function HowToPlayPage() {
       keywords="how to play guesstimate, online trivia betting game rules, how to play wits and wagers style game, free trivia game rules"
       faqs={FAQS}
     >
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(HOWTO_SCHEMA)}</script>
+      </Helmet>
       <p>
         <strong><a href="/guesstimate">Guesstimate</a></strong> is a free online <a href="https://en.wikipedia.org/wiki/Trivia" target="_blank" rel="noopener noreferrer">trivia</a>-betting <a href="https://en.wikipedia.org/wiki/Party_game" target="_blank" rel="noopener noreferrer">party game</a>. The mechanic — guess a numerical answer, then bet on whose guess will be closest — is inspired by classic party games like <em><a href="https://en.wikipedia.org/wiki/Wits_%26_Wagers" target="_blank" rel="noopener noreferrer">Wits &amp; Wagers</a></em>. This guide walks through every phase of a round so you can host or join a game with confidence.
       </p>

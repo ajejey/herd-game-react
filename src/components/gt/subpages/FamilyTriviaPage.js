@@ -12,8 +12,8 @@ export default function FamilyTriviaPage() {
   return (
     <SubPageLayout
       slug="best-online-trivia-games-for-family-game-night"
-      title="Best Online Trivia Games for Family Game Night (Free)"
-      description="The best free online trivia games for family game night. Works for kids, parents, and grandparents on any device. No download, no signup, plays in any browser."
+      title="Family Game Night Trivia That Every Age Wins [Free]"
+      description="The best free online trivia games for family game night — kids, parents, and grandparents all compete on any device. No download, no signup. Play free in your browser →"
       h1="Best Online Trivia Games for Family Game Night"
       keywords="online trivia games family, family trivia online free, best family trivia game online, trivia games for family game night, online family party games"
       faqs={FAQS}

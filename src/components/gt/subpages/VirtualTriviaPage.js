@@ -12,8 +12,8 @@ export default function VirtualTriviaPage() {
   return (
     <SubPageLayout
       slug="how-to-host-virtual-trivia-night-on-zoom"
-      title="How to Host a Virtual Trivia Night on Zoom (Free)"
-      description="Host a virtual trivia night on Zoom with free browser-based games. No downloads, no screen sharing. Step-by-step setup guide and the best free trivia games for video calls."
+      title="Host a Virtual Trivia Night on Zoom — No Screen Share"
+      description="Host a virtual trivia night on Zoom with free browser games — no downloads, no screen sharing. Follow the 5-step setup and pick the best trivia for video calls. Start free →"
       h1="How to Host a Virtual Trivia Night on Zoom"
       keywords="virtual trivia night zoom, how to host trivia on zoom, online trivia night zoom, trivia games zoom, virtual trivia free, remote trivia night"
       faqs={FAQS}
