@@ -41,6 +41,7 @@ import GtTwoPlayerTriviaPage from './components/gt/subpages/TwoPlayerTriviaPage'
 import GtTeamBuildingPage from './components/gt/subpages/TeamBuildingPage';
 import GtLongDistanceCouplesPage from './components/gt/subpages/LongDistanceCouplesPage';
 import GtVideoCallGamesPage from './components/gt/subpages/VideoCallGamesPage';
+import GtClassroomGamesPage from './components/gt/subpages/ClassroomGamesPage';
 
 function App() {
   return (
@@ -88,6 +89,7 @@ function App() {
               <Route path="/guesstimate/virtual-team-building-trivia-game-for-work" element={<GtTeamBuildingPage />} />
               <Route path="/guesstimate/online-games-for-long-distance-couples-free" element={<GtLongDistanceCouplesPage />} />
               <Route path="/guesstimate/games-to-play-on-facetime-and-video-calls" element={<GtVideoCallGamesPage />} />
+              <Route path="/guesstimate/classroom-trivia-games-no-materials-for-teachers" element={<GtClassroomGamesPage />} />
             </Routes>
           </div>
         </Router>

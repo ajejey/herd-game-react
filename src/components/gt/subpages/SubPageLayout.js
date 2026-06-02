@@ -127,6 +127,7 @@ const ALL_GUIDES = [
   { slug: 'virtual-team-building-trivia-game-for-work', title: 'Virtual Team Building Trivia', emoji: '🏢' },
   { slug: 'online-games-for-long-distance-couples-free', title: 'Games for Long-Distance Couples', emoji: '❤️' },
   { slug: 'games-to-play-on-facetime-and-video-calls', title: 'Games for FaceTime & Video Calls', emoji: '📱' },
+  { slug: 'classroom-trivia-games-no-materials-for-teachers', title: 'Classroom Games (No Materials)', emoji: '🏫' },
 ];
 
 function RelatedGuides({ currentSlug }) {

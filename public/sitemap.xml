@@ -116,6 +116,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://herdgame.vercel.app/guesstimate/classroom-trivia-games-no-materials-for-teachers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://herdgame.vercel.app/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
