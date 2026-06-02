@@ -22,12 +22,13 @@ const path = require('path');
 //    Chromium that ships the shared libs (libnspr4 etc.) the build image lacks.
 async function launchBrowser() {
   if (process.platform === 'linux') {
-    const chromium = require('@sparticuz/chromium');
+    const mod = require('@sparticuz/chromium');
+    const chromium = mod && mod.default ? mod.default : mod; // ESM/CJS interop
     const puppeteerCore = require('puppeteer-core');
     return puppeteerCore.launch({
-      args: [...chromium.args, '--disable-dev-shm-usage'],
+      args: [...(chromium.args || []), '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
       executablePath: await chromium.executablePath(),
-      headless: true,
+      headless: chromium.headless != null ? chromium.headless : true,
     });
   }
   const puppeteer = require('puppeteer');
