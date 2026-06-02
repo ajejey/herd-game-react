@@ -3,7 +3,7 @@ import { fredokaStyle } from '../MeadowLayout';
 import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
 
-const JOIN_URL = 'herdgame.vercel.app/say-anything';
+const JOIN_URL = 'herdgame.vercel.app/guesstimate';
 
 export default function Lobby({ game }) {
   const { state, myId, isHost, roomCode, startGame, kickPlayer } = game;
@@ -13,10 +13,10 @@ export default function Lobby({ game }) {
   const [copied, setCopied] = useState(false);
 
   const copyInvite = async () => {
-    const text = `Join my Say Anything game! Go to ${JOIN_URL} and enter code ${roomCode}`;
+    const text = `Join my Guesstimate game! Go to ${JOIN_URL} and enter code ${roomCode}`;
     try {
       if (navigator.share) {
-        await navigator.share({ title: 'Say Anything', text, url: `https://${JOIN_URL}` });
+        await navigator.share({ title: 'Guesstimate', text, url: `https://${JOIN_URL}` });
         return;
       }
       await navigator.clipboard.writeText(text);
@@ -27,13 +27,10 @@ export default function Lobby({ game }) {
 
   return (
     <div className="max-w-md mx-auto">
-      {/* Room code */}
       <div className="text-center mb-6">
         <p className="text-[#8B6347] text-sm mb-1">Share this code with your friends</p>
         <div className="inline-block bg-[#FFE8C8] rounded-2xl px-8 py-4">
-          <span style={fredokaStyle} className="text-5xl font-bold text-[#2D1810] tracking-widest">
-            {roomCode}
-          </span>
+          <span style={fredokaStyle} className="text-5xl font-bold text-[#2D1810] tracking-widest">{roomCode}</span>
         </div>
         <button
           onClick={copyInvite}
@@ -41,10 +38,9 @@ export default function Lobby({ game }) {
         >
           {copied ? '✓ Invite copied!' : '📋 Copy invite link'}
         </button>
-        <button
-          onClick={() => setShowHelp(true)}
-          className="mt-3 text-[#3D8B5A] hover:text-[#2F6E45] font-semibold text-sm underline"
-        >How to play →</button>
+        <button onClick={() => setShowHelp(true)} className="mt-3 text-[#3D8B5A] hover:text-[#2F6E45] font-semibold text-sm underline">
+          How to play →
+        </button>
       </div>
       {showHelp && <HowToPlay onClose={() => setShowHelp(false)} />}
 
@@ -59,7 +55,6 @@ export default function Lobby({ game }) {
         </ol>
       </div>
 
-      {/* Players */}
       <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-4 mb-4">
         <h3 style={fredokaStyle} className="text-lg font-bold text-[#2D1810] mb-3">
           Players ({connected.length})
@@ -69,31 +64,23 @@ export default function Lobby({ game }) {
             <li key={p.id} className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className={`w-2 h-2 rounded-full ${p.connected ? 'bg-green-400' : 'bg-gray-300'}`} />
-                <span className={`font-semibold text-[#2D1810] ${!p.connected ? 'opacity-50' : ''}`}>
-                  {p.username}
-                </span>
+                <span className={`font-semibold text-[#2D1810] ${!p.connected ? 'opacity-50' : ''}`}>{p.username}</span>
                 {p.isHost && <span className="text-xs bg-[#FFD56B] text-[#2D1810] px-2 py-0.5 rounded-full font-bold">Host</span>}
                 {p.id === myId && <span className="text-xs text-[#8B6347]">(you)</span>}
               </div>
               {isHost && p.id !== myId && (
-                <button
-                  onClick={() => kickPlayer(p.id)}
-                  className="text-xs text-red-400 hover:text-red-600 font-semibold"
-                >
-                  Remove
-                </button>
+                <button onClick={() => kickPlayer(p.id)} className="text-xs text-red-400 hover:text-red-600 font-semibold">Remove</button>
               )}
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Start */}
       {isHost ? (
         <div className="space-y-2">
-          {connected.length < 3 ? (
+          {connected.length < 2 ? (
             <p className="text-center text-[#8B6347] text-sm">
-              Need {3 - connected.length} more {3 - connected.length === 1 ? 'player' : 'players'} to start — share the code above.
+              Waiting for at least 1 more player to join… share the code above to get started.
             </p>
           ) : (
             <p className="text-center text-[#8B6347] text-sm">
@@ -102,7 +89,7 @@ export default function Lobby({ game }) {
           )}
           <button
             onClick={startGame}
-            disabled={connected.length < 3}
+            disabled={connected.length < 2}
             className="w-full py-4 rounded-2xl font-bold text-white text-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed"
             style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
           >
@@ -113,7 +100,7 @@ export default function Lobby({ game }) {
         <p className="text-center text-[#8B6347] text-sm py-2">You're in! Waiting for the host to start the game…</p>
       )}
 
-      {/* Ad — lobby is the longest waiting moment */}
+      {/* Ad — lobby is the longest wait */}
       <div className="mt-6 max-h-[300px] overflow-hidden">
         <AdSlot slot="5969633275" />
       </div>

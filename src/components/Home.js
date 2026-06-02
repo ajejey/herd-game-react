@@ -473,24 +473,27 @@ const Home = () => {
               </div>
             </Link>
 
-            {/* Coming Soon — Wits & Wagers */}
-            <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
-              <div className="ribbon bg-[#8B6347] text-white">Soon</div>
-              <div className="flex items-start gap-4 opacity-80">
-                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🎲</div>
+            {/* Guesstimate */}
+            <Link
+              to="/guesstimate"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#FBC02D] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#FBC02D] text-[#2D1810]">✨ New</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🎯</div>
                 <div className="flex-1 min-w-0">
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
-                    Wits &amp; Wagers
+                    Guesstimate
                   </h3>
                   <p className="text-sm text-[#6B4226] mt-1">
-                    Guess a number. Bet on whose guess is closest.
+                    Guess a trivia number. Bet on whose guess is closest. Free Wits &amp; Wagers-style.
                   </p>
-                  <div className="mt-3 inline-flex items-center gap-1 text-[#8B6347] font-semibold text-sm">
-                    Coming soon
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#FB8C00] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* Coming Soon — Wavelength */}
             <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
