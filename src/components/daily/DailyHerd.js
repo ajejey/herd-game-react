@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion, AnimatePresence } from 'framer-motion';
 import Confetti from 'react-confetti';
@@ -27,7 +27,25 @@ function useWindowSize() {
 
 function shareText(dayNumber, result) {
   const grid = result.perQuestion.map((q) => (q.matched ? '🐑' : '⬜')).join('');
-  return `Daily Herd #${dayNumber} — ${result.score}/${result.total} ${grid}\nherdgamesonline.com/daily`;
+  return `Daily Herd #${dayNumber} — ${result.score}/${result.total} ${grid}\nherdgamesonline.com/daily/${dayNumber}`;
+}
+
+// Shown when a shared permalink points to a day that's no longer today.
+function ClosedDay({ urlDay, todayDay }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="text-center py-4">
+      <div className="flex justify-center gap-1 mb-3">
+        {[0, 1, 2].map((i) => <Sheep key={i} size={42} />)}
+      </div>
+      <h1 style={fredokaStyle} className="text-3xl md:text-4xl font-bold text-[#2D1810]">Herd #{urlDay} has wandered off</h1>
+      <p className="text-[#4A2D1B] mt-2">That day's herd has closed — but a fresh one is grazing right now.</p>
+      <Link to="/daily" onClick={() => sfx.click()}
+        style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}
+        className="mt-6 inline-block px-10 py-4 rounded-2xl text-white font-bold text-xl hover:scale-105 transition-transform">
+        {todayDay != null ? `Play today's herd #${todayDay} →` : "Play today's herd →"}
+      </Link>
+    </motion.div>
+  );
 }
 
 // ── Mute toggle ──────────────────────────────────────────────────────────────
@@ -274,6 +292,12 @@ function ResultView({ dayNumber, result, streak }) {
 export default function DailyHerd() {
   const game = useDailyHerd();
   const { status, dayNumber, questions, result, streak, error, start, submit } = game;
+  const { dayNumber: urlDayParam } = useParams();
+  // Only treat an integer param as a specific day; garbage paths just play today.
+  const parsed = Number(urlDayParam);
+  const urlDay = urlDayParam != null && Number.isInteger(parsed) ? parsed : null;
+  // A shared permalink for a day that isn't today → that herd has closed.
+  const isClosed = urlDay != null && dayNumber != null && urlDay !== dayNumber;
 
   return (
     <MeadowLayout maxWidth="max-w-xl">
@@ -294,6 +318,9 @@ export default function DailyHerd() {
       <div className="relative bg-white/80 rounded-3xl border-4 border-[#FFE8C8] shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)] p-6 md:p-8">
         <MuteButton />
 
+        {isClosed && <ClosedDay urlDay={urlDay} todayDay={dayNumber} />}
+        {!isClosed && <>
+
         {/* Intro renders for loading/intro/error so the SEO/explainer content is
             always present (prerender can't reach the API) and users are never lost. */}
         {(status === 'loading' || status === 'intro' || status === 'error') && (
@@ -312,6 +339,8 @@ export default function DailyHerd() {
         )}
 
         {status === 'result' && result && <ResultView dayNumber={dayNumber} result={result} streak={streak} />}
+
+        </>}
       </div>
     </MeadowLayout>
   );

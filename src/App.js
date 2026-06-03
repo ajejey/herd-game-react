@@ -56,6 +56,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/daily" element={<DailyHerd />} />
+              <Route path="/daily/:dayNumber" element={<DailyHerd />} />
               <Route path="/game/:roomCode" element={<GameRoom />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
