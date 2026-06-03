@@ -565,24 +565,38 @@ const Home = () => {
               </div>
             </Link>
 
-            {/* Coming Soon — Wavelength */}
-            <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
-              <div className="ribbon bg-[#8B6347] text-white">Soon</div>
-              <div className="flex items-start gap-4 opacity-80">
-                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🌗</div>
+            {/* Clover Clues */}
+            <Link
+              to="/clover"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#3D8B5A] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#3D8B5A] text-white">✨ New</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0">
+                  <svg width="54" height="54" viewBox="0 0 24 24" aria-hidden="true" className="drop-shadow">
+                    <g fill="#3D8B5A" stroke="#2F6E45" strokeWidth="0.8">
+                      <circle cx="12" cy="8" r="3.6" />
+                      <circle cx="16" cy="12" r="3.6" />
+                      <circle cx="12" cy="16" r="3.6" />
+                      <circle cx="8" cy="12" r="3.6" />
+                    </g>
+                    <circle cx="12" cy="12" r="1.7" fill="#2F6E45" />
+                    <path d="M12 16 Q12.5 20 14.5 22" stroke="#3D8B5A" strokeWidth="1.6" fill="none" strokeLinecap="round" />
+                  </svg>
+                </div>
                 <div className="flex-1 min-w-0">
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
-                    Wavelength
+                    Clover Clues
                   </h3>
                   <p className="text-sm text-[#6B4226] mt-1">
-                    A spectrum. A secret target. Guess your team's mind.
+                    Write clues, rebuild each other's clovers. Co-op word game.
                   </p>
-                  <div className="mt-3 inline-flex items-center gap-1 text-[#8B6347] font-semibold text-sm">
-                    Coming soon
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#3D8B5A] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* Coming Soon — Monikers */}
             <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
