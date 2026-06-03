@@ -11,6 +11,9 @@ import Blog from './components/Blog';
 import DailyHerd from './components/daily/DailyHerd';
 import CloverHome from './components/clover/CloverHome';
 import CloverRoom from './components/clover/CloverRoom';
+import CloverHowToPlay from './components/clover/subpages/HowToPlayPage';
+import CloverSoCloverAlt from './components/clover/subpages/SoCloverAlternativePage';
+import CloverCoopWordGames from './components/clover/subpages/CoopWordGamesPage';
 import FAQ from './components/FAQ';
 import PostOne from './components/blogPosts/PostOne';
 import PostTwo from './components/blogPosts/PostTwo';
@@ -61,6 +64,9 @@ function App() {
               <Route path="/daily/:dayNumber" element={<DailyHerd />} />
               <Route path="/clover" element={<CloverHome />} />
               <Route path="/clover/room/:roomCode" element={<CloverRoom />} />
+              <Route path="/clover/how-to-play-clover-clues" element={<CloverHowToPlay />} />
+              <Route path="/clover/free-so-clover-alternative-online" element={<CloverSoCloverAlt />} />
+              <Route path="/clover/cooperative-word-games-online" element={<CloverCoopWordGames />} />
               <Route path="/game/:roomCode" element={<GameRoom />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />

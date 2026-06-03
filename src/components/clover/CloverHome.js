@@ -30,6 +30,33 @@ const SCHEMA = {
   ],
 };
 
+const FAQ_ITEMS = [
+  { q: 'How do you play Clover Clues?', a: 'Each player gets 4 words in a clover and writes a single-word clue linking each neighbouring pair. A decoy word is shuffled in, then the team rebuilds each player\'s clover from the clues — placing 4 of 5 cards in the right leaves. Score 1 point per correct card, +2 for a perfect clover. It\'s cooperative: one shared score.' },
+  { q: 'Is Clover Clues like So Clover?', a: 'It\'s inspired by the same co-op clue-writing genre, with its own words and branding. If you\'re looking for a free online So Clover-style game, this is it. Not affiliated with Repos Production.' },
+  { q: 'How many players do you need?', a: '3 to 6. It\'s a cooperative team game, so you need at least 3.' },
+  { q: 'Do I need to download or sign up?', a: 'No. It runs in any browser — create a room, share the 4-letter code, and play. No app, no account, free.' },
+  { q: 'Can we play remotely?', a: 'Yes. Everyone joins from their own device, so it works around a table or over a video call.' },
+];
+
+const HOWTO_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to Play Clover Clues',
+  description: 'Write one-word clues for your clover, add a decoy, then rebuild each player\'s clover as a team.',
+  step: [
+    { '@type': 'HowToStep', name: 'Create or join a room', text: 'Open herdgamesonline.com/clover, create a game, and share the 4-letter code with 2–5 friends.' },
+    { '@type': 'HowToStep', name: 'Write your clues', text: 'For each pair of neighbouring words in your clover, write a single-word clue that links them.' },
+    { '@type': 'HowToStep', name: 'Rebuild each clover', text: 'A decoy is shuffled in; the team places 4 of the 5 cards back in the right leaves using the clues, while the author stays silent.' },
+    { '@type': 'HowToStep', name: 'Score together', text: '1 point per correct card, +2 for a perfect clover, summed into one shared team score.' },
+  ],
+};
+
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+
 export default function CloverHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useClover();
@@ -59,6 +86,8 @@ export default function CloverHome() {
         <meta name="twitter:title" content="Clover Clues — Free Online Co-op Word Game" />
         <meta name="twitter:image" content={OG} />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
+        <script type="application/ld+json">{JSON.stringify(HOWTO_SCHEMA)}</script>
+        <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>
 
       <div className="text-center mb-6">
@@ -95,11 +124,36 @@ export default function CloverHome() {
       </div>
 
       {/* SEO content */}
-      <div className="max-w-2xl mx-auto mt-10 gt-prose text-[#4A2D1B]">
+      <div className="max-w-2xl mx-auto mt-10 text-[#4A2D1B] leading-relaxed">
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">How to play Clover Clues</h2>
-        <p>Clover Clues is a free online cooperative word game inspired by party games like <em>So Clover</em>. Everyone gets a "clover" of four words. For each pair of touching words, you write a single-word clue that links them. Then a decoy word is added to your four and everything is shuffled — and the <strong>whole group works together</strong> to rebuild each player's clover using only the clues. You all share one score, so it's pure teamwork.</p>
+        <p className="mb-3">
+          Clover Clues is a free online <strong>cooperative</strong> word game inspired by the modern clue-writing genre that games like <em>So Clover</em> made popular. You all share one score, so it's pure teamwork. Here's a round, step by step:
+        </p>
+        <ol className="list-decimal list-inside space-y-1.5 mb-4">
+          <li><strong>Get your clover.</strong> Each player is dealt 4 words arranged in a ring, with a "clue zone" between each neighbouring pair.</li>
+          <li><strong>Write a one-word clue</strong> for each of the 4 zones — a single word that links the two neighbouring words (you can't use those words themselves).</li>
+          <li><strong>A decoy is added.</strong> A 5th word is secretly shuffled into your four, so your team won't know which four were really yours.</li>
+          <li><strong>Rebuild every clover together.</strong> One at a time (its author stays silent), the team uses the clues to place the right 4 of 5 cards back in the leaves.</li>
+          <li><strong>Score as a team</strong> — 1 point per correct card, +2 for a perfect clover. Add up every clover and try to beat your record.</li>
+        </ol>
+        <p className="mb-4">
+          Want the detailed rules and clue tips? Read the full <Link to="/clover/how-to-play-clover-clues" className="text-[#E84A8B] font-semibold underline">how to play Clover Clues</Link> guide.
+        </p>
+
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-2">Why play online</h2>
-        <p>No board, no cards, no app — just open it in any browser, share a 4-letter room code, and play with 3 to 6 friends on their own devices. It works great over a <Link to="/guesstimate/games-to-play-on-facetime-and-video-calls" className="text-[#E84A8B] font-semibold underline">video call</Link>. Looking for more? Try <Link to="/guesstimate" className="text-[#E84A8B] font-semibold underline">Guesstimate</Link>, <Link to="/say-anything" className="text-[#E84A8B] font-semibold underline">Say Anything</Link>, or the solo <Link to="/daily" className="text-[#E84A8B] font-semibold underline">Daily Herd</Link>.</p>
+        <p className="mb-4">
+          No board, no cards, no app — just open it in any browser, share a 4-letter room code, and play with 3 to 6 friends on their own devices. It works great over a <Link to="/guesstimate/games-to-play-on-facetime-and-video-calls" className="text-[#E84A8B] font-semibold underline">video call</Link>. It's also the easiest <Link to="/clover/free-so-clover-alternative-online" className="text-[#E84A8B] font-semibold underline">free So Clover alternative</Link> to play online, and one of the best <Link to="/clover/cooperative-word-games-online" className="text-[#E84A8B] font-semibold underline">cooperative word games</Link> for groups. Looking for more? Try <Link to="/guesstimate" className="text-[#E84A8B] font-semibold underline">Guesstimate</Link>, <Link to="/say-anything" className="text-[#E84A8B] font-semibold underline">Say Anything</Link>, or the solo <Link to="/daily" className="text-[#E84A8B] font-semibold underline">Daily Herd</Link>.
+        </p>
+
+        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>
+        <div className="space-y-3">
+          {FAQ_ITEMS.map(({ q, a }, i) => (
+            <div key={i}>
+              <h3 style={fredokaStyle} className="text-lg font-bold text-[#2D1810]">{q}</h3>
+              <p className="mt-1">{a}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
