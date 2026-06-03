@@ -19,6 +19,7 @@ const AboutContact = () => {
       <Helmet>
         <title>About Us & Contact | Herd Game</title>
         <meta name="description" content="Learn about the team behind Herd Game and get in touch with us. We'd love to hear your feedback about our online multiplayer game!" />
+        <link rel="canonical" href="https://herdgamesonline.com/about-contact" />
       </Helmet>
 
       <SectionCard>
@@ -56,7 +57,7 @@ const AboutContact = () => {
       </SectionCard>
 
       <SectionCard accent="#FFD56B">
-        <h1 style={fredokaStyle} className="text-3xl md:text-4xl font-bold text-[#2D1810] mb-6">Contact Us</h1>
+        <h2 style={fredokaStyle} className="text-3xl md:text-4xl font-bold text-[#2D1810] mb-6">Contact Us</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-[#4A2D1B]">
           <div>

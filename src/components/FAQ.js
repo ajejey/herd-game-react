@@ -21,12 +21,35 @@ const ACCENTS = [
   { bg: '#FFF1F4', border: '#E84A8B33', left: '#E84A8B' }
 ];
 
+const FAQ_QA = [
+  ['What is Herd Game?', 'Herd Game is a free online multiplayer party game where players try to match their answers with the group — think like the "herd" to win. Great for game nights, team building, and family gatherings.'],
+  ['How many players can join a game?', 'Herd Game works best with 4 or more players and has no upper limit — play with a small group of friends or a large party.'],
+  ['Do I need to create an account to play?', 'No. Just enter a username when you create or join a game — no registration required.'],
+  ['Is Herd Game free to play?', 'Yes, Herd Game is completely free. Optional premium features may come later, but the core game stays free.'],
+  ['How do I win Herd Game?', 'Be the first to reach 8 points without holding the Pink Cow. You earn points by matching the majority answer each round.'],
+  ['What is the Pink Cow marker?', 'The Pink Cow goes to the player with the most unique answer in a round. While holding it you cannot win — match the majority in a later round to pass it on.'],
+  ['What types of questions will I be asked?', 'Fun, thought-provoking prompts like "What\'s the best pizza topping?" — accessible to players of all ages.'],
+  ['Is there a time limit for answering questions?', 'Yes, players have about 30 seconds per question to keep the game moving.'],
+  ['What devices can I play Herd Game on?', 'Any device with a modern web browser — desktop, laptop, tablet, or phone. The game is fully responsive.'],
+  ['What happens if I lose connection during a game?', 'The game tries to reconnect automatically; if that fails you can rejoin with the same room code and username, keeping your points.'],
+  ['Is my data secure when playing Herd Game?', 'Yes. We store only the minimal data needed to run the game (a temporary username and game progress), collect no personal information, and delete game data after inactivity.'],
+  ['How do I report a bug or suggest a feature?', 'Contact us via the About/Contact page or email ajejey@gmail.com — we use feedback to improve the game.'],
+];
+
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_QA.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+
 const FAQ = () => {
   return (
     <MeadowLayout>
       <Helmet>
         <title>Frequently Asked Questions | Herd Game</title>
         <meta name="description" content="Find answers to common questions about Herd Game - how to play, game rules, technical support, and more information about our online multiplayer game." />
+        <link rel="canonical" href="https://herdgamesonline.com/faq" />
+        <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>
 
       <div className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)] border-4 border-[#FFE8C8] p-6 md:p-8">

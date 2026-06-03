@@ -14,6 +14,23 @@ import { useDailyHerd } from '../../hooks/useDailyHerd';
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
 
+const DAILY_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoGame',
+  name: 'Daily Herd',
+  alternateName: ['Daily Herd Game', 'Daily party game'],
+  url: 'https://herdgamesonline.com/daily',
+  description: 'A free daily party game: guess what most people will say and match the herd. Five quick questions a day, solo, no signup, no download.',
+  image: 'https://herdgamesonline.com/og-daily.png',
+  genre: ['Word', 'Trivia', 'Daily', 'Party'],
+  gamePlatform: ['Web browser'],
+  playMode: 'SinglePlayer',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Any (Web)',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  publisher: { '@type': 'Organization', name: 'Herd Game' },
+};
+
 function useWindowSize() {
   const [s, setS] = useState({ w: 1024, h: 768 });
   useEffect(() => {
@@ -313,6 +330,7 @@ export default function DailyHerd() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Daily Herd — Free Daily Party Game" />
         <meta name="twitter:image" content="https://herdgamesonline.com/og-daily.png" />
+        <script type="application/ld+json">{JSON.stringify(DAILY_SCHEMA)}</script>
       </Helmet>
 
       <div className="relative bg-white/80 rounded-3xl border-4 border-[#FFE8C8] shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)] p-6 md:p-8">

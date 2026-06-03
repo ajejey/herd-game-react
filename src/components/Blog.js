@@ -37,6 +37,8 @@ const Blog = () => {
       <Helmet>
         <title>Herd Game Blog - Tips, Strategies & Game Night Ideas</title>
         <meta name="description" content="Explore our blog for tips on hosting game nights, strategies for winning Herd Game, and ideas for making your multiplayer sessions more fun!" />
+        <link rel="canonical" href="https://herdgamesonline.com/blog" />
+        <script type="application/ld+json">{JSON.stringify({ '@context': 'https://schema.org', '@type': 'Blog', '@id': 'https://herdgamesonline.com/blog', name: 'Herd Game Blog', description: 'Tips on hosting game nights, strategies for winning Herd Game, and ideas for fun multiplayer sessions.', url: 'https://herdgamesonline.com/blog', publisher: { '@type': 'Organization', name: 'Herd Game' } })}</script>
       </Helmet>
 
       <div className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)] border-4 border-[#FFE8C8] p-6 md:p-8">
