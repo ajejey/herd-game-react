@@ -6,8 +6,8 @@ import { useSayAnything } from '../../hooks/useSayAnything';
 import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
 
-const CANONICAL_URL = 'https://herdgame.vercel.app/say-anything';
-const OG_IMAGE = 'https://herdgame.vercel.app/og-say-anything.png';
+const CANONICAL_URL = 'https://herdgamesonline.com/say-anything';
+const OG_IMAGE = 'https://herdgamesonline.com/og-say-anything.png';
 
 // JSON-LD structured data — 6 schemas in one @graph
 const STRUCTURED_DATA = {
@@ -15,20 +15,20 @@ const STRUCTURED_DATA = {
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': 'https://herdgame.vercel.app/#website',
-      url: 'https://herdgame.vercel.app/',
+      '@id': 'https://herdgamesonline.com/#website',
+      url: 'https://herdgamesonline.com/',
       name: 'Herd Game',
     },
     {
       '@type': 'Organization',
-      '@id': 'https://herdgame.vercel.app/#org',
+      '@id': 'https://herdgamesonline.com/#org',
       name: 'Herd Game',
-      url: 'https://herdgame.vercel.app/',
+      url: 'https://herdgamesonline.com/',
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://herdgame.vercel.app/' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://herdgamesonline.com/' },
         { '@type': 'ListItem', position: 2, name: 'Say Anything', item: CANONICAL_URL },
       ],
     },
@@ -48,7 +48,7 @@ const STRUCTURED_DATA = {
       applicationCategory: 'GameApplication',
       operatingSystem: 'Any (Web)',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      publisher: { '@id': 'https://herdgame.vercel.app/#org' },
+      publisher: { '@id': 'https://herdgamesonline.com/#org' },
     },
     {
       '@type': 'WebApplication',
@@ -67,7 +67,7 @@ const STRUCTURED_DATA = {
           acceptedAnswer: {
             '@type': 'Answer',
             text:
-              'Yes. herdgame.vercel.app/say-anything offers a free online multiplayer version. Create a room, share the 4-letter code with friends, and play in any browser — no download or signup required.',
+              'Yes. herdgamesonline.com/say-anything offers a free online multiplayer version. Create a room, share the 4-letter code with friends, and play in any browser — no download or signup required.',
           },
         },
         {

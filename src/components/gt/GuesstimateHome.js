@@ -6,28 +6,28 @@ import { useGuesstimate } from '../../hooks/useGuesstimate';
 import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
 
-const CANONICAL_URL = 'https://herdgame.vercel.app/guesstimate';
-const OG_IMAGE = 'https://herdgame.vercel.app/og-guesstimate.png';
+const CANONICAL_URL = 'https://herdgamesonline.com/guesstimate';
+const OG_IMAGE = 'https://herdgamesonline.com/og-guesstimate.png';
 
 const STRUCTURED_DATA = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': 'https://herdgame.vercel.app/#website',
-      url: 'https://herdgame.vercel.app/',
+      '@id': 'https://herdgamesonline.com/#website',
+      url: 'https://herdgamesonline.com/',
       name: 'Herd Game',
     },
     {
       '@type': 'Organization',
-      '@id': 'https://herdgame.vercel.app/#org',
+      '@id': 'https://herdgamesonline.com/#org',
       name: 'Herd Game',
-      url: 'https://herdgame.vercel.app/',
+      url: 'https://herdgamesonline.com/',
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://herdgame.vercel.app/' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://herdgamesonline.com/' },
         { '@type': 'ListItem', position: 2, name: 'Guesstimate', item: CANONICAL_URL },
       ],
     },
@@ -47,7 +47,7 @@ const STRUCTURED_DATA = {
       applicationCategory: 'GameApplication',
       operatingSystem: 'Any (Web)',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      publisher: { '@id': 'https://herdgame.vercel.app/#org' },
+      publisher: { '@id': 'https://herdgamesonline.com/#org' },
     },
     {
       '@type': 'WebApplication',

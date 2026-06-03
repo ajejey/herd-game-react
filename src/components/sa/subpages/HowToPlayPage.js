@@ -10,7 +10,7 @@ const HOWTO_SCHEMA = {
   estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '0' },
   supply: [{ '@type': 'HowToSupply', name: 'One phone, tablet, or laptop per player (3+ players)' }],
   step: [
-    { '@type': 'HowToStep', name: 'Create or join a room', text: 'Everyone opens herdgame.vercel.app/say-anything in a browser. One player creates a game and shares the 4-letter room code; 2 or more friends join with it.' },
+    { '@type': 'HowToStep', name: 'Create or join a room', text: 'Everyone opens herdgamesonline.com/say-anything in a browser. One player creates a game and shares the 4-letter room code; 2 or more friends join with it.' },
     { '@type': 'HowToStep', name: 'The judge asks a question', text: 'Each round one player is the judge and picks a free-text question for the group to answer.' },
     { '@type': 'HowToStep', name: 'Everyone writes an answer', text: 'All players except the judge write an answer to the question.' },
     { '@type': 'HowToStep', name: 'The judge picks a secret favorite', text: 'The judge secretly chooses their favorite answer.' },
@@ -20,7 +20,7 @@ const HOWTO_SCHEMA = {
 };
 
 const FAQS = [
-  { q: 'How do you play Say Anything board game online?', a: 'Open herdgame.vercel.app/say-anything, create a room, and share the 4-letter code with 2 or more friends. Each round one player is the judge — they pick a question, everyone else writes an answer, the judge secretly picks a favorite, and the rest bet on which one. First to 7 points wins.' },
+  { q: 'How do you play Say Anything board game online?', a: 'Open herdgamesonline.com/say-anything, create a room, and share the 4-letter code with 2 or more friends. Each round one player is the judge — they pick a question, everyone else writes an answer, the judge secretly picks a favorite, and the rest bet on which one. First to 7 points wins.' },
   { q: 'What are the official Say Anything rules?', a: 'The judge asks a free-text question. Players (except the judge) write answers. The judge secretly chooses one favorite. Other players each place 2 betting tokens on which answer they think the judge picked. The answer is revealed: the author gets 1 point, each correct token = 1 point, and the judge gets 1 point per correct token from others. Play passes to the next judge.' },
   { q: 'How do you win at Say Anything?', a: "First player to 7 points wins the game. Points come from three sources: writing the answer the judge picks, betting correctly on the judge's pick, and (if you're the judge) having others bet correctly on your choice." },
   { q: 'Can you play Say Anything without the physical board game?', a: 'Yes. Our free online version replaces the cards, board, and tokens with a browser interface. The rules are identical to the official North Star Games version — you just play with a room code instead of a physical board.' },

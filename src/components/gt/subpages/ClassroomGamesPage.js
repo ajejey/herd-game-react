@@ -78,7 +78,7 @@ export default function ClassroomGamesPage() {
 
       <h2>How to run it in your classroom</h2>
       <ol>
-        <li>Open <a href="/guesstimate">herdgame.vercel.app/guesstimate</a> on the classroom computer/projector.</li>
+        <li>Open <a href="/guesstimate">herdgamesonline.com/guesstimate</a> on the classroom computer/projector.</li>
         <li>Click "Create Game" and you'll get a 4-letter room code.</li>
         <li>Either keep it teacher-led on one screen (students call out or write guesses), or have students join the code on their own devices.</li>
         <li>Read each question aloud, collect guesses, and reveal the answer — the game scores it for you.</li>

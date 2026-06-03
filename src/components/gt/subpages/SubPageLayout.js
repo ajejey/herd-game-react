@@ -5,14 +5,14 @@ import MeadowLayout, { fredokaStyle } from '../../MeadowLayout';
 import AdSlot from '../../AdSlot';
 
 export default function SubPageLayout({ slug, title, description, h1, keywords, faqs = [], children }) {
-  const canonical = `https://herdgame.vercel.app/guesstimate/${slug}`;
+  const canonical = `https://herdgamesonline.com/guesstimate/${slug}`;
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://herdgame.vercel.app/' },
-      { '@type': 'ListItem', position: 2, name: 'Guesstimate', item: 'https://herdgame.vercel.app/guesstimate' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://herdgamesonline.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Guesstimate', item: 'https://herdgamesonline.com/guesstimate' },
       { '@type': 'ListItem', position: 3, name: h1, item: canonical },
     ],
   };
@@ -34,11 +34,11 @@ export default function SubPageLayout({ slug, title, description, h1, keywords, 
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonical} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://herdgame.vercel.app/og-guesstimate.png" />
+        <meta property="og:image" content="https://herdgamesonline.com/og-guesstimate.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content="https://herdgame.vercel.app/og-guesstimate.png" />
+        <meta name="twitter:image" content="https://herdgamesonline.com/og-guesstimate.png" />
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
       </Helmet>

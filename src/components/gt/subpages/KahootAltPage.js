@@ -102,7 +102,7 @@ export default function KahootAltPage() {
 
       <h2>How to set up Guesstimate for an adult group</h2>
       <ol>
-        <li>Open <a href="/guesstimate">herdgame.vercel.app/guesstimate</a></li>
+        <li>Open <a href="/guesstimate">herdgamesonline.com/guesstimate</a></li>
         <li>Create a room and share the 4-letter code</li>
         <li>Players join from their own devices (phone or laptop), or browse <a href="/">more free party games</a> on the home page</li>
         <li>Start the game — questions deal automatically, no curation needed</li>

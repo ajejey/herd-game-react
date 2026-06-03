@@ -16,14 +16,14 @@ import MeadowLayout, { fredokaStyle } from '../../MeadowLayout';
  *   children      — main body content
  */
 export default function SubPageLayout({ slug, title, description, h1, keywords, faqs = [], children }) {
-  const canonical = `https://herdgame.vercel.app/say-anything/${slug}`;
+  const canonical = `https://herdgamesonline.com/say-anything/${slug}`;
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://herdgame.vercel.app/' },
-      { '@type': 'ListItem', position: 2, name: 'Say Anything', item: 'https://herdgame.vercel.app/say-anything' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://herdgamesonline.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Say Anything', item: 'https://herdgamesonline.com/say-anything' },
       { '@type': 'ListItem', position: 3, name: h1, item: canonical },
     ],
   };
@@ -52,11 +52,11 @@ export default function SubPageLayout({ slug, title, description, h1, keywords, 
         <meta property="og:description" content={description} />
         <meta property="og:url" content={canonical} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://herdgame.vercel.app/og-say-anything.png" />
+        <meta property="og:image" content="https://herdgamesonline.com/og-say-anything.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content="https://herdgame.vercel.app/og-say-anything.png" />
+        <meta name="twitter:image" content="https://herdgamesonline.com/og-say-anything.png" />
 
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}

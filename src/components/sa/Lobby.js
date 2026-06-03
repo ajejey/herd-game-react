@@ -3,7 +3,7 @@ import { fredokaStyle } from '../MeadowLayout';
 import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
 
-const JOIN_URL = 'herdgame.vercel.app/say-anything';
+const JOIN_URL = 'herdgamesonline.com/say-anything';
 
 export default function Lobby({ game }) {
   const { state, myId, isHost, roomCode, startGame, kickPlayer } = game;

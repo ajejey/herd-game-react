@@ -9,7 +9,7 @@ import AdSlot from './AdSlot';
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
 
-const SITE = 'https://herdgame.vercel.app';
+const SITE = 'https://herdgamesonline.com';
 const HOME_SCHEMA = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -421,13 +421,13 @@ const Home = () => {
         <meta property="og:title" content="Herd Mentality Online — Free Party Game, No Download" />
         <meta property="og:description" content="Think like the herd to win! The free online party game for friends, family, and teams. Unlimited players, no download, no signup. Play free →" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://herdgame.vercel.app/" />
-        <meta property="og:image" content="https://herdgame.vercel.app/og-image.png" />
+        <meta property="og:url" content="https://herdgamesonline.com/" />
+        <meta property="og:image" content="https://herdgamesonline.com/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Herd Mentality Online — Free Party Game, No Download" />
         <meta name="twitter:description" content="Think like the herd to win! Free online party game for friends, family & teams. No download, no signup — play instantly." />
-        <meta name="twitter:image" content="https://herdgame.vercel.app/twitter-image.png" />
-        <link rel="canonical" href="https://herdgame.vercel.app/" />
+        <meta name="twitter:image" content="https://herdgamesonline.com/twitter-image.png" />
+        <link rel="canonical" href="https://herdgamesonline.com/" />
         <meta name="google-site-verification" content="7nItEeuNSAIFL_unU4Ai5p-SGizDDaJU8XRYEKdtOgk" />
         <script type="application/ld+json">{JSON.stringify(HOME_SCHEMA)}</script>
       </Helmet>

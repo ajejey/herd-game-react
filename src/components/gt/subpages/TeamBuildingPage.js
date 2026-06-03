@@ -57,7 +57,7 @@ export default function TeamBuildingPage() {
       <ul>
         <li>Date, time, and time zones</li>
         <li><a href="https://en.wikipedia.org/wiki/Zoom_(software)" target="_blank" rel="noopener noreferrer">Zoom</a> / Teams / Meet link</li>
-        <li>Link to the game: <code>herdgame.vercel.app/guesstimate</code></li>
+        <li>Link to the game: <code>herdgamesonline.com/guesstimate</code></li>
         <li>Brief description: "20-min trivia + 10-min chat. No prep required, no cameras required (but encouraged)."</li>
       </ul>
 

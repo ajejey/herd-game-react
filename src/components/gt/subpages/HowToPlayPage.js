@@ -11,7 +11,7 @@ const HOWTO_SCHEMA = {
   estimatedCost: { '@type': 'MonetaryAmount', currency: 'USD', value: '0' },
   supply: [{ '@type': 'HowToSupply', name: 'One phone, tablet, or laptop per player' }],
   step: [
-    { '@type': 'HowToStep', name: 'Create or join a room', text: 'Everyone opens herdgame.vercel.app/guesstimate in a browser. One player creates a game and shares the 4-letter room code; the others join with it.', url: 'https://herdgame.vercel.app/guesstimate/how-to-play-online-trivia-betting-game#join' },
+    { '@type': 'HowToStep', name: 'Create or join a room', text: 'Everyone opens herdgamesonline.com/guesstimate in a browser. One player creates a game and shares the 4-letter room code; the others join with it.', url: 'https://herdgamesonline.com/guesstimate/how-to-play-online-trivia-betting-game#join' },
     { '@type': 'HowToStep', name: 'Read the trivia question', text: 'Each round shows a trivia question with a single numerical answer (for example, "How many bones are in the human body?").' },
     { '@type': 'HowToStep', name: 'Write your number guess', text: 'Every player privately submits their best numerical guess.' },
     { '@type': 'HowToStep', name: 'Place your bets', text: 'Guesses are sorted low-to-high on a chalkboard with payout odds (5x down to 1x). Each player places 2 chips on the guess they think is closest without going over.' },

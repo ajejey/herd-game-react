@@ -96,7 +96,7 @@ export default function TwoPlayerTriviaPage() {
 
       <h2>How to set up 2-player Guesstimate</h2>
       <ol>
-        <li>Both players open <a href="/guesstimate">herdgame.vercel.app/guesstimate</a> in any browser</li>
+        <li>Both players open <a href="/guesstimate">herdgamesonline.com/guesstimate</a> in any browser</li>
         <li>One person clicks "Create Game", enters their name, gets a 4-letter code</li>
         <li>Other person clicks "Join Game", enters the code and their name</li>
         <li>Host clicks "Start Game"</li>

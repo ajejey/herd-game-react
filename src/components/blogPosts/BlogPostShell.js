@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import MeadowLayout, { GrassStrip, fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 
-const SITE = 'https://herdgame.vercel.app';
+const SITE = 'https://herdgamesonline.com';
 
 /**
  * Wrapper for individual blog post pages — now owns all per-post SEO.

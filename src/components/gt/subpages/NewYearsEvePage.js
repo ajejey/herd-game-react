@@ -64,7 +64,7 @@ export default function NewYearsEvePage() {
       <h2>How to set it up</h2>
       <ol>
         <li>If you're remote, get your call going on Zoom, FaceTime, or any app — see our <a href="/guesstimate/games-to-play-on-facetime-and-video-calls">video call games</a> guide.</li>
-        <li>Everyone opens <a href="/guesstimate">herdgame.vercel.app/guesstimate</a> in a browser.</li>
+        <li>Everyone opens <a href="/guesstimate">herdgamesonline.com/guesstimate</a> in a browser.</li>
         <li>One person clicks "Create Game" and reads out the 4-letter code — the same flow as our <a href="/guesstimate/how-to-play-online-trivia-betting-game">how-to-play guide</a>.</li>
         <li>Everyone else clicks "Join Game" and enters it; large groups can share a device per team.</li>
         <li>Host clicks "Start Game" — play 7 rounds, highest score wins, and see <a href="/guesstimate/online-trivia-betting-game-rules-and-scoring">how scoring works</a>.</li>

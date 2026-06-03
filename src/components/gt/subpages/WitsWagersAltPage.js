@@ -79,7 +79,7 @@ export default function WitsWagersAltPage() {
 
       <h2>How to play Guesstimate right now</h2>
       <ol>
-        <li>Open <a href="/guesstimate">herdgame.vercel.app/guesstimate</a></li>
+        <li>Open <a href="/guesstimate">herdgamesonline.com/guesstimate</a></li>
         <li>Click "Create Game", enter your name — works great for <a href="/guesstimate/trivia-games-for-2-players-online-free">2 players</a> or a big group</li>
         <li>Share the 4-letter code in your group chat or <a href="/guesstimate/online-games-for-long-distance-couples-free">long-distance video call</a></li>
         <li>Players join from their own devices in seconds — handy for a <a href="/guesstimate/virtual-team-building-trivia-game-for-work">virtual team-building session</a></li>

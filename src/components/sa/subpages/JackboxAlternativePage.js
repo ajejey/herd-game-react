@@ -2,7 +2,7 @@ import React from 'react';
 import SubPageLayout from './SubPageLayout';
 
 const FAQS = [
-  { q: 'Is there a free alternative to Jackbox Party Pack?', a: 'Yes — Say Anything Online at herdgame.vercel.app/say-anything is a free in-browser alternative to Jackbox-style party games. It captures the same "write funny answers and vote" energy as Quiplash, but runs free in any browser with no Steam, no console, and no purchase required.' },
+  { q: 'Is there a free alternative to Jackbox Party Pack?', a: 'Yes — Say Anything Online at herdgamesonline.com/say-anything is a free in-browser alternative to Jackbox-style party games. It captures the same "write funny answers and vote" energy as Quiplash, but runs free in any browser with no Steam, no console, and no purchase required.' },
   { q: 'How much does Jackbox Party Pack cost?', a: 'Each Jackbox Party Pack costs $20–30 on Steam, Switch, PlayStation, or Xbox. Players also need someone in the group to own the pack and host the lobby. Our Say Anything alternative is completely free for everyone.' },
   { q: 'Do I need to download anything to play the Jackbox alternative?', a: "No. Say Anything Online runs in your browser — no download, no installer, no signup. Just visit the page, create a room, and share the 4-letter code with your friends. Works on phones, tablets, and laptops." },
   { q: 'What Jackbox game is Say Anything most like?', a: 'Say Anything is most similar to Quiplash from Jackbox — both involve writing funny free-text answers and voting. The key difference: in Say Anything one judge picks each round instead of group voting, and there\'s a betting mechanic that adds strategic depth.' },
@@ -94,7 +94,7 @@ export default function JackboxAlternativePage() {
 
       <h2>How to start a free Jackbox-alternative game right now</h2>
       <ol>
-        <li>Open <a href="/say-anything">herdgame.vercel.app/say-anything</a> in any browser.</li>
+        <li>Open <a href="/say-anything">herdgamesonline.com/say-anything</a> in any browser.</li>
         <li>Click "Create Game" and enter your name.</li>
         <li>Share the 4-letter room code with your friends.</li>
         <li>They join from their own devices — phone, tablet, or laptop.</li>

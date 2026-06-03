@@ -63,7 +63,7 @@ export default function DrinkingGamesPage() {
 
       <h2>How to set it up</h2>
       <ol>
-        <li>Confirm everyone is 21+ and pour responsibly — water on the table, a plan to get home, and small sips only. Then open <a href="/guesstimate">herdgame.vercel.app/guesstimate</a> in any browser.</li>
+        <li>Confirm everyone is 21+ and pour responsibly — water on the table, a plan to get home, and small sips only. Then open <a href="/guesstimate">herdgamesonline.com/guesstimate</a> in any browser.</li>
         <li>One person clicks "Create Game" and shares the 4-letter code — the same flow as our <a href="/guesstimate/how-to-play-online-trivia-betting-game">how-to-play guide</a>.</li>
         <li>Everyone else clicks "Join Game" and enters the code from their own phone or laptop.</li>
         <li>Agree on your house rules before round one — pick a few from the <a href="/guesstimate/online-trivia-betting-game-rules-and-scoring">scoring</a>-based list above.</li>

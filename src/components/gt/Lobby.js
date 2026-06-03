@@ -3,7 +3,7 @@ import { fredokaStyle } from '../MeadowLayout';
 import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
 
-const JOIN_URL = 'herdgame.vercel.app/guesstimate';
+const JOIN_URL = 'herdgamesonline.com/guesstimate';
 
 export default function Lobby({ game }) {
   const { state, myId, isHost, roomCode, startGame, kickPlayer } = game;

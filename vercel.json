@@ -9,6 +9,12 @@
   ],
   "routes": [
     {
+      "src": "/(.*)",
+      "has": [{ "type": "host", "value": "herdgame.vercel.app" }],
+      "status": 308,
+      "headers": { "Location": "https://herdgamesonline.com/$1" }
+    },
+    {
       "src": "/sitemap\\.xml/?",
       "dest": "/sitemap.xml",
       "headers": { "Content-Type": "application/xml; charset=utf-8" }

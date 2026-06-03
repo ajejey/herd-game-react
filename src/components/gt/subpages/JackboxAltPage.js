@@ -114,7 +114,7 @@ export default function JackboxAltPage() {
 
       <h2>How to start a Guesstimate game (the Jackbox alternative)</h2>
       <ol>
-        <li>Open <a href="/guesstimate">herdgame.vercel.app/guesstimate</a> in any browser</li>
+        <li>Open <a href="/guesstimate">herdgamesonline.com/guesstimate</a> in any browser</li>
         <li>Click "Create Game", type your name</li>
         <li>Share the 4-letter room code in your group chat or Zoom</li>
         <li>Friends type the code from their own phone/laptop</li>

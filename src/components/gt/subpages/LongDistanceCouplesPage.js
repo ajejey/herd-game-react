@@ -3,7 +3,7 @@ import SubPageLayout from './SubPageLayout';
 
 const FAQS = [
   { q: 'What games can long-distance couples play online for free?', a: 'Guesstimate is a free, browser-based number-guessing game that works with just 2 players — perfect for long-distance couples. One of you creates a room, shares the 4-letter code, and you both play from your own devices while on a video or phone call. No download, no app, no signup. Pair it with FaceTime, WhatsApp, Zoom, or Discord so you can see each other react.' },
-  { q: 'How do you play games together long distance without downloading anything?', a: 'Open herdgame.vercel.app/guesstimate in any browser on your phone or laptop. One partner clicks Create Game and gets a room code; the other clicks Join Game and enters it. That\'s it — you\'re playing in under 30 seconds, no install required. Keep a call running alongside for the conversation and reactions.' },
+  { q: 'How do you play games together long distance without downloading anything?', a: 'Open herdgamesonline.com/guesstimate in any browser on your phone or laptop. One partner clicks Create Game and gets a room code; the other clicks Join Game and enters it. That\'s it — you\'re playing in under 30 seconds, no install required. Keep a call running alongside for the conversation and reactions.' },
   { q: 'What\'s a good game for a virtual date night?', a: 'Guesstimate fits a virtual date well: rounds are short (~25 minutes total), the betting mechanic sparks banter, and the closest-without-going-over rule keeps it close even if one of you knows more trivia. It plays in the background of a call without taking it over — so you can chat, laugh at the answers, and stay connected.' },
   { q: 'Can you play these games over FaceTime or a phone call?', a: 'Yes. Guesstimate runs in your browser and is built for exactly this — each person plays on their own screen while you talk over FaceTime, a phone call, WhatsApp, Discord, or Zoom. Half the fun is seeing each other\'s reactions during the reveal.' },
   { q: 'Are there games for long-distance couples in different time zones?', a: 'For live play, line up a 25-minute window — Guesstimate is quick enough to fit a short shared call. For different schedules, async apps like Trivia Crack let you take turns whenever. Many couples keep a standing "game night call" each week as a low-effort way to stay connected.' },
@@ -43,7 +43,7 @@ export default function LongDistanceCouplesPage() {
       <h2>How to set up a game night with your partner</h2>
       <ol>
         <li>Start a call — FaceTime, WhatsApp, Zoom, Discord, or just a phone call.</li>
-        <li>Both of you open <a href="/guesstimate">herdgame.vercel.app/guesstimate</a> in any browser.</li>
+        <li>Both of you open <a href="/guesstimate">herdgamesonline.com/guesstimate</a> in any browser.</li>
         <li>One partner clicks "Create Game", enters a name, and gets a 4-letter code.</li>
         <li>The other clicks "Join Game" and enters the code.</li>
         <li>Host clicks "Start Game". Play 7 rounds — highest score wins.</li>

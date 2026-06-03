@@ -62,7 +62,7 @@ export default function FamilyReunionPage() {
 
       <h2>How to set it up at your reunion</h2>
       <ol>
-        <li>Pick a screen — cast <a href="/guesstimate">herdgame.vercel.app/guesstimate</a> to a TV or projector so the whole room can follow along.</li>
+        <li>Pick a screen — cast <a href="/guesstimate">herdgamesonline.com/guesstimate</a> to a TV or projector so the whole room can follow along.</li>
         <li>One person clicks "Create Game" and reads out the 4-letter code — the same flow as our <a href="/guesstimate/how-to-play-online-trivia-betting-game">how-to-play guide</a>.</li>
         <li>Everyone else opens the link on their phone, clicks "Join Game," and enters the code.</li>
         <li>Add remote relatives by starting a <a href="/guesstimate/how-to-host-virtual-trivia-night-on-zoom">video call</a> and sharing the same code with them.</li>

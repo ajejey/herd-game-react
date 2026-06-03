@@ -116,7 +116,7 @@ export default function PriceIsRightPage() {
 
       <h2>How to play a Price is Right style party game online</h2>
       <ol>
-        <li>Open <a href="/guesstimate">herdgame.vercel.app/guesstimate</a> in any browser — a true <a href="/guesstimate/kahoot-alternative-for-adults">Kahoot alternative for adults</a></li>
+        <li>Open <a href="/guesstimate">herdgamesonline.com/guesstimate</a> in any browser — a true <a href="/guesstimate/kahoot-alternative-for-adults">Kahoot alternative for adults</a></li>
         <li>Click "Create Game", type your name</li>
         <li>Share the 4-letter room code in your group chat, or drop it into a <a href="/guesstimate/how-to-host-virtual-trivia-night-on-zoom">Zoom trivia night</a></li>
         <li>Friends join from their own phones or laptops — no <a href="/guesstimate/free-jackbox-alternative-no-download">download required</a></li>
