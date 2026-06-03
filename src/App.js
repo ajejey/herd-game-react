@@ -8,6 +8,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfService from './components/TermsOfService';
 import AboutContact from './components/AboutContact';
 import Blog from './components/Blog';
+import DailyHerd from './components/daily/DailyHerd';
 import FAQ from './components/FAQ';
 import PostOne from './components/blogPosts/PostOne';
 import PostTwo from './components/blogPosts/PostTwo';
@@ -54,6 +55,7 @@ function App() {
           <div className="min-h-screen bg-gray-50">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/daily" element={<DailyHerd />} />
               <Route path="/game/:roomCode" element={<GameRoom />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />

@@ -31,6 +31,7 @@ const CARDS = [
   { file: 'twitter-image.png',   eyebrow: 'HERDGAME.VERCEL.APP', title: 'Herd Game', subtitle: 'Free online party games. Think like the herd to win.', pill: 'No download · No signup · Unlimited players', accent: '#3D8B5A' },
   { file: 'og-guesstimate.png',  eyebrow: 'PLAY FREE IN YOUR BROWSER', title: 'Guesstimate', subtitle: 'Guess the answer, bet on who’s closest. Free trivia game.', pill: '2–12 players · No app · ~25 min', accent: '#E84A8B' },
   { file: 'og-say-anything.png', eyebrow: 'PLAY FREE IN YOUR BROWSER', title: 'Say Anything', subtitle: 'Guess what your friends will say. Free party game.', pill: '3–12 players · No download · Big laughs', accent: '#7C4DFF' },
+  { file: 'og-daily.png',        eyebrow: 'A NEW PUZZLE EVERY DAY', title: 'Daily Herd', subtitle: 'Guess what most people will say. Match the herd.', pill: '5 questions a day · Free · No signup', accent: '#E84A8B' },
 ];
 
 function html({ eyebrow, title, subtitle, pill, accent }) {
