@@ -6,6 +6,8 @@ import { Helmet } from 'react-helmet';
 import Navigation from './Navigation';
 import AdSlot from './AdSlot';
 
+import { Sheep } from './daily/HerdCritters';
+
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
 
@@ -458,6 +460,31 @@ const Home = () => {
             </div>
           </div>
         </header>
+
+        {/* Daily Herd promo — the solo daily habit; captures visitors with no friends around */}
+        <Link to="/daily" className="block mb-10 group">
+          <div className="relative overflow-hidden rounded-3xl border-4 border-[#E84A8B] bg-[#FFF6E9] p-5 md:p-6 flex flex-col sm:flex-row items-center gap-4 shadow-[0_10px_30px_-14px_rgba(232,74,139,0.5)] transition-transform group-hover:-translate-y-0.5">
+            <span style={fredoka} className="absolute top-3 left-3 bg-[#E84A8B] text-white text-xs font-bold px-2 py-0.5 rounded-full">NEW · PLAY SOLO</span>
+            <div className="flex gap-0.5 shrink-0 pt-3">
+              {[0, 1, 2].map((i) => (
+                <span key={i} style={{ animation: 'float-y 4s ease-in-out infinite', animationDelay: `${i * 0.2}s` }}>
+                  <Sheep size={46} />
+                </span>
+              ))}
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <h2 style={fredoka} className="text-2xl md:text-3xl font-bold text-[#2D1810]">Daily Herd</h2>
+              <p className="text-[#6B4226] mt-1">
+                A new 5-question puzzle every day. Guess what <strong>most people</strong> will say and match the herd —{' '}
+                <strong>play solo, no friends needed.</strong>
+              </p>
+            </div>
+            <span style={{ ...fredoka, background: '#E84A8B' }}
+              className="shrink-0 inline-block px-6 py-3 rounded-2xl text-white font-bold text-lg transition-transform group-hover:scale-105">
+              Play today →
+            </span>
+          </div>
+        </Link>
 
         {/* ─── GAME HUB ────────────────────────────────────────────────── */}
         <section className="mb-10">
