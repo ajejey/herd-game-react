@@ -3,12 +3,13 @@ import { Link, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion, AnimatePresence } from 'framer-motion';
 import Confetti from 'react-confetti';
-import { FiVolume2, FiVolumeX, FiShare2, FiCheck } from 'react-icons/fi';
+import { FiVolume2, FiVolumeX, FiShare2, FiCheck, FiDownload } from 'react-icons/fi';
 import { FaFire } from 'react-icons/fa';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 import { Sheep, Wolf } from './HerdCritters';
 import { sfx, isMuted, setMuted } from './sfx';
+import { getIdentity, buildShareText, buildShareImageFile, recordHistory, readHistory } from './herdIdentity';
 import { useDailyHerd } from '../../hooks/useDailyHerd';
 
 const PINK = '#E84A8B';
@@ -40,11 +41,6 @@ function useWindowSize() {
     return () => window.removeEventListener('resize', on);
   }, []);
   return s;
-}
-
-function shareText(dayNumber, result) {
-  const grid = result.perQuestion.map((q) => (q.matched ? '🐑' : '⬜')).join('');
-  return `Daily Herd #${dayNumber} — ${result.score}/${result.total} ${grid}\nherdgamesonline.com/daily/${dayNumber}`;
 }
 
 // Shown when a shared permalink points to a day that's no longer today.
@@ -208,86 +204,135 @@ function ResultView({ dayNumber, result, streak }) {
   const { w, h } = useWindowSize();
   const [revealed, setRevealed] = useState(0);
   const [copied, setCopied] = useState(false);
-  const great = result.score >= 4;
+  const identity = getIdentity(result.syncPct);
   const done = revealed >= result.perQuestion.length;
+  const celebrate = result.syncPct >= 42 || result.syncPct < 8; // very sheep OR very rare wolf
+  const history = readHistory();
+  const Animal = identity.animal === 'sheep' ? Sheep : Wolf;
 
-  // Reveal each question one-by-one with a matching sound.
+  // record today's identity for the weekly trend (once)
+  useEffect(() => { recordHistory(dayNumber, identity, result.syncPct); }, []); // eslint-disable-line
+
+  // reveal each question one-by-one with a sound
   useEffect(() => {
-    if (revealed >= result.perQuestion.length) {
-      if (great) sfx.win();
-      return;
-    }
+    if (revealed >= result.perQuestion.length) { if (celebrate) sfx.win(); return; }
     const q = result.perQuestion[revealed];
     const t = setTimeout(() => {
       q.matched ? sfx.match() : sfx.miss();
       setRevealed((n) => n + 1);
-    }, revealed === 0 ? 250 : 850);
+    }, revealed === 0 ? 250 : 750);
     return () => clearTimeout(t);
   }, [revealed]); // eslint-disable-line
 
   async function share() {
-    const text = shareText(dayNumber, result);
+    const text = buildShareText(dayNumber, result, identity);
     try {
+      const file = await buildShareImageFile(dayNumber, result, identity);
+      if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text, title: 'Daily Herd' });
+        return;
+      }
       if (navigator.share) { await navigator.share({ title: 'Daily Herd', text }); return; }
       await navigator.clipboard.writeText(text);
       setCopied(true); setTimeout(() => setCopied(false), 2000);
     } catch { /* dismissed */ }
   }
 
+  async function saveImage() {
+    const file = await buildShareImageFile(dayNumber, result, identity);
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    const a = document.createElement('a');
+    a.href = url; a.download = file.name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  }
+
   return (
     <div className="text-center">
-      {done && great && <Confetti width={w} height={h} numberOfPieces={180} recycle={false} gravity={0.25} />}
+      {done && celebrate && <Confetti width={w} height={h} numberOfPieces={180} recycle={false} gravity={0.25} />}
 
-      <p className="text-[#8B6347] text-sm">Herd #{dayNumber}</p>
-      <h1 style={fredokaStyle} className="text-3xl md:text-4xl font-bold text-[#2D1810] mt-1">
-        {done ? `You matched ${result.score} of ${result.total}!` : 'Revealing the herd…'}
-      </h1>
+      <p className="text-[#8B6347] text-sm">Daily Herd #{dayNumber}</p>
+      {!done && <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-1">Revealing the herd…</h2>}
 
-      <div className="space-y-3 mt-6 text-left">
-        {result.perQuestion.slice(0, revealed).map((q, idx) => (
-          <motion.div key={idx} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-4">
-            <div className="flex items-start gap-3">
-              <span className="shrink-0">{q.matched ? <Sheep size={40} /> : <Wolf size={40} />}</span>
-              <div className="flex-1 min-w-0">
-                <p className="text-[#2D1810] font-semibold">
-                  You said “{q.yourAnswer}” —{' '}
-                  <span style={{ color: q.matched ? GREEN : '#B06A2C' }}>
-                    {q.matched ? 'you matched the herd!' : 'lone wolf!'}
-                  </span>
-                </p>
-                <div className="mt-2 space-y-1">
-                  {q.topAnswers.map((t, j) => (
-                    <div key={j} className="flex items-center gap-2 text-sm">
-                      <div className="flex-1 bg-[#FFF1DC] rounded-full h-5 overflow-hidden relative">
-                        <motion.div className="h-full" style={{ background: j === 0 ? GREEN : '#FFD56B' }}
-                          initial={{ width: 0 }} animate={{ width: `${t.pct}%` }} transition={{ duration: 0.5 }} />
-                        <span className="absolute inset-0 flex items-center px-2 text-[#2D1810] font-medium truncate">{t.label}</span>
+      {/* per-question reveal — shows YOUR answer's agreement %, even if it's rare */}
+      <div className="space-y-3 mt-4 text-left">
+        {result.perQuestion.slice(0, revealed).map((q, idx) => {
+          const rare = q.yourPct < 10;
+          return (
+            <motion.div key={idx} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-4">
+              <div className="flex items-start gap-3">
+                <span className="shrink-0">{q.matched ? <Sheep size={40} /> : <Wolf size={40} />}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[#2D1810] font-semibold">
+                    You said “{q.yourAnswer}” —{' '}
+                    <span style={{ color: q.matched ? GREEN : rare ? '#6D4FB0' : '#B06A2C' }}>
+                      {q.yourPct}% agreed{q.matched ? ' · top answer!' : rare ? ' · rare!' : ''}
+                    </span>
+                  </p>
+                  <div className="mt-2 space-y-1">
+                    {q.topAnswers.map((t, j) => (
+                      <div key={j} className="flex items-center gap-2 text-sm">
+                        <div className="flex-1 bg-[#FFF1DC] rounded-full h-5 overflow-hidden relative">
+                          <motion.div className="h-full" style={{ background: j === 0 ? GREEN : '#FFD56B' }}
+                            initial={{ width: 0 }} animate={{ width: `${t.pct}%` }} transition={{ duration: 0.5 }} />
+                          <span className="absolute inset-0 flex items-center px-2 text-[#2D1810] font-medium truncate">{t.label}</span>
+                        </div>
+                        <span className="text-[#8B6347] w-10 text-right">{t.pct}%</span>
                       </div>
-                      <span className="text-[#8B6347] w-10 text-right">{t.pct}%</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
 
       {done && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <p className="text-xs text-[#8B6347] mt-3">Percentages update through the day as more people play.</p>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+          {/* THE VERDICT — a daily personality, not a pass/fail score */}
+          <motion.div initial={{ scale: 0.92 }} animate={{ scale: 1 }}
+            className="mt-6 rounded-3xl border-4 p-5 bg-white" style={{ borderColor: identity.color + '66' }}>
+            <div className="flex justify-center mb-1"><Animal size={72} /></div>
+            <p className="text-[#8B6347] text-sm">Today you are a…</p>
+            <p style={{ ...fredokaStyle, color: identity.color }} className="text-3xl md:text-4xl font-bold">{identity.name}</p>
+            <p style={{ color: identity.color }} className="text-lg font-bold mt-1">{result.syncPct}% in sync with the herd</p>
+            <p className="text-sm text-[#8B6347] mt-1">You out-synced {result.beatPct}% of today's herd · {result.responders} played</p>
+            <p className="text-[#4A2D1B] mt-2">{identity.tag}</p>
+          </motion.div>
 
-          <button onClick={share}
-            style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}
-            className="mt-5 inline-flex items-center gap-2 px-8 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
-            {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Share your herd</>}
-          </button>
+          {/* weekly trend */}
+          {history.length > 1 && (
+            <div className="mt-4">
+              <p className="text-xs text-[#8B6347] mb-1">Your recent days</p>
+              <div className="flex justify-center items-center gap-1">
+                {history.slice(-7).map((e, i) => (
+                  <span key={i}>{e.animal === 'sheep' ? <Sheep size={24} /> : <Wolf size={24} />}</span>
+                ))}
+              </div>
+            </div>
+          )}
 
-          <div className="mt-4 inline-flex items-center gap-2 text-[#E84A8B] font-semibold">
+          {/* share */}
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
+            <button onClick={share}
+              style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
+              {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Share what you are</>}
+            </button>
+            <button onClick={saveImage}
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
+              <FiDownload /> Save image
+            </button>
+          </div>
+          <p className="text-xs text-[#8B6347] mt-2">Post it and see what your friends are — sheep or wolf?</p>
+
+          {/* streak */}
+          <div className="mt-5 inline-flex items-center gap-2 text-[#E84A8B] font-semibold">
             <FaFire /> {streak}-day streak
           </div>
-          <p className="text-[#4A2D1B] mt-2">A new herd drops tomorrow — come back to keep your streak alive.</p>
+          <p className="text-[#4A2D1B] mt-1">A new herd drops tomorrow — keep your streak and find out what you'll be.</p>
 
           <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
 
@@ -297,6 +342,7 @@ function ResultView({ dayNumber, result, streak }) {
               <Link to="/" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Herd Mentality</Link>
               <Link to="/guesstimate" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Guesstimate</Link>
               <Link to="/say-anything" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Say Anything</Link>
+              <Link to="/clover" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Clover Clues</Link>
             </div>
           </div>
         </motion.div>
