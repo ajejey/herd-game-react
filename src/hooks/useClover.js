@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
+import { reportError } from '../lib/reportError';
 
 const BACKEND_URL = process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 const NAMESPACE = '/clover';
@@ -49,7 +50,7 @@ export function useClover() {
     });
 
     socket.on('disconnect', () => setConnected(false));
-    socket.on('connect_error', () => { setConnected(false); setErrorWithAutoClear('Cannot reach server. Retrying…'); });
+    socket.on('connect_error', (err) => { setConnected(false); setErrorWithAutoClear('Cannot reach server. Retrying…'); reportError('socket_connect', err?.message || 'connect_error', { info: `ns=${NAMESPACE} transport=${socket.io?.engine?.transport?.name || '?'}` }); });
 
     socket.on('joined', ({ playerId, rejoinToken, roomCode: rc, state: s }) => {
       setMyId(playerId);

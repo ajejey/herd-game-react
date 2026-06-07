@@ -3,6 +3,10 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { installGlobalErrorReporting } from './lib/reportError';
+
+// Capture uncaught JS errors + unhandled promise rejections (fire-and-forget).
+installGlobalErrorReporting();
 
 const rootElement = document.getElementById('root');
 const app = (

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import { reportError } from '../lib/reportError';
 
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:3001';
 
@@ -28,6 +29,9 @@ export const SocketProvider = ({ children }) => {
     newSocket.on('connect_error', (error) => {
       console.error('Socket connection error:', error);
       setConnected(false);
+      reportError('socket_connect', error?.message || 'connect_error', {
+        info: `ns=herd transport=${newSocket.io?.engine?.transport?.name || '?'}`,
+      });
     });
 
     newSocket.on('disconnect', () => {
