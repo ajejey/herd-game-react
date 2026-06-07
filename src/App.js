@@ -9,6 +9,7 @@ import TermsOfService from './components/TermsOfService';
 import AboutContact from './components/AboutContact';
 import Blog from './components/Blog';
 import DailyHerd from './components/daily/DailyHerd';
+import Huddle from './components/huddle/Huddle';
 import CloverHome from './components/clover/CloverHome';
 import CloverRoom from './components/clover/CloverRoom';
 import CloverHowToPlay from './components/clover/subpages/HowToPlayPage';
@@ -68,6 +69,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/daily" element={<DailyHerd />} />
               <Route path="/daily/:dayNumber" element={<DailyHerd />} />
+              <Route path="/connections" element={<Huddle />} />
+              <Route path="/connections/:dayNumber" element={<Huddle />} />
               <Route path="/clover" element={<CloverHome />} />
               <Route path="/clover/room/:roomCode" element={<CloverRoom />} />
               <Route path="/clover/how-to-play-clover-clues" element={<CloverHowToPlay />} />

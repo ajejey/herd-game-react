@@ -615,6 +615,38 @@ const Home = () => {
               </div>
             </Link>
 
+            {/* Huddle — solo daily, no friends needed */}
+            <Link
+              to="/connections"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#4A90D9] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#4A90D9] text-white">☀ Daily</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0">
+                  <svg width="54" height="54" viewBox="0 0 24 24" aria-hidden="true" className="drop-shadow">
+                    <rect x="3" y="3" width="8" height="8" rx="2" fill="#E9B949" />
+                    <rect x="13" y="3" width="8" height="8" rx="2" fill="#3D8B5A" />
+                    <rect x="3" y="13" width="8" height="8" rx="2" fill="#4A90D9" />
+                    <rect x="13" y="13" width="8" height="8" rx="2" fill="#7C4DFF" />
+                  </svg>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Huddle
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Sort 16 words into 4 hidden groups. Free Connections-style daily.
+                  </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#4A90D9] text-white px-3 py-1 text-xs font-bold">🧍 Solo · daily</span>
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#4A90D9] font-semibold">
+                    Play today <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
             {/* Coming Soon — Monikers */}
             <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
               <div className="ribbon bg-[#8B6347] text-white">Soon</div>
