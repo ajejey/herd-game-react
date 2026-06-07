@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Confetti from 'react-confetti';
-import { FiVolume2, FiVolumeX, FiShare2, FiCheck } from 'react-icons/fi';
+import { FiVolume2, FiVolumeX, FiShare2, FiCheck, FiDownload } from 'react-icons/fi';
 import { FaFire } from 'react-icons/fa';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 import { sfx, isMuted, setMuted } from '../daily/sfx';
-import { getDayNumber, getPuzzleForDay, emojiForLevel } from './puzzles';
+import { getDayNumber, getPuzzleForDay, emojiForLevel, colorForLevel } from './puzzles';
+import { buildGridCard, shareCardOrText, downloadFile } from '../../lib/shareCard';
 import { useHuddle } from './useHuddle';
 import { buildShareText } from './share';
 import HuddleBoard from './HuddleBoard';
@@ -172,14 +173,26 @@ function HuddleGame({ day, today, isArchive }) {
     prev.current = { solved: solved.length, mistakes, status };
   }, [solved.length, mistakes, status, alreadyPlayed]);
 
+  function buildCard() {
+    return buildGridCard({
+      heading: `Huddle #${day}`,
+      big: `${solved.length}/4`,
+      sub: status === 'won' ? `solved in ${rows.length} tries` : 'better luck tomorrow',
+      rows: rows.map((r) => r.map((lvl) => colorForLevel(lvl))),
+      footerLines: ['Can you huddle the herd?', 'herdgamesonline.com/connections'],
+      accent: '#4A90D9',
+      fileName: `huddle-${day}.png`,
+    });
+  }
+
   async function share() {
     const text = buildShareText(day, rows, status === 'won');
-    try {
-      if (navigator.share) { await navigator.share({ title: 'Huddle', text }); return; }
-      await navigator.clipboard.writeText(text);
-      setCopied(true); setTimeout(() => setCopied(false), 2000);
-    } catch { /* dismissed */ }
+    const file = await buildCard();
+    const r = await shareCardOrText(file, text, 'Huddle');
+    if (r === 'copied') { setCopied(true); setTimeout(() => setCopied(false), 2000); }
   }
+
+  async function saveImage() { downloadFile(await buildCard()); }
 
   function playRandomPast() {
     if (today <= 1) return;
@@ -220,6 +233,10 @@ function HuddleGame({ day, today, isArchive }) {
               <button onClick={share} style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
                 className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
                 {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Share result</>}
+              </button>
+              <button onClick={saveImage}
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
+                <FiDownload /> Save image
               </button>
               {today > 1 && (
                 <button onClick={playRandomPast}

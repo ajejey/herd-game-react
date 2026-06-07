@@ -1,0 +1,33 @@
+name: Grow Daily Trivia bank
+
+# Auto-tops-up the trivia question bank from Open Trivia DB so we never run dry
+# and never have to remember to do it. Runs monthly (and on manual trigger).
+on:
+  schedule:
+    - cron: '0 6 1 * *' # 06:00 UTC on the 1st of every month
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Grow the bank from OpenTDB
+        run: node scripts/seed-trivia.mjs
+      - name: Commit if the bank changed
+        run: |
+          if git diff --quiet -- src/components/trivia/bank.generated.json; then
+            echo "No new questions this run."
+          else
+            git config user.name "trivia-seed-bot"
+            git config user.email "actions@github.com"
+            git add src/components/trivia/bank.generated.json
+            git commit -m "chore: grow Daily Trivia bank from OpenTDB (auto)"
+            git push
+          fi

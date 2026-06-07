@@ -462,30 +462,44 @@ const Home = () => {
           </div>
         </header>
 
-        {/* Daily Herd promo — the solo daily habit; captures visitors with no friends around */}
-        <Link to="/daily" className="block mb-10 group">
-          <div className="relative overflow-hidden rounded-3xl border-4 border-[#E84A8B] bg-[#FFF6E9] p-5 md:p-6 flex flex-col sm:flex-row items-center gap-4 shadow-[0_10px_30px_-14px_rgba(232,74,139,0.5)] transition-transform group-hover:-translate-y-0.5">
-            <span style={fredoka} className="absolute top-3 left-3 bg-[#E84A8B] text-white text-xs font-bold px-2 py-0.5 rounded-full">NEW · PLAY SOLO</span>
-            <div className="flex gap-0.5 shrink-0 pt-3">
-              {[0, 1, 2].map((i) => (
-                <span key={i} style={{ animation: 'float-y 4s ease-in-out infinite', animationDelay: `${i * 0.2}s` }}>
-                  <Sheep size={46} />
-                </span>
-              ))}
-            </div>
-            <div className="flex-1 text-center sm:text-left">
-              <h2 style={fredoka} className="text-2xl md:text-3xl font-bold text-[#2D1810]">Daily Herd</h2>
-              <p className="text-[#6B4226] mt-1">
-                A new 5-question puzzle every day. Guess what <strong>most people</strong> will say and match the herd —{' '}
-                <strong>play solo, no friends needed.</strong>
-              </p>
-            </div>
-            <span style={{ ...fredoka, background: '#E84A8B' }}
-              className="shrink-0 inline-block px-6 py-3 rounded-2xl text-white font-bold text-lg transition-transform group-hover:scale-105">
-              Play today →
-            </span>
+        {/* Daily games — solo, no friends needed. The come-back-every-day habit loop. */}
+        <section className="mb-10">
+          <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
+            <h2 style={fredoka} className="text-2xl md:text-3xl font-bold text-[#2D1810]">☀ Daily games</h2>
+            <span className="text-sm text-[#6B4226]">Play solo · no friends needed · new every day</span>
           </div>
-        </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Daily Herd */}
+            <Link to="/daily" className="group rounded-3xl border-4 border-[#E84A8B] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
+              <Sheep size={48} />
+              <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Daily Herd</h3>
+              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">Match the herd — 5 quick questions, find out what you are.</p>
+              <span className="mt-2 text-[#E84A8B] font-semibold text-sm">Play today →</span>
+            </Link>
+            {/* Daily Trivia */}
+            <Link to="/trivia" className="group rounded-3xl border-4 border-[#3D8B5A] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
+              <svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" className="drop-shadow">
+                <circle cx="12" cy="12" r="10" fill="#3D8B5A" />
+                <text x="12" y="17" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#fff" fontFamily="Fredoka, sans-serif">?</text>
+              </svg>
+              <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Daily Trivia</h3>
+              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">10 questions a day across every topic. Keep your streak.</p>
+              <span className="mt-2 text-[#3D8B5A] font-semibold text-sm">Play today →</span>
+            </Link>
+            {/* Huddle */}
+            <Link to="/connections" className="group rounded-3xl border-4 border-[#4A90D9] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
+              <svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" className="drop-shadow">
+                <rect x="3" y="3" width="8" height="8" rx="2" fill="#E9B949" />
+                <rect x="13" y="3" width="8" height="8" rx="2" fill="#3D8B5A" />
+                <rect x="3" y="13" width="8" height="8" rx="2" fill="#4A90D9" />
+                <rect x="13" y="13" width="8" height="8" rx="2" fill="#7C4DFF" />
+              </svg>
+              <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Huddle</h3>
+              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">Sort 16 words into 4 hidden groups. Free Connections-style.</p>
+              <span className="mt-2 text-[#4A90D9] font-semibold text-sm">Play today →</span>
+            </Link>
+          </div>
+        </section>
 
         {/* ─── GAME HUB ────────────────────────────────────────────────── */}
         <section className="mb-10">
@@ -610,38 +624,6 @@ const Home = () => {
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#3D8B5A] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-
-            {/* Huddle — solo daily, no friends needed */}
-            <Link
-              to="/connections"
-              className="game-card relative bg-white rounded-3xl border-4 border-[#4A90D9] p-5 overflow-hidden block group"
-            >
-              <div className="ribbon bg-[#4A90D9] text-white">☀ Daily</div>
-              <div className="flex items-start gap-4">
-                <div className="game-card-mascot shrink-0">
-                  <svg width="54" height="54" viewBox="0 0 24 24" aria-hidden="true" className="drop-shadow">
-                    <rect x="3" y="3" width="8" height="8" rx="2" fill="#E9B949" />
-                    <rect x="13" y="3" width="8" height="8" rx="2" fill="#3D8B5A" />
-                    <rect x="3" y="13" width="8" height="8" rx="2" fill="#4A90D9" />
-                    <rect x="13" y="13" width="8" height="8" rx="2" fill="#7C4DFF" />
-                  </svg>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
-                    Huddle
-                  </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
-                    Sort 16 words into 4 hidden groups. Free Connections-style daily.
-                  </p>
-                  <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#4A90D9] text-white px-3 py-1 text-xs font-bold">🧍 Solo · daily</span>
-                  </div>
-                  <div className="mt-3 inline-flex items-center gap-1 text-[#4A90D9] font-semibold">
-                    Play today <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
