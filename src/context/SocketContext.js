@@ -11,9 +11,12 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     const newSocket = io(SOCKET_URL, {
-      transports: ['websocket'],
+      // Connect via HTTP long-polling first, then upgrade to WebSocket when the
+      // network allows it. WebSocket-only locks out users whose proxy/firewall/
+      // ISP/AV/extension blocks the wss:// upgrade (no fallback = hard failure).
+      transports: ['polling', 'websocket'],
       reconnection: true,
-      reconnectionAttempts: 5,
+      reconnectionAttempts: 10,
       reconnectionDelay: 1000
     });
 
