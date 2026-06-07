@@ -114,7 +114,13 @@ export default function SubPageLayout({ slug, title, description, h1, keywords, 
 const ALL_GUIDES = [
   { slug: 'how-to-play-clover-clues', title: 'How to Play Clover Clues', emoji: '📖' },
   { slug: 'free-so-clover-alternative-online', title: 'Free So Clover Alternative', emoji: '🍀' },
+  { slug: 'play-so-clover-online-free', title: 'Play So Clover Online Free', emoji: '🌐' },
   { slug: 'cooperative-word-games-online', title: 'Co-op Word Games Online', emoji: '🤝' },
+  { slug: 'cooperative-board-games-online', title: 'Co-op Board Games Online', emoji: '🎲' },
+  { slug: 'games-like-codenames-online', title: 'Games Like Codenames', emoji: '🕵️' },
+  { slug: 'word-games-to-play-on-zoom-and-video-call', title: 'Word Games on Zoom & Video Calls', emoji: '🎥' },
+  { slug: 'virtual-team-building-word-games', title: 'Virtual Team-Building Word Games', emoji: '🧩' },
+  { slug: 'word-games-for-family-game-night', title: 'Word Games for Family Night', emoji: '👨‍👩‍👧‍👦' },
 ];
 
 function RelatedGuides({ currentSlug }) {
