@@ -5,6 +5,7 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import { useSayAnything } from '../../hooks/useSayAnything';
 import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
+import RemotePlayNotice from '../common/RemotePlayNotice';
 
 const CANONICAL_URL = 'https://herdgamesonline.com/say-anything';
 const OG_IMAGE = 'https://herdgamesonline.com/og-say-anything.png';
@@ -323,6 +324,8 @@ export default function SayAnythingHome() {
               {tab === 'create' ? 'Create Room' : 'Join Room'}
             </button>
           </form>
+
+          <RemotePlayNotice minPlayers={3} maxPlayers={12} accent="#E84A8B" />
         </div>
 
         {/* Ad — pre-game browsing */}

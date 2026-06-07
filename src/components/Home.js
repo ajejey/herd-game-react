@@ -5,6 +5,7 @@ import { useGame } from '../context/GameContext';
 import { Helmet } from 'react-helmet';
 import Navigation from './Navigation';
 import AdSlot from './AdSlot';
+import RemotePlayNotice from './common/RemotePlayNotice';
 
 import { Sheep } from './daily/HerdCritters';
 
@@ -514,6 +515,10 @@ const Home = () => {
                   <p className="text-sm text-[#6B4226] mt-1">
                     Think like the herd. Dodge the pink cow. The OG.
                   </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#3D8B5A] text-white px-3 py-1 text-xs font-bold">👥 Minimum 3 players</span>
+                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                  </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#3D8B5A] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
@@ -536,6 +541,10 @@ const Home = () => {
                   <p className="text-sm text-[#6B4226] mt-1">
                     Write the funniest answer. Bet on the judge's pick.
                   </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#E84A8B] text-white px-3 py-1 text-xs font-bold">👥 Minimum 3 players</span>
+                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                  </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
@@ -558,6 +567,10 @@ const Home = () => {
                   <p className="text-sm text-[#6B4226] mt-1">
                     Guess a trivia number. Bet on whose guess is closest. Free Wits &amp; Wagers-style.
                   </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#FB8C00] text-white px-3 py-1 text-xs font-bold">👥 Minimum 2 players</span>
+                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                  </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#FB8C00] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
@@ -591,6 +604,10 @@ const Home = () => {
                   <p className="text-sm text-[#6B4226] mt-1">
                     Write clues, rebuild each other's clovers. Co-op word game.
                   </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#3D8B5A] text-white px-3 py-1 text-xs font-bold">👥 Minimum 3 players</span>
+                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                  </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#3D8B5A] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
@@ -765,6 +782,8 @@ const Home = () => {
               )}
             </button>
           </form>
+
+          <RemotePlayNotice minPlayers={3} maxPlayers={20} accent="#E84A8B" />
 
           <GrassStrip className="absolute bottom-0 left-0 right-0 w-full h-5 -mb-[2px]" />
         </div>

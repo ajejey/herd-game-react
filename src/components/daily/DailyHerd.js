@@ -254,6 +254,49 @@ function ResultView({ dayNumber, result, streak }) {
       <p className="text-[#8B6347] text-sm">Daily Herd #{dayNumber}</p>
       {!done && <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-1">Revealing the herd…</h2>}
 
+      {/* THE VERDICT (and share) — leads the results, before the breakdown */}
+      {done && (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div initial={{ scale: 0.92 }} animate={{ scale: 1 }}
+            className="mt-2 rounded-3xl border-4 p-5 bg-white" style={{ borderColor: identity.color + '66' }}>
+            <div className="flex justify-center mb-1"><Animal size={72} /></div>
+            <p className="text-[#8B6347] text-sm">Today you are a…</p>
+            <p style={{ ...fredokaStyle, color: identity.color }} className="text-3xl md:text-4xl font-bold">{identity.name}</p>
+            <p style={{ color: identity.color }} className="text-lg font-bold mt-1">{result.syncPct}% in sync with the herd</p>
+            <p className="text-sm text-[#8B6347] mt-1">You out-synced {result.beatPct}% of today's herd · {result.responders} played</p>
+            <p className="text-[#4A2D1B] mt-2">{identity.tag}</p>
+          </motion.div>
+
+          {/* weekly trend */}
+          {history.length > 1 && (
+            <div className="mt-4">
+              <p className="text-xs text-[#8B6347] mb-1">Your recent days</p>
+              <div className="flex justify-center items-center gap-1">
+                {history.slice(-7).map((e, i) => (
+                  <span key={i}>{e.animal === 'sheep' ? <Sheep size={24} /> : <Wolf size={24} />}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* share */}
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
+            <button onClick={share}
+              style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}
+              className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
+              {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Share what you are</>}
+            </button>
+            <button onClick={saveImage}
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
+              <FiDownload /> Save image
+            </button>
+          </div>
+          <p className="text-xs text-[#8B6347] mt-2">Post it and see what your friends are — sheep or wolf?</p>
+
+          <p className="text-sm font-semibold text-[#8B6347] mt-6">How the herd answered</p>
+        </motion.div>
+      )}
+
       {/* per-question reveal — shows YOUR answer's agreement %, even if it's rare */}
       <div className="space-y-3 mt-4 text-left">
         {result.perQuestion.slice(0, revealed).map((q, idx) => {
@@ -291,45 +334,8 @@ function ResultView({ dayNumber, result, streak }) {
 
       {done && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-          {/* THE VERDICT — a daily personality, not a pass/fail score */}
-          <motion.div initial={{ scale: 0.92 }} animate={{ scale: 1 }}
-            className="mt-6 rounded-3xl border-4 p-5 bg-white" style={{ borderColor: identity.color + '66' }}>
-            <div className="flex justify-center mb-1"><Animal size={72} /></div>
-            <p className="text-[#8B6347] text-sm">Today you are a…</p>
-            <p style={{ ...fredokaStyle, color: identity.color }} className="text-3xl md:text-4xl font-bold">{identity.name}</p>
-            <p style={{ color: identity.color }} className="text-lg font-bold mt-1">{result.syncPct}% in sync with the herd</p>
-            <p className="text-sm text-[#8B6347] mt-1">You out-synced {result.beatPct}% of today's herd · {result.responders} played</p>
-            <p className="text-[#4A2D1B] mt-2">{identity.tag}</p>
-          </motion.div>
-
-          {/* weekly trend */}
-          {history.length > 1 && (
-            <div className="mt-4">
-              <p className="text-xs text-[#8B6347] mb-1">Your recent days</p>
-              <div className="flex justify-center items-center gap-1">
-                {history.slice(-7).map((e, i) => (
-                  <span key={i}>{e.animal === 'sheep' ? <Sheep size={24} /> : <Wolf size={24} />}</span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* share */}
-          <div className="mt-5 flex flex-wrap justify-center gap-2">
-            <button onClick={share}
-              style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
-              {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Share what you are</>}
-            </button>
-            <button onClick={saveImage}
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
-              <FiDownload /> Save image
-            </button>
-          </div>
-          <p className="text-xs text-[#8B6347] mt-2">Post it and see what your friends are — sheep or wolf?</p>
-
           {/* streak */}
-          <div className="mt-5 inline-flex items-center gap-2 text-[#E84A8B] font-semibold">
+          <div className="mt-6 inline-flex items-center gap-2 text-[#E84A8B] font-semibold">
             <FaFire /> {streak}-day streak
           </div>
           <p className="text-[#4A2D1B] mt-1">A new herd drops tomorrow — keep your streak and find out what you'll be.</p>

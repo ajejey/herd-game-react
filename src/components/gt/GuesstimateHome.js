@@ -5,6 +5,7 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import { useGuesstimate } from '../../hooks/useGuesstimate';
 import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
+import RemotePlayNotice from '../common/RemotePlayNotice';
 
 const CANONICAL_URL = 'https://herdgamesonline.com/guesstimate';
 const OG_IMAGE = 'https://herdgamesonline.com/og-guesstimate.png';
@@ -199,6 +200,8 @@ export default function GuesstimateHome() {
               {tab === 'create' ? 'Create Room' : 'Join Room'}
             </button>
           </form>
+
+          <RemotePlayNotice minPlayers={2} maxPlayers={10} accent="#E84A8B" />
         </div>
 
         {/* Ad — pre-game */}

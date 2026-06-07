@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import { useClover } from '../../hooks/useClover';
 import AdSlot from '../AdSlot';
+import RemotePlayNotice from '../common/RemotePlayNotice';
 
 const CANONICAL = 'https://herdgamesonline.com/clover';
 const OG = 'https://herdgamesonline.com/og-clover.png';
@@ -120,7 +121,8 @@ export default function CloverHome() {
             {tab === 'create' ? 'Create game 🍀' : 'Join game →'}
           </button>
         </form>
-        <p className="text-xs text-[#8B6347] mt-3 text-center">3–6 players · no download · no signup</p>
+        <p className="text-xs text-[#8B6347] mt-3 text-center">no download · no signup</p>
+        <RemotePlayNotice minPlayers={3} maxPlayers={6} accent="#E84A8B" />
       </div>
 
       {/* SEO content */}
