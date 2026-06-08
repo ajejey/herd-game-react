@@ -11,6 +11,10 @@ import Blog from './components/Blog';
 import DailyHerd from './components/daily/DailyHerd';
 import Huddle from './components/huddle/Huddle';
 import Trivia from './components/trivia/Trivia';
+import OfficeGamesHub from './components/office/OfficeGamesHub';
+import OfficeTeams from './components/office/TeamsGamesPage';
+import OfficeFunFriday from './components/office/FunFridayPage';
+import OfficeIcebreakers from './components/office/IcebreakersPage';
 import CloverHome from './components/clover/CloverHome';
 import CloverRoom from './components/clover/CloverRoom';
 import CloverHowToPlay from './components/clover/subpages/HowToPlayPage';
@@ -74,6 +78,10 @@ function App() {
               <Route path="/connections/:dayNumber" element={<Huddle />} />
               <Route path="/trivia" element={<Trivia />} />
               <Route path="/trivia/:dayNumber" element={<Trivia />} />
+              <Route path="/office-games" element={<OfficeGamesHub />} />
+              <Route path="/office-games/games-to-play-on-microsoft-teams" element={<OfficeTeams />} />
+              <Route path="/office-games/fun-friday-games-for-work" element={<OfficeFunFriday />} />
+              <Route path="/office-games/virtual-icebreaker-games-for-meetings" element={<OfficeIcebreakers />} />
               <Route path="/clover" element={<CloverHome />} />
               <Route path="/clover/room/:roomCode" element={<CloverRoom />} />
               <Route path="/clover/how-to-play-clover-clues" element={<CloverHowToPlay />} />
