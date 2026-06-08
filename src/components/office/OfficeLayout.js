@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
+import WaitlistCTA from './WaitlistCTA';
 import { GAMES, SPOKES } from './officeData';
 
 const BASE = 'https://herdgamesonline.com/office-games';
@@ -110,6 +111,8 @@ export default function OfficeLayout({ slug = '', title, description, h1, keywor
 
           <div className="mt-10 max-h-[300px] overflow-hidden"><AdSlot slot="5969633275" /></div>
         </article>
+
+        <WaitlistCTA source={slug || 'office-games'} />
 
         {related.length > 0 && (
           <section className="bg-white/70 rounded-3xl border-2 border-[#FFE8C8] p-5 md:p-7 mb-4">
