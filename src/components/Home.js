@@ -629,6 +629,32 @@ const Home = () => {
               </div>
             </Link>
 
+            {/* Chameleon */}
+            <Link
+              to="/chameleon"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#2D7D46] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#2D7D46] text-white">✨ New</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🦎</div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Chameleon
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Everyone gets a clue except the secret imposter. Bluff, then vote them out.
+                  </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#2D7D46] text-white px-3 py-1 text-xs font-bold">👥 3+ players</span>
+                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#2D7D46] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
             {/* Team Trivia */}
             <Link
               to="/team-trivia"

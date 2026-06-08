@@ -25,6 +25,13 @@ export const GAMES = [
     accent: '#FB8C00',
   },
   {
+    name: 'Chameleon',
+    to: '/chameleon',
+    blurb: 'Social-deduction word game: everyone gets a clue except the hidden imposter, who must bluff. Spot the Chameleon!',
+    players: '3+ players',
+    accent: '#2D7D46',
+  },
+  {
     name: 'Clover Clues',
     to: '/clover',
     blurb: 'A cooperative word game — write clues and rebuild each other’s “clovers” as a team. Pure collaboration.',

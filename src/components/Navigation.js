@@ -52,6 +52,7 @@ const Navigation = () => {
     { to: '/say-anything', label: 'Say Anything 💬' },
     { to: '/guesstimate', label: 'Guesstimate 🎯' },
     { to: '/clover', label: 'Clover Clues' },
+    { to: '/chameleon', label: 'Chameleon' },
     { to: '/office-games', label: 'Office Games' },
     { to: '/blog', label: 'Blog' },
     { to: '/faq', label: 'FAQ' },
