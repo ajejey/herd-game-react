@@ -22,6 +22,8 @@ import ChameleonHome from './components/chameleon/ChameleonHome';
 import ChameleonRoom from './components/chameleon/ChameleonRoom';
 import SpectrumHome from './components/spectrum/SpectrumHome';
 import SpectrumRoom from './components/spectrum/SpectrumRoom';
+import TwoTruthsHome from './components/twotruths/TwoTruthsHome';
+import TwoTruthsRoom from './components/twotruths/TwoTruthsRoom';
 import CloverHome from './components/clover/CloverHome';
 import CloverRoom from './components/clover/CloverRoom';
 import CloverHowToPlay from './components/clover/subpages/HowToPlayPage';
@@ -96,6 +98,8 @@ function App() {
               <Route path="/chameleon/room/:roomCode" element={<ChameleonRoom />} />
               <Route path="/spectrum" element={<SpectrumHome />} />
               <Route path="/spectrum/room/:roomCode" element={<SpectrumRoom />} />
+              <Route path="/two-truths-and-a-lie" element={<TwoTruthsHome />} />
+              <Route path="/two-truths-and-a-lie/room/:roomCode" element={<TwoTruthsRoom />} />
               <Route path="/clover" element={<CloverHome />} />
               <Route path="/clover/room/:roomCode" element={<CloverRoom />} />
               <Route path="/clover/how-to-play-clover-clues" element={<CloverHowToPlay />} />

@@ -54,6 +54,7 @@ const Navigation = () => {
     { to: '/clover', label: 'Clover Clues' },
     { to: '/chameleon', label: 'Chameleon' },
     { to: '/spectrum', label: 'Spectrum' },
+    { to: '/two-truths-and-a-lie', label: 'Two Truths & a Lie' },
     { to: '/office-games', label: 'Office Games' },
     { to: '/blog', label: 'Blog' },
     { to: '/faq', label: 'FAQ' },

@@ -629,6 +629,32 @@ const Home = () => {
               </div>
             </Link>
 
+            {/* Two Truths and a Lie */}
+            <Link
+              to="/two-truths-and-a-lie"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#B06A2C] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#B06A2C] text-white">✨ New</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🤥</div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Two Truths and a Lie
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Write two truths and a lie — can the group spot which is which?
+                  </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#B06A2C] text-white px-3 py-1 text-xs font-bold">👥 3+ players</span>
+                    <span className="text-xs text-[#8B6347]">🎥 great icebreaker</span>
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#B06A2C] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
             {/* Spectrum */}
             <Link
               to="/spectrum"

@@ -53,6 +53,13 @@ export const GAMES = [
     accent: '#D7263D',
   },
   {
+    name: 'Two Truths and a Lie',
+    to: '/two-truths-and-a-lie',
+    blurb: 'The classic icebreaker: write two truths and a lie, then the group guesses which is which. Perfect for onboarding.',
+    players: '3+ players',
+    accent: '#B06A2C',
+  },
+  {
     name: 'Daily Trivia',
     to: '/trivia',
     blurb: '10 quick trivia questions a day. A perfect 2-minute warm-up to kick off a meeting or a Fun Friday.',
