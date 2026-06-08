@@ -48,6 +48,7 @@ const Navigation = () => {
     { to: '/daily', label: 'Daily Herd' },
     { to: '/connections', label: 'Huddle' },
     { to: '/trivia', label: 'Daily Trivia' },
+    { to: '/team-trivia', label: 'Team Trivia' },
     { to: '/say-anything', label: 'Say Anything 💬' },
     { to: '/guesstimate', label: 'Guesstimate 🎯' },
     { to: '/clover', label: 'Clover Clues' },

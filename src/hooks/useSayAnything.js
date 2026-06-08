@@ -40,7 +40,7 @@ export function useSayAnything() {
   // ── Connect once ──────────────────────────────────────────────────────────
   useEffect(() => {
     const socket = io(BACKEND_URL + NAMESPACE, {
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'], // polling-first: connects through strict firewalls, then upgrades
       reconnection: true,
       reconnectionAttempts: Infinity,
       reconnectionDelay: 1000,

@@ -11,6 +11,13 @@ export const GAMES = [
     accent: '#E84A8B',
   },
   {
+    name: 'Team Trivia',
+    to: '/team-trivia',
+    blurb: 'Host a live trivia quiz — everyone answers from their own screen and a live leaderboard crowns a winner. Great on a Teams/Zoom call.',
+    players: '2+ players',
+    accent: '#7C4DFF',
+  },
+  {
     name: 'Guesstimate',
     to: '/guesstimate',
     blurb: 'Guess the number to a trivia question, then bet on whose guess is closest. Team trivia with a twist.',

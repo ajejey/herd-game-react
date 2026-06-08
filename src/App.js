@@ -16,6 +16,8 @@ import OfficeTeams from './components/office/TeamsGamesPage';
 import OfficeFunFriday from './components/office/FunFridayPage';
 import OfficeIcebreakers from './components/office/IcebreakersPage';
 import RemoteWorkBingo from './components/rwbingo/RemoteWorkBingo';
+import TeamTriviaHome from './components/teamtrivia/TeamTriviaHome';
+import TeamTriviaRoom from './components/teamtrivia/TeamTriviaRoom';
 import CloverHome from './components/clover/CloverHome';
 import CloverRoom from './components/clover/CloverRoom';
 import CloverHowToPlay from './components/clover/subpages/HowToPlayPage';
@@ -84,6 +86,8 @@ function App() {
               <Route path="/office-games/fun-friday-games-for-work" element={<OfficeFunFriday />} />
               <Route path="/office-games/virtual-icebreaker-games-for-meetings" element={<OfficeIcebreakers />} />
               <Route path="/remote-work-bingo" element={<RemoteWorkBingo />} />
+              <Route path="/team-trivia" element={<TeamTriviaHome />} />
+              <Route path="/team-trivia/room/:roomCode" element={<TeamTriviaRoom />} />
               <Route path="/clover" element={<CloverHome />} />
               <Route path="/clover/room/:roomCode" element={<CloverRoom />} />
               <Route path="/clover/how-to-play-clover-clues" element={<CloverHowToPlay />} />

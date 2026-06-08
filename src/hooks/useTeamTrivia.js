@@ -3,16 +3,14 @@ import { io } from 'socket.io-client';
 import { reportError } from '../lib/reportError';
 
 const BACKEND_URL = process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
-const NAMESPACE = '/clover';
-const SESSION_KEY = 'clover_session';
+const NAMESPACE = '/teamtrivia';
+const SESSION_KEY = 'teamtrivia_session';
 
-function loadSession() {
-  try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch { return null; }
-}
-function saveSession(data) { localStorage.setItem(SESSION_KEY, JSON.stringify(data)); }
+function loadSession() { try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch { return null; } }
+function saveSession(d) { localStorage.setItem(SESSION_KEY, JSON.stringify(d)); }
 function clearSession() { localStorage.removeItem(SESSION_KEY); }
 
-export function useClover() {
+export function useTeamTrivia() {
   const socketRef = useRef(null);
   const [connected, setConnected] = useState(false);
   const [state, setState] = useState(null);
@@ -50,25 +48,22 @@ export function useClover() {
     });
 
     socket.on('disconnect', () => setConnected(false));
-    socket.on('connect_error', (err) => { setConnected(false); setErrorWithAutoClear('Cannot reach server. Retrying…'); reportError('socket_connect', err?.message || 'connect_error', { info: `ns=${NAMESPACE} transport=${socket.io?.engine?.transport?.name || '?'}` }); });
+    socket.on('connect_error', (err) => {
+      setConnected(false);
+      setErrorWithAutoClear('Cannot reach server. Retrying…');
+      reportError('socket_connect', err?.message || 'connect_error', { info: `ns=${NAMESPACE} transport=${socket.io?.engine?.transport?.name || '?'}` });
+    });
 
     socket.on('joined', ({ playerId, rejoinToken, roomCode: rc, state: s }) => {
-      setMyId(playerId);
-      setRoomCode(rc);
-      setState(s);
-      setError(null);
+      setMyId(playerId); setRoomCode(rc); setState(s); setError(null);
       saveSession({ roomCode: rc, playerId, rejoinToken });
     });
 
     socket.on('state_update', ({ state: s }) => setState(s));
 
     socket.on('error', ({ message, code }) => {
-      if (code === 'PLAYER_REMOVED') {
-        clearSession(); setMyId(null); setRoomCode(null); setState(null); setKicked(true); setError(message); return;
-      }
-      if (code === 'ROOM_NOT_FOUND') {
-        clearSession(); setMyId(null); setRoomCode(null); setState(null); setRoomNotFound(true); setErrorWithAutoClear(message); return;
-      }
+      if (code === 'PLAYER_REMOVED') { clearSession(); setMyId(null); setRoomCode(null); setState(null); setKicked(true); setError(message); return; }
+      if (code === 'ROOM_NOT_FOUND') { clearSession(); setMyId(null); setRoomCode(null); setState(null); setRoomNotFound(true); setErrorWithAutoClear(message); return; }
       setErrorWithAutoClear(message);
     });
 
@@ -78,39 +73,12 @@ export function useClover() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createGame = useCallback((username) => {
-    clearSession();
-    setError(null);
-    socketRef.current?.emit('create_game', { username: username.trim() });
-  }, []);
-
-  const joinGame = useCallback((rc, username) => {
-    setError(null);
-    setRoomNotFound(false);
-    socketRef.current?.emit('join_game', { roomCode: rc.toUpperCase().trim(), username: username.trim() });
-  }, []);
-
-  const startGame = useCallback(() => {
-    if (!roomCode) return;
-    socketRef.current?.emit('start_game', { roomCode });
-  }, [roomCode]);
-
-  const sendAction = useCallback((action, payload = {}) => {
-    if (!roomCode || !action) return;
-    socketRef.current?.emit('game_action', { roomCode, action, payload });
-  }, [roomCode]);
-
-  const kickPlayer = useCallback((playerId) => {
-    if (!roomCode || !playerId) return;
-    socketRef.current?.emit('kick_player', { roomCode, playerId });
-  }, [roomCode]);
-
-  const leaveGame = useCallback(() => {
-    clearSession();
-    setMyId(null); setRoomCode(null); setState(null); setKicked(false);
-    socketRef.current?.disconnect();
-    socketRef.current?.connect();
-  }, []);
+  const createGame = useCallback((username) => { clearSession(); setError(null); socketRef.current?.emit('create_game', { username: username.trim() }); }, []);
+  const joinGame = useCallback((rc, username) => { setError(null); setRoomNotFound(false); socketRef.current?.emit('join_game', { roomCode: rc.toUpperCase().trim(), username: username.trim() }); }, []);
+  const startGame = useCallback(() => { if (roomCode) socketRef.current?.emit('start_game', { roomCode }); }, [roomCode]);
+  const sendAction = useCallback((action, payload = {}) => { if (roomCode && action) socketRef.current?.emit('game_action', { roomCode, action, payload }); }, [roomCode]);
+  const kickPlayer = useCallback((playerId) => { if (roomCode && playerId) socketRef.current?.emit('kick_player', { roomCode, playerId }); }, [roomCode]);
+  const leaveGame = useCallback(() => { clearSession(); setMyId(null); setRoomCode(null); setState(null); setKicked(false); socketRef.current?.disconnect(); socketRef.current?.connect(); }, []);
 
   const me = state?.players?.find((p) => p.id === myId) ?? null;
   const isHost = me?.isHost ?? false;
