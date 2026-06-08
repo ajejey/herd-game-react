@@ -8,6 +8,7 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 import { sfx, isMuted, setMuted } from '../daily/sfx';
 import { getDayNumber, ATTRIBUTION } from './questions';
+import { TOPICS as TRIVIA_TOPICS } from './topics';
 import { buildGridCard, shareCardOrText, downloadFile } from '../../lib/shareCard';
 import { useTrivia } from './useTrivia';
 import { buildShareText } from './share';
@@ -126,6 +127,18 @@ export default function Trivia() {
         <p className="mb-3">
           Come back daily to build your <strong>streak</strong>, and replay past days any time you want more than one quiz. Like quick daily brain games? Pair it with the solo <Link to="/daily" className="text-[#E84A8B] font-semibold underline">Daily Herd</Link> and <Link to="/connections" className="text-[#E84A8B] font-semibold underline">Huddle</Link>, or play with friends in <Link to="/guesstimate" className="text-[#E84A8B] font-semibold underline">Guesstimate</Link>, <Link to="/say-anything" className="text-[#E84A8B] font-semibold underline">Say Anything</Link>, and <Link to="/clover" className="text-[#E84A8B] font-semibold underline">Clover Clues</Link>.
         </p>
+
+        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Trivia by topic</h2>
+        <p className="mb-2">Prefer a specific subject? Play a quick quiz on any of these — fresh questions every time:</p>
+        <ul className="grid grid-cols-2 gap-2 mb-4">
+          {TRIVIA_TOPICS.map((t) => (
+            <li key={t.slug}>
+              <Link to={`/${t.slug}`} className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#FFE8C8] text-[#2D1810] font-semibold transition-colors">
+                <span className="text-xl">{t.emoji}</span><span className="text-sm">{t.h1}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>
         <div className="space-y-3">

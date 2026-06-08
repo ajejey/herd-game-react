@@ -24,6 +24,8 @@ import SpectrumHome from './components/spectrum/SpectrumHome';
 import SpectrumRoom from './components/spectrum/SpectrumRoom';
 import TwoTruthsHome from './components/twotruths/TwoTruthsHome';
 import TwoTruthsRoom from './components/twotruths/TwoTruthsRoom';
+import TopicTrivia from './components/trivia/TopicTrivia';
+import { TOPICS } from './components/trivia/topics';
 import CloverHome from './components/clover/CloverHome';
 import CloverRoom from './components/clover/CloverRoom';
 import CloverHowToPlay from './components/clover/subpages/HowToPlayPage';
@@ -100,6 +102,9 @@ function App() {
               <Route path="/spectrum/room/:roomCode" element={<SpectrumRoom />} />
               <Route path="/two-truths-and-a-lie" element={<TwoTruthsHome />} />
               <Route path="/two-truths-and-a-lie/room/:roomCode" element={<TwoTruthsRoom />} />
+              {TOPICS.map((t) => (
+                <Route key={t.slug} path={`/${t.slug}`} element={<TopicTrivia slug={t.slug} />} />
+              ))}
               <Route path="/clover" element={<CloverHome />} />
               <Route path="/clover/room/:roomCode" element={<CloverRoom />} />
               <Route path="/clover/how-to-play-clover-clues" element={<CloverHowToPlay />} />

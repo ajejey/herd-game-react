@@ -137,6 +137,25 @@ export const POOL = (() => {
 export const questionCount = () => POOL.length;
 export const ATTRIBUTION = (GENERATED && GENERATED.attribution) || '';
 
+// How many questions exist for a set of category labels (for topic pages).
+export function categoryCount(categories) {
+  const set = new Set(categories);
+  return POOL.filter((q) => set.has(q.category)).length;
+}
+
+// A replayable quiz of up to n questions from the given categories, options
+// shuffled. Used by the programmatic topic-trivia pages (e.g. Music Trivia).
+export function getQuestionsByCategory(categories, n = 10) {
+  const set = new Set(categories);
+  const a = POOL.filter((q) => set.has(q.category));
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a.slice(0, Math.min(n, a.length)).map((item) => {
+    const order = [0, 1, 2, 3];
+    for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+    return { q: item.q, options: order.map((k) => item.options[k]), answerIndex: order.indexOf(0), category: item.category };
+  });
+}
+
 // mulberry32 seeded PRNG
 function mulberry32(seed) {
   return function () {
