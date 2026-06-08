@@ -53,6 +53,7 @@ const Navigation = () => {
     { to: '/guesstimate', label: 'Guesstimate 🎯' },
     { to: '/clover', label: 'Clover Clues' },
     { to: '/chameleon', label: 'Chameleon' },
+    { to: '/spectrum', label: 'Spectrum' },
     { to: '/office-games', label: 'Office Games' },
     { to: '/blog', label: 'Blog' },
     { to: '/faq', label: 'FAQ' },

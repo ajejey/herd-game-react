@@ -32,6 +32,13 @@ export const GAMES = [
     accent: '#2D7D46',
   },
   {
+    name: 'Spectrum',
+    to: '/spectrum',
+    blurb: 'Read the clue, then guess where the hidden target sits on a scale between two opposites. Wavelength-style.',
+    players: '3+ players',
+    accent: '#4A90D9',
+  },
+  {
     name: 'Clover Clues',
     to: '/clover',
     blurb: 'A cooperative word game — write clues and rebuild each other’s “clovers” as a team. Pure collaboration.',
