@@ -25,6 +25,13 @@ export const GAMES = [
     accent: '#3D8B5A',
   },
   {
+    name: 'Remote Work Bingo',
+    to: '/remote-work-bingo',
+    blurb: 'Mark the meeting clichés as they happen — “you’re on mute”, “let’s take this offline”. Play it live during any call.',
+    players: 'Solo or team',
+    accent: '#D7263D',
+  },
+  {
     name: 'Daily Trivia',
     to: '/trivia',
     blurb: '10 quick trivia questions a day. A perfect 2-minute warm-up to kick off a meeting or a Fun Friday.',

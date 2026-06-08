@@ -629,6 +629,38 @@ const Home = () => {
               </div>
             </Link>
 
+            {/* Remote Work Bingo */}
+            <Link
+              to="/remote-work-bingo"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#D7263D] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#D7263D] text-white">✨ New</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0">
+                  <svg width="54" height="54" viewBox="0 0 24 24" aria-hidden="true" className="drop-shadow">
+                    <rect x="2" y="2" width="20" height="20" rx="3" fill="#FFF1DC" stroke="#D7263D" strokeWidth="1.5" />
+                    {[6, 12, 18].map((y) => [6, 12, 18].map((x) => (
+                      <circle key={`${x}-${y}`} cx={x} cy={y} r="2" fill={x === 12 && y === 12 ? '#3D8B5A' : '#D7263D'} opacity={x === 12 && y === 12 ? 1 : 0.5} />
+                    )))}
+                  </svg>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Remote Work Bingo
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Mark the meeting clichés — "you're on mute", "let's take this offline". Bingo!
+                  </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#D7263D] text-white px-3 py-1 text-xs font-bold">🧑‍💻 Solo or team</span>
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#D7263D] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
             {/* Coming Soon — Monikers */}
             <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
               <div className="ribbon bg-[#8B6347] text-white">Soon</div>
