@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
 import { Helmet } from 'react-helmet';
@@ -267,6 +267,18 @@ const Home = () => {
   const { socket } = useSocket();
   const { dispatch } = useGame();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Invite links (/?join=ABCDEF) drop a friend straight onto the Join form with
+  // the room code prefilled — no manual code-copying handoff. Scroll to the form.
+  useEffect(() => {
+    const code = new URLSearchParams(location.search).get('join');
+    if (code) {
+      setActiveTab('join');
+      setRoomCode(code.trim().toUpperCase());
+      document.getElementById('play')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [location.search]);
 
   useEffect(() => {
     const session = localStorage.getItem('gameSession');

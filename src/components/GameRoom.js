@@ -14,6 +14,7 @@ const GameRoom = () => {
   const [answer, setAnswer] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const [showAdjust, setShowAdjust] = useState(false);
   const { roomCode } = useParams();
   const navigate = useNavigate();
@@ -155,6 +156,24 @@ const GameRoom = () => {
     }
   };
 
+  // One-tap invite: a clickable link that drops friends onto the Join form with
+  // the code prefilled. Native share sheet on mobile, clipboard everywhere else.
+  const inviteUrl = `${window.location.origin}/?join=${roomCode}`;
+  const handleShareInvite = async () => {
+    const shareText = `Join my Herd Mentality game! Room code ${roomCode}`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'Herd Mentality', text: shareText, url: inviteUrl });
+        return;
+      }
+      await navigator.clipboard.writeText(inviteUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch (err) {
+      /* user dismissed share sheet — ignore */
+    }
+  };
+
   const renderPlayerList = () => {
     if (!gameState.players) return null;
     
@@ -215,6 +234,20 @@ const GameRoom = () => {
               </button>
             </div>
           </div>
+
+          {/* Primary invite action — one tap to bring friends in (the create→start
+              drop-off was driven by the manual code-copy handoff). */}
+          <button
+            onClick={handleShareInvite}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold shadow-md transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            {linkCopied ? 'Invite link copied!' : 'Invite friends'}
+          </button>
+          <p className="text-xs text-gray-500">Shares a link that opens straight to this room — friends just enter their name.</p>
+
           <p className="text-gray-600">Waiting for players...</p>
           {gameState.isHost && (
             <button

@@ -10,10 +10,13 @@ export default function Lobby({ game }) {
   const [copied, setCopied] = useState(false);
 
   const copyInvite = async () => {
-    const text = `Join my Clover Clues game! Go to ${JOIN_URL} and enter code ${roomCode}`;
+    // Clickable deep link → friends land straight on the join form with the code
+    // prefilled (QuickJoin handles /clover/room/:code). No manual entry.
+    const inviteUrl = `https://${JOIN_URL}/room/${roomCode}`;
+    const text = `Join my Clover Clues game! ${inviteUrl}`;
     try {
-      if (navigator.share) { await navigator.share({ title: 'Clover Clues', text, url: `https://${JOIN_URL}` }); return; }
-      await navigator.clipboard.writeText(text);
+      if (navigator.share) { await navigator.share({ title: 'Clover Clues', text, url: inviteUrl }); return; }
+      await navigator.clipboard.writeText(inviteUrl);
       setCopied(true); setTimeout(() => setCopied(false), 2000);
     } catch { /* no-op */ }
   };
