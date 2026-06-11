@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { buildTiles } from './puzzles';
 import { readResult, saveResult, readStreak } from './share';
+import { pingDailyComplete } from '../../lib/pingEvent';
 
 const MAX_MISTAKES = 4;
 
@@ -71,6 +72,7 @@ export function useHuddle(puzzle, day, { persist = true } = {}) {
       savedRef.current = true;
       const s = saveResult(day, won, finalRows);
       setStreak(s);
+      pingDailyComplete('huddle', { day, won, total: 4 });
     }
     if (!won) setSolved(finalSolved);
   }

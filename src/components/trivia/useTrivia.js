@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { getDailyQuestions } from './questions';
 import { readResult, saveResult, readStreak } from './share';
+import { pingDailyComplete } from '../../lib/pingEvent';
 
 /*
   Daily Trivia game logic (client-only). One question at a time: pick an option,
@@ -41,7 +42,9 @@ export function useTrivia(day, { persist = true } = {}) {
       setStatus('done');
       if (persist && !savedRef.current) {
         savedRef.current = true;
-        setStreak(saveResult(day, marks.filter(Boolean).length, marks));
+        const finalScore = marks.filter(Boolean).length;
+        setStreak(saveResult(day, finalScore, marks));
+        pingDailyComplete('daily-trivia', { day, score: finalScore, total });
       }
     }
   }

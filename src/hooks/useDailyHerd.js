@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { pingDailyComplete } from '../lib/pingEvent';
 
 const BACKEND_URL =
   process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
@@ -95,6 +96,7 @@ export function useDailyHerd() {
       setResult(data);
       setStreak(commitStreak(dayNumber));
       setStatus('result');
+      pingDailyComplete('daily-herd', { day: dayNumber, score: data?.syncPct, total: 100 });
       return data;
     } catch (e) {
       setError("Couldn't submit your answers. Please try again.");
