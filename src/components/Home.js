@@ -526,6 +526,17 @@ const Home = () => {
               <p className="text-sm text-[#6B4226] mt-0.5 flex-1">Answer a few vibes, reveal your aura color of the day.</p>
               <span className="mt-2 text-[#7A4FB5] font-semibold text-sm">Play today →</span>
             </Link>
+            {/* Daily Hot Takes */}
+            <Link to="/hot-takes" className="group rounded-3xl border-4 border-[#FF4D2E] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
+              <svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" className="drop-shadow">
+                <rect x="3" y="5" width="8" height="14" rx="2" fill="#FF4D2E" />
+                <rect x="13" y="5" width="8" height="14" rx="2" fill="#2D6BE0" />
+                <text x="12" y="15" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#fff" fontFamily="system-ui, sans-serif">VS</text>
+              </svg>
+              <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Daily Hot Takes</h3>
+              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">This-or-that opinions. Find your archetype, see the crowd split.</p>
+              <span className="mt-2 text-[#FF4D2E] font-semibold text-sm">Play today →</span>
+            </Link>
           </div>
         </section>
 

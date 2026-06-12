@@ -33,6 +33,7 @@ const MENU = [
     { to: '/trivia', label: 'Daily Trivia' },
     { to: '/connections', label: 'Huddle' },
     { to: '/aura', label: 'Daily Aura' },
+    { to: '/hot-takes', label: 'Daily Hot Takes' },
   ] },
   { label: 'Party', items: [
     { to: '/say-anything', label: 'Say Anything' },

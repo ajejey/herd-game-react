@@ -12,6 +12,8 @@ import DailyHerd from './components/daily/DailyHerd';
 import Huddle from './components/huddle/Huddle';
 import Trivia from './components/trivia/Trivia';
 import Aura from './components/aura/Aura';
+import HotTakes from './components/hottakes/HotTakes';
+import ScrollToTop from './components/ScrollToTop';
 import OfficeGamesHub from './components/office/OfficeGamesHub';
 import OfficeTeams from './components/office/TeamsGamesPage';
 import OfficeFunFriday from './components/office/FunFridayPage';
@@ -81,6 +83,7 @@ function App() {
     <SocketProvider>
       <GameProvider>
         <Router>
+          <ScrollToTop />
           <div className="min-h-screen bg-gray-50">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -92,6 +95,7 @@ function App() {
               <Route path="/trivia/:dayNumber" element={<Trivia />} />
               <Route path="/aura" element={<Aura />} />
               <Route path="/aura/:dayNumber" element={<Aura />} />
+              <Route path="/hot-takes" element={<HotTakes />} />
               <Route path="/office-games" element={<OfficeGamesHub />} />
               <Route path="/office-games/games-to-play-on-microsoft-teams" element={<OfficeTeams />} />
               <Route path="/office-games/fun-friday-games-for-work" element={<OfficeFunFriday />} />
