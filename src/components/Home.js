@@ -480,7 +480,7 @@ const Home = () => {
             <h2 style={fredoka} className="text-2xl md:text-3xl font-bold text-[#2D1810]">☀ Daily games</h2>
             <span className="text-sm text-[#6B4226]">Play solo · no friends needed · new every day</span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Daily Herd */}
             <Link to="/daily" className="group rounded-3xl border-4 border-[#E84A8B] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
               <Sheep size={48} />
@@ -509,6 +509,22 @@ const Home = () => {
               <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Huddle</h3>
               <p className="text-sm text-[#6B4226] mt-0.5 flex-1">Sort 16 words into 4 hidden groups. Free Connections-style.</p>
               <span className="mt-2 text-[#4A90D9] font-semibold text-sm">Play today →</span>
+            </Link>
+            {/* Daily Aura */}
+            <Link to="/aura" className="group rounded-3xl border-4 border-[#C9AEFF] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
+              <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true" className="drop-shadow">
+                <defs>
+                  <radialGradient id="auraDot" cx="50%" cy="42%" r="60%">
+                    <stop offset="0%" stopColor="#ffffff" />
+                    <stop offset="45%" stopColor="#FBD3E9" />
+                    <stop offset="100%" stopColor="#C9AEFF" />
+                  </radialGradient>
+                </defs>
+                <circle cx="24" cy="24" r="18" fill="url(#auraDot)" />
+              </svg>
+              <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Daily Aura</h3>
+              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">Answer a few vibes, reveal your aura color of the day.</p>
+              <span className="mt-2 text-[#7A4FB5] font-semibold text-sm">Play today →</span>
             </Link>
           </div>
         </section>

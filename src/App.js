@@ -11,6 +11,7 @@ import Blog from './components/Blog';
 import DailyHerd from './components/daily/DailyHerd';
 import Huddle from './components/huddle/Huddle';
 import Trivia from './components/trivia/Trivia';
+import Aura from './components/aura/Aura';
 import OfficeGamesHub from './components/office/OfficeGamesHub';
 import OfficeTeams from './components/office/TeamsGamesPage';
 import OfficeFunFriday from './components/office/FunFridayPage';
@@ -89,6 +90,8 @@ function App() {
               <Route path="/connections/:dayNumber" element={<Huddle />} />
               <Route path="/trivia" element={<Trivia />} />
               <Route path="/trivia/:dayNumber" element={<Trivia />} />
+              <Route path="/aura" element={<Aura />} />
+              <Route path="/aura/:dayNumber" element={<Aura />} />
               <Route path="/office-games" element={<OfficeGamesHub />} />
               <Route path="/office-games/games-to-play-on-microsoft-teams" element={<OfficeTeams />} />
               <Route path="/office-games/fun-friday-games-for-work" element={<OfficeFunFriday />} />
