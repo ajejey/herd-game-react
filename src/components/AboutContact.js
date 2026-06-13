@@ -30,28 +30,22 @@ const AboutContact = () => {
 
         <div className="text-[#4A2D1B] space-y-4">
           <p className="text-lg">
-            Welcome to Herd Game, the online multiplayer game where thinking like the herd is the key to victory!
+            Herd Games is a small, independent collection of free browser party games and daily puzzles — built to be played in seconds, with no download, no signup, and no app store.
           </p>
 
-          <h2 style={fredokaStyle} className="text-2xl font-bold text-[#3D8B5A] mt-6">Our Story</h2>
+          <h2 style={fredokaStyle} className="text-2xl font-bold text-[#3D8B5A] mt-6">Who's behind it</h2>
           <p>
-            Herd Game was created by a small team of passionate game developers who wanted to bring the fun of party games to the online world.
-            Inspired by popular board games where players try to match answers with others, we developed a digital version that allows friends
-            to play together no matter where they are located.
+            Herd Games is built and maintained by <strong>Ajey Nagarkatti</strong>, an independent web developer. Over the years I've shipped a number of free, no-signup web games and tools used by people around the world, including a <a href="https://playbingoonline.vercel.app" target="_blank" rel="noopener noreferrer" className="text-[#E84A8B] font-semibold underline">browser bingo game</a>, an <a href="https://emoji-guess-game-seven.vercel.app" target="_blank" rel="noopener noreferrer" className="text-[#E84A8B] font-semibold underline">emoji guessing game</a>, and a <a href="https://globleguess.vercel.app" target="_blank" rel="noopener noreferrer" className="text-[#E84A8B] font-semibold underline">daily geography game</a>. Herd Games is where I bring the party-game ideas together in one place.
           </p>
 
-          <h2 style={fredokaStyle} className="text-2xl font-bold text-[#3D8B5A] mt-6">Our Mission</h2>
+          <h2 style={fredokaStyle} className="text-2xl font-bold text-[#3D8B5A] mt-6">Why this site exists</h2>
           <p>
-            Our mission is to create engaging, accessible games that bring people together. We believe that games have the power to
-            strengthen relationships, spark conversations, and create memorable moments. With Herd Game, we aim to provide a platform
-            for friends, family, and even strangers to connect and have fun together.
+            Most online party games want you to download an app, create an account, or pay before the fun starts. I wanted the opposite: open a link, share a room code, and you're playing in under a minute — on any phone or laptop. Every game here is designed and built from scratch, play-tested with real friends and family, and tuned from how those sessions actually go (which questions land, where people get confused, what makes a group laugh).
           </p>
 
-          <h2 style={fredokaStyle} className="text-2xl font-bold text-[#3D8B5A] mt-6">The Team</h2>
+          <h2 style={fredokaStyle} className="text-2xl font-bold text-[#3D8B5A] mt-6">What you'll find</h2>
           <p>
-            Behind Herd Game is a dedicated team of developers, designers, and game enthusiasts who are committed to creating the best
-            possible experience for our players. We're constantly working on improving the game, adding new features, and ensuring
-            that Herd Game remains a fun and safe space for everyone.
+            A growing library of free games: live multiplayer party games like <Link to="/say-anything" className="text-[#E84A8B] font-semibold underline">Say Anything</Link>, <Link to="/guesstimate" className="text-[#E84A8B] font-semibold underline">Guesstimate</Link> and <Link to="/clover" className="text-[#E84A8B] font-semibold underline">Clover Clues</Link> that you play with friends over a video call, and quick daily solo games like the <Link to="/daily" className="text-[#E84A8B] font-semibold underline">Daily Herd</Link>, <Link to="/trivia" className="text-[#E84A8B] font-semibold underline">Daily Trivia</Link> and <Link to="/hot-takes" className="text-[#E84A8B] font-semibold underline">Daily Hot Takes</Link>. New games are added regularly, and existing ones are improved based on player feedback.
           </p>
         </div>
       </SectionCard>

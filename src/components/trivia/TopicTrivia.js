@@ -134,12 +134,40 @@ export default function TopicTrivia({ slug }) {
         <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
       </div>
 
-      {/* SEO content + internal links */}
+      {/* Unique, substantial per-topic content */}
       <div className="max-w-xl mx-auto mt-10 text-[#4A2D1B] leading-relaxed">
-        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">Free {topic.h1.toLowerCase()} questions</h2>
+        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">About {topic.h1.toLowerCase()}</h2>
+        <p className="mb-3">{topic.intro}</p>
         <p className="mb-3">
-          This free {topic.h1.toLowerCase()} quiz has <strong>{count}+ {topic.name.toLowerCase()} trivia questions</strong>, and every play gives you a fresh shuffled set — so you can keep going for new questions. No signup, no download: just hit play. Want a new challenge daily? Try the <Link to="/trivia" className="text-[#E84A8B] font-semibold underline">Daily Trivia</Link>, or gather the group for live <Link to="/team-trivia" className="text-[#E84A8B] font-semibold underline">Team Trivia</Link>.
+          This free {topic.h1.toLowerCase()} quiz draws from <strong>{count}+ {topic.name.toLowerCase()} questions</strong> and shuffles a fresh set every play, so you can keep going for new questions — no signup, no download. Want a new challenge daily? Try <Link to="/trivia" className="text-[#E84A8B] font-semibold underline">Daily Trivia</Link>, or gather the group for live <Link to="/team-trivia" className="text-[#E84A8B] font-semibold underline">Team Trivia</Link>.
         </p>
+
+        {topic.covers && (
+          <>
+            <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">What this quiz covers</h2>
+            <ul className="list-disc list-inside space-y-1 mb-3">
+              {topic.covers.map((c, i) => <li key={i}>{c}</li>)}
+            </ul>
+          </>
+        )}
+
+        {topic.facts && (
+          <>
+            <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">{topic.name} trivia: did you know?</h2>
+            <ul className="space-y-2 mb-3">
+              {topic.facts.map((f, i) => (
+                <li key={i} className="flex gap-2"><span aria-hidden="true">•</span><span>{f}</span></li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {topic.tips && (
+          <>
+            <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Tips to improve your score</h2>
+            <p className="mb-3">{topic.tips}</p>
+          </>
+        )}
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">More trivia topics</h2>
         <ul className="grid grid-cols-2 gap-2">

@@ -1,7 +1,7 @@
 /*
-  Topic-trivia pages — programmatic SEO. Each topic is a keyword-targeted,
-  PLAYABLE quiz built from the category-tagged question bank (questions.js).
-  Routes are top-level (/music-trivia, /movie-trivia, …) for clean keyword URLs.
+  Topic-trivia pages — programmatic SEO, but each carries substantial UNIQUE
+  content (intro, what's covered, real facts, tips) so they are standalone useful
+  pages, not thin templates. Routes are top-level (/music-trivia, …).
 */
 export const TOPICS = [
   {
@@ -11,6 +11,14 @@ export const TOPICS = [
     keyword: 'music trivia, music trivia questions, music quiz, music trivia game',
     categories: ['Music'],
     blurb: 'From classic hits to one-hit wonders — how good is your music knowledge?',
+    intro: 'Music trivia spans everything from 1950s rock and roll to today\'s streaming-era pop, and it\'s one of the most fun categories to play in a group because almost everyone has an opinion. This quiz mixes artists, albums, lyrics, instruments and chart history, so a casual radio listener and a vinyl collector can both find questions that land.',
+    covers: ['Artists, bands and solo careers', 'Albums, singles and chart records', 'Decades and genres (rock, pop, hip-hop, classical)', 'Lyrics and song titles', 'Instruments and music theory basics'],
+    tips: 'If you want to get better, pay attention to the decade a song is from — knowing roughly when an artist peaked narrows most multiple-choice answers fast.',
+    facts: [
+      'The best-selling single of all time is still Bing Crosby\'s "White Christmas", released in 1942.',
+      'The Beatles hold the record for the most #1 hits on the US Billboard Hot 100, with 20.',
+      'The "Happy Birthday" song was under copyright until 2016, which is why TV shows so often avoided singing it.',
+    ],
   },
   {
     slug: 'movie-trivia', name: 'Movie', emoji: '🎬',
@@ -19,6 +27,14 @@ export const TOPICS = [
     keyword: 'movie trivia, film trivia, movie trivia questions, movie quiz',
     categories: ['Film'],
     blurb: 'Test your film knowledge — from blockbusters to cult classics.',
+    intro: 'Movie trivia rewards both the blockbuster crowd and the arthouse obsessives. This quiz pulls from directors, famous quotes, box-office records, Oscar history and the decades that defined cinema, so it works just as well for a casual movie night as for a serious film buff.',
+    covers: ['Directors, actors and famous roles', 'Oscars and awards history', 'Box-office and franchise records', 'Iconic quotes and scenes', 'Eras of film, from the silent age to streaming'],
+    tips: 'Franchises and award winners come up a lot — knowing the big Best Picture winners and the highest-grossing series gives you an edge on the trickier questions.',
+    facts: [
+      'Three films share the record for most Oscars won: Ben-Hur, Titanic and The Lord of the Rings: The Return of the King, with 11 each.',
+      'Adjusted for inflation, Gone with the Wind (1939) is still the highest-grossing film ever made.',
+      'The Wizard of Oz famously shifts from sepia to full Technicolor the moment Dorothy steps into Oz.',
+    ],
   },
   {
     slug: 'geography-trivia', name: 'Geography', emoji: '🌍',
@@ -27,6 +43,14 @@ export const TOPICS = [
     keyword: 'geography trivia, geography quiz, geography trivia questions',
     categories: ['Geography'],
     blurb: 'Capitals, rivers, countries and landmarks — how well do you know the world?',
+    intro: 'Geography trivia is a quiz-night staple because it covers the whole planet: capitals, flags, rivers, mountains, oceans and borders. This quiz balances the gimmes (well-known capitals) with the curveballs (which country has the most time zones), so it stretches even confident map-readers.',
+    covers: ['Countries and capital cities', 'Rivers, mountains, deserts and oceans', 'Flags and national symbols', 'Borders, continents and time zones', 'Famous landmarks and natural wonders'],
+    tips: 'Capitals and flags are the highest-frequency questions — drilling the capital cities of the larger or oddly-named countries pays off more than memorising obscure rivers.',
+    facts: [
+      'Russia spans 11 time zones, more than any other country on Earth.',
+      'Canada has more lakes than the rest of the world\'s countries combined.',
+      'Africa is the only continent that sits in all four hemispheres (north, south, east and west).',
+    ],
   },
   {
     slug: 'science-trivia', name: 'Science', emoji: '🔬',
@@ -35,6 +59,14 @@ export const TOPICS = [
     keyword: 'science trivia, science quiz, science trivia questions',
     categories: ['Science'],
     blurb: 'Biology, chemistry, physics and space — put your science smarts to the test.',
+    intro: 'Science trivia ranges from everyday "why does that happen" facts to deep-space and periodic-table questions. This quiz mixes biology, chemistry, physics, astronomy and the human body, so you get a fair spread whether your strength is the lab or the night sky.',
+    covers: ['Biology and the human body', 'Chemistry and the periodic table', 'Physics and famous experiments', 'Astronomy and space exploration', 'Inventions and the scientists behind them'],
+    tips: 'Units and "firsts" come up often (first element, first person in space, SI units). Knowing the landmark discoveries and who made them clears a surprising number of questions.',
+    facts: [
+      'Honey never spoils — sealed jars found in ancient Egyptian tombs were still edible thousands of years later.',
+      'Octopuses have three hearts, and two of them stop beating when the animal swims.',
+      'A teaspoon of neutron-star material would weigh about six billion tons on Earth.',
+    ],
   },
   {
     slug: 'history-trivia', name: 'History', emoji: '🏛️',
@@ -43,6 +75,14 @@ export const TOPICS = [
     keyword: 'history trivia, history quiz, history trivia questions',
     categories: ['History'],
     blurb: 'From ancient empires to modern times — how much history do you remember?',
+    intro: 'History trivia connects the dots from ancient empires to the modern day: wars, rulers, revolutions, inventions and the dates that shaped the world. This quiz keeps a wide lens, so a fan of Roman history and someone who knows their 20th-century politics will both have a shot.',
+    covers: ['Ancient civilisations and empires', 'Wars, revolutions and treaties', 'Kings, queens and world leaders', 'Major inventions and discoveries', 'Key dates and turning points'],
+    tips: 'Anchor yourself with a few landmark dates per century — once you know the era, you can reason your way to the right answer instead of guessing blind.',
+    facts: [
+      'Oxford University was already teaching students before the Aztec Empire was founded.',
+      'Cleopatra lived closer in time to the first Moon landing than to the building of the Great Pyramid of Giza.',
+      'The shortest war in recorded history, between Britain and Zanzibar in 1896, lasted around 38 minutes.',
+    ],
   },
   {
     slug: 'sports-trivia', name: 'Sports', emoji: '⚽',
@@ -51,6 +91,14 @@ export const TOPICS = [
     keyword: 'sports trivia, sports quiz, sports trivia questions',
     categories: ['Sport'],
     blurb: 'Football, tennis, the Olympics and more — test your sports knowledge.',
+    intro: 'Sports trivia covers the global game and the niche ones: football, tennis, cricket, basketball, motorsport and the Olympics. This quiz mixes record-holders, famous moments and rules, so both the die-hard fan and the once-a-year viewer can score.',
+    covers: ['Football, basketball, tennis and cricket', 'The Olympic Games, summer and winter', 'Record-holders and championship winners', 'Rules, scoring and terminology', 'Famous athletes and historic moments'],
+    tips: 'Champions and record-holders dominate sports quizzes. Knowing recent World Cup, Olympic and Grand Slam winners covers a big share of the questions.',
+    facts: [
+      'The modern Olympic torch relay was introduced at the 1936 Berlin Games, not in ancient Greece.',
+      'A golf ball has between 300 and 500 dimples, which is what lets it fly so far.',
+      'A cricket Test match can last five full days and still end in a draw with no winner.',
+    ],
   },
   {
     slug: 'tv-trivia', name: 'TV', emoji: '📺',
@@ -59,6 +107,14 @@ export const TOPICS = [
     keyword: 'tv trivia, television trivia, tv quiz, tv trivia questions',
     categories: ['TV', 'Television'],
     blurb: 'Binge-worthy shows and classic series — how well do you know TV?',
+    intro: 'TV trivia is golden-age-of-streaming territory: sitcoms, prestige dramas, reality hits and the finales everyone argued about. This quiz spans classic network shows and modern binge-watches, so nostalgia buffs and streaming addicts both get their moment.',
+    covers: ['Sitcoms and comedy classics', 'Prestige dramas and finales', 'Reality TV and game shows', 'Characters, catchphrases and casts', 'Networks, streaming and record runs'],
+    tips: 'Long-running shows and famous finales come up the most. Knowing the biggest sitcoms and the shows with record-breaking runs is the fastest way to climb your score.',
+    facts: [
+      'The series finale of M*A*S*H held the record for the most-watched US broadcast for decades.',
+      'The Simpsons is the longest-running scripted primetime series in US television history.',
+      'Many classic sitcoms like Friends and Seinfeld were filmed in front of a live studio audience.',
+    ],
   },
   {
     slug: 'video-game-trivia', name: 'Video Game', emoji: '🎮',
@@ -67,6 +123,14 @@ export const TOPICS = [
     keyword: 'video game trivia, gaming trivia, video game quiz, game trivia questions',
     categories: ['Games'],
     blurb: 'From retro classics to modern hits — prove you’re a real gamer.',
+    intro: 'Video game trivia runs from 8-bit arcade history to modern open-worlds and esports. This quiz mixes consoles, franchises, characters and record-breakers, so a retro purist and a current-gen player will both find questions in their lane.',
+    covers: ['Consoles and gaming hardware', 'Famous franchises and studios', 'Characters and iconic moments', 'Best-sellers and record-holders', 'Esports and gaming culture'],
+    tips: 'Best-selling titles and franchise mascots are the bread and butter of game trivia. Knowing the landmark releases for each console generation gives you a strong base.',
+    facts: [
+      'Minecraft is the best-selling single video game of all time, with hundreds of millions of copies sold.',
+      'Mario first appeared as an unnamed carpenter called "Jumpman" in the 1981 arcade game Donkey Kong.',
+      'The "Konami Code" (up, up, down, down, left, right, left, right, B, A) is one of gaming\'s most famous cheat sequences.',
+    ],
   },
   {
     slug: 'animal-trivia', name: 'Animal', emoji: '🦁',
@@ -75,6 +139,14 @@ export const TOPICS = [
     keyword: 'animal trivia, animal quiz, animal trivia questions',
     categories: ['Animals'],
     blurb: 'From the savannah to the deep sea — how much do you know about animals?',
+    intro: 'Animal trivia is a crowd-pleaser because the facts are so genuinely strange. This quiz covers mammals, birds, sea life and insects, mixing well-known creatures with the wonderfully weird, so it plays well for kids and adults alike.',
+    covers: ['Mammals, big cats and primates', 'Birds, reptiles and amphibians', 'Ocean and deep-sea life', 'Insects and the very small', 'Animal records, names and collective nouns'],
+    tips: 'Superlatives are everywhere in animal trivia — fastest, largest, deadliest. Learning the record-holders (and the odd collective nouns) covers a lot of ground.',
+    facts: [
+      'A group of flamingos is called a "flamboyance".',
+      'Wombats produce cube-shaped droppings, the only known animal to do so.',
+      'A shrimp\'s heart is located in its head.',
+    ],
   },
   {
     slug: 'general-knowledge-trivia', name: 'General Knowledge', emoji: '🧠',
@@ -83,6 +155,14 @@ export const TOPICS = [
     keyword: 'general knowledge trivia, general knowledge quiz, trivia questions and answers',
     categories: ['General'],
     blurb: 'A bit of everything — the classic pub-quiz mix to test your all-round knowledge.',
+    intro: 'General knowledge trivia is the classic pub-quiz mix: a little history, science, geography, culture and the random facts that don\'t fit anywhere else. This quiz is the great equaliser, because breadth beats depth and everyone has a category they quietly own.',
+    covers: ['A mix of every subject', 'Famous firsts and records', 'Words, language and origins', 'Culture, food and everyday facts', 'The random questions that stump everyone'],
+    tips: 'General knowledge rewards range over depth. Skim a few facts from each category, and don\'t overthink the obvious ones — the first sensible answer is often right.',
+    facts: [
+      'There are more possible games of chess than there are atoms in the observable universe.',
+      'The national animal of Scotland is the unicorn.',
+      'The Eiffel Tower can grow by about 15 centimetres in summer as the metal expands in the heat.',
+    ],
   },
 ];
 
