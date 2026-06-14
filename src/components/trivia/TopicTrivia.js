@@ -4,16 +4,20 @@ import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 import { getTopic, TOPICS } from './topics';
-import { getQuestionsByCategory, categoryCount } from './questions';
+import { getQuestionsByCategory, categoryCount, shuffleQuiz } from './questions';
 
 const GREEN = '#3D8B5A';
 const RED = '#D0463B';
 
 export default function TopicTrivia({ slug }) {
   const topic = getTopic(slug);
-  const total = topic ? Math.min(10, categoryCount(topic.categories)) : 0;
+  // Franchise topics (e.g. Harry Potter) carry their own curated `questions`;
+  // category topics (e.g. Music) draw from the shared daily pool by category.
+  const poolCount = topic ? (topic.questions ? topic.questions.length : categoryCount(topic.categories)) : 0;
+  const buildQuiz = () => (topic.questions ? shuffleQuiz(topic.questions, 10) : getQuestionsByCategory(topic.categories, 10));
+  const total = Math.min(10, poolCount);
 
-  const [quiz, setQuiz] = useState(() => (topic ? getQuestionsByCategory(topic.categories, 10) : []));
+  const [quiz, setQuiz] = useState(() => (topic ? buildQuiz() : []));
   const [idx, setIdx] = useState(0);
   const [selected, setSelected] = useState(null);
   const [answered, setAnswered] = useState(false);
@@ -23,7 +27,7 @@ export default function TopicTrivia({ slug }) {
   if (!topic) return <MeadowLayout><p className="text-center">Topic not found. <Link to="/trivia" className="underline text-[#E84A8B]">Play Daily Trivia →</Link></p></MeadowLayout>;
 
   const canonical = `https://herdgamesonline.com/${topic.slug}`;
-  const count = categoryCount(topic.categories);
+  const count = poolCount;
   const current = quiz[idx];
   const score = marks.filter(Boolean).length;
 
@@ -53,7 +57,7 @@ export default function TopicTrivia({ slug }) {
     else setDone(true);
   }
   function playAgain() {
-    setQuiz(getQuestionsByCategory(topic.categories, 10));
+    setQuiz(buildQuiz());
     setIdx(0); setSelected(null); setAnswered(false); setMarks([]); setDone(false);
   }
 

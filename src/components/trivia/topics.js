@@ -3,6 +3,8 @@
   content (intro, what's covered, real facts, tips) so they are standalone useful
   pages, not thin templates. Routes are top-level (/music-trivia, …).
 */
+import { HARRY_POTTER } from './franchiseBanks';
+
 export const TOPICS = [
   {
     slug: 'music-trivia', name: 'Music', emoji: '🎵',
@@ -194,6 +196,23 @@ export const TOPICS = [
       'The Toyota Corolla is the best-selling car of all time, with over 50 million sold across its generations.',
       'The world land-speed record, held by ThrustSSC, broke the sound barrier on land in 1997 at over 763 mph.',
       'Volkswagen literally means "people\'s car" in German.',
+    ],
+  },
+  {
+    slug: 'harry-potter-trivia', name: 'Harry Potter', emoji: '⚡',
+    title: 'Harry Potter Trivia — Free Harry Potter Quiz Questions',
+    h1: 'Harry Potter Trivia',
+    keyword: 'harry potter trivia, harry potter quiz, harry potter trivia questions, hogwarts quiz',
+    categories: ['Harry Potter'],
+    questions: HARRY_POTTER,
+    blurb: 'Spells, houses, characters and Hogwarts lore — are you a true wizard?',
+    intro: 'Harry Potter trivia is one of the most-loved fandom quizzes in the world, and for good reason: the books and films are packed with spells, characters, creatures and Hogwarts lore worth remembering. This quiz mixes easy wins every fan should know (which house is Harry in?) with the deeper cuts that separate casual readers from true Potterheads (what core is in Harry\'s wand?). No signup, no download — just press play and prove your wizarding knowledge.',
+    covers: ['The four Hogwarts houses and the Sorting Hat', 'Spells, charms and curses', 'Main characters and their families', 'Magical creatures and Quidditch', 'Key plot points across all seven books'],
+    tips: 'Spell incantations and character relationships come up the most. If you know your "Expelliarmus" from your "Avada Kedavra" and who\'s related to whom, you\'ll clear the majority of questions — the wand cores and currency names are where the real fans pull ahead.',
+    facts: [
+      'J.K. Rowling first dreamed up Harry Potter on a delayed train from Manchester to London in 1990.',
+      'The first book was rejected by 12 publishers before Bloomsbury took it on — reportedly on the advice of the chairman\'s 8-year-old daughter.',
+      'The word "muggle" was added to the Oxford English Dictionary in 2003.',
     ],
   },
 ];

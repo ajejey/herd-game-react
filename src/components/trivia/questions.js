@@ -143,17 +143,25 @@ export function categoryCount(categories) {
   return POOL.filter((q) => set.has(q.category)).length;
 }
 
-// A replayable quiz of up to n questions from the given categories, options
-// shuffled. Used by the programmatic topic-trivia pages (e.g. Music Trivia).
-export function getQuestionsByCategory(categories, n = 10) {
-  const set = new Set(categories);
-  const a = POOL.filter((q) => set.has(q.category));
+// A replayable quiz of up to n questions from an explicit list of items (each
+// authored CORRECT-FIRST), with both question order and option order shuffled.
+// Shared by category topic pages and the curated franchise banks (e.g. Harry
+// Potter), so they all behave identically.
+export function shuffleQuiz(items, n = 10) {
+  const a = [...items];
   for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
   return a.slice(0, Math.min(n, a.length)).map((item) => {
-    const order = [0, 1, 2, 3];
+    const order = item.options.map((_, i) => i);
     for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
     return { q: item.q, options: order.map((k) => item.options[k]), answerIndex: order.indexOf(0), category: item.category };
   });
+}
+
+// A replayable quiz from the daily POOL filtered to the given categories.
+// Used by the programmatic topic-trivia pages (e.g. Music Trivia).
+export function getQuestionsByCategory(categories, n = 10) {
+  const set = new Set(categories);
+  return shuffleQuiz(POOL.filter((q) => set.has(q.category)), n);
 }
 
 // mulberry32 seeded PRNG
