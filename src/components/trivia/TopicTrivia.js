@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
-import { getTopic, TOPICS } from './topics';
+import { getTopic } from './topics';
+import TopicGrid from './TopicGrid';
 import { getQuestionsByCategory, categoryCount, shuffleQuiz } from './questions';
 
 const GREEN = '#3D8B5A';
@@ -60,8 +61,6 @@ export default function TopicTrivia({ slug }) {
     setQuiz(buildQuiz());
     setIdx(0); setSelected(null); setAnswered(false); setMarks([]); setDone(false);
   }
-
-  const related = TOPICS.filter((t) => t.slug !== topic.slug);
 
   return (
     <MeadowLayout maxWidth="max-w-xl">
@@ -174,15 +173,10 @@ export default function TopicTrivia({ slug }) {
         )}
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">More trivia topics</h2>
-        <ul className="grid grid-cols-2 gap-2">
-          {related.map((t) => (
-            <li key={t.slug}>
-              <Link to={`/${t.slug}`} className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#FFE8C8] text-[#2D1810] font-semibold transition-colors">
-                <span className="text-xl">{t.emoji}</span><span className="text-sm">{t.h1}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <TopicGrid exclude={topic.slug} />
+        <div className="mt-3">
+          <Link to="/trivia-games" className="text-[#E84A8B] font-semibold underline text-sm">See all trivia games →</Link>
+        </div>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>
         <div className="space-y-3">

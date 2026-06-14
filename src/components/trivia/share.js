@@ -47,7 +47,19 @@ function commitStreak(day) {
   }
 }
 
-export function buildShareText(day, marks, score) {
+// Score-tailored share text. The emoji grid is the spoiler-free social
+// currency (the Wordle insight); the closing hook is matched to the score so a
+// great score reads as a flex and a bad score reads as a "drag a friend down
+// with you" challenge — both are reasons to send it to a specific person.
+export function buildShareText(day, marks, score, streak = 0) {
+  const total = marks.length;
   const grid = marks.map((m) => (m ? '🟩' : '🟥')).join('');
-  return `Daily Trivia #${day} — ${score}/${marks.length}\n${grid}\n\nThink you can beat it? herdgamesonline.com/trivia`;
+  const pct = total ? score / total : 0;
+  let emoji, hook;
+  if (score === total) { emoji = '🏆'; hook = 'Flawless. Bet you can’t match it:'; }
+  else if (pct >= 0.7) { emoji = '🔥'; hook = 'Think you can beat me?'; }
+  else if (pct >= 0.4) { emoji = '🙂'; hook = 'Bet you can do better — prove it:'; }
+  else { emoji = '😅'; hook = 'I bombed it. Drag yourself down with me:'; }
+  const streakLine = streak >= 2 ? `\n🔥 ${streak}-day streak` : '';
+  return `Daily Trivia #${day} — ${score}/${total} ${emoji}\n${grid}${streakLine}\n\n${hook} herdgamesonline.com/trivia`;
 }

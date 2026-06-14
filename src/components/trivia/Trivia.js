@@ -8,7 +8,7 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 import { sfx, isMuted, setMuted } from '../daily/sfx';
 import { getDayNumber, ATTRIBUTION } from './questions';
-import { TOPICS as TRIVIA_TOPICS } from './topics';
+import TopicGrid from './TopicGrid';
 import { buildGridCard, shareCardOrText, downloadFile } from '../../lib/shareCard';
 import { useTrivia } from './useTrivia';
 import { buildShareText } from './share';
@@ -129,16 +129,8 @@ export default function Trivia() {
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Trivia by topic</h2>
-        <p className="mb-2">Prefer a specific subject? Play a quick quiz on any of these — fresh questions every time:</p>
-        <ul className="grid grid-cols-2 gap-2 mb-4">
-          {TRIVIA_TOPICS.map((t) => (
-            <li key={t.slug}>
-              <Link to={`/${t.slug}`} className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#FFE8C8] text-[#2D1810] font-semibold transition-colors">
-                <span className="text-xl">{t.emoji}</span><span className="text-sm">{t.h1}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <p className="mb-3">Prefer a specific subject? Play a quick quiz on any of these — fresh questions every time, or browse the <Link to="/trivia-games" className="text-[#E84A8B] font-semibold underline">full list of trivia games</Link>:</p>
+        <div className="mb-4"><TopicGrid /></div>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>
         <div className="space-y-3">
@@ -191,7 +183,7 @@ function TriviaGame({ day, today, isArchive }) {
   }
 
   async function share() {
-    const text = buildShareText(day, marks, score);
+    const text = buildShareText(day, marks, score, streak);
     const file = await buildCard();
     const r = await shareCardOrText(file, text, 'Daily Trivia');
     if (r === 'copied') { setCopied(true); setTimeout(() => setCopied(false), 2000); }
@@ -268,10 +260,17 @@ function TriviaGame({ day, today, isArchive }) {
             {marks.map((m) => (m ? '🟩' : '🟥')).join('')}
           </div>
 
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
+          <p className="text-[#8B6347] text-sm mt-3 max-w-xs mx-auto">
+            {score === total ? 'Nobody will believe this — make them try.'
+              : score >= Math.ceil(total * 0.7) ? 'Flex it — dare a friend to beat your score.'
+              : score >= total / 2 ? 'Send it to a friend and see who scores higher.'
+              : 'Misery loves company — challenge a friend to do worse.'}
+          </p>
+
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
             <button onClick={share} style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
               className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
-              {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Share result</>}
+              {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Challenge a friend</>}
             </button>
             <button onClick={saveImage}
               className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
@@ -289,6 +288,16 @@ function TriviaGame({ day, today, isArchive }) {
             <FaFire /> {streak}-day streak
           </div>
           {!isArchive && <p className="text-[#4A2D1B] mt-1">A new quiz drops tomorrow — keep your streak going.</p>}
+
+          {/* Want more now? Send them into a topic quiz they can replay instantly. */}
+          <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8] text-left">
+            <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-1 text-center">Want more? Pick a topic</h2>
+            <p className="text-[#8B6347] text-sm mb-3 text-center">Fresh questions every time — play as many as you like.</p>
+            <TopicGrid compact />
+            <div className="text-center mt-3">
+              <Link to="/trivia-games" className="text-[#E84A8B] font-semibold underline text-sm">See all trivia games →</Link>
+            </div>
+          </div>
 
           <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
 

@@ -31,6 +31,7 @@ const MENU = [
   { label: 'Daily', items: [
     { to: '/daily', label: 'Daily Herd' },
     { to: '/trivia', label: 'Daily Trivia' },
+    { to: '/trivia-games', label: 'Trivia Topics' },
     { to: '/connections', label: 'Huddle' },
     { to: '/aura', label: 'Daily Aura' },
     { to: '/hot-takes', label: 'Daily Hot Takes' },

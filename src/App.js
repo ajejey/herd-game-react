@@ -28,6 +28,7 @@ import SpectrumRoom from './components/spectrum/SpectrumRoom';
 import TwoTruthsHome from './components/twotruths/TwoTruthsHome';
 import TwoTruthsRoom from './components/twotruths/TwoTruthsRoom';
 import TopicTrivia from './components/trivia/TopicTrivia';
+import TopicsHub from './components/trivia/TopicsHub';
 import { TOPICS } from './components/trivia/topics';
 import CloverHome from './components/clover/CloverHome';
 import CloverRoom from './components/clover/CloverRoom';
@@ -93,6 +94,7 @@ function App() {
               <Route path="/connections/:dayNumber" element={<Huddle />} />
               <Route path="/trivia" element={<Trivia />} />
               <Route path="/trivia/:dayNumber" element={<Trivia />} />
+              <Route path="/trivia-games" element={<TopicsHub />} />
               <Route path="/aura" element={<Aura />} />
               <Route path="/aura/:dayNumber" element={<Aura />} />
               <Route path="/hot-takes" element={<HotTakes />} />
