@@ -167,6 +167,13 @@ function TriviaGame({ day, today, isArchive }) {
   }, [answered, alreadyPlayed]); // eslint-disable-line
   useEffect(() => { if (done && !alreadyPlayed && score >= Math.ceil(total * 0.7)) sfx.win(); }, [done]); // eslint-disable-line
 
+  // Score tier drives the result card's gradient, badge and headline.
+  const tier =
+    score === total ? { c1: '#FFD86B', c2: '#FF8A3D', label: 'Flawless!', icon: '🏆' } :
+    score >= Math.ceil(total * 0.7) ? { c1: '#FF8FB1', c2: '#E84A8B', label: 'Sharp herd brain!', icon: '🔥' } :
+    score >= total / 2 ? { c1: '#8FD3A6', c2: '#3D8B5A', label: 'Solid effort.', icon: '👏' } :
+    { c1: '#B7C0CE', c2: '#7A8699', label: 'The herd will get you tomorrow!', icon: '🐑' };
+
   function buildCard() {
     // 10 marks → two rows of 5 coloured squares
     const cells = marks.map((m) => (m ? '#3D8B5A' : '#D0463B'));
@@ -251,16 +258,34 @@ function TriviaGame({ day, today, isArchive }) {
       {done && (
         <div className="mt-2 text-center">
           {score >= Math.ceil(total * 0.7) && <Confetti width={w} height={h} numberOfPieces={160} recycle={false} gravity={0.25} />}
-          <h2 style={fredokaStyle} className="text-3xl font-bold text-[#2D1810]">{score}/{total}</h2>
-          <p className="text-[#4A2D1B] mt-1">
-            {score === total ? 'Flawless! 🐑' : score >= Math.ceil(total * 0.7) ? 'Sharp herd brain!' : score >= total / 2 ? 'Solid effort.' : 'The herd will get you tomorrow!'}
-          </p>
 
-          <div className="mt-3 inline-block bg-[#FFF8E7] rounded-xl px-4 py-3 text-xl tracking-widest">
-            {marks.map((m) => (m ? '🟩' : '🟥')).join('')}
+          {/* Result hero card */}
+          <div
+            className="relative mx-auto max-w-sm rounded-[28px] px-6 py-7 text-white overflow-hidden shadow-[0_22px_45px_-18px_rgba(45,24,16,0.45)]"
+            style={{ background: `linear-gradient(140deg, ${tier.c1}, ${tier.c2})` }}
+          >
+            {/* soft glow accents */}
+            <div className="absolute -top-10 -right-8 w-32 h-32 rounded-full bg-white/20 blur-2xl" aria-hidden="true" />
+            <div className="absolute -bottom-12 -left-10 w-36 h-36 rounded-full bg-black/10 blur-2xl" aria-hidden="true" />
+
+            <div className="relative">
+              <div className="text-5xl drop-shadow-sm">{tier.icon}</div>
+              <div className="flex items-end justify-center gap-1.5 mt-1">
+                <span style={fredokaStyle} className="text-7xl font-bold leading-none drop-shadow-sm">{score}</span>
+                <span style={fredokaStyle} className="text-3xl font-bold leading-none mb-1.5 text-white/75">/ {total}</span>
+              </div>
+              <p style={fredokaStyle} className="text-lg font-bold mt-1.5">{tier.label}</p>
+
+              {/* answer tiles — solid = correct, faded = miss */}
+              <div className="flex justify-center gap-1.5 mt-4 flex-wrap max-w-[220px] mx-auto">
+                {marks.map((m, i) => (
+                  <span key={i} className={`w-5 h-5 rounded-md ${m ? 'bg-white shadow-sm' : 'bg-white/25 ring-1 ring-white/30'}`} />
+                ))}
+              </div>
+            </div>
           </div>
 
-          <p className="text-[#8B6347] text-sm mt-3 max-w-xs mx-auto">
+          <p className="text-[#8B6347] text-sm mt-4 max-w-xs mx-auto">
             {score === total ? 'Nobody will believe this — make them try.'
               : score >= Math.ceil(total * 0.7) ? 'Flex it — dare a friend to beat your score.'
               : score >= total / 2 ? 'Send it to a friend and see who scores higher.'
@@ -284,10 +309,10 @@ function TriviaGame({ day, today, isArchive }) {
             )}
           </div>
 
-          <div className="mt-4 inline-flex items-center gap-2 text-[#E84A8B] font-semibold">
+          <div className="mt-5 inline-flex items-center gap-2 bg-[#FFF0F5] border border-[#FFD6E0] text-[#E84A8B] font-bold px-4 py-1.5 rounded-full shadow-sm">
             <FaFire /> {streak}-day streak
           </div>
-          {!isArchive && <p className="text-[#4A2D1B] mt-1">A new quiz drops tomorrow — keep your streak going.</p>}
+          {!isArchive && <p className="text-[#4A2D1B] mt-2 text-sm">A new quiz drops tomorrow — keep your streak going.</p>}
 
           {/* Want more now? Send them into a topic quiz they can replay instantly. */}
           <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8] text-left">
