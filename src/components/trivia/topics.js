@@ -164,6 +164,38 @@ export const TOPICS = [
       'The Eiffel Tower can grow by about 15 centimetres in summer as the metal expands in the heat.',
     ],
   },
+  {
+    slug: 'book-trivia', name: 'Book', emoji: '📚',
+    title: 'Book Trivia — Free Literature Quiz Questions',
+    h1: 'Book Trivia',
+    keyword: 'book trivia, literature trivia, book quiz, book trivia questions',
+    categories: ['Books'],
+    blurb: 'Authors, classics and characters — how well do you know your books?',
+    intro: 'Book trivia rewards lifelong readers and casual page-turners alike. This quiz pulls from classic novels, famous authors, opening lines, fictional characters and literary prizes, so whether your shelf is full of Dickens or full of bestsellers, there are questions that land. It is a favourite quiz-night category because almost everyone has read at least a few of the books that come up.',
+    covers: ['Classic and modern novels', 'Famous authors and their works', 'Characters, settings and plots', 'Opening lines and famous quotes', 'Literary prizes and bestsellers'],
+    tips: 'Authors and their best-known titles are the highest-frequency questions. Knowing who wrote the handful of true classics — and the headline-grabbing modern bestsellers — clears a surprising number of answers.',
+    facts: [
+      'Agatha Christie is the best-selling novelist of all time, with around two billion copies sold.',
+      'The longest novel ever published, Marcel Proust\'s "In Search of Lost Time", runs to roughly 1.2 million words.',
+      'Dr. Seuss wrote "Green Eggs and Ham" on a bet that he couldn\'t write a book using 50 or fewer distinct words — he won.',
+    ],
+  },
+  {
+    slug: 'car-trivia', name: 'Car', emoji: '🚗',
+    title: 'Car Trivia — Free Cars & Vehicles Quiz Questions',
+    h1: 'Car Trivia',
+    keyword: 'car trivia, vehicle trivia, car quiz, car trivia questions',
+    categories: ['Vehicles'],
+    blurb: 'Cars, planes, trains and more — test your knowledge of all things on the move.',
+    intro: 'Car trivia goes far beyond engines and badges — it covers the whole world of vehicles: cars, motorbikes, planes, trains, ships and the records they hold. This quiz mixes famous models, manufacturers, motorsport and the history of getting from A to B, so the petrolhead and the curious commuter both find their lane.',
+    covers: ['Car makes, models and badges', 'Motorsport and famous races', 'Planes, trains, ships and bikes', 'Speed, size and engineering records', 'The history of transport and travel'],
+    tips: 'Manufacturers and their home countries come up constantly, as do the headline speed and production records. Anchoring a few iconic models to their makers is the fastest way to climb your score.',
+    facts: [
+      'The Toyota Corolla is the best-selling car of all time, with over 50 million sold across its generations.',
+      'The world land-speed record, held by ThrustSSC, broke the sound barrier on land in 1997 at over 763 mph.',
+      'Volkswagen literally means "people\'s car" in German.',
+    ],
+  },
 ];
 
 export const getTopic = (slug) => TOPICS.find((t) => t.slug === slug) || null;
