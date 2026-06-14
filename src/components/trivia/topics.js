@@ -3,7 +3,7 @@
   content (intro, what's covered, real facts, tips) so they are standalone useful
   pages, not thin templates. Routes are top-level (/music-trivia, …).
 */
-import { HARRY_POTTER } from './franchiseBanks';
+import { HARRY_POTTER, DISNEY, MARVEL, FRIENDS } from './franchiseBanks';
 
 export const TOPICS = [
   {
@@ -213,6 +213,57 @@ export const TOPICS = [
       'J.K. Rowling first dreamed up Harry Potter on a delayed train from Manchester to London in 1990.',
       'The first book was rejected by 12 publishers before Bloomsbury took it on — reportedly on the advice of the chairman\'s 8-year-old daughter.',
       'The word "muggle" was added to the Oxford English Dictionary in 2003.',
+    ],
+  },
+  {
+    slug: 'disney-trivia', name: 'Disney', emoji: '🏰',
+    title: 'Disney Trivia — Free Disney Quiz Questions',
+    h1: 'Disney Trivia',
+    keyword: 'disney trivia, disney quiz, disney trivia questions, disney movie trivia',
+    categories: ['Disney'],
+    questions: DISNEY,
+    blurb: 'Princesses, Pixar and classic tales — how magical is your Disney knowledge?',
+    intro: 'Disney trivia spans nearly a century of animation, from the hand-drawn classics like Snow White and Pinocchio to the Pixar era and modern hits like Frozen and Moana. This quiz mixes princesses, villains, sidekicks, songs and the studios behind them, so a parent who grew up on The Lion King and a kid who knows every word of "Let It Go" can both play and win. No signup, no download — just press play.',
+    covers: ['Classic animated films and fairy tales', 'Pixar films and characters', 'Disney princesses, heroes and villains', 'Famous songs and sidekicks', 'The studio, the parks and Disney history'],
+    tips: 'Sidekicks and villains are some of the most-asked questions — knowing who pairs with whom (and which baddie is in which film) clears a lot of answers. The Pixar and Frozen-era films come up the most with younger players.',
+    facts: [
+      'Walt Disney holds the record for the most Academy Awards won by one person — 22 Oscars.',
+      'Mickey Mouse was almost named Mortimer; Walt Disney’s wife Lillian suggested "Mickey" instead.',
+      'The Walt Disney Company was founded in 1923, making it more than a century old.',
+    ],
+  },
+  {
+    slug: 'marvel-trivia', name: 'Marvel', emoji: '🦸',
+    title: 'Marvel Trivia — Free Marvel Quiz Questions',
+    h1: 'Marvel Trivia',
+    keyword: 'marvel trivia, marvel quiz, marvel trivia questions, avengers trivia, mcu quiz',
+    categories: ['Marvel'],
+    questions: MARVEL,
+    blurb: 'Avengers, mutants and Infinity Stones — are you a true Marvel fan?',
+    intro: 'Marvel trivia covers everything from the comic-book origins of Spider-Man and the X-Men to the record-breaking Marvel Cinematic Universe. This quiz mixes heroes, villains, alter egos, gadgets and the events that tied the Avengers together, so whether you grew up reading the comics or only know the films, there are questions you can crush. Free to play, no signup, no download.',
+    covers: ['The Avengers and their alter egos', 'Spider-Man, the X-Men and mutants', 'Villains from Thanos to the Green Goblin', 'Infinity Stones, gadgets and tech', 'The MCU films and comic-book history'],
+    tips: 'Alter egos (real names) and who-fights-whom are the bread and butter of Marvel trivia. If you know each hero’s civilian identity and their signature villain, you’ll clear most questions — the comic-only deep cuts are where true fans pull ahead.',
+    facts: [
+      'Marvel legend Stan Lee made a cameo in nearly every MCU film until his death in 2018.',
+      'Spider-Man first appeared in 1962, in the comic Amazing Fantasy #15.',
+      'Avengers: Endgame briefly became the highest-grossing film of all time in 2019.',
+    ],
+  },
+  {
+    slug: 'friends-trivia', name: 'Friends', emoji: '☕',
+    title: 'Friends Trivia — Free Friends TV Show Quiz Questions',
+    h1: 'Friends Trivia',
+    keyword: 'friends trivia, friends quiz, friends tv show trivia, friends trivia questions',
+    categories: ['Friends'],
+    questions: FRIENDS,
+    blurb: 'Central Perk, the gang and all the catchphrases — how well do you know Friends?',
+    intro: 'Friends trivia is a comfort-watch favourite, and the show is so rewatched that fans remember the tiniest details: Ross’s jobs and divorces, Joey’s catchphrases, Phoebe’s songs and the on-again-off-again of Ross and Rachel. This quiz mixes characters, running jokes, relationships and famous moments across all ten seasons, so casual fans and superfans alike can test how well they really know the gang. Free, no signup, no download.',
+    covers: ['The six main characters and their jobs', 'Catchphrases and running jokes', 'Relationships, weddings and break-ups', 'Central Perk and famous moments', 'Guest stars and memorable episodes'],
+    tips: 'Relationships and catchphrases are the most-asked. Knowing who dated whom, the big wedding moments, and each character’s signature line will carry you a long way — the obscure middle-name and pet trivia is where superfans separate themselves.',
+    facts: [
+      'The six main cast members negotiated their salaries together and eventually earned $1 million each per episode.',
+      'The famous orange couch in Central Perk was reportedly found in the Warner Bros. studio basement.',
+      'Friends ran for ten seasons, from 1994 to 2004.',
     ],
   },
 ];
