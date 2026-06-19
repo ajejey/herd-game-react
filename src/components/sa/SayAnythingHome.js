@@ -521,9 +521,16 @@ export default function SayAnythingHome() {
           <h2 style={fredokaStyle} className="text-xl md:text-2xl font-bold text-[#2D1810] mb-3">
             More free online party games
           </h2>
-          <p className="text-[#4A2D1B] mb-4">
-            <Link to="/" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold underline">Herd Mentality</Link> — think like the group, dodge the pink cow.{' '}
-            <span className="text-[#8B6347]">More games coming soon.</span>
+          <p className="text-[#4A2D1B] mb-4 max-w-2xl mx-auto leading-relaxed">
+            If you like Say Anything, try the rest of the hub — all free, all in your browser, no download:{' '}
+            <Link to="/" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold underline">Herd Mentality</Link>,{' '}
+            <Link to="/guesstimate" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold underline">Guesstimate</Link>,{' '}
+            <Link to="/clover" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold underline">Clover Clues</Link>,{' '}
+            <Link to="/chameleon" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold underline">Chameleon</Link>,{' '}
+            <Link to="/spectrum" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold underline">Spectrum</Link>, and{' '}
+            <Link to="/team-trivia" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold underline">Team Trivia</Link>.
+            Prefer a quick solo round? Play the <Link to="/trivia" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold underline">Daily Trivia</Link> or browse{' '}
+            <Link to="/trivia-games" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold underline">trivia games by topic</Link>.
           </p>
         </section>
 

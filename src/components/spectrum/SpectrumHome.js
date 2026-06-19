@@ -41,9 +41,11 @@ const HOWTO_SCHEMA = {
 };
 const FAQS = [
   { q: 'Is Spectrum free?', a: 'Yes — free, no download, no signup. Create a room, share the 4-letter code, and play in the browser.' },
-  { q: 'Is this like Wavelength?', a: 'It’s the same kind of "read the room" guessing game: a clue-giver hints where a hidden target sits on a scale between two opposites, and everyone else guesses. Original wording, free to play online.' },
-  { q: 'How many players?', a: 'At least 3 — one gives the clue and the others guess. It’s great with 4 to 10.' },
-  { q: 'Can we play on a video call?', a: 'Yes. Everyone joins from their own device, so it works perfectly on Zoom or Microsoft Teams.' },
+  { q: 'Is Spectrum like the Wavelength game?', a: 'Yes — it’s the same kind of "read the room" guessing game as Wavelength: a clue-giver hints where a hidden target sits on a scale between two opposites, and everyone else guesses how close they can get. This is an original, free online version you can play instantly in your browser.' },
+  { q: 'How many players do you need?', a: 'At least 3 — one person gives the clue and the others guess. It’s great with 4 to 10, and the clue-giver role rotates so everyone gets a turn.' },
+  { q: 'Can we play Spectrum on a video call?', a: 'Yes. Everyone joins from their own device, so it works perfectly on Zoom, Microsoft Teams or Discord — ideal for remote game nights and team socials.' },
+  { q: 'How long does a game take?', a: 'A few rounds take about 10–15 minutes. It’s quick to learn and easy to play another round, so you control how long you go.' },
+  { q: 'What makes a good clue?', a: 'The best clues aren’t too obvious or too obscure — you want something that nudges the team toward the target without giving it away. Half the fun is arguing about whether your clue was genius or terrible.' },
 ];
 const FAQ_SCHEMA = {
   '@context': 'https://schema.org',
@@ -114,12 +116,30 @@ export default function SpectrumHome() {
       </div>
 
       <div className="max-w-2xl mx-auto mt-10 text-[#4A2D1B] leading-relaxed">
-        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">A free "read the room" guessing game</h2>
+        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">A free "read the room" guessing game, like Wavelength</h2>
         <p className="mb-3">
           Spectrum is a free online party game in the spirit of <strong>Wavelength</strong>. Each round shows a scale between two opposites — say <em>Cold ↔ Hot</em> or <em>Overrated ↔ Underrated</em> — with a hidden target somewhere on it. One player (the clue-giver) can see the target and gives a single clue; everyone else slides to where they think it lands. The closer you guess, the more points you score, and the clue-giver is rewarded for a clue that gets the team close.
         </p>
         <p className="mb-3">
-          It’s a perfect <Link to="/office-games">team game</Link> — quick, funny, and everyone joins from their own device, so it works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Teams</Link> or Zoom call. More group games: <Link to="/chameleon">Chameleon</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/team-trivia">Team Trivia</Link>, and <Link to="/guesstimate">Guesstimate</Link>.
+          There’s <strong>no download and no signup</strong> — just create a room, share the 4-letter code, and play. It’s the same brain-on-the-same-wavelength feeling as the board game, free and instant in your browser.
+        </p>
+
+        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">How to play Spectrum</h2>
+        <ol className="list-decimal pl-5 mb-3 space-y-1">
+          <li><strong>See the spectrum</strong> — each round shows a scale between two opposites (e.g. <em>Cold ↔ Hot</em>), with a hidden target on it.</li>
+          <li><strong>One player gives a clue</strong> — the clue-giver sees the target and says one word or phrase that points to where it sits.</li>
+          <li><strong>Everyone else guesses</strong> — slide the marker to where you think the target is.</li>
+          <li><strong>Score by how close you land</strong> — the nearer your guess, the more points; then the clue-giver role passes to the next player.</li>
+        </ol>
+
+        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Example spectrums</h2>
+        <p className="mb-3">
+          The scales are what make each round funny and arguable. A few examples: <em>Useless ↔ Essential</em>, <em>Underrated ↔ Overrated</em>, <em>Weird ↔ Normal</em>, <em>Healthy ↔ Unhealthy</em>, <em>Cheap ↔ Expensive</em>, <em>Villain ↔ Hero</em>. Half the fun is the debate afterward about whether the clue really pointed where the clue-giver claims.
+        </p>
+
+        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">A great party &amp; team game</h2>
+        <p className="mb-3">
+          Spectrum is quick to learn, plays in 10–15 minutes, and gets funnier with a group — perfect for a games night or as an <Link to="/office-games">office team game</Link>. Because everyone joins from their own device, it works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Discord call. More group games: <Link to="/chameleon">Chameleon</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/team-trivia">Team Trivia</Link>, <Link to="/guesstimate">Guesstimate</Link>, or browse <Link to="/trivia-games">trivia games by topic</Link>.
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>
