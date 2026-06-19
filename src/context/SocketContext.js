@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { reportError } from '../lib/reportError';
+import { SOCKET_OPTS, attachConnectivityReconnect } from '../lib/socketConfig';
 
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:3001';
 
@@ -11,15 +12,10 @@ export const SocketProvider = ({ children }) => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const newSocket = io(SOCKET_URL, {
-      // Connect via HTTP long-polling first, then upgrade to WebSocket when the
-      // network allows it. WebSocket-only locks out users whose proxy/firewall/
-      // ISP/AV/extension blocks the wss:// upgrade (no fallback = hard failure).
-      transports: ['polling', 'websocket'],
-      reconnection: true,
-      reconnectionAttempts: 10,
-      reconnectionDelay: 1000
-    });
+    // Shared robust config: polling-first, never-give-up reconnection, mobile
+    // handshake timeout. (Previously this path capped at 10 attempts with no
+    // delay cap — it was the biggest source of socket_connect errors.)
+    const newSocket = io(SOCKET_URL, SOCKET_OPTS);
 
     newSocket.on('connect', () => {
       console.log('Socket connected');
@@ -41,7 +37,12 @@ export const SocketProvider = ({ children }) => {
 
     setSocket(newSocket);
 
+    // Reconnect when the tab returns to the foreground / network comes back
+    // (the main iOS Safari failure mode).
+    const detachReconnect = attachConnectivityReconnect(newSocket);
+
     return () => {
+      detachReconnect();
       newSocket.close();
     };
   }, []);

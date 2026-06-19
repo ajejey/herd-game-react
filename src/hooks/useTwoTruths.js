@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
 import { reportError } from '../lib/reportError';
+import { attachConnectivityReconnect } from '../lib/socketConfig';
 
 const BACKEND_URL = process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 const NAMESPACE = '/twotruths';
@@ -63,7 +64,8 @@ export function useTwoTruths() {
     });
     socket.on('kicked', ({ message }) => { setKicked(true); setError(message); clearSession(); });
 
-    return () => socket.disconnect();
+    const detachReconnect = attachConnectivityReconnect(socket);
+    return () => { detachReconnect(); socket.disconnect(); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
