@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import Confetti from 'react-confetti';
+import { FiShare2, FiCheck, FiDownload } from 'react-icons/fi';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 import { getTopic } from './topics';
 import TopicGrid from './TopicGrid';
 import { getQuestionsByCategory, categoryCount, shuffleQuiz } from './questions';
+import { buildGridCard, shareCardOrText, downloadFile } from '../../lib/shareCard';
 
 const GREEN = '#3D8B5A';
 const RED = '#D0463B';
@@ -24,6 +27,7 @@ export default function TopicTrivia({ slug }) {
   const [answered, setAnswered] = useState(false);
   const [marks, setMarks] = useState([]);
   const [done, setDone] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   if (!topic) return <MeadowLayout><p className="text-center">Topic not found. <Link to="/trivia" className="underline text-[#E84A8B]">Play Daily Trivia →</Link></p></MeadowLayout>;
 
@@ -57,9 +61,45 @@ export default function TopicTrivia({ slug }) {
     if (idx < quiz.length - 1) { setIdx(idx + 1); setSelected(null); setAnswered(false); }
     else setDone(true);
   }
+  // Score tier drives the result card gradient/badge (same look as Daily Trivia).
+  const tier =
+    score === total ? { c1: '#FFD86B', c2: '#FF8A3D', label: 'Flawless!', icon: '🏆' } :
+    score >= Math.ceil(total * 0.7) ? { c1: '#FF8FB1', c2: '#E84A8B', label: 'Sharp!', icon: '🔥' } :
+    score >= total / 2 ? { c1: '#8FD3A6', c2: '#3D8B5A', label: 'Solid effort.', icon: '👏' } :
+    { c1: '#B7C0CE', c2: '#7A8699', label: 'Try again!', icon: '🐑' };
+
+  // Spoiler-free, score-tailored share text. The shared link is THIS topic page,
+  // so friends land on the same quiz (good for virality + SEO).
+  function shareText() {
+    const grid = marks.map((m) => (m ? '🟩' : '🟥')).join('');
+    const pct = total ? score / total : 0;
+    let emoji, hook;
+    if (score === total) { emoji = '🏆'; hook = 'Bet you can’t match it:'; }
+    else if (pct >= 0.7) { emoji = '🔥'; hook = 'Think you can beat me?'; }
+    else if (pct >= 0.4) { emoji = '🙂'; hook = 'Bet you can do better:'; }
+    else { emoji = '😅'; hook = 'I bombed it — try to beat me:'; }
+    return `${topic.h1} — ${score}/${total} ${emoji}\n${grid}\n\n${hook} ${canonical}`;
+  }
+  function buildCard() {
+    const colors = marks.map((m) => (m ? GREEN : RED));
+    const rows = [];
+    for (let i = 0; i < colors.length; i += 5) rows.push(colors.slice(i, i + 5));
+    return buildGridCard({
+      heading: topic.h1, big: `${score}/${total}`, sub: 'herdgamesonline.com',
+      rows, footerLines: [tier.label, 'Play free — no signup'], accent: '#E84A8B',
+      fileName: `${topic.slug}.png`,
+    });
+  }
+  async function share() {
+    const file = await buildCard();
+    const r = await shareCardOrText(file, shareText(), topic.h1);
+    if (r === 'copied') { setCopied(true); setTimeout(() => setCopied(false), 2000); }
+  }
+  async function saveImage() { downloadFile(await buildCard()); }
+
   function playAgain() {
     setQuiz(buildQuiz());
-    setIdx(0); setSelected(null); setAnswered(false); setMarks([]); setDone(false);
+    setIdx(0); setSelected(null); setAnswered(false); setMarks([]); setDone(false); setCopied(false);
   }
 
   return (
@@ -125,10 +165,52 @@ export default function TopicTrivia({ slug }) {
 
         {done && (
           <div className="text-center">
-            <h2 style={fredokaStyle} className="text-3xl font-bold text-[#2D1810]">{score}/{quiz.length}</h2>
-            <p className="text-[#4A2D1B] mt-1">{score === quiz.length ? 'Perfect! 🏆' : score >= quiz.length * 0.7 ? 'Great score!' : score >= quiz.length / 2 ? 'Not bad!' : 'Try again!'}</p>
-            <div className="mt-4 flex flex-wrap justify-center gap-2">
-              <button onClick={playAgain} style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }} className="px-7 py-3 rounded-2xl text-white font-bold">Play again</button>
+            {score >= Math.ceil(total * 0.7) && typeof window !== 'undefined' && (
+              <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={150} recycle={false} gravity={0.25} />
+            )}
+
+            {/* Result hero card */}
+            <div
+              className="relative mx-auto max-w-sm rounded-[28px] px-6 py-7 text-white overflow-hidden shadow-[0_22px_45px_-18px_rgba(45,24,16,0.45)]"
+              style={{ background: `linear-gradient(140deg, ${tier.c1}, ${tier.c2})` }}
+            >
+              <div className="absolute -top-10 -right-8 w-32 h-32 rounded-full bg-white/20 blur-2xl" aria-hidden="true" />
+              <div className="absolute -bottom-12 -left-10 w-36 h-36 rounded-full bg-black/10 blur-2xl" aria-hidden="true" />
+              <div className="relative">
+                <div className="text-5xl drop-shadow-sm">{tier.icon}</div>
+                <div className="flex items-end justify-center gap-1.5 mt-1">
+                  <span style={fredokaStyle} className="text-7xl font-bold leading-none drop-shadow-sm">{score}</span>
+                  <span style={fredokaStyle} className="text-3xl font-bold leading-none mb-1.5 text-white/75">/ {total}</span>
+                </div>
+                <p style={fredokaStyle} className="text-lg font-bold mt-1.5">{tier.label}</p>
+                <div className="flex justify-center gap-1.5 mt-4 flex-wrap max-w-[220px] mx-auto">
+                  {marks.map((m, i) => (
+                    <span key={i} className={`w-5 h-5 rounded-md ${m ? 'bg-white shadow-sm' : 'bg-white/25 ring-1 ring-white/30'}`} />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <p className="text-[#8B6347] text-sm mt-4 max-w-xs mx-auto">
+              {score === total ? 'Nobody will believe this — make them try.'
+                : score >= Math.ceil(total * 0.7) ? 'Flex it — dare a friend to beat your score.'
+                : score >= total / 2 ? 'Send it to a friend and see who scores higher.'
+                : 'Misery loves company — challenge a friend.'}
+            </p>
+
+            <div className="mt-3 flex flex-wrap justify-center gap-2">
+              <button onClick={share} style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
+                {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Challenge a friend</>}
+              </button>
+              <button onClick={saveImage}
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
+                <FiDownload /> Save image
+              </button>
+            </div>
+
+            <div className="mt-3 flex flex-wrap justify-center gap-2">
+              <button onClick={playAgain} style={{ background: '#2D1810', fontFamily: 'Fredoka, sans-serif' }} className="px-7 py-3 rounded-2xl text-white font-bold">Play again</button>
               <Link to="/trivia" className="px-5 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">Daily Trivia →</Link>
             </div>
           </div>
