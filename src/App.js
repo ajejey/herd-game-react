@@ -14,6 +14,7 @@ import Trivia from './components/trivia/Trivia';
 import Aura from './components/aura/Aura';
 import HotTakes from './components/hottakes/HotTakes';
 import ScrollToTop from './components/ScrollToTop';
+import RouteErrorBoundary from './components/ErrorBoundary';
 import OfficeGamesHub from './components/office/OfficeGamesHub';
 import OfficeTeams from './components/office/TeamsGamesPage';
 import OfficeFunFriday from './components/office/FunFridayPage';
@@ -86,6 +87,7 @@ function App() {
         <Router>
           <ScrollToTop />
           <div className="min-h-screen bg-gray-50">
+            <RouteErrorBoundary>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/daily" element={<DailyHerd />} />
@@ -168,6 +170,7 @@ function App() {
               <Route path="/guesstimate/drinking-party-games-online-free-for-adults" element={<GtDrinkingGamesPage />} />
               <Route path="/guesstimate/family-reunion-games-for-adults-large-groups" element={<GtFamilyReunionPage />} />
             </Routes>
+            </RouteErrorBoundary>
           </div>
         </Router>
       </GameProvider>
