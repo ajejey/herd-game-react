@@ -6,6 +6,7 @@ import { FiVolume2, FiVolumeX, FiShare2, FiCheck, FiDownload } from 'react-icons
 import { FaFire } from 'react-icons/fa';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
+import DailyChecklist from '../DailyChecklist';
 import { sfx, isMuted, setMuted } from '../daily/sfx';
 import { getDayNumber, getPuzzleForDay, emojiForLevel, colorForLevel } from './puzzles';
 import { buildGridCard, shareCardOrText, downloadFile } from '../../lib/shareCard';
@@ -252,6 +253,8 @@ function HuddleGame({ day, today, isArchive }) {
               </div>
             )}
             {!isArchive && <p className="text-[#4A2D1B] mt-1">A new Huddle drops tomorrow — keep your streak going.</p>}
+
+            <div className="mt-6 text-left max-w-sm mx-auto"><DailyChecklist exclude="huddle" /></div>
 
             <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
 

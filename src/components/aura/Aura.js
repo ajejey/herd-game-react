@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiShare2, FiCheck, FiDownload } from 'react-icons/fi';
 import { FaFire } from 'react-icons/fa';
 import AdSlot from '../AdSlot';
+import DailyChecklist from '../DailyChecklist';
 import AuraBlob from './AuraBlob';
 import { AURA_COLORS, getDayNumber } from './auraData';
 import { useAura } from './useAura';
@@ -247,6 +248,8 @@ function Reveal({ day, isArchive, colorId, streak, alreadyPlayed }) {
         <FaFire /> {streak}-day streak
       </div>
       {!isArchive && <p className="text-[#6B6478] mt-1">A fresh aura drops tomorrow — keep your streak going.</p>}
+
+      <div className="mt-6 text-left max-w-sm mx-auto"><DailyChecklist exclude="daily-aura" /></div>
 
       <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
 

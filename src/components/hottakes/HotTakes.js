@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiShare2, FiCheck, FiDownload } from 'react-icons/fi';
 import { FaFire } from 'react-icons/fa';
 import AdSlot from '../AdSlot';
+import DailyChecklist from '../DailyChecklist';
 import { useHotTakes } from './useHotTakes';
 import { ARCHETYPES, spiceLabel, THEME, HEAVY, BODY } from './hotTakeData';
 import { buildShareText, buildHotTakeCard } from './share';
@@ -242,6 +243,8 @@ function Reveal({ day, result, streak }) {
 
       <div className="mt-5 inline-flex items-center gap-2 font-semibold" style={{ color: THEME.hot }}><FaFire /> {streak}-day streak</div>
       <p className="mt-1" style={{ color: THEME.mut }}>Fresh takes drop tomorrow — keep your streak going.</p>
+
+      <div className="mt-6 text-left max-w-sm mx-auto"><DailyChecklist exclude="daily-hot-takes" /></div>
 
       <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
 
