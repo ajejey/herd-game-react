@@ -260,27 +260,27 @@ function TriviaGame({ day, today, isArchive }) {
         <div className="mt-2 text-center">
           {score >= Math.ceil(total * 0.7) && <Confetti width={w} height={h} numberOfPieces={160} recycle={false} gravity={0.25} />}
 
-          {/* Result hero card */}
+          {/* Result hero card — the moment of result; made larger to own the fold */}
           <div
-            className="relative mx-auto max-w-sm rounded-[28px] px-6 py-7 text-white overflow-hidden shadow-[0_22px_45px_-18px_rgba(45,24,16,0.45)]"
+            className="relative mx-auto max-w-sm rounded-[32px] px-7 py-9 text-white overflow-hidden shadow-[0_24px_50px_-18px_rgba(45,24,16,0.45)]"
             style={{ background: `linear-gradient(140deg, ${tier.c1}, ${tier.c2})` }}
           >
             {/* soft glow accents */}
-            <div className="absolute -top-10 -right-8 w-32 h-32 rounded-full bg-white/20 blur-2xl" aria-hidden="true" />
-            <div className="absolute -bottom-12 -left-10 w-36 h-36 rounded-full bg-black/10 blur-2xl" aria-hidden="true" />
+            <div className="absolute -top-12 -right-10 w-40 h-40 rounded-full bg-white/20 blur-2xl" aria-hidden="true" />
+            <div className="absolute -bottom-14 -left-12 w-44 h-44 rounded-full bg-black/10 blur-2xl" aria-hidden="true" />
 
             <div className="relative">
-              <div className="text-5xl drop-shadow-sm">{tier.icon}</div>
-              <div className="flex items-end justify-center gap-1.5 mt-1">
-                <span style={fredokaStyle} className="text-7xl font-bold leading-none drop-shadow-sm">{score}</span>
-                <span style={fredokaStyle} className="text-3xl font-bold leading-none mb-1.5 text-white/75">/ {total}</span>
+              <div className="text-6xl drop-shadow-sm">{tier.icon}</div>
+              <div className="flex items-end justify-center gap-2 mt-1">
+                <span style={fredokaStyle} className="text-8xl font-bold leading-none drop-shadow-sm">{score}</span>
+                <span style={fredokaStyle} className="text-4xl font-bold leading-none mb-2 text-white/75">/ {total}</span>
               </div>
-              <p style={fredokaStyle} className="text-lg font-bold mt-1.5">{tier.label}</p>
+              <p style={fredokaStyle} className="text-xl font-bold mt-2">{tier.label}</p>
 
               {/* answer tiles — solid = correct, faded = miss */}
-              <div className="flex justify-center gap-1.5 mt-4 flex-wrap max-w-[220px] mx-auto">
+              <div className="flex justify-center gap-2 mt-5 flex-wrap max-w-[260px] mx-auto">
                 {marks.map((m, i) => (
-                  <span key={i} className={`w-5 h-5 rounded-md ${m ? 'bg-white shadow-sm' : 'bg-white/25 ring-1 ring-white/30'}`} />
+                  <span key={i} className={`w-6 h-6 rounded-md ${m ? 'bg-white shadow-sm' : 'bg-white/25 ring-1 ring-white/30'}`} />
                 ))}
               </div>
             </div>
@@ -293,21 +293,24 @@ function TriviaGame({ day, today, isArchive }) {
               : 'Misery loves company — challenge a friend to do worse.'}
           </p>
 
-          <div className="mt-3 flex flex-wrap justify-center gap-2">
+          {/* Primary action: share. Everything else is secondary. */}
+          <div className="mt-4 max-w-sm mx-auto">
             <button onClick={share} style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
+              className="w-full inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-white font-bold text-lg shadow-[0_10px_24px_-10px_rgba(232,74,139,0.8)] hover:scale-[1.02] transition-transform">
               {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Challenge a friend</>}
             </button>
-            <button onClick={saveImage}
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
-              <FiDownload /> Save image
-            </button>
-            {today > 1 && (
-              <button onClick={playRandomPast}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
-                Play another quiz →
+            <div className="mt-2 flex justify-center gap-2">
+              <button onClick={saveImage}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold text-sm hover:border-[#E84A8B]">
+                <FiDownload /> Save image
               </button>
-            )}
+              {today > 1 && (
+                <button onClick={playRandomPast}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold text-sm hover:border-[#E84A8B]">
+                  Play another →
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="mt-5 inline-flex items-center gap-2 bg-[#FFF0F5] border border-[#FFD6E0] text-[#E84A8B] font-bold px-4 py-1.5 rounded-full shadow-sm">
@@ -315,21 +318,12 @@ function TriviaGame({ day, today, isArchive }) {
           </div>
           {!isArchive && <p className="text-[#4A2D1B] mt-2 text-sm">A new quiz drops tomorrow — keep your streak going.</p>}
 
-          {/* Want more now? Send them into a topic quiz they can replay instantly. */}
-          <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8] text-left">
-            <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-1 text-center">Want more? Pick a topic</h2>
-            <p className="text-[#8B6347] text-sm mb-3 text-center">Fresh questions every time — play as many as you like.</p>
-            <TopicGrid compact />
-            <div className="text-center mt-3">
-              <Link to="/trivia-games" className="text-[#E84A8B] font-semibold underline text-sm">See all trivia games →</Link>
-            </div>
-          </div>
-
-          <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
-
+          {/* Single primary next-action: keep playing the dailies. */}
           <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8] text-left">
             <DailyChecklist exclude="daily-trivia" />
           </div>
+
+          <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
         </div>
       )}
     </div>

@@ -170,23 +170,23 @@ export default function TopicTrivia({ slug }) {
               <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={150} recycle={false} gravity={0.25} />
             )}
 
-            {/* Result hero card */}
+            {/* Result hero card — enlarged to own the fold */}
             <div
-              className="relative mx-auto max-w-sm rounded-[28px] px-6 py-7 text-white overflow-hidden shadow-[0_22px_45px_-18px_rgba(45,24,16,0.45)]"
+              className="relative mx-auto max-w-sm rounded-[32px] px-7 py-9 text-white overflow-hidden shadow-[0_24px_50px_-18px_rgba(45,24,16,0.45)]"
               style={{ background: `linear-gradient(140deg, ${tier.c1}, ${tier.c2})` }}
             >
-              <div className="absolute -top-10 -right-8 w-32 h-32 rounded-full bg-white/20 blur-2xl" aria-hidden="true" />
-              <div className="absolute -bottom-12 -left-10 w-36 h-36 rounded-full bg-black/10 blur-2xl" aria-hidden="true" />
+              <div className="absolute -top-12 -right-10 w-40 h-40 rounded-full bg-white/20 blur-2xl" aria-hidden="true" />
+              <div className="absolute -bottom-14 -left-12 w-44 h-44 rounded-full bg-black/10 blur-2xl" aria-hidden="true" />
               <div className="relative">
-                <div className="text-5xl drop-shadow-sm">{tier.icon}</div>
-                <div className="flex items-end justify-center gap-1.5 mt-1">
-                  <span style={fredokaStyle} className="text-7xl font-bold leading-none drop-shadow-sm">{score}</span>
-                  <span style={fredokaStyle} className="text-3xl font-bold leading-none mb-1.5 text-white/75">/ {total}</span>
+                <div className="text-6xl drop-shadow-sm">{tier.icon}</div>
+                <div className="flex items-end justify-center gap-2 mt-1">
+                  <span style={fredokaStyle} className="text-8xl font-bold leading-none drop-shadow-sm">{score}</span>
+                  <span style={fredokaStyle} className="text-4xl font-bold leading-none mb-2 text-white/75">/ {total}</span>
                 </div>
-                <p style={fredokaStyle} className="text-lg font-bold mt-1.5">{tier.label}</p>
-                <div className="flex justify-center gap-1.5 mt-4 flex-wrap max-w-[220px] mx-auto">
+                <p style={fredokaStyle} className="text-xl font-bold mt-2">{tier.label}</p>
+                <div className="flex justify-center gap-2 mt-5 flex-wrap max-w-[260px] mx-auto">
                   {marks.map((m, i) => (
-                    <span key={i} className={`w-5 h-5 rounded-md ${m ? 'bg-white shadow-sm' : 'bg-white/25 ring-1 ring-white/30'}`} />
+                    <span key={i} className={`w-6 h-6 rounded-md ${m ? 'bg-white shadow-sm' : 'bg-white/25 ring-1 ring-white/30'}`} />
                   ))}
                 </div>
               </div>
@@ -199,20 +199,23 @@ export default function TopicTrivia({ slug }) {
                 : 'Misery loves company — challenge a friend.'}
             </p>
 
-            <div className="mt-3 flex flex-wrap justify-center gap-2">
+            {/* Primary action: share. Save / replay are secondary. */}
+            <div className="mt-4 max-w-sm mx-auto">
               <button onClick={share} style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
+                className="w-full inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl text-white font-bold text-lg shadow-[0_10px_24px_-10px_rgba(232,74,139,0.8)] hover:scale-[1.02] transition-transform">
                 {copied ? <><FiCheck /> Copied!</> : <><FiShare2 /> Challenge a friend</>}
               </button>
-              <button onClick={saveImage}
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
-                <FiDownload /> Save image
-              </button>
-            </div>
-
-            <div className="mt-3 flex flex-wrap justify-center gap-2">
-              <button onClick={playAgain} style={{ background: '#2D1810', fontFamily: 'Fredoka, sans-serif' }} className="px-7 py-3 rounded-2xl text-white font-bold">Play again</button>
-              <Link to="/trivia" className="px-5 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">Daily Trivia →</Link>
+              <div className="mt-2 flex justify-center gap-2 flex-wrap">
+                <button onClick={saveImage}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold text-sm hover:border-[#E84A8B]">
+                  <FiDownload /> Save image
+                </button>
+                <button onClick={playAgain}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold text-sm hover:border-[#E84A8B]">
+                  Play again
+                </button>
+                <Link to="/trivia" className="inline-flex items-center px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold text-sm hover:border-[#E84A8B]">Daily Trivia →</Link>
+              </div>
             </div>
 
             <div className="mt-6 text-left max-w-sm mx-auto"><DailyChecklist /></div>
