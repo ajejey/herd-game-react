@@ -9,6 +9,7 @@ import AdSlot from '../AdSlot';
 import { sfx, isMuted, setMuted } from '../daily/sfx';
 import { getDayNumber, ATTRIBUTION } from './questions';
 import TopicGrid from './TopicGrid';
+import DailyChecklist from '../DailyChecklist';
 import { buildGridCard, shareCardOrText, downloadFile } from '../../lib/shareCard';
 import { useTrivia } from './useTrivia';
 import { buildShareText } from './share';
@@ -326,14 +327,8 @@ function TriviaGame({ day, today, isArchive }) {
 
           <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
 
-          <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8]">
-            <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-3">More daily games</h2>
-            <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
-              <Link to="/daily" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Daily Herd</Link>
-              <Link to="/connections" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Huddle</Link>
-              <Link to="/guesstimate" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Guesstimate</Link>
-              <Link to="/say-anything" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Say Anything</Link>
-            </div>
+          <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8] text-left">
+            <DailyChecklist exclude="daily-trivia" />
           </div>
         </div>
       )}

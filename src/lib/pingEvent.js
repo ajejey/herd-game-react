@@ -12,6 +12,8 @@
    - Caller guards (savedRef / status) ensure it fires once per completed game.
 */
 
+import { recordDailyPlay } from './dailyProgress';
+
 const BACKEND_URL =
   process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 const ENDPOINT = `${BACKEND_URL}/api/daily-event`;
@@ -38,6 +40,9 @@ function getAnonId() {
  */
 export function pingDailyComplete(game, fields = {}) {
   try {
+    // Record locally for the unified daily streak / cross-game checklist.
+    recordDailyPlay(game);
+
     const payload = {
       game: String(game || '').slice(0, 40),
       event: 'complete',

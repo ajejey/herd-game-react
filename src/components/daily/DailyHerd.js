@@ -10,6 +10,7 @@ import AdSlot from '../AdSlot';
 import { Sheep, Wolf } from './HerdCritters';
 import { sfx, isMuted, setMuted } from './sfx';
 import { getIdentity, buildShareText, buildShareImageFile, recordHistory, readHistory } from './herdIdentity';
+import DailyChecklist from '../DailyChecklist';
 import { useDailyHerd } from '../../hooks/useDailyHerd';
 
 const PINK = '#E84A8B';
@@ -339,6 +340,8 @@ function ResultView({ dayNumber, result, streak }) {
             <FaFire /> {streak}-day streak
           </div>
           <p className="text-[#4A2D1B] mt-1">A new herd drops tomorrow — keep your streak and find out what you'll be.</p>
+
+          <div className="mt-6 text-left max-w-sm mx-auto"><DailyChecklist exclude="daily-herd" /></div>
 
           <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
 

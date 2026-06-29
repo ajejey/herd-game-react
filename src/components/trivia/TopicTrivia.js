@@ -7,6 +7,7 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 import { getTopic } from './topics';
 import TopicGrid from './TopicGrid';
+import DailyChecklist from '../DailyChecklist';
 import { getQuestionsByCategory, categoryCount, shuffleQuiz } from './questions';
 import { buildGridCard, shareCardOrText, downloadFile } from '../../lib/shareCard';
 
@@ -213,6 +214,8 @@ export default function TopicTrivia({ slug }) {
               <button onClick={playAgain} style={{ background: '#2D1810', fontFamily: 'Fredoka, sans-serif' }} className="px-7 py-3 rounded-2xl text-white font-bold">Play again</button>
               <Link to="/trivia" className="px-5 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">Daily Trivia →</Link>
             </div>
+
+            <div className="mt-6 text-left max-w-sm mx-auto"><DailyChecklist /></div>
           </div>
         )}
 
