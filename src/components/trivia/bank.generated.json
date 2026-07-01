@@ -1,7 +1,7 @@
 {
- "generatedAt": "2026-06-07",
+ "generatedAt": "2026-07-01",
  "attribution": "Questions from the Open Trivia Database (opentdb.com), CC BY-SA 4.0",
- "count": 1412,
+ "count": 1580,
  "questions": [
   {
    "q": "How many bones are in the human body?",
@@ -16944,6 +16944,2022 @@
     "10"
    ],
    "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "According to the nursery rhyme, what fruit did Little Jack Horner pull out of his Christmas pie?",
+   "options": [
+    "Plum",
+    "Apple",
+    "Peach",
+    "Pear"
+   ],
+   "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What does the acronym CDN stand for in terms of networking?",
+   "options": [
+    "Content Delivery Network",
+    "Content Distribution Network",
+    "Computational Data Network",
+    "Compressed Data Network"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the name of the first boss the player encounters in the 2017 game, \"Little Nightmares\"?",
+   "options": [
+    "The Janitor",
+    "The Warden",
+    "The Caretaker",
+    "The Overseer"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "When was Google founded?",
+   "options": [
+    "September 4, 1998",
+    "October 9, 1997",
+    "December 12, 1989",
+    "Feburary 7th, 2000"
+   ],
+   "category": "History",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What does the F stand for in the FBI?",
+   "options": [
+    "Federal",
+    "Foreign",
+    "Formal",
+    "First"
+   ],
+   "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who is the English voice actor for Sora from the Kingdom Hearts series?",
+   "options": [
+    "Haley Joel Osment",
+    "Kōki Uchiyama",
+    "Jesse McCartney",
+    "Miyu Irino"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In \"Overwatch\", Coalescence is the name for the ultimate of which hero?",
+   "options": [
+    "Moira",
+    "Zenyatta",
+    "Torbjorn",
+    "Symmetra"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "The humerus, paired radius, and ulna come together to form what joint?",
+   "options": [
+    "Elbow",
+    "Knee",
+    "Sholder",
+    "Ankle"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "The Pyrenees mountains are located on the border of which two countries?",
+   "options": [
+    "France and Spain",
+    "Italy and Switzerland",
+    "Norway and Sweden",
+    "Russia and Ukraine"
+   ],
+   "category": "Geography",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "If you were to code software in this language you'd only be able to type 0's and 1's.",
+   "options": [
+    "Binary",
+    "JavaScript",
+    "C++",
+    "Python"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the capital of Spain?",
+   "options": [
+    "Madrid",
+    "Barcelona",
+    "Sevilla",
+    "Toledo"
+   ],
+   "category": "Geography",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Snakes and lizards are known to flick their tongue, this behavior is to?",
+   "options": [
+    "Capture scent particles",
+    "Taste the sweet air",
+    "Threaten other species",
+    "Attract female mates"
+   ],
+   "category": "Animals",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "The heavy metal band Black Sabbath hail from which English city?",
+   "options": [
+    "Birmingham",
+    "Manchester",
+    "London",
+    "Newcastle-Upon-Tyne"
+   ],
+   "category": "Music",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the homeworld of the Elites from Halo?",
+   "options": [
+    "Sanghelios",
+    "Te",
+    "Doisac",
+    "Eayn"
+   ],
+   "category": "Games",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Starting from 2000, China banned manufacturing and sales of all video game consoles. On which year was this ban lifted?",
+   "options": [
+    "2015",
+    "2012",
+    "2008",
+    "2017"
+   ],
+   "category": "Politics",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Of the following months, which has the most amount of days?",
+   "options": [
+    "December",
+    "April",
+    "September",
+    "November"
+   ],
+   "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which of these are the name of a famous marker brand?",
+   "options": [
+    "Copic",
+    "Dopix",
+    "Cofix",
+    "Marx"
+   ],
+   "category": "Art",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which of these is not a layer in the OSI model for data communications?",
+   "options": [
+    "Connection Layer",
+    "Application Layer",
+    "Transport Layer",
+    "Physical Layer"
+   ],
+   "category": "Science",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "A positron is an antiparticle of a what?",
+   "options": [
+    "Electron",
+    "Neutron",
+    "Proton",
+    "Photon"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "The element involved in making human blood red is which of the following?",
+   "options": [
+    "Iron",
+    "Copper",
+    "Iridium",
+    "Cobalt"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which movie sequel had improved box office results compared to its original film?",
+   "options": [
+    "Toy Story 2",
+    "Sin City: A Dame to Kill For",
+    "Speed 2: Cruise Control",
+    "Son of the Mask"
+   ],
+   "category": "Film",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "On a standard American QWERTY keyboard, what symbol will you enter if you hold the shift key and press 1?",
+   "options": [
+    "Exclamation Mark",
+    "Dollar Sign",
+    "Percent Sign",
+    "Asterisk"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which country has the most Trappist breweries?",
+   "options": [
+    "Belgium",
+    "Netherlands",
+    "France",
+    "USA"
+   ],
+   "category": "General",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In season one of the US Kitchen Nightmares, Gordan Ramsay tried to save 10 different restaurants. How many ended up closing afterwards?",
+   "options": [
+    "9",
+    "6",
+    "3",
+    "0"
+   ],
+   "category": "Television",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the name of Sid's dog in \"Toy Story\"?",
+   "options": [
+    "Scud",
+    "Buster",
+    "Whiskers",
+    "Mr. Jones"
+   ],
+   "category": "Cartoons",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who performed the opening theme song for the James Bond 007 movie \"Goldfinger\"?",
+   "options": [
+    "Shirley Basey",
+    "Tom Jones",
+    "John Barry",
+    "Sheena Easton"
+   ],
+   "category": "Film",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What year did \"Attack on Titan\" Season 2 begin airing?",
+   "options": [
+    "2017",
+    "2018",
+    "2019",
+    "2020"
+   ],
+   "category": "Anime",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Rhinoplasty is a surgical procedure on what part of the human body?",
+   "options": [
+    "Nose",
+    "Ears",
+    "Chin",
+    "Neck"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which of these is not a character in the game, \"Lethal League\"?",
+   "options": [
+    "Rex",
+    "Switch",
+    "Candyman",
+    "Sonata"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which game was the first time Mario was voiced by Charles Martinet?",
+   "options": [
+    "Mario's Game Gallery",
+    "Super Mario 64",
+    "Mario Tennis",
+    "Dr. Mario 64"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who was the first Chancellor of a united Germany in 1871?",
+   "options": [
+    "Otto Von Bismark",
+    "Kaiser Wilhelm",
+    "Fredrick the 2nd",
+    "Robert Koch"
+   ],
+   "category": "History",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Swedish DJ Tim Bergling, who produced songs such as \"Levels\" and \"Wake Me Up\", is better known under what alias?",
+   "options": [
+    "Avicii",
+    "deadmau5",
+    "Alesso",
+    "Skrillex"
+   ],
+   "category": "Music",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the name of Team Fortress 2's Heavy Weapons Guy's minigun?",
+   "options": [
+    "Sasha",
+    "Betty",
+    "Anna",
+    "Diana"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the SI unit for resistance?",
+   "options": [
+    "Ohms",
+    "Ampheres",
+    "Siemens",
+    "Volts"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who is the creator of the free, open-source rhythm game 'osu!'?",
+   "options": [
+    "Dean 'Peppy' Herbert",
+    "Daisuke 'Pixel' Amaya",
+    "Eric 'ConcernedApe' Barone",
+    "Toby 'FwugRadiation' Fox"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which player \"kung-fu kicked\" a Crystal Palace fan in January 1995?",
+   "options": [
+    "Eric Cantona",
+    "David Seamen",
+    "Ashley Cole",
+    "Mark Hughes"
+   ],
+   "category": "Sport",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the best selling album of all time from 1976 to 2018?",
+   "options": [
+    "Thriller",
+    "Back in Black",
+    "Abbey Road",
+    "The Dark Side of the Moon"
+   ],
+   "category": "Music",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "When Batman trolls the online chat rooms, what alias does he use?",
+   "options": [
+    "JonDoe297",
+    "iAmBatman",
+    "BWayne13",
+    "BW1129"
+   ],
+   "category": "Comics",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which Death Grips album is the only one to feature a band member?",
+   "options": [
+    "No Love Deep Web",
+    "Bottomless Pit",
+    "The Money Store",
+    "The Powers That B"
+   ],
+   "category": "Music",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which actress's real name was Frances Ethel Gumm?",
+   "options": [
+    "Judy Garland",
+    "Doris Day",
+    "Julie Andrews",
+    "Marilyn Monroe"
+   ],
+   "category": "Celebrities",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "From the Meme Culture, which Mario game immerged \"Weegee\"?",
+   "options": [
+    "Mario is Missing! MS-DOS Version",
+    "Mario is Missing! SNES Version",
+    "Mario is Missing! NES Version",
+    "Mario is Missing! MSX Version"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which of these is the name for the failed key escrow device introduced by the National Security Agency in 1993?",
+   "options": [
+    "Clipper Chip",
+    "Enigma Machine",
+    "Skipjack",
+    "Nautilus"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the video game Team Fortress 2, which of these is NOT a primary?",
+   "options": [
+    "Medigun",
+    "Scattergun",
+    "Grenade Launcher",
+    "Rocket Launcher"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "When was \"Garry's Mod\" released?",
+   "options": [
+    "December 24, 2004",
+    "November 13, 2004",
+    "December 13, 2004",
+    "November 12, 2004"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What does the yellow diamond on the NFPA 704 fire diamond represent?",
+   "options": [
+    "Reactivity",
+    "Health",
+    "Flammability",
+    "Radioactivity"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the \"Call Of Duty: Zombies\" map \"Origins\", how many steps are there to upgrade a Staff?",
+   "options": [
+    "4",
+    "7",
+    "5",
+    "3"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who was the only president to not be in office in Washington D.C?",
+   "options": [
+    "George Washington",
+    "Abraham Lincoln",
+    "Richard Nixon",
+    "Thomas Jefferson"
+   ],
+   "category": "Politics",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What are the smallest blood vessels in the human body?",
+   "options": [
+    "Capillaries",
+    "Arterioles",
+    "Veinules",
+    "Lymphatics"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the video game \"Postal 2\", what is the name of Postal Dude's dog?",
+   "options": [
+    "Champ",
+    "Snoopy",
+    "Krotchy",
+    "Duke"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "In \"FTL: Faster Than Light\", how many races are there, including the Lanius?",
+   "options": [
+    "8",
+    "9",
+    "7",
+    "10"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the official language in Barcelona beside Spanish?",
+   "options": [
+    "Catalan",
+    "Galician",
+    "French",
+    "Basque"
+   ],
+   "category": "General",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the 2000 video game \"Crimson Skies,\" what was the name of the protagonists' zeppelin?",
+   "options": [
+    "Pandora",
+    "Helios",
+    "Icarus",
+    "Orion"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is Cuba's official, most widely spoken language?",
+   "options": [
+    "Spanish",
+    "Portuguese",
+    "French",
+    "Italian"
+   ],
+   "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "At what depth should you make a decompression stop, or safety stop, on a typical scuba dive?",
+   "options": [
+    "15 Feet / 5 Meters",
+    "25 Feet / 7.5 Meters",
+    "50 Feet / 15 Meters",
+    "75 Feet / 23 Meters"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the name of the Greek god of peaceful deaths?",
+   "options": [
+    "Thanatos",
+    "Tartarus",
+    "Hades",
+    "Moros"
+   ],
+   "category": "Mythology",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What device allows Tracer to manipulate her own time in the game \"Overwatch\"?",
+   "options": [
+    "Chronal Accelerator",
+    "B.L.I.N.K",
+    "Spacial Displacement Manipulator",
+    "TMD (Time Manipulation Device)"
+   ],
+   "category": "Games",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which singer provided the voice of Metroid's Mother Brain in the animated series \"Captain N: The Game Master\"?",
+   "options": [
+    "Levi Stubbs",
+    "Freddie Mercury",
+    "Janet Jackson",
+    "Joan Jett"
+   ],
+   "category": "Cartoons",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "The series of the Intel HD graphics generation succeeding that of the 5000 and 6000 series (Broadwell) is called:",
+   "options": [
+    "HD Graphics 500",
+    "HD Graphics 700",
+    "HD Graphics 600",
+    "HD Graphics 7000"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the original DOOM games, which of the following demons is a recolor of the Baron of Hell, but is weaker than the Baron?",
+   "options": [
+    "Hell Knight",
+    "Mancubus",
+    "Pinky",
+    "Arch-Vile"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the oldest team in the NFL?",
+   "options": [
+    "Arizona Cardinals",
+    "Chicago Bears",
+    "Green Bay Packers",
+    "New York Giants"
+   ],
+   "category": "Sport",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What Sims console game featured the Black Eyed Peas in the game?",
+   "options": [
+    "The Urbz: Sims In The City",
+    "The Sims 2",
+    "The Sims",
+    "The Sims: Bustin Out"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who is the last boss in Night In The Woods' Demontower minigame?",
+   "options": [
+    "The Blood Thief",
+    "Mega Hairball",
+    "King Skellie",
+    "Krampus"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who is the leader of Team Instinct in Pokémon Go?",
+   "options": [
+    "Spark",
+    "Candela",
+    "Blanche",
+    "Willow"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What was the first company to use the term \"Golden Master\"?",
+   "options": [
+    "Apple",
+    "IBM",
+    "Microsoft",
+    "Google"
+   ],
+   "category": "Science",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "By how many minutes are you late to work in \"Half-Life\"?",
+   "options": [
+    "30",
+    "5",
+    "60",
+    "15"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which anime did Seiji Kishi NOT direct?",
+   "options": [
+    "Another",
+    "Humanity Has Declined",
+    "Assassination Classroom",
+    "Danganronpa: The Animation"
+   ],
+   "category": "Anime",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which album was released by Kanye West in 2013?",
+   "options": [
+    "Yeezus",
+    "My Beautiful Dark Twisted Fantasy",
+    "The Life of Pablo",
+    "Watch the Throne"
+   ],
+   "category": "Music",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "In \"Xenoblade Chronicles 2\", Which party member cannot use normal blades?",
+   "options": [
+    "Tora",
+    "Rex",
+    "Zeke",
+    "Nia"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the shortest month of the year?",
+   "options": [
+    "February",
+    "December",
+    "April",
+    "September"
+   ],
+   "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which of these is NOT the name of a rival gang in the video game Saint's Row 2?",
+   "options": [
+    "The Zin Empire",
+    "The Brotherhood",
+    "The Ronin",
+    "The Sons of Samedi"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "The Tsar Bomba, the most powerful nuclear bomb ever tested, had a yield of 50 megatons but theoretically had a maximum yield of how much?",
+   "options": [
+    "100 Megatons",
+    "200 Megatons",
+    "75 Megatons",
+    "150 Megatons"
+   ],
+   "category": "History",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Capcom's survival horror title Dead Rising, canonically starts on what day of September 2006?",
+   "options": [
+    "September 19th",
+    "September 21st",
+    "September 30th",
+    "September 14th"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In Minecraft, which of these ingredients is needed to brew a Potion of Water Breathing?",
+   "options": [
+    "Pufferfish",
+    "Ink sac",
+    "Pumpkin",
+    "Fishing rod"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "The song 'Little April Shower' features in which Disney cartoon film?",
+   "options": [
+    "Bambi",
+    "Cinderella",
+    "Pinocchio",
+    "The Jungle Book"
+   ],
+   "category": "Cartoons",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "In Disney's \"Toontown Online\", which of these species wasn't available as a Toon?",
+   "options": [
+    "Cow",
+    "Monkey",
+    "Bear",
+    "Pig"
+   ],
+   "category": "Games",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the Video Game, Half-life, what type of US military force starts clearing out the Black Mesa Research Facility?",
+   "options": [
+    "The HECU",
+    "Navy Seals",
+    "The Combine",
+    "The Marines"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Bugs Bunny, Tony the Tiger, and other bipedal animal characters are known as what type of character?",
+   "options": [
+    "Anthropomorphic",
+    "Anthropolegic",
+    "Anthrologic",
+    "Anthrogenetic"
+   ],
+   "category": "Cartoons",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who was the first explorer to sail to North America?",
+   "options": [
+    "Leif Erikson",
+    "Christopher Columbus",
+    "Amerigo Vespucci",
+    "Ferdinand Magellan"
+   ],
+   "category": "History",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What was the major distinction between the English and French Gothic styles of architecture?",
+   "options": [
+    "Fan vaulting",
+    "Pinnacles",
+    "Gargoyles",
+    "Hemispherical Domes"
+   ],
+   "category": "Art",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which desert is the only desert in the world where the \"Saguaro\" cactus grows indigenously?",
+   "options": [
+    "The Sonoran Desert",
+    "The Gobi Desert",
+    "The Yuma Desert",
+    "The Arabian Desert"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "How many notes are there on a standard grand piano?",
+   "options": [
+    "88",
+    "98",
+    "108",
+    "78"
+   ],
+   "category": "General",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Excluding their instructor, how many members of Class VII are there in the game \"Legend of Heroes: Trails of Cold Steel\"?",
+   "options": [
+    "9",
+    "6",
+    "10",
+    "3"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the standard SI unit for distance?",
+   "options": [
+    "Metre",
+    "Angstrom",
+    "Foot",
+    "Fathom"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "In Night In The Woods, where does Gregg work?",
+   "options": [
+    "Snack Falcon",
+    "Ol' Pickaxe",
+    "Video Outpost \"Too\"",
+    "Food Donkey"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "In past times, what would a gentleman keep in his fob pocket?",
+   "options": [
+    "Watch",
+    "Money",
+    "Keys",
+    "Notebook"
+   ],
+   "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which art movement was Pablo Picasso known for co-founding?",
+   "options": [
+    "Cubism",
+    "Futurism",
+    "Expressionism",
+    "Impressionism"
+   ],
+   "category": "Art",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the name of the talking cat in Persona 5?",
+   "options": [
+    "Morgana",
+    "Teddie",
+    "Marie",
+    "Ryuji"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "After how many years would you celebrate your crystal anniversary?",
+   "options": [
+    "15",
+    "20",
+    "10",
+    "25"
+   ],
+   "category": "General",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the default name of the Vampire character in \"Shining Soul 2\".",
+   "options": [
+    "Bloodstar",
+    "Sachs",
+    "Dracuul",
+    "Alucard"
+   ],
+   "category": "Games",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which RAID array type is associated with data mirroring?",
+   "options": [
+    "RAID 1",
+    "RAID 0",
+    "RAID 10",
+    "RAID 5"
+   ],
+   "category": "Science",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which company developed the Hololens?",
+   "options": [
+    "Microsoft",
+    "HTC",
+    "Oculus",
+    "Tobii"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which country, not including Japan, has the most people of Japanese descent?",
+   "options": [
+    "Brazil",
+    "China",
+    "South Korea",
+    "United States of America"
+   ],
+   "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which of these songs does NOT play during the Ruins segments of the 2015 game \"Undertale\"?",
+   "options": [
+    "Another Medium",
+    "Anticipation",
+    "Unnecessary Tension",
+    "Ruins"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Johnny Cash did a cover of this song written by lead singer of Nine Inch Nails, Trent Reznor.",
+   "options": [
+    "Hurt",
+    "Closer",
+    "A Warm Place",
+    "Big Man with a Gun"
+   ],
+   "category": "Music",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the name of the copper-rich protein that creates the blue blood in the Antarctic octopus?",
+   "options": [
+    "Hemocyanin",
+    "Cytochrome",
+    "Iron",
+    "Methionine"
+   ],
+   "category": "Animals",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which of the following rappers were NOT part of the hip-hop group Odd Future?",
+   "options": [
+    "Vince Staples",
+    "Tyler, the Creator",
+    "Frank Ocean",
+    "Mike G"
+   ],
+   "category": "Music",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the largest animal currently on Earth?",
+   "options": [
+    "Blue Whale",
+    "Orca",
+    "Colossal Squid",
+    "Giraffe"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which one of the first four titles of the \"Grand Theft Auto\" franchise started the series of iconic image grid cover arts?",
+   "options": [
+    "Grand Theft Auto III",
+    "Grand Theft Auto",
+    "Grand Theft Auto II",
+    "Grand Theft Auto Vice City"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who is the character you play as in Yume Nikki?",
+   "options": [
+    "Madotsuki",
+    "Masada",
+    "Uboa",
+    "Poniko"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the name of the assassin in the first \"Hellboy\" movie?",
+   "options": [
+    "Karl Ruprecht Kroenen",
+    "Klaus Werner von Krupt",
+    "Grigori Efimovich Rasputin",
+    "Ilsa Haupstein"
+   ],
+   "category": "Film",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the name of Funny Valentine's stand in Jojo's Bizarre Adventure Part 7, Steel Ball Run?",
+   "options": [
+    "Dirty Deeds Done Dirt Cheap",
+    "Filthy Acts Done For A Reasonable Price",
+    "Civil War",
+    "God Bless The USA"
+   ],
+   "category": "Anime",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which of the following Copy Abilities was only featured in \"Kirby & The Amazing Mirror\"?",
+   "options": [
+    "Mini",
+    "Magic",
+    "Smash",
+    "Missile"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the game \"Sonic the Hedgehog (1991)\" how many chaos emeralds could you collect?",
+   "options": [
+    "6",
+    "8",
+    "7",
+    "9"
+   ],
+   "category": "Games",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Björk's \"Unison\" contains a sample of which Oval song?",
+   "options": [
+    "Aero Deck",
+    "Textuell",
+    "Panorama",
+    "Do While"
+   ],
+   "category": "Music",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "In \"PUBATTLEGROUNDS\" what is the name of the Military Base island?",
+   "options": [
+    "Sosnovka",
+    "Novorepnoye",
+    "Mylta",
+    "Yasnaya"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which country was an allied power in World War II?",
+   "options": [
+    "Soviet Union",
+    "Italy",
+    "Germany",
+    "Japan"
+   ],
+   "category": "History",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "When did Norway become free from Sweden?",
+   "options": [
+    "1905",
+    "1925",
+    "1814",
+    "1834"
+   ],
+   "category": "History",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What country did Shirley Bassey originate from?",
+   "options": [
+    "Wales",
+    "America",
+    "England",
+    "Canada"
+   ],
+   "category": "Music",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the original Mega Man series, who is Mega Man's arch nemesis?",
+   "options": [
+    "Dr. Wily",
+    "Dr. Light",
+    "Dr. Bad",
+    "Mr. Z"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "'Don't You Want Me?' was a number one hit in 1981 for which electropop band?",
+   "options": [
+    "Human League",
+    "Depeche Mode",
+    "Pet Shop Boys",
+    "Eurythmics"
+   ],
+   "category": "Music",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What are tiny Thwomps called in Super Mario World?",
+   "options": [
+    "Thwimps",
+    "Little Thwomp",
+    "Mini Thwomp",
+    "Tiny Tims"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the Scoville scale, what is the hottest chemical?",
+   "options": [
+    "Resiniferatoxin",
+    "Capsaicin",
+    "Dihydrocapsaicin",
+    "Tinyatoxin"
+   ],
+   "category": "Science",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which \"Green Arrow\" sidekick commonly wears a baseball cap?",
+   "options": [
+    "Roy Harper",
+    "Black Canary",
+    "Emiko Queen",
+    "Dick Grayson"
+   ],
+   "category": "Comics",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In which year did the first Monster Hunter game get released?",
+   "options": [
+    "2004",
+    "2006",
+    "2005",
+    "2002"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "The video game publishers known as \"tinyBuild\" published which of these games?",
+   "options": [
+    "Clustertruck",
+    "Don't Starve",
+    "Stardew Valley",
+    "Slime Rancher"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What was the name of singer Frank Ocean's second studio album, which was released on August 20, 2016?",
+   "options": [
+    "Blonde",
+    "Brunette",
+    "Black",
+    "Burgundy"
+   ],
+   "category": "Music",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which of these is NOT a name of a playable character in Apex Legends?",
+   "options": [
+    "Viper",
+    "Revenant",
+    "Crypto",
+    "Wattson"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In Portal, what color is the Intelligence Core?",
+   "options": [
+    "Blue",
+    "Purple",
+    "Red",
+    "Orange"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the 2010 Nightmare on Elm Street reboot, who played Freddy Kruger?",
+   "options": [
+    "Jackie Earle Haley",
+    "Tyler Mane",
+    "Derek Mears",
+    "Gunnar Hansen"
+   ],
+   "category": "Film",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Bikini Atoll is in which country?",
+   "options": [
+    "Marshall Islands",
+    "Fiji",
+    "Christmas Islands",
+    "Bahamas"
+   ],
+   "category": "Geography",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "When was the video game \"P.A.M.E.L.A.\" released on Steam?",
+   "options": [
+    "March 9, 2017",
+    "January 7, 2007",
+    "October 23, 1997",
+    "February 16, 2015"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What sport is being played in the Anime Eyeshield 21?",
+   "options": [
+    "American Football",
+    "Baseball",
+    "Football",
+    "Basketball"
+   ],
+   "category": "Anime",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is a Tetris piece called?",
+   "options": [
+    "Tetromino",
+    "Tetratile",
+    "Tetris",
+    "Tetripiece"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which soccer player is featured on the cover of EA Sport's FIFA 18?",
+   "options": [
+    "Cristiano Ronaldo",
+    "Lionel Messi",
+    "Neymar",
+    "Harry Kane"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which Dota 1 hero changed gender when ported to Dota 2?",
+   "options": [
+    "Legion Commander",
+    "Axe",
+    "Keeper of the Light",
+    "Templar Assassin"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What did the name of the Tor Anonymity Network orignially stand for?",
+   "options": [
+    "The Onion Router",
+    "The Only Router",
+    "The Orange Router",
+    "The Ominous Router"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which company designed the \"Betamax\" video cassette format?",
+   "options": [
+    "Sony",
+    "Panasonic",
+    "LG",
+    "Fujitsu"
+   ],
+   "category": "Science",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What year was the first Apple iPod introduced?",
+   "options": [
+    "2001",
+    "2000",
+    "1999",
+    "1998"
+   ],
+   "category": "General",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the main ship used by Commander Shepard in the Mass Effect Franchise called?",
+   "options": [
+    "Normandy",
+    "Osiris",
+    "Infinity",
+    "Endeavour"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What was the name of the hero in the 80s animated video game 'Dragon's Lair'?",
+   "options": [
+    "Dirk the Daring",
+    "Arthur",
+    "Sir Toby Belch",
+    "Guy of Gisbourne"
+   ],
+   "category": "Games",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which Hanna-Barbera cartoon character travelled with a canine companion named Beegle Beagle?",
+   "options": [
+    "Grape Ape",
+    "Boss Gator",
+    "Wally Gator",
+    "Yogi Bear"
+   ],
+   "category": "Cartoons",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "From which album is the Gorillaz song, \"On Melancholy Hill\" featured in?",
+   "options": [
+    "Plastic Beach",
+    "Demon Days",
+    "Humanz",
+    "The Fall"
+   ],
+   "category": "Music",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which town was Seamus \"Sledge\" Cowden from \"Tom Clancy's Rainbow Six Siege\" born in?",
+   "options": [
+    "John O'Groats",
+    "Brawl",
+    "Kearvaig",
+    "Talmine"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In \"Puella Magi Madoka Magica\", what is the first name of Madoka's younger brother?",
+   "options": [
+    "Tatsuya",
+    "Montoya",
+    "Tomohisa",
+    "Minato"
+   ],
+   "category": "Anime",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What year did the movie \"Napoleon Dynamite\" come out?",
+   "options": [
+    "2004",
+    "2002",
+    "2003",
+    "2005"
+   ],
+   "category": "Film",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who is the only US president to serve two non-consecutive terms in office?",
+   "options": [
+    "Grover Cleveland",
+    "James K. Polk",
+    "Franklin D. Roosevelt",
+    "Thomas Jefferson"
+   ],
+   "category": "Politics",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "In the 2016 Global Peace Index poll, out of 163 countries, what was the United States of America ranked?",
+   "options": [
+    "103",
+    "10",
+    "59",
+    "79"
+   ],
+   "category": "Geography",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What programming language does the Source Engine use?",
+   "options": [
+    "C++",
+    "Python",
+    "Java",
+    "Lua"
+   ],
+   "category": "Games",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "What's the name of the main protagonist in the \"Legend of Zelda\" franchise?",
+   "options": [
+    "Link",
+    "Mario",
+    "Zelda",
+    "Pit"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "The largest consumer market in 2015 was...",
+   "options": [
+    "The United States of America",
+    "Germany",
+    "Japan",
+    "United Kingdom"
+   ],
+   "category": "Politics",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "According to the Egyptian Myth of Osiris, who murdered Osiris?",
+   "options": [
+    "Set",
+    "Horus",
+    "Ra",
+    "Anhur"
+   ],
+   "category": "Mythology",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "When was the Prince album \"Purple Rain\" released?",
+   "options": [
+    "1984",
+    "1979",
+    "1983",
+    "1981"
+   ],
+   "category": "Music",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the name of the currency used in Ethiopia?",
+   "options": [
+    "Birr",
+    "Dirham",
+    "U.S. Dollar",
+    "Rand"
+   ],
+   "category": "General",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which gaming console is developed by Sony?",
+   "options": [
+    "PlayStation",
+    "Xbox",
+    "Atari",
+    "Nintendo Switch"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "The protagonist of the hit game, Half-Life 2 is called:",
+   "options": [
+    "Gordon Freeman",
+    "Alyx Vance",
+    "Isaac Kleiner",
+    "Wallace Breen"
+   ],
+   "category": "Games",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What was the Canada's first capital?",
+   "options": [
+    "Kingston",
+    "Toronto",
+    "Ottawa",
+    "Montreal"
+   ],
+   "category": "History",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who wrote the song \"You Know You Like It\"?",
+   "options": [
+    "AlunaGeorge",
+    "DJ Snake",
+    "Steve Aoki",
+    "Major Lazer"
+   ],
+   "category": "Music",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "How tall is the Burj Khalifa?",
+   "options": [
+    "2,722 ft",
+    "2,717 ft",
+    "2,546 ft",
+    "3,024 ft"
+   ],
+   "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which group performs the song \"Crash into Me\"?",
+   "options": [
+    "Dave Matthews Band",
+    "Phish",
+    "The Grateful Dead",
+    "Destiny's Child"
+   ],
+   "category": "Music",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which country claims ownership of the disputed state Kosovo?",
+   "options": [
+    "Serbia",
+    "Croatia",
+    "Albania",
+    "Macedonia"
+   ],
+   "category": "Geography",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Who is the villain company in \"Stardew Valley\"?",
+   "options": [
+    "Joja Co",
+    "Ronin",
+    "Empire",
+    "Robotnik Industry's"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which King of England was faced with the Peasants' Revolt in 1381?",
+   "options": [
+    "Richard II",
+    "Edward III",
+    "Edward II",
+    "Henry IV"
+   ],
+   "category": "History",
+   "difficulty": 2,
+   "source": "opentdb"
+  },
+  {
+   "q": "About what percentage of the Earth's surface is water?",
+   "options": [
+    "70%",
+    "30%",
+    "50%",
+    "90%"
+   ],
+   "category": "Science",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which country is the home of the largest Japanese population outside of Japan?",
+   "options": [
+    "Brazil",
+    "China",
+    "Russia",
+    "The United States"
+   ],
+   "category": "Geography",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What film did James Cameron's Avatar dethrone as the highest-grossing film ever?",
+   "options": [
+    "Titanic",
+    "Star Wars",
+    "Gone with the Wind",
+    "Jaws"
+   ],
+   "category": "Film",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What character was once considered to be the 27th letter of the alphabet?",
+   "options": [
+    "Ampersand",
+    "Interrobang",
+    "Tilde",
+    "Pilcrow"
+   ],
+   "category": "General",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What country saw a world record 315 million voters turn out for elections on May 20, 1991?",
+   "options": [
+    "India",
+    "United States of America",
+    "Soviet Union",
+    "Poland"
+   ],
+   "category": "Politics",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which Daft Punk album is the song \"Harder, Better, Faster, Stronger\" from?",
+   "options": [
+    "Discovery",
+    "Homework",
+    "Random Access Memories",
+    "Human After All"
+   ],
+   "category": "Music",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "Frank Lloyd Wright was the architect behind what famous building?",
+   "options": [
+    "The Guggenheim",
+    "Villa Savoye",
+    "Sydney Opera House",
+    "The Space Needle"
+   ],
+   "category": "General",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which is the protagonist of Bioshock Infinite?",
+   "options": [
+    "Booker DeWitt",
+    "Zachary Comstock",
+    "Arthas Menethil",
+    "Herbie Hancock"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the only state in the United States that does not have a flag in a shape with 4 edges?",
+   "options": [
+    "Ohio",
+    "Florida",
+    "Idaho",
+    "New Mexico"
+   ],
+   "category": "Geography",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "When was the website reddit founded ?",
+   "options": [
+    "2005",
+    "2008",
+    "2004",
+    "2006"
+   ],
+   "category": "General",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "In Terraria, what does the Wall of Flesh not drop upon defeat?",
+   "options": [
+    "Picksaw",
+    "Pwnhammer",
+    "Breaker Blade",
+    "Laser Rifle"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Brian May was the guitarist for which band?",
+   "options": [
+    "Queen",
+    "Pink Floyd",
+    "Rolling Stones",
+    "The Doors"
+   ],
+   "category": "Music",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "How many different notes is the tune, \"Song of Healing\", comprised of in \"The Legend of Zelda: Majora's Mask\"?",
+   "options": [
+    "3",
+    "4",
+    "1",
+    "6"
+   ],
+   "category": "Games",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "In what year did the nuclear power plant in Chernobyl melt down?",
+   "options": [
+    "1986",
+    "1991",
+    "1975",
+    "1998"
+   ],
+   "category": "History",
+   "difficulty": 0,
+   "source": "opentdb"
+  },
+  {
+   "q": "What is the northernmost human settlement with year round inhabitants?",
+   "options": [
+    "Alert, Canada",
+    "Nagurskoye, Russia",
+    "McMurdo Station, Antarctica",
+    "Honningsvåg, Norway"
+   ],
+   "category": "Geography",
+   "difficulty": 1,
+   "source": "opentdb"
+  },
+  {
+   "q": "Which team won 2014 FIFA World Cup in Brazil?",
+   "options": [
+    "Germany",
+    "Argentina",
+    "Brazil",
+    "Netherlands"
+   ],
+   "category": "Sport",
    "difficulty": 0,
    "source": "opentdb"
   }
