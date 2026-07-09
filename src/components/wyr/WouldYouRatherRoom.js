@@ -112,7 +112,9 @@ export default function WouldYouRatherRoom() {
 
   const finished = state.status === 'finished';
   const iWon = finished && state.winner?.id === myId;
-  const yourVote = round?.yourVote;
+  // yourVote is only in the trimmed voting-phase state; in reveal read it back
+  // from the full votes map.
+  const yourVote = round?.yourVote ?? round?.votes?.[myId];
   const res = round?.result;
   const total = res ? res.a + res.b : 0;
   const pctA = total ? Math.round((res.a / total) * 100) : 0;
