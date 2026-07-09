@@ -42,6 +42,7 @@ const MENU = [
     { to: '/clover', label: 'Clover Clues' },
     { to: '/chameleon', label: 'Chameleon' },
     { to: '/spectrum', label: 'Spectrum' },
+    { to: '/scattergories', label: 'Scattergories' },
     { to: '/two-truths-and-a-lie', label: 'Two Truths & a Lie' },
     { to: '/team-trivia', label: 'Team Trivia' },
   ] },

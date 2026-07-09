@@ -26,6 +26,8 @@ import ChameleonHome from './components/chameleon/ChameleonHome';
 import ChameleonRoom from './components/chameleon/ChameleonRoom';
 import SpectrumHome from './components/spectrum/SpectrumHome';
 import SpectrumRoom from './components/spectrum/SpectrumRoom';
+import ScattergoriesHome from './components/scattergories/ScattergoriesHome';
+import ScattergoriesRoom from './components/scattergories/ScattergoriesRoom';
 import TwoTruthsHome from './components/twotruths/TwoTruthsHome';
 import TwoTruthsRoom from './components/twotruths/TwoTruthsRoom';
 import TopicTrivia from './components/trivia/TopicTrivia';
@@ -111,6 +113,8 @@ function App() {
               <Route path="/chameleon/room/:roomCode" element={<ChameleonRoom />} />
               <Route path="/spectrum" element={<SpectrumHome />} />
               <Route path="/spectrum/room/:roomCode" element={<SpectrumRoom />} />
+              <Route path="/scattergories" element={<ScattergoriesHome />} />
+              <Route path="/scattergories/room/:roomCode" element={<ScattergoriesRoom />} />
               <Route path="/two-truths-and-a-lie" element={<TwoTruthsHome />} />
               <Route path="/two-truths-and-a-lie/room/:roomCode" element={<TwoTruthsRoom />} />
               {TOPICS.map((t) => (
