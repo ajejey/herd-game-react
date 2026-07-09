@@ -772,6 +772,58 @@ const Home = () => {
               </div>
             </Link>
 
+            {/* Scattergories */}
+            <Link
+              to="/scattergories"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#E8823B] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#E8823B] text-white">✨ New</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🅰️</div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Scattergories
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    A random letter, a list of categories, a ticking clock. Be quick — and unique.
+                  </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#E8823B] text-white px-3 py-1 text-xs font-bold">👥 2+ players</span>
+                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#E8823B] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Would You Rather */}
+            <Link
+              to="/would-you-rather"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#E84A8B] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#E84A8B] text-white">✨ New</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🤔</div>
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Would You Rather
+                  </h3>
+                  <p className="text-sm text-[#6B4226] mt-1">
+                    Everyone votes A or B, then watch the split. Score for siding with the herd.
+                  </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#E84A8B] text-white px-3 py-1 text-xs font-bold">👥 2+ players</span>
+                    <span className="text-xs text-[#8B6347]">🎥 great icebreaker</span>
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
             {/* Remote Work Bingo */}
             <Link
               to="/remote-work-bingo"
@@ -804,24 +856,31 @@ const Home = () => {
               </div>
             </Link>
 
-            {/* Coming Soon — Monikers */}
-            <div className="soon-card relative rounded-3xl border-4 border-dashed border-[#C9B98F] p-5 overflow-hidden">
-              <div className="ribbon bg-[#8B6347] text-white">Soon</div>
-              <div className="flex items-start gap-4 opacity-80">
-                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🎭</div>
+            {/* Fishbowl */}
+            <Link
+              to="/fishbowl"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#2AA9A0] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#2AA9A0] text-white">✨ New</div>
+              <div className="flex items-start gap-4">
+                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">🎣</div>
                 <div className="flex-1 min-w-0">
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
-                    Monikers
+                    Fishbowl
                   </h3>
                   <p className="text-sm text-[#6B4226] mt-1">
-                    Describe, one-word, then charades. Pure chaos.
+                    Describe, one-word, then charades — the same words three ways. Pure chaos.
                   </p>
-                  <div className="mt-3 inline-flex items-center gap-1 text-[#8B6347] font-semibold text-sm">
-                    Coming soon
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#2AA9A0] text-white px-3 py-1 text-xs font-bold">👥 4+ players</span>
+                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#2AA9A0] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* Suggest-a-game card */}
             <a
