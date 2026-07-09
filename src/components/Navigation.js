@@ -48,6 +48,7 @@ const MENU = [
   ] },
   { label: 'Teams', items: [
     { to: '/office-games', label: 'Office Games' },
+    { to: '/best-team-trivia-games', label: 'Team Trivia Games' },
     { to: '/remote-work-bingo', label: 'Remote Work Bingo' },
     { to: '/team-trivia', label: 'Team Trivia' },
   ] },

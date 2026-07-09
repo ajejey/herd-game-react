@@ -17,6 +17,7 @@ import ScrollToTop from './components/ScrollToTop';
 import RouteErrorBoundary from './components/ErrorBoundary';
 import OfficeGamesHub from './components/office/OfficeGamesHub';
 import OfficeTeams from './components/office/TeamsGamesPage';
+import BestTeamTriviaGames from './components/office/BestTeamTriviaGames';
 import OfficeFunFriday from './components/office/FunFridayPage';
 import OfficeIcebreakers from './components/office/IcebreakersPage';
 import RemoteWorkBingo from './components/rwbingo/RemoteWorkBingo';
@@ -104,6 +105,7 @@ function App() {
               <Route path="/hot-takes" element={<HotTakes />} />
               <Route path="/office-games" element={<OfficeGamesHub />} />
               <Route path="/office-games/games-to-play-on-microsoft-teams" element={<OfficeTeams />} />
+              <Route path="/best-team-trivia-games" element={<BestTeamTriviaGames />} />
               <Route path="/office-games/fun-friday-games-for-work" element={<OfficeFunFriday />} />
               <Route path="/office-games/virtual-icebreaker-games-for-meetings" element={<OfficeIcebreakers />} />
               <Route path="/remote-work-bingo" element={<RemoteWorkBingo />} />
