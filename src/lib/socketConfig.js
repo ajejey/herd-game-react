@@ -27,7 +27,26 @@ export const SOCKET_OPTS = {
 // safe to fire liberally. Returns a cleanup function — call it on unmount.
 export function attachConnectivityReconnect(socket) {
   if (!socket) return () => {};
-  const maybeReconnect = () => { if (socket.disconnected) socket.connect(); };
+
+  // Debounce: iOS fires visibilitychange + focus (and sometimes online) in a
+  // burst when a tab returns to the foreground. Without this we'd call
+  // connect() several times in a row — needless connection churn on the server.
+  // Collapse a burst into a single reconnect attempt, and don't retry more than
+  // once every few seconds (socket.io's own backoff handles the rest).
+  let timer = null;
+  let lastAttempt = 0;
+  const COOLDOWN = 3000;
+  const maybeReconnect = () => {
+    if (timer) return;
+    timer = setTimeout(() => {
+      timer = null;
+      const now = Date.now();
+      if (socket.disconnected && now - lastAttempt > COOLDOWN) {
+        lastAttempt = now;
+        socket.connect();
+      }
+    }, 300);
+  };
   const onVisible = () => { if (document.visibilityState === 'visible') maybeReconnect(); };
 
   document.addEventListener('visibilitychange', onVisible);
@@ -35,6 +54,7 @@ export function attachConnectivityReconnect(socket) {
   window.addEventListener('focus', maybeReconnect);
 
   return () => {
+    if (timer) clearTimeout(timer);
     document.removeEventListener('visibilitychange', onVisible);
     window.removeEventListener('online', maybeReconnect);
     window.removeEventListener('focus', maybeReconnect);
