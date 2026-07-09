@@ -43,6 +43,7 @@ const MENU = [
     { to: '/chameleon', label: 'Chameleon' },
     { to: '/spectrum', label: 'Spectrum' },
     { to: '/scattergories', label: 'Scattergories' },
+    { to: '/would-you-rather', label: 'Would You Rather' },
     { to: '/two-truths-and-a-lie', label: 'Two Truths & a Lie' },
     { to: '/team-trivia', label: 'Team Trivia' },
   ] },

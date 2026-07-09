@@ -29,6 +29,8 @@ import SpectrumHome from './components/spectrum/SpectrumHome';
 import SpectrumRoom from './components/spectrum/SpectrumRoom';
 import ScattergoriesHome from './components/scattergories/ScattergoriesHome';
 import ScattergoriesRoom from './components/scattergories/ScattergoriesRoom';
+import WouldYouRatherHome from './components/wyr/WouldYouRatherHome';
+import WouldYouRatherRoom from './components/wyr/WouldYouRatherRoom';
 import TwoTruthsHome from './components/twotruths/TwoTruthsHome';
 import TwoTruthsRoom from './components/twotruths/TwoTruthsRoom';
 import TopicTrivia from './components/trivia/TopicTrivia';
@@ -117,6 +119,8 @@ function App() {
               <Route path="/spectrum/room/:roomCode" element={<SpectrumRoom />} />
               <Route path="/scattergories" element={<ScattergoriesHome />} />
               <Route path="/scattergories/room/:roomCode" element={<ScattergoriesRoom />} />
+              <Route path="/would-you-rather" element={<WouldYouRatherHome />} />
+              <Route path="/would-you-rather/room/:roomCode" element={<WouldYouRatherRoom />} />
               <Route path="/two-truths-and-a-lie" element={<TwoTruthsHome />} />
               <Route path="/two-truths-and-a-lie/room/:roomCode" element={<TwoTruthsRoom />} />
               {TOPICS.map((t) => (
