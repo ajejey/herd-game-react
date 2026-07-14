@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
+import WaitlistCTA from './WaitlistCTA';
 
 const CANONICAL = 'https://herdgamesonline.com/best-team-trivia-games';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -85,6 +86,9 @@ export default function BestTeamTriviaGames() {
             <Link to={p.to} className="inline-block mt-3 text-[#E84A8B] font-semibold underline">Play {p.name.split(' (')[0]} →</Link>
           </div>
         ))}
+
+        {/* Corporate willingness-to-pay probe */}
+        <div className="mt-8"><WaitlistCTA source="best-team-trivia-listicle" /></div>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-8 mb-3">How to run team trivia in 15 minutes</h2>
         <ol className="list-decimal pl-5 mb-4 space-y-1">

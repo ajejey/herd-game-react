@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import { useTeamTrivia } from '../../hooks/useTeamTrivia';
 import AdSlot from '../AdSlot';
+import WaitlistCTA from '../office/WaitlistCTA';
 
 const CANONICAL = 'https://herdgamesonline.com/team-trivia';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -121,6 +122,11 @@ export default function TeamTriviaHome() {
           </button>
         </form>
         <p className="text-xs text-[#8B6347] mt-3 text-center">2+ players · no download · no signup</p>
+      </div>
+
+      {/* Corporate willingness-to-pay probe — this is the highest team-intent page. */}
+      <div className="max-w-2xl mx-auto mt-10">
+        <WaitlistCTA source="team-trivia" />
       </div>
 
       {/* SEO content */}
