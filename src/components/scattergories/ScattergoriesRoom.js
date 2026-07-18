@@ -48,13 +48,17 @@ export default function ScattergoriesRoom() {
   const yourAnswers = round?.yourAnswers;
   const submitted = !!yourAnswers;
 
-  // Reset local answers at the start of each writing round.
+  // Reset local answers only when a NEW writing round starts (phase / round
+  // number change) — NOT on every state broadcast. `round.categories` is a fresh
+  // array reference on each broadcast, so keying on it wiped everyone's in-
+  // progress typing the moment any other player submitted. (Reported by a user.)
   useEffect(() => {
-    if (phase === 'writing' && round?.categories) {
-      setAnswers(Array(round.categories.length).fill(''));
+    if (phase === 'writing') {
+      setAnswers(Array(round?.categories?.length || 0).fill(''));
       submittedRef.current = false;
     }
-  }, [phase, round?.number, round?.categories]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, round?.number]);
 
   const secondsLeft = round?.deadline ? Math.max(0, Math.ceil((round.deadline - now) / 1000)) : null;
 
