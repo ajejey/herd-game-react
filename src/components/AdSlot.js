@@ -1,38 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+/*
+  AdSlot — intentionally a no-op.
 
-const AD_CLIENT = 'ca-pub-3613850686549619';
-
-const AdSlot = ({ slot, format = 'auto', layout, responsive = true, className = '', style }) => {
-  const insRef = useRef(null);
-  const pushedRef = useRef(false);
-
-  useEffect(() => {
-    if (pushedRef.current) return;
-    if (!slot) return;
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-      pushedRef.current = true;
-    } catch (e) {
-      // AdSense not loaded yet or blocked — fail silently
-    }
-  }, [slot]);
-
-  if (!slot) return null;
-
-  return (
-    <div className={`w-full flex justify-center my-4 ${className}`}>
-      <ins
-        ref={insRef}
-        className="adsbygoogle"
-        style={style || { display: 'block', width: '100%', minHeight: 100 }}
-        data-ad-client={AD_CLIENT}
-        data-ad-slot={slot}
-        data-ad-format={format}
-        {...(layout ? { 'data-ad-layout': layout } : {})}
-        data-full-width-responsive={responsive ? 'true' : 'false'}
-      />
-    </div>
-  );
-};
+  Google AdSense was removed (Jul 2026): AdSense rejected us, and a competing
+  ad script blocks/slows a Mediavine Journey approval (Journey wants the site
+  free of other ad networks during review). Rather than delete the ~38 <AdSlot/>
+  call sites, this component now renders nothing and loads no ad code, so every
+  usage is inert. When an ad network is approved, wire it up here in one place.
+*/
+const AdSlot = () => null;
 
 export default AdSlot;
