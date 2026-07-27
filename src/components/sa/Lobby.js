@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { fredokaStyle } from '../MeadowLayout';
+import LobbyInvite from '../common/LobbyInvite';
 import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
 
@@ -10,43 +11,16 @@ export default function Lobby({ game }) {
   const { players } = state;
   const connected = players.filter(p => p.connected);
   const [showHelp, setShowHelp] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const copyInvite = async () => {
-    // Clickable deep link → friends land straight on the join form with the code
-    // prefilled (QuickJoin handles /say-anything/room/:code). No manual entry.
-    const inviteUrl = `https://${JOIN_URL}/room/${roomCode}`;
-    const text = `Join my Say Anything game! ${inviteUrl}`;
-    try {
-      if (navigator.share) {
-        await navigator.share({ title: 'Say Anything', text, url: inviteUrl });
-        return;
-      }
-      await navigator.clipboard.writeText(inviteUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch { /* user dismissed share / clipboard blocked — no-op */ }
-  };
 
   return (
     <div className="max-w-md mx-auto">
-      {/* Room code */}
+      <LobbyInvite gamePath="say-anything" roomCode={roomCode} gameName="Say Anything"
+        playerCount={connected.length} minPlayers={3} />
+
       <div className="text-center mb-6">
-        <p className="text-[#8B6347] text-sm mb-1">Share this code with your friends</p>
-        <div className="inline-block bg-[#FFE8C8] rounded-2xl px-8 py-4">
-          <span style={fredokaStyle} className="text-5xl font-bold text-[#2D1810] tracking-widest">
-            {roomCode}
-          </span>
-        </div>
-        <button
-          onClick={copyInvite}
-          className="block mx-auto mt-3 bg-[#3D8B5A] hover:bg-[#2F6E45] text-white font-bold text-sm px-5 py-2 rounded-full transition-colors"
-        >
-          {copied ? '✓ Invite copied!' : '📋 Copy invite link'}
-        </button>
         <button
           onClick={() => setShowHelp(true)}
-          className="mt-3 text-[#3D8B5A] hover:text-[#2F6E45] font-semibold text-sm underline"
+          className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold text-sm underline"
         >How to play →</button>
       </div>
       {showHelp && <HowToPlay onClose={() => setShowHelp(false)} />}
