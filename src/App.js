@@ -33,6 +33,8 @@ import WouldYouRatherHome from './components/wyr/WouldYouRatherHome';
 import WouldYouRatherRoom from './components/wyr/WouldYouRatherRoom';
 import FishbowlHome from './components/fishbowl/FishbowlHome';
 import FishbowlRoom from './components/fishbowl/FishbowlRoom';
+import TabooHome from './components/taboo/TabooHome';
+import TabooRoom from './components/taboo/TabooRoom';
 import TwoTruthsHome from './components/twotruths/TwoTruthsHome';
 import TwoTruthsRoom from './components/twotruths/TwoTruthsRoom';
 import TopicTrivia from './components/trivia/TopicTrivia';
@@ -125,6 +127,8 @@ function App() {
               <Route path="/would-you-rather/room/:roomCode" element={<WouldYouRatherRoom />} />
               <Route path="/fishbowl" element={<FishbowlHome />} />
               <Route path="/fishbowl/room/:roomCode" element={<FishbowlRoom />} />
+              <Route path="/taboo" element={<TabooHome />} />
+              <Route path="/taboo/room/:roomCode" element={<TabooRoom />} />
               <Route path="/two-truths-and-a-lie" element={<TwoTruthsHome />} />
               <Route path="/two-truths-and-a-lie/room/:roomCode" element={<TwoTruthsRoom />} />
               {TOPICS.map((t) => (

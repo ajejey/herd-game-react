@@ -45,6 +45,7 @@ const MENU = [
     { to: '/scattergories', label: 'Scattergories' },
     { to: '/would-you-rather', label: 'Would You Rather' },
     { to: '/fishbowl', label: 'Fishbowl' },
+    { to: '/taboo', label: 'Taboo' },
     { to: '/two-truths-and-a-lie', label: 'Two Truths & a Lie' },
     { to: '/team-trivia', label: 'Team Trivia' },
   ] },
