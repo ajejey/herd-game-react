@@ -3,7 +3,7 @@
   content (intro, what's covered, real facts, tips) so they are standalone useful
   pages, not thin templates. Routes are top-level (/music-trivia, …).
 */
-import { HARRY_POTTER, DISNEY, MARVEL, FRIENDS } from './franchiseBanks';
+import { HARRY_POTTER, DISNEY, MARVEL, FRIENDS, CHRISTMAS, HALLOWEEN } from './franchiseBanks';
 
 export const TOPICS = [
   {
@@ -264,6 +264,40 @@ export const TOPICS = [
       'The six main cast members negotiated their salaries together and eventually earned $1 million each per episode.',
       'The famous orange couch in Central Perk was reportedly found in the Warner Bros. studio basement.',
       'Friends ran for ten seasons, from 1994 to 2004.',
+    ],
+  },
+  {
+    slug: 'christmas-trivia', name: 'Christmas', emoji: '🎄',
+    title: 'Christmas Trivia — Free Christmas Quiz Questions & Answers',
+    h1: 'Christmas Trivia',
+    keyword: 'christmas trivia, christmas quiz, christmas trivia questions and answers, holiday trivia',
+    categories: ['Christmas'],
+    questions: CHRISTMAS,
+    blurb: 'Carols, films, traditions and reindeer — how well do you know Christmas?',
+    intro: 'Christmas trivia is the easiest way to get a room going in December, whether that is a family living room, a work party or a video call with friends spread across the country. This quiz mixes the films everyone rewatches, the songs everyone knows the words to, and the traditions nobody can quite explain — so grandparents and kids can both score. Free, no signup, no download.',
+    covers: ['Christmas films, from Elf to Die Hard', 'Carols and Christmas number ones', 'Traditions and where they came from', 'Santa, reindeer and the North Pole', 'Food, decorations and festive customs'],
+    tips: 'Films and songs come up most, so knowing the big Christmas movies and the best-selling festive singles covers a lot. The traditions questions are where people slip up — the origins are often older and stranger than you would guess.',
+    facts: [
+      'Christmas trees came from Germany, and only became widespread in Britain after Prince Albert popularised them in the 1840s.',
+      'In Japan, eating KFC on Christmas Eve is a genuine national tradition, born from a 1970s marketing campaign.',
+      'If you actually gave every gift in "The Twelve Days of Christmas", it would come to 364 presents.',
+    ],
+  },
+  {
+    slug: 'halloween-trivia', name: 'Halloween', emoji: '🎃',
+    title: 'Halloween Trivia — Free Halloween Quiz Questions & Answers',
+    h1: 'Halloween Trivia',
+    keyword: 'halloween trivia, halloween quiz, halloween trivia questions and answers, spooky quiz',
+    categories: ['Halloween'],
+    questions: HALLOWEEN,
+    blurb: 'Pumpkins, witches, horror films and folklore — how spooky is your knowledge?',
+    intro: 'Halloween trivia is a party staple because the answers are genuinely odd. This quiz spans horror films, monster folklore, the real history behind the traditions, and the superstitions we all still half-believe. It works for a Halloween party, a classroom, or a spooky-season team call — free, no signup, no download.',
+    covers: ['Horror films and famous monsters', 'Witches, vampires and werewolf lore', 'The real history of Halloween', 'Pumpkins, costumes and trick-or-treating', 'Superstitions and spooky folklore'],
+    tips: 'The film questions are the gimmes; the history is where you win or lose. Remember that most Halloween traditions are Irish and far older than the American version, and you will pick up the harder points.',
+    facts: [
+      'People carved turnips, not pumpkins, long before Halloween reached America — pumpkins were simply easier to carve.',
+      'Halloween descends from the ancient Celtic festival of Samhain, marking the end of the harvest.',
+      'The fear of Halloween has its own name: samhainophobia.',
     ],
   },
 ];

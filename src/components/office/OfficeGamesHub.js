@@ -28,6 +28,8 @@ export default function OfficeGamesHub() {
         <li><strong>Fun Friday / team social:</strong> <Link to="/say-anything">Say Anything</Link> for laughs or <Link to="/guesstimate">Guesstimate</Link> for friendly competition — see <Link to="/office-games/fun-friday-games-for-work">Fun Friday games for work</Link>.</li>
         <li><strong>New-starter or all-hands icebreaker:</strong> a quick round that gets everyone talking — see <Link to="/office-games/virtual-icebreaker-games-for-meetings">virtual icebreaker games for meetings</Link>.</li>
         <li><strong>Team building:</strong> the cooperative <Link to="/clover">Clover Clues</Link> rewards communication, not rivalry.</li>
+        <li><strong>Christmas or the end-of-year party:</strong> a festive quiz and quick group games — see <Link to="/office-games/virtual-holiday-party-games-for-work">virtual holiday party games for work</Link>.</li>
+        <li><strong>Halloween:</strong> spooky games that need no costume — see <Link to="/office-games/halloween-games-for-virtual-teams">Halloween games for virtual teams</Link>.</li>
       </ul>
 
       <h2>Playing remotely on Teams or Zoom</h2>

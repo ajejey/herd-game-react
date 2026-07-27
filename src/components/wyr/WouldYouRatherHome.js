@@ -127,7 +127,7 @@ export default function WouldYouRatherHome() {
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">A perfect icebreaker for teams</h2>
         <p className="mb-3">
-          Would You Rather is one of the most popular <Link to="/office-games/virtual-icebreaker-games-for-meetings">virtual meeting icebreakers</Link> — it takes seconds to learn, everyone plays from their own device, and the split reveal naturally sparks conversation. It works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call and scales from 2 people to a big all-hands. More group games: <Link to="/hot-takes">Daily Hot Takes</Link>, <Link to="/team-trivia">Team Trivia</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/spectrum">Spectrum</Link> and <Link to="/scattergories">Scattergories</Link>.
+          Would You Rather is one of the most popular <Link to="/office-games/virtual-icebreaker-games-for-meetings">virtual meeting icebreakers</Link> — it takes seconds to learn, everyone plays from their own device, and the split reveal naturally sparks conversation. It works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call and scales from 2 people to a big all-hands. More group games: <Link to="/hot-takes">Daily Hot Takes</Link>, <Link to="/team-trivia">Team Trivia</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/taboo">Taboo</Link>, <Link to="/spectrum">Spectrum</Link> and <Link to="/scattergories">Scattergories</Link>.
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>

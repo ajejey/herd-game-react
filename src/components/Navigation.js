@@ -52,6 +52,8 @@ const MENU = [
   { label: 'Teams', items: [
     { to: '/office-games', label: 'Office Games' },
     { to: '/best-team-trivia-games', label: 'Team Trivia Games' },
+    { to: '/office-games/virtual-holiday-party-games-for-work', label: 'Holiday Party Games' },
+    { to: '/office-games/halloween-games-for-virtual-teams', label: 'Halloween Games' },
     { to: '/remote-work-bingo', label: 'Remote Work Bingo' },
     { to: '/team-trivia', label: 'Team Trivia' },
   ] },
