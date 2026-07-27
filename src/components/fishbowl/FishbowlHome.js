@@ -42,7 +42,8 @@ const FAQS = [
   { q: 'Is Fishbowl online free?', a: 'Yes — completely free, no download and no signup. One person creates a room, everyone joins with the code, and you play in the browser on any device.' },
   { q: 'What is the Fishbowl game (Salad Bowl)?', a: 'Fishbowl is a team word game in three rounds using the same set of words each time: round 1 you describe the word, round 2 you act it out (charades), round 3 you can say only one word. Everyone adds the words at the start, so it is personal and hilarious.' },
   { q: 'Can you play Fishbowl over Zoom or Teams?', a: 'Yes — it is made for video calls. Everyone joins from their own device and plays alongside the Zoom, Microsoft Teams or Google Meet call, which is where the describing, acting and laughing happen.' },
-  { q: 'How many people do you need?', a: 'At least 4, so you can make two teams. It gets better with more — 6 to 12 is a great range for a party or team social.' },
+  { q: 'How many people do you need?', a: 'Three is enough — with 3 you play co-op, sharing one score. With 4 or more you split into two teams and compete. It gets better with more; 6 to 12 is a great range for a party or team social.' },
+  { q: 'How long does a game take?', a: 'About 10 minutes. Everyone adds 2 words to the bowl, and you play through that same bowl three times — describing, then acting, then a single-word clue.' },
   { q: 'Do I need the physical game or paper?', a: 'No. This runs the whole bowl for you — collecting words, splitting teams, tracking the three rounds and scoring — all in the browser.' },
 ];
 const FAQ_SCHEMA = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQS.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
@@ -81,7 +82,24 @@ export default function FishbowlHome() {
 
       <div className="text-center mb-6">
         <h1 style={fredokaStyle} className="text-4xl md:text-5xl font-bold text-[#2D1810]">Fishbowl</h1>
-        <p className="text-[#4A2D1B] text-lg mt-1">The Salad Bowl party game — describe it, act it out, one word. Two teams, three rounds. Free, no download.</p>
+        <p className="text-[#4A2D1B] text-lg mt-1">The Salad Bowl party game — describe it, act it out, one word. The same words three ways, and it gets funnier every round.</p>
+
+        {/* The 3 rounds, shown not told — this is the hook, and it was buried
+            in prose below the fold on the worst-converting page on the site. */}
+        <div className="flex gap-2 justify-center mt-4 max-w-md mx-auto">
+          {[
+            { n: '1', t: 'Describe', s: 'say anything but the word' },
+            { n: '2', t: 'Act', s: 'charades, no talking' },
+            { n: '3', t: 'One word', s: 'a single clue' },
+          ].map((r) => (
+            <div key={r.n} className="flex-1 rounded-2xl border-2 border-[#FFE8C8] bg-white/70 p-2.5">
+              <div style={fredokaStyle} className="text-[#E84A8B] font-bold text-sm">Round {r.n}</div>
+              <div style={fredokaStyle} className="font-bold text-[#2D1810] leading-tight">{r.t}</div>
+              <div className="text-[11px] text-[#8B6347] leading-tight mt-0.5">{r.s}</div>
+            </div>
+          ))}
+        </div>
+        <p className="text-xs text-[#8B6347] mt-3">3+ players · about 10 minutes · no download, no signup</p>
       </div>
 
       <div className="max-w-sm mx-auto bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)]">
@@ -107,7 +125,7 @@ export default function FishbowlHome() {
             {tab === 'create' ? 'Create game 🎣' : 'Join game →'}
           </button>
         </form>
-        <p className="text-xs text-[#8B6347] mt-3 text-center">4+ players · no download · no signup</p>
+        <p className="text-xs text-[#8B6347] mt-3 text-center">3+ players · no download · no signup</p>
       </div>
 
       {/* SEO content */}

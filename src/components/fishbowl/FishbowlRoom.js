@@ -86,7 +86,7 @@ export default function FishbowlRoom() {
           <h1 style={fredokaStyle} className="text-3xl font-bold text-[#2D1810] mb-4">Fishbowl 🎣</h1>
 
           <LobbyInvite gamePath="fishbowl" roomCode={code} gameName="Fishbowl"
-            playerCount={connectedCount} minPlayers={4} />
+            playerCount={connectedCount} minPlayers={3} />
 
           <div className="mt-5 text-left">
             <p className="text-sm font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
@@ -99,8 +99,14 @@ export default function FishbowlRoom() {
           {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
           {isHost ? (
             <>
-              {connectedCount < 4 && <p className="text-xs text-[#8B6347] mt-3">Fishbowl needs 4 players so you can make two teams.</p>}
-              <button onClick={startGame} disabled={connectedCount < 4} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
+              <p className="text-xs text-[#8B6347] mt-3">
+                {connectedCount < 3
+                  ? 'You need 3 players to start.'
+                  : connectedCount === 3
+                    ? 'With 3 you’ll play co-op — one shared score. Add a 4th to play as two teams.'
+                    : 'You’ll be split into two teams.'}
+              </p>
+              <button onClick={startGame} disabled={connectedCount < 3} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
                 className="mt-2 w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-40">Start game 🎣</button>
             </>
           ) : <p className="text-[#4A2D1B] mt-4">Waiting for the host to start…</p>}
@@ -145,7 +151,8 @@ export default function FishbowlRoom() {
   const scores = state.teamScores || { A: 0, B: 0 };
   const currentGiverId = state.currentGiverId;
   const myTeam = state.teams?.A?.includes(myId) ? 'A' : state.teams?.B?.includes(myId) ? 'B' : null;
-  const iWon = finished && state.winner === myTeam;
+  // In co-op everyone shares the result, so the whole room gets the confetti.
+  const iWon = finished && (state.coop || state.winner === myTeam);
 
   const TeamPill = ({ team, color }) => (
     <div className="flex-1 rounded-2xl p-3 text-center text-white" style={{ background: color, opacity: state.currentTeam === team && !finished ? 1 : 0.75 }}>
@@ -164,17 +171,26 @@ export default function FishbowlRoom() {
           <span className="font-semibold">{state.roundName}</span>
         </div>
 
-        <div className="flex gap-3 mb-5">
-          <TeamPill team="A" color={BLUE} />
-          <TeamPill team="B" color={PINK} />
-        </div>
+        {/* Co-op (3 players) has one shared score, not two teams. */}
+        {state.coop ? (
+          <div className="rounded-2xl p-4 mb-5 text-center text-white" style={{ background: BLUE }}>
+            <div className="text-xs font-semibold">Team score</div>
+            <div style={fredokaStyle} className="text-4xl font-bold leading-none">{scores.A}</div>
+            <div className="text-[11px] mt-1 opacity-90">{state.teams?.A?.map(nameById).join(', ')}</div>
+          </div>
+        ) : (
+          <div className="flex gap-3 mb-5">
+            <TeamPill team="A" color={BLUE} />
+            <TeamPill team="B" color={PINK} />
+          </div>
+        )}
 
         {finished ? (
           <div className="text-center">
             <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810]">
-              {state.winner ? `🏆 Team ${state.winner} wins!` : "It's a tie! 🤝"}
+              {state.coop ? `🎉 You got ${scores.A} together!` : state.winner ? `🏆 Team ${state.winner} wins!` : "It's a tie! 🤝"}
             </h2>
-            <p className="text-[#4A2D1B] mt-1">Team A {scores.A} — {scores.B} Team B</p>
+            {!state.coop && <p className="text-[#4A2D1B] mt-1">Team A {scores.A} — {scores.B} Team B</p>}
             <Link to="/fishbowl" onClick={leaveGame} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
               className="mt-4 inline-block px-6 py-3 rounded-2xl text-white font-bold">New game</Link>
           </div>
@@ -194,7 +210,7 @@ export default function FishbowlRoom() {
           ) : (
             <div className="text-center py-4">
               <p style={fredokaStyle} className="text-xl font-bold text-[#2D1810]">{nameById(turn.giverId)} is up!</p>
-              <p className="text-[#4A2D1B] mt-1">Team {state.currentTeam} — <strong>{state.roundName.toLowerCase()}</strong>.</p>
+              <p className="text-[#4A2D1B] mt-1">{state.coop ? 'Everyone guesses' : `Team ${state.currentTeam}`} — <strong>{state.roundName.toLowerCase()}</strong>.</p>
               <p className="text-[#8B6347] mt-2">Watch the call and shout your guesses! ⏱ {secondsLeft}s · {turn.gotCount} guessed</p>
             </div>
           )
@@ -202,13 +218,13 @@ export default function FishbowlRoom() {
           <div className="text-center py-4">
             {myId === currentGiverId ? (
               <>
-                <p style={fredokaStyle} className="text-xl font-bold text-[#2D1810]">You’re up, Team {state.currentTeam}!</p>
+                <p style={fredokaStyle} className="text-xl font-bold text-[#2D1810]">You’re up{state.coop ? '!' : `, Team ${state.currentTeam}!`}</p>
                 <p className="text-[#4A2D1B] mt-1 mb-4">Round: <strong>{state.roundName}</strong>. Get your team to guess as many as you can before the timer ends.</p>
                 <button onClick={() => sendAction('start_turn')} style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }} className="px-8 py-3 rounded-2xl text-white font-bold text-lg">Start my turn →</button>
               </>
             ) : (
               <>
-                <p className="text-[#4A2D1B]">Waiting for <strong>{nameById(currentGiverId)}</strong> (Team {state.currentTeam}) to start their turn…</p>
+                <p className="text-[#4A2D1B]">Waiting for <strong>{nameById(currentGiverId)}</strong>{state.coop ? '' : ` (Team ${state.currentTeam})`} to start their turn…</p>
                 {state.lastTurn && <p className="text-[#8B6347] text-sm mt-2">Last turn: {nameById(state.lastTurn.giverId)} got {state.lastTurn.got}.</p>}
               </>
             )}
