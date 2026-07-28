@@ -18,7 +18,13 @@ export default function Lobby({ game }) {
       if (navigator.share) { await navigator.share({ title: 'Clover Clues', text, url: inviteUrl }); return; }
       await navigator.clipboard.writeText(inviteUrl);
       setCopied(true); setTimeout(() => setCopied(false), 2000);
-    } catch { /* no-op */ }
+    } catch (err) {
+      if (err?.name === 'AbortError') return; // user actually dismissed the share sheet
+      try {
+        await navigator.clipboard.writeText(inviteUrl);
+        setCopied(true); setTimeout(() => setCopied(false), 2000);
+      } catch { /* clipboard blocked too */ }
+    }
   };
 
   return (
