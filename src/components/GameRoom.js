@@ -170,7 +170,12 @@ const GameRoom = () => {
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
     } catch (err) {
-      /* user dismissed share sheet — ignore */
+      if (err?.name === 'AbortError') return; // user actually dismissed the share sheet
+      try {
+        await navigator.clipboard.writeText(inviteUrl);
+        setLinkCopied(true);
+        setTimeout(() => setLinkCopied(false), 2000);
+      } catch { /* clipboard blocked too */ }
     }
   };
 

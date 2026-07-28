@@ -25,7 +25,14 @@ export default function Lobby({ game }) {
       await navigator.clipboard.writeText(inviteUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch { /* user dismissed share / clipboard blocked — no-op */ }
+    } catch (err) {
+      if (err?.name === 'AbortError') return; // user actually dismissed the share sheet
+      try {
+        await navigator.clipboard.writeText(inviteUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch { /* clipboard blocked too */ }
+    }
   };
 
   return (

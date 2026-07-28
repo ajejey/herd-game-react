@@ -108,7 +108,13 @@ export default function RemoteWorkBingo() {
       if (navigator.share) { await navigator.share({ title: 'Remote Work Bingo', text: 'Same card — let’s play Remote Work Bingo in the meeting!', url }); return; }
       await navigator.clipboard.writeText(url);
       setCopied('challenge'); setTimeout(() => setCopied(''), 2000);
-    } catch { /* dismissed */ }
+    } catch (err) {
+      if (err?.name === 'AbortError') return; // user actually dismissed the share sheet
+      try {
+        await navigator.clipboard.writeText(url);
+        setCopied('challenge'); setTimeout(() => setCopied(''), 2000);
+      } catch { /* clipboard blocked too */ }
+    }
   }
 
   async function shareWin() {
@@ -117,7 +123,13 @@ export default function RemoteWorkBingo() {
       if (navigator.share) { await navigator.share({ title: 'Remote Work Bingo', text }); return; }
       await navigator.clipboard.writeText(text);
       setCopied('win'); setTimeout(() => setCopied(''), 2000);
-    } catch { /* dismissed */ }
+    } catch (err) {
+      if (err?.name === 'AbortError') return;
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopied('win'); setTimeout(() => setCopied(''), 2000);
+      } catch { /* clipboard blocked too */ }
+    }
   }
 
   return (

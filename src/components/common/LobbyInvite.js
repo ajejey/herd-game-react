@@ -38,7 +38,13 @@ export default function LobbyInvite({
       if (navigator.share) { await navigator.share({ title: gameName, text, url }); return; }
       await navigator.clipboard.writeText(url);
       setCopied(true); setTimeout(() => setCopied(false), 2200);
-    } catch { /* user dismissed the share sheet */ }
+    } catch (err) {
+      if (err?.name === 'AbortError') return; // user actually dismissed the share sheet
+      try {
+        await navigator.clipboard.writeText(url);
+        setCopied(true); setTimeout(() => setCopied(false), 2200);
+      } catch { /* clipboard blocked too */ }
+    }
   }
 
   async function copyCode() {

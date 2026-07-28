@@ -94,6 +94,11 @@ export async function buildGridCard({ heading, big, sub, rows = [], footerLines 
 
 // Try native file-share, then text-share, then clipboard. Returns 'copied' if it
 // fell back to clipboard (so the caller can show a "Copied!" state), else ''.
+//
+// A share() rejection isn't always the user dismissing the sheet — it can also be
+// the OS share sheet itself failing (e.g. a share-target enumeration error). Only
+// AbortError means "user cancelled"; anything else should still fall back to
+// clipboard so the user isn't left with no way to share at all.
 export async function shareCardOrText(file, text, title) {
   try {
     if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -103,8 +108,14 @@ export async function shareCardOrText(file, text, title) {
     if (navigator.share) { await navigator.share({ title, text }); return ''; }
     await navigator.clipboard.writeText(text);
     return 'copied';
-  } catch {
-    return '';
+  } catch (err) {
+    if (err?.name === 'AbortError') return '';
+    try {
+      await navigator.clipboard.writeText(text);
+      return 'copied';
+    } catch {
+      return '';
+    }
   }
 }
 

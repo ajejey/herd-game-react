@@ -236,7 +236,13 @@ function ResultView({ dayNumber, result, streak }) {
       if (navigator.share) { await navigator.share({ title: 'Daily Herd', text }); return; }
       await navigator.clipboard.writeText(text);
       setCopied(true); setTimeout(() => setCopied(false), 2000);
-    } catch { /* dismissed */ }
+    } catch (err) {
+      if (err?.name === 'AbortError') return; // user actually dismissed the share sheet
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopied(true); setTimeout(() => setCopied(false), 2000);
+      } catch { /* clipboard blocked too */ }
+    }
   }
 
   async function saveImage() {
