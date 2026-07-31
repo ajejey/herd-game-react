@@ -13,6 +13,10 @@ import Huddle from './components/huddle/Huddle';
 import Trivia from './components/trivia/Trivia';
 import Aura from './components/aura/Aura';
 import HotTakes from './components/hottakes/HotTakes';
+import HigherLower from './components/higherlower/HigherLower';
+import FarmAnimal from './components/farmanimal/FarmAnimal';
+import SoloGamesHub from './components/hubs/SoloGamesHub';
+import AllGamesHub from './components/hubs/AllGamesHub';
 import ScrollToTop from './components/ScrollToTop';
 import RouteErrorBoundary from './components/ErrorBoundary';
 import OfficeGamesHub from './components/office/OfficeGamesHub';
@@ -111,6 +115,10 @@ function App() {
               <Route path="/aura" element={<Aura />} />
               <Route path="/aura/:dayNumber" element={<Aura />} />
               <Route path="/hot-takes" element={<HotTakes />} />
+              <Route path="/higher-or-lower" element={<HigherLower />} />
+              <Route path="/what-farm-animal-are-you" element={<FarmAnimal />} />
+              <Route path="/solo-games" element={<SoloGamesHub />} />
+              <Route path="/all-games" element={<AllGamesHub />} />
               <Route path="/office-games" element={<OfficeGamesHub />} />
               <Route path="/office-games/games-to-play-on-microsoft-teams" element={<OfficeTeams />} />
               <Route path="/best-team-trivia-games" element={<BestTeamTriviaGames />} />

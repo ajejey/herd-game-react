@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { byMode } from '../data/games';
 
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
@@ -24,44 +25,52 @@ const CowHeadLogo = ({ size = 36 }) => (
   </svg>
 );
 
-// Games grouped by HOW people pick one: a solo daily, a game with friends, or
-// something for work. Adding a new game = one line in the right group; the top
-// bar never grows.
+// Games grouped by HOW people pick one: alone right now, today's daily, with
+// friends, or for work.
+//
+// The item lists come from the game registry (src/data/games.js) so adding a
+// game never means editing this file. Crucially the dropdowns show a FEW games
+// plus a "see all" link rather than the whole catalogue — that is what lets the
+// hub grow to dozens of games without the nav becoming unusable on a phone.
+const toItems = (games) => games.map((g) => ({ to: g.slug, label: g.name }));
+
 const MENU = [
-  { label: 'Daily', items: [
-    { to: '/daily', label: 'Daily Herd' },
-    { to: '/trivia', label: 'Daily Trivia' },
-    { to: '/trivia-games', label: 'Trivia Topics' },
-    { to: '/connections', label: 'Huddle' },
-    { to: '/aura', label: 'Daily Aura' },
-    { to: '/hot-takes', label: 'Daily Hot Takes' },
-  ] },
-  { label: 'Party', items: [
-    { to: '/say-anything', label: 'Say Anything' },
-    { to: '/guesstimate', label: 'Guesstimate' },
-    { to: '/clover', label: 'Clover Clues' },
-    { to: '/chameleon', label: 'Chameleon' },
-    { to: '/spectrum', label: 'Spectrum' },
-    { to: '/scattergories', label: 'Scattergories' },
-    { to: '/would-you-rather', label: 'Would You Rather' },
-    { to: '/fishbowl', label: 'Fishbowl' },
-    { to: '/taboo', label: 'Taboo' },
-    { to: '/two-truths-and-a-lie', label: 'Two Truths & a Lie' },
-    { to: '/team-trivia', label: 'Team Trivia' },
-  ] },
-  { label: 'Teams', items: [
-    { to: '/office-games', label: 'Office Games' },
-    { to: '/best-team-trivia-games', label: 'Team Trivia Games' },
-    { to: '/office-games/virtual-holiday-party-games-for-work', label: 'Holiday Party Games' },
-    { to: '/office-games/halloween-games-for-virtual-teams', label: 'Halloween Games' },
-    { to: '/remote-work-bingo', label: 'Remote Work Bingo' },
-    { to: '/team-trivia', label: 'Team Trivia' },
-  ] },
-  { label: 'More', items: [
-    { to: '/blog', label: 'Blog' },
-    { to: '/faq', label: 'FAQ' },
-    { to: '/about-contact', label: 'About' },
-  ] },
+  {
+    label: 'Solo',
+    items: toItems(byMode('solo')),
+    more: { to: '/solo-games', label: 'All games to play alone' },
+  },
+  {
+    label: 'Daily',
+    items: toItems(byMode('daily')),
+  },
+  {
+    // NOTE: every party game stays listed here on purpose. These pages are
+    // already indexed, and the nav is a sitewide internal link to each one —
+    // trimming the list to "featured + see all" would quietly drop that link
+    // equity. Only split this out if the list genuinely stops fitting.
+    label: 'Party',
+    items: toItems(byMode('party')),
+    more: { to: '/all-games', label: 'See all games' },
+  },
+  {
+    label: 'Teams',
+    items: [
+      ...toItems(byMode('work')),
+      { to: '/office-games/virtual-holiday-party-games-for-work', label: 'Holiday Party Games' },
+      { to: '/office-games/halloween-games-for-virtual-teams', label: 'Halloween Games' },
+      { to: '/team-trivia', label: 'Team Trivia' },
+    ],
+  },
+  {
+    label: 'More',
+    items: [
+      { to: '/all-games', label: 'All games' },
+      { to: '/blog', label: 'Blog' },
+      { to: '/faq', label: 'FAQ' },
+      { to: '/about-contact', label: 'About' },
+    ],
+  },
 ];
 
 const Navigation = () => {
@@ -152,6 +161,14 @@ const Navigation = () => {
                           {label}
                         </Link>
                       ))}
+                      {group.more && (
+                        <Link
+                          to={group.more.to}
+                          className="mt-1 block whitespace-nowrap rounded-xl border-t-2 border-[#FFE8C8] px-3 py-2 text-sm font-bold text-[#3D8B5A] transition-colors hover:bg-[#FFF1DC]"
+                        >
+                          {group.more.label} →
+                        </Link>
+                      )}
                     </div>
                   </div>
                 )}
@@ -208,6 +225,11 @@ const Navigation = () => {
                     </Link>
                   );
                 })}
+                {group.more && (
+                  <Link to={group.more.to} className="block px-4 py-2.5 text-sm font-bold text-[#3D8B5A]">
+                    {group.more.label} →
+                  </Link>
+                )}
               </div>
             ))}
           </div>

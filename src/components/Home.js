@@ -9,6 +9,9 @@ import RemotePlayNotice from './common/RemotePlayNotice';
 
 import { Sheep } from './daily/HerdCritters';
 
+import { GameSection } from './common/GameCard';
+import { byMode } from '../data/games';
+
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
 
@@ -540,6 +543,24 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Play alone, right now — endless solo games.
+
+            Sits directly under the dailies: someone who has just finished today's
+            puzzle has nothing left to play, and this is the row that catches
+            them. Same for search traffic landing without a group. No daily
+            limit, so they can keep going as long as they like. */}
+        <GameSection
+          id="solo"
+          eyebrow="Solo"
+          accent="#E84A8B"
+          tint="#FFF1E2"
+          title="Play right now, on your own"
+          tagline="No friends needed, no daily limit — replay until you beat your best."
+          games={byMode('solo')}
+          moreHref="/solo-games"
+          moreLabel="All solo games"
+        />
+
         {/* ─── GAME HUB ────────────────────────────────────────────────── */}
         <section className="mb-10">
           <div className="text-center mb-6">
@@ -931,6 +952,30 @@ const Home = () => {
 
           </div>
         </section>
+
+        {/* For work — the corporate lane. Registry-driven so the guides and the
+            team games stay in sync with /office-games without duplicating markup. */}
+        <GameSection
+          id="work"
+          eyebrow="For teams"
+          accent="#1F7A8C"
+          tint="#EAF4F6"
+          title="For work"
+          tagline="Team building that needs no download, no signup and nothing for IT to approve."
+          games={byMode('work')}
+          moreHref="/office-games"
+          moreLabel="Office games guide"
+        />
+
+        <div className="mb-12 text-center">
+          <Link
+            to="/all-games"
+            style={fredoka}
+            className="inline-flex items-center gap-2 rounded-full border-4 border-[#3D8B5A] bg-white px-6 py-3 text-lg font-bold text-[#3D8B5A] transition-transform hover:-translate-y-0.5"
+          >
+            See all games →
+          </Link>
+        </div>
 
         {/* Join / Create card */}
         <div id="play" className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.35)] border-4 border-[#FFE8C8] p-6 md:p-8 mb-10 scroll-mt-24">
