@@ -86,6 +86,28 @@ export const GAMES = [
     tags: ['movies', 'quiz', 'emoji'],
   },
 
+  {
+    id: 'put-in-order', name: 'Put in Order', slug: '/put-in-order', mode: 'solo',
+    blurb: 'Four things, one right order. Biggest, tallest, oldest.',
+    players: '1', minutes: '3', accent: '#8E3B7A', Icon: FiLayers,
+    isNew: true,
+    tags: ['puzzle', 'ranking', 'endless'],
+  },
+  {
+    id: 'math-sprint', name: 'Maths Sprint', slug: '/math-game', mode: 'solo',
+    blurb: 'Sixty seconds of mental arithmetic. How many?',
+    players: '1', minutes: '1', accent: '#2D6BE0', Icon: FiTarget,
+    isNew: true,
+    tags: ['maths', 'brain', 'timed'],
+  },
+  {
+    id: 'word-scramble', name: 'Word Scramble', slug: '/word-scramble', mode: 'solo',
+    blurb: 'Untangle the letters. No typing, just tapping.',
+    players: '1', minutes: '2+', accent: '#B5533A', Icon: FiType,
+    isNew: true,
+    tags: ['word', 'anagram', 'endless'],
+  },
+
   /* -------------------------------- DAILY -------------------------------- */
   {
     id: 'daily-herd', name: 'Daily Herd', slug: '/daily', mode: 'daily',

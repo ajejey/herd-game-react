@@ -20,6 +20,9 @@ import MemoryHerd from './components/memory/MemoryHerd';
 import OddOneOut from './components/oddoneout/OddOneOut';
 import ReactionTime from './components/reaction/ReactionTime';
 import EmojiQuiz from './components/emoji/EmojiQuiz';
+import InOrder from './components/inorder/InOrder';
+import MathSprint from './components/mathsprint/MathSprint';
+import Scramble from './components/scramble/Scramble';
 import SoloGamesHub from './components/hubs/SoloGamesHub';
 import AllGamesHub from './components/hubs/AllGamesHub';
 import ScrollToTop from './components/ScrollToTop';
@@ -127,6 +130,9 @@ function App() {
               <Route path="/odd-one-out" element={<OddOneOut />} />
               <Route path="/reaction-time-test" element={<ReactionTime />} />
               <Route path="/emoji-movie-quiz" element={<EmojiQuiz />} />
+              <Route path="/put-in-order" element={<InOrder />} />
+              <Route path="/math-game" element={<MathSprint />} />
+              <Route path="/word-scramble" element={<Scramble />} />
               <Route path="/solo-games" element={<SoloGamesHub />} />
               <Route path="/all-games" element={<AllGamesHub />} />
               <Route path="/office-games" element={<OfficeGamesHub />} />
