@@ -108,6 +108,28 @@ export const GAMES = [
     tags: ['word', 'anagram', 'endless'],
   },
 
+  {
+    id: 'trivia-streak', name: 'Trivia Streak', slug: '/trivia-streak', mode: 'solo',
+    blurb: '1,700+ questions, three lives. How long can you last?',
+    players: '1', minutes: '3+', accent: '#2F7A4F', Icon: FiHelpCircle,
+    isNew: true, featured: true,
+    tags: ['trivia', 'quiz', 'endless'],
+  },
+  {
+    id: 'chimp-test', name: 'Chimp Test', slug: '/chimp-test', mode: 'solo',
+    blurb: 'Numbers vanish the moment you start. Chimps beat most humans.',
+    players: '1', minutes: '2', accent: '#4C5BD4', Icon: FiGrid,
+    isNew: true,
+    tags: ['memory', 'brain', 'test'],
+  },
+  {
+    id: 'colour-match', name: 'Colour Match', slug: '/colour-match', mode: 'solo',
+    blurb: 'The word says one thing, the ink says another. 60 seconds.',
+    players: '1', minutes: '1', accent: '#7A3E9D', Icon: FiZap,
+    isNew: true,
+    tags: ['reflex', 'brain', 'stroop'],
+  },
+
   /* -------------------------------- DAILY -------------------------------- */
   {
     id: 'daily-herd', name: 'Daily Herd', slug: '/daily', mode: 'daily',

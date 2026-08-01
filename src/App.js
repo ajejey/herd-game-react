@@ -23,6 +23,9 @@ import EmojiQuiz from './components/emoji/EmojiQuiz';
 import InOrder from './components/inorder/InOrder';
 import MathSprint from './components/mathsprint/MathSprint';
 import Scramble from './components/scramble/Scramble';
+import TriviaStreak from './components/triviastreak/TriviaStreak';
+import ChimpTest from './components/chimp/ChimpTest';
+import ColourMatch from './components/colourmatch/ColourMatch';
 import SoloGamesHub from './components/hubs/SoloGamesHub';
 import AllGamesHub from './components/hubs/AllGamesHub';
 import ScrollToTop from './components/ScrollToTop';
@@ -133,6 +136,9 @@ function App() {
               <Route path="/put-in-order" element={<InOrder />} />
               <Route path="/math-game" element={<MathSprint />} />
               <Route path="/word-scramble" element={<Scramble />} />
+              <Route path="/trivia-streak" element={<TriviaStreak />} />
+              <Route path="/chimp-test" element={<ChimpTest />} />
+              <Route path="/colour-match" element={<ColourMatch />} />
               <Route path="/solo-games" element={<SoloGamesHub />} />
               <Route path="/all-games" element={<AllGamesHub />} />
               <Route path="/office-games" element={<OfficeGamesHub />} />
