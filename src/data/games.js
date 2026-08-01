@@ -18,7 +18,7 @@
 import {
   FiTrendingUp, FiSun, FiHelpCircle, FiGrid, FiFeather, FiZap,
   FiEdit3, FiTarget, FiHexagon, FiEyeOff, FiSliders, FiType,
-  FiShuffle, FiMessageSquare, FiSlash, FiUsers, FiBriefcase,
+  FiShuffle, FiMessageSquare, FiSlash, FiUsers, FiBriefcase, FiClock,
   FiAward, FiCheckSquare, FiLayers,
 } from 'react-icons/fi';
 
@@ -45,6 +45,14 @@ export const GAMES = [
     players: '1', minutes: '1', accent: '#8E5CF7', Icon: FiFeather,
     isNew: true, featured: true,
     tags: ['personality', 'quiz', 'shareable'],
+  },
+
+  {
+    id: 'guess-the-year', name: 'Guess the Year', slug: '/guess-the-year', mode: 'solo',
+    blurb: 'Five famous films. Slide to the year you think each came out.',
+    players: '1', minutes: '3', accent: '#F0A202', Icon: FiClock,
+    isNew: true, featured: true,
+    tags: ['trivia', 'movies', 'guessing'],
   },
 
   /* -------------------------------- DAILY -------------------------------- */

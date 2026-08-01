@@ -15,6 +15,7 @@ import Aura from './components/aura/Aura';
 import HotTakes from './components/hottakes/HotTakes';
 import HigherLower from './components/higherlower/HigherLower';
 import FarmAnimal from './components/farmanimal/FarmAnimal';
+import GuessTheYear from './components/guesstheyear/GuessTheYear';
 import SoloGamesHub from './components/hubs/SoloGamesHub';
 import AllGamesHub from './components/hubs/AllGamesHub';
 import ScrollToTop from './components/ScrollToTop';
@@ -117,6 +118,7 @@ function App() {
               <Route path="/hot-takes" element={<HotTakes />} />
               <Route path="/higher-or-lower" element={<HigherLower />} />
               <Route path="/what-farm-animal-are-you" element={<FarmAnimal />} />
+              <Route path="/guess-the-year" element={<GuessTheYear />} />
               <Route path="/solo-games" element={<SoloGamesHub />} />
               <Route path="/all-games" element={<AllGamesHub />} />
               <Route path="/office-games" element={<OfficeGamesHub />} />

@@ -171,6 +171,7 @@ export default function FarmAnimal() {
                   {q.options.map((opt, i) => (
                     <button
                       key={opt.t}
+                      data-testid="quiz-option"
                       onClick={() => choose(i)}
                       style={{ ...QUICKSAND, background: THEME.bgAlt, borderColor: THEME.border }}
                       className="rounded-2xl border-2 px-5 py-4 text-left text-base font-semibold transition-all hover:-translate-y-0.5 hover:border-[#3D8B5A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3D8B5A] md:text-lg"
