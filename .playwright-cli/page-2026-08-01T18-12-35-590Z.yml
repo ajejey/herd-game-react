@@ -1,0 +1,464 @@
+- generic [ref=e4]:
+  - navigation [ref=e5]:
+    - generic [ref=e6]:
+      - link "Herd Game" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e9]
+        - generic [ref=e25]: Herd Game
+      - generic [ref=e26]:
+        - button "Solo" [ref=e28] [cursor=pointer]:
+          - text: Solo
+          - img [ref=e29]
+        - button "Daily" [ref=e32] [cursor=pointer]:
+          - text: Daily
+          - img [ref=e33]
+        - button "Party" [ref=e36] [cursor=pointer]:
+          - text: Party
+          - img [ref=e37]
+        - button "Teams" [ref=e40] [cursor=pointer]:
+          - text: Teams
+          - img [ref=e41]
+        - button "More" [ref=e44] [cursor=pointer]:
+          - text: More
+          - img [ref=e45]
+          - img [ref=e47]
+  - generic [ref=e49]:
+    - banner [ref=e50]:
+      - heading "All games" [level=1] [ref=e51]
+      - paragraph [ref=e52]: 24 free games, all in the browser. Nothing to download, no account to make. Play on your own, with friends, or with the team at work.
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - paragraph [ref=e55]: Solo
+        - heading "Play alone" [level=2] [ref=e57]
+        - paragraph [ref=e58]: Endless — play as many times as you like
+      - generic [ref=e59]:
+        - link "NEW Higher or Lower Which is bigger? One life, endless streak. Solo 2+ min Play →" [ref=e60] [cursor=pointer]:
+          - /url: /higher-or-lower
+          - generic [ref=e62]: NEW
+          - generic [ref=e63]:
+            - img [ref=e65]
+            - heading "Higher or Lower" [level=3] [ref=e68]
+            - paragraph [ref=e69]: Which is bigger? One life, endless streak.
+            - generic [ref=e70]:
+              - generic [ref=e71]:
+                - img [ref=e72]
+                - text: Solo
+              - generic [ref=e75]:
+                - img [ref=e76]
+                - text: 2+ min
+            - generic [ref=e79]:
+              - text: Play
+              - generic [ref=e80]: →
+        - link "NEW What Farm Animal Are You? Eight questions. Are you the Cow, the Goat or the Sheepdog? Solo 1 min Play →" [ref=e81] [cursor=pointer]:
+          - /url: /what-farm-animal-are-you
+          - generic [ref=e83]: NEW
+          - generic [ref=e84]:
+            - img [ref=e86]
+            - heading "What Farm Animal Are You?" [level=3] [ref=e89]
+            - paragraph [ref=e90]: Eight questions. Are you the Cow, the Goat or the Sheepdog?
+            - generic [ref=e91]:
+              - generic [ref=e92]:
+                - img [ref=e93]
+                - text: Solo
+              - generic [ref=e96]:
+                - img [ref=e97]
+                - text: 1 min
+            - generic [ref=e100]:
+              - text: Play
+              - generic [ref=e101]: →
+        - link "NEW Guess the Year Five famous films. Slide to the year you think each came out. Solo 3 min Play →" [ref=e102] [cursor=pointer]:
+          - /url: /guess-the-year
+          - generic [ref=e104]: NEW
+          - generic [ref=e105]:
+            - img [ref=e107]
+            - heading "Guess the Year" [level=3] [ref=e110]
+            - paragraph [ref=e111]: Five famous films. Slide to the year you think each came out.
+            - generic [ref=e112]:
+              - generic [ref=e113]:
+                - img [ref=e114]
+                - text: Solo
+              - generic [ref=e117]:
+                - img [ref=e118]
+                - text: 3 min
+            - generic [ref=e121]:
+              - text: Play
+              - generic [ref=e122]: →
+        - link "NEW Herd Memory Watch the pasture light up, then tap it back. One more each round. Solo 2+ min Play →" [ref=e123] [cursor=pointer]:
+          - /url: /memory-game
+          - generic [ref=e125]: NEW
+          - generic [ref=e126]:
+            - img [ref=e128]
+            - heading "Herd Memory" [level=3] [ref=e133]
+            - paragraph [ref=e134]: Watch the pasture light up, then tap it back. One more each round.
+            - generic [ref=e135]:
+              - generic [ref=e136]:
+                - img [ref=e137]
+                - text: Solo
+              - generic [ref=e140]:
+                - img [ref=e141]
+                - text: 2+ min
+            - generic [ref=e144]:
+              - text: Play
+              - generic [ref=e145]: →
+      - link "solo games" [ref=e147] [cursor=pointer]:
+        - /url: /solo-games
+        - text: solo games
+        - generic [ref=e148]: →
+    - generic [ref=e149]:
+      - generic [ref=e150]:
+        - paragraph [ref=e151]: Daily
+        - heading "Today's dailies" [level=2] [ref=e153]
+        - paragraph [ref=e154]: A fresh puzzle every day. Keep your streak
+      - generic [ref=e155]:
+        - link "Daily Herd Answer like everyone else. Match the herd to score. Solo 2 min Play →" [ref=e156] [cursor=pointer]:
+          - /url: /daily
+          - generic [ref=e158]:
+            - img [ref=e160]
+            - heading "Daily Herd" [level=3] [ref=e166]
+            - paragraph [ref=e167]: Answer like everyone else. Match the herd to score.
+            - generic [ref=e168]:
+              - generic [ref=e169]:
+                - img [ref=e170]
+                - text: Solo
+              - generic [ref=e173]:
+                - img [ref=e174]
+                - text: 2 min
+            - generic [ref=e177]:
+              - text: Play
+              - generic [ref=e178]: →
+        - link "Daily Trivia Ten fresh questions every day. Build your streak. Solo 3 min Play →" [ref=e179] [cursor=pointer]:
+          - /url: /trivia
+          - generic [ref=e181]:
+            - img [ref=e183]
+            - heading "Daily Trivia" [level=3] [ref=e186]
+            - paragraph [ref=e187]: Ten fresh questions every day. Build your streak.
+            - generic [ref=e188]:
+              - generic [ref=e189]:
+                - img [ref=e190]
+                - text: Solo
+              - generic [ref=e193]:
+                - img [ref=e194]
+                - text: 3 min
+            - generic [ref=e197]:
+              - text: Play
+              - generic [ref=e198]: →
+        - link "Huddle Find the four hidden groups. One puzzle a day. Solo 4 min Play →" [ref=e199] [cursor=pointer]:
+          - /url: /connections
+          - generic [ref=e201]:
+            - img [ref=e203]
+            - heading "Huddle" [level=3] [ref=e208]
+            - paragraph [ref=e209]: Find the four hidden groups. One puzzle a day.
+            - generic [ref=e210]:
+              - generic [ref=e211]:
+                - img [ref=e212]
+                - text: Solo
+              - generic [ref=e215]:
+                - img [ref=e216]
+                - text: 4 min
+            - generic [ref=e219]:
+              - text: Play
+              - generic [ref=e220]: →
+        - link "Daily Aura Answer a few vibe questions, reveal today’s aura colour. Solo 2 min Play →" [ref=e221] [cursor=pointer]:
+          - /url: /aura
+          - generic [ref=e223]:
+            - img [ref=e225]
+            - heading "Daily Aura" [level=3] [ref=e228]
+            - paragraph [ref=e229]: Answer a few vibe questions, reveal today’s aura colour.
+            - generic [ref=e230]:
+              - generic [ref=e231]:
+                - img [ref=e232]
+                - text: Solo
+              - generic [ref=e235]:
+                - img [ref=e236]
+                - text: 2 min
+            - generic [ref=e239]:
+              - text: Play
+              - generic [ref=e240]: →
+        - link "Daily Hot Takes Pick a side on spicy takes. See how far you are from the crowd. Solo 2 min Play →" [ref=e241] [cursor=pointer]:
+          - /url: /hot-takes
+          - generic [ref=e243]:
+            - img [ref=e245]
+            - heading "Daily Hot Takes" [level=3] [ref=e247]
+            - paragraph [ref=e248]: Pick a side on spicy takes. See how far you are from the crowd.
+            - generic [ref=e249]:
+              - generic [ref=e250]:
+                - img [ref=e251]
+                - text: Solo
+              - generic [ref=e254]:
+                - img [ref=e255]
+                - text: 2 min
+            - generic [ref=e258]:
+              - text: Play
+              - generic [ref=e259]: →
+        - link "Trivia Topics Music, movies, Harry Potter, Marvel and more — pick your topic. Solo 3 min Play →" [ref=e260] [cursor=pointer]:
+          - /url: /trivia-games
+          - generic [ref=e262]:
+            - img [ref=e264]
+            - heading "Trivia Topics" [level=3] [ref=e268]
+            - paragraph [ref=e269]: Music, movies, Harry Potter, Marvel and more — pick your topic.
+            - generic [ref=e270]:
+              - generic [ref=e271]:
+                - img [ref=e272]
+                - text: Solo
+              - generic [ref=e275]:
+                - img [ref=e276]
+                - text: 3 min
+            - generic [ref=e279]:
+              - text: Play
+              - generic [ref=e280]: →
+    - generic [ref=e281]:
+      - generic [ref=e282]:
+        - paragraph [ref=e283]: Party
+        - heading "With friends" [level=2] [ref=e285]
+        - paragraph [ref=e286]: Share a room code — everyone plays on their own phone
+      - generic [ref=e287]:
+        - link "Say Anything Write the funniest answer, then vote for the best. 3-12 players 15 min Play →" [ref=e288] [cursor=pointer]:
+          - /url: /say-anything
+          - generic [ref=e290]:
+            - img [ref=e292]
+            - heading "Say Anything" [level=3] [ref=e294]
+            - paragraph [ref=e295]: Write the funniest answer, then vote for the best.
+            - generic [ref=e296]:
+              - generic [ref=e297]:
+                - img [ref=e298]
+                - text: 3-12 players
+              - generic [ref=e301]:
+                - img [ref=e302]
+                - text: 15 min
+            - generic [ref=e305]:
+              - text: Play
+              - generic [ref=e306]: →
+        - link "Guesstimate Trivia with betting. You don’t need to know — just guess well. 3-12 players 15 min Play →" [ref=e307] [cursor=pointer]:
+          - /url: /guesstimate
+          - generic [ref=e309]:
+            - img [ref=e311]
+            - heading "Guesstimate" [level=3] [ref=e315]
+            - paragraph [ref=e316]: Trivia with betting. You don’t need to know — just guess well.
+            - generic [ref=e317]:
+              - generic [ref=e318]:
+                - img [ref=e319]
+                - text: 3-12 players
+              - generic [ref=e322]:
+                - img [ref=e323]
+                - text: 15 min
+            - generic [ref=e326]:
+              - text: Play
+              - generic [ref=e327]: →
+        - link "NEW Taboo Describe the word without saying the forbidden five. 3-12 players 15 min Play →" [ref=e328] [cursor=pointer]:
+          - /url: /taboo
+          - generic [ref=e330]: NEW
+          - generic [ref=e331]:
+            - img [ref=e333]
+            - heading "Taboo" [level=3] [ref=e336]
+            - paragraph [ref=e337]: Describe the word without saying the forbidden five.
+            - generic [ref=e338]:
+              - generic [ref=e339]:
+                - img [ref=e340]
+                - text: 3-12 players
+              - generic [ref=e343]:
+                - img [ref=e344]
+                - text: 15 min
+            - generic [ref=e347]:
+              - text: Play
+              - generic [ref=e348]: →
+        - link "Scattergories One letter, twelve categories, sixty seconds. Be original. 2-12 players 10 min Play →" [ref=e349] [cursor=pointer]:
+          - /url: /scattergories
+          - generic [ref=e351]:
+            - img [ref=e353]
+            - heading "Scattergories" [level=3] [ref=e355]
+            - paragraph [ref=e356]: One letter, twelve categories, sixty seconds. Be original.
+            - generic [ref=e357]:
+              - generic [ref=e358]:
+                - img [ref=e359]
+                - text: 2-12 players
+              - generic [ref=e362]:
+                - img [ref=e363]
+                - text: 10 min
+            - generic [ref=e366]:
+              - text: Play
+              - generic [ref=e367]: →
+        - link "Chameleon Everyone knows the secret word. Except one of you. 3-12 players 10 min Play →" [ref=e368] [cursor=pointer]:
+          - /url: /chameleon
+          - generic [ref=e370]:
+            - img [ref=e372]
+            - heading "Chameleon" [level=3] [ref=e375]
+            - paragraph [ref=e376]: Everyone knows the secret word. Except one of you.
+            - generic [ref=e377]:
+              - generic [ref=e378]:
+                - img [ref=e379]
+                - text: 3-12 players
+              - generic [ref=e382]:
+                - img [ref=e383]
+                - text: 10 min
+            - generic [ref=e386]:
+              - text: Play
+              - generic [ref=e387]: →
+        - link "Spectrum Give a clue and get your team to land on the exact spot. 2-12 players 10 min Play →" [ref=e388] [cursor=pointer]:
+          - /url: /spectrum
+          - generic [ref=e390]:
+            - img [ref=e392]
+            - heading "Spectrum" [level=3] [ref=e393]
+            - paragraph [ref=e394]: Give a clue and get your team to land on the exact spot.
+            - generic [ref=e395]:
+              - generic [ref=e396]:
+                - img [ref=e397]
+                - text: 2-12 players
+              - generic [ref=e400]:
+                - img [ref=e401]
+                - text: 10 min
+            - generic [ref=e404]:
+              - text: Play
+              - generic [ref=e405]: →
+        - link "Would You Rather Impossible choices. Find out where your group splits. 2-16 players 10 min Play →" [ref=e406] [cursor=pointer]:
+          - /url: /would-you-rather
+          - generic [ref=e408]:
+            - img [ref=e410]
+            - heading "Would You Rather" [level=3] [ref=e416]
+            - paragraph [ref=e417]: Impossible choices. Find out where your group splits.
+            - generic [ref=e418]:
+              - generic [ref=e419]:
+                - img [ref=e420]
+                - text: 2-16 players
+              - generic [ref=e423]:
+                - img [ref=e424]
+                - text: 10 min
+            - generic [ref=e427]:
+              - text: Play
+              - generic [ref=e428]: →
+        - 'link "Fishbowl Three rounds, same words: describe, one word, act it out. 3-16 players 20 min Play →" [ref=e429] [cursor=pointer]':
+          - /url: /fishbowl
+          - generic [ref=e431]:
+            - img [ref=e433]
+            - heading "Fishbowl" [level=3] [ref=e435]
+            - paragraph [ref=e436]: "Three rounds, same words: describe, one word, act it out."
+            - generic [ref=e437]:
+              - generic [ref=e438]:
+                - img [ref=e439]
+                - text: 3-16 players
+              - generic [ref=e442]:
+                - img [ref=e443]
+                - text: 20 min
+            - generic [ref=e446]:
+              - text: Play
+              - generic [ref=e447]: →
+        - link "Clover Clues Co-operative word puzzle — solve it together, nobody loses. 2-6 players 15 min Play →" [ref=e448] [cursor=pointer]:
+          - /url: /clover
+          - generic [ref=e450]:
+            - img [ref=e452]
+            - heading "Clover Clues" [level=3] [ref=e454]
+            - paragraph [ref=e455]: Co-operative word puzzle — solve it together, nobody loses.
+            - generic [ref=e456]:
+              - generic [ref=e457]:
+                - img [ref=e458]
+                - text: 2-6 players
+              - generic [ref=e461]:
+                - img [ref=e462]
+                - text: 15 min
+            - generic [ref=e465]:
+              - text: Play
+              - generic [ref=e466]: →
+        - link "Two Truths & a Lie Two true, one false. Can they spot your lie? 3-16 players 10 min Play →" [ref=e467] [cursor=pointer]:
+          - /url: /two-truths-and-a-lie
+          - generic [ref=e469]:
+            - img [ref=e471]
+            - heading "Two Truths & a Lie" [level=3] [ref=e474]
+            - paragraph [ref=e475]: Two true, one false. Can they spot your lie?
+            - generic [ref=e476]:
+              - generic [ref=e477]:
+                - img [ref=e478]
+                - text: 3-16 players
+              - generic [ref=e481]:
+                - img [ref=e482]
+                - text: 10 min
+            - generic [ref=e485]:
+              - text: Play
+              - generic [ref=e486]: →
+        - link "Team Trivia Split into teams and battle it out over a quiz. 4-30 players 20 min Play →" [ref=e487] [cursor=pointer]:
+          - /url: /team-trivia
+          - generic [ref=e489]:
+            - img [ref=e491]
+            - heading "Team Trivia" [level=3] [ref=e496]
+            - paragraph [ref=e497]: Split into teams and battle it out over a quiz.
+            - generic [ref=e498]:
+              - generic [ref=e499]:
+                - img [ref=e500]
+                - text: 4-30 players
+              - generic [ref=e503]:
+                - img [ref=e504]
+                - text: 20 min
+            - generic [ref=e507]:
+              - text: Play
+              - generic [ref=e508]: →
+    - generic [ref=e509]:
+      - generic [ref=e510]:
+        - paragraph [ref=e511]: For teams
+        - heading "For work" [level=2] [ref=e513]
+        - paragraph [ref=e514]: Team building that needs no download or signup
+      - generic [ref=e515]:
+        - link "Office Games The full guide to games that work over Teams and Zoom. any players Play →" [ref=e516] [cursor=pointer]:
+          - /url: /office-games
+          - generic [ref=e518]:
+            - img [ref=e520]
+            - heading "Office Games" [level=3] [ref=e523]
+            - paragraph [ref=e524]: The full guide to games that work over Teams and Zoom.
+            - generic [ref=e526]:
+              - img [ref=e527]
+              - text: any players
+            - generic [ref=e530]:
+              - text: Play
+              - generic [ref=e531]: →
+        - link "Team Trivia Games The best trivia formats for a distributed team. any players Play →" [ref=e532] [cursor=pointer]:
+          - /url: /best-team-trivia-games
+          - generic [ref=e534]:
+            - img [ref=e536]
+            - heading "Team Trivia Games" [level=3] [ref=e539]
+            - paragraph [ref=e540]: The best trivia formats for a distributed team.
+            - generic [ref=e542]:
+              - img [ref=e543]
+              - text: any players
+            - generic [ref=e546]:
+              - text: Play
+              - generic [ref=e547]: →
+        - link "Remote Work Bingo “You’re on mute.” Tick it off. A bingo card for video calls. any players 5 min Play →" [ref=e548] [cursor=pointer]:
+          - /url: /remote-work-bingo
+          - generic [ref=e550]:
+            - img [ref=e552]
+            - heading "Remote Work Bingo" [level=3] [ref=e555]
+            - paragraph [ref=e556]: “You’re on mute.” Tick it off. A bingo card for video calls.
+            - generic [ref=e557]:
+              - generic [ref=e558]:
+                - img [ref=e559]
+                - text: any players
+              - generic [ref=e562]:
+                - img [ref=e563]
+                - text: 5 min
+            - generic [ref=e566]:
+              - text: Play
+              - generic [ref=e567]: →
+      - link "work guides" [ref=e569] [cursor=pointer]:
+        - /url: /office-games
+        - text: work guides
+        - generic [ref=e570]: →
+    - generic [ref=e571]:
+      - heading "Questions" [level=2] [ref=e572]
+      - generic [ref=e573]:
+        - generic [ref=e574]:
+          - heading "How many games are there?" [level=3] [ref=e575]
+          - paragraph [ref=e576]: There are 24 games and guides in the hub right now, covering solo play, daily puzzles, party games for a group, and team building games for work. We add new ones regularly.
+        - generic [ref=e577]:
+          - heading "Are all the games free?" [level=3] [ref=e578]
+          - paragraph [ref=e579]: Yes, every game is completely free. There is no download, no signup and no paid tier. Multiplayer games just need one person to create a room and share the code.
+        - generic [ref=e580]:
+          - heading "How do the multiplayer games work?" [level=3] [ref=e581]
+          - paragraph [ref=e582]: One person opens the game and creates a room, then shares the short room code or link. Everyone else joins from their own phone or laptop, so nobody has to share a screen. That makes them work over Zoom, Microsoft Teams or around a table.
+        - generic [ref=e583]:
+          - heading "Can I play on my phone?" [level=3] [ref=e584]
+          - paragraph [ref=e585]: Yes. Every game is built mobile first, because most people play on a phone. Nothing needs installing.
+      - paragraph [ref=e586]:
+        - text: New here? Try
+        - link "Daily Herd" [ref=e587] [cursor=pointer]:
+          - /url: /daily
+        - text: for a two minute solo round, or
+        - link "Say Anything" [ref=e588] [cursor=pointer]:
+          - /url: /say-anything
+        - text: if you have a group.

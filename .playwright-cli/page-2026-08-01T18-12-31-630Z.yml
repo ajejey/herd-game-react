@@ -1,0 +1,236 @@
+- generic [ref=e4]:
+  - navigation [ref=e5]:
+    - generic [ref=e6]:
+      - link "Herd Game" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e9]
+        - generic [ref=e25]: Herd Game
+      - generic [ref=e26]:
+        - button "Solo" [ref=e28] [cursor=pointer]:
+          - text: Solo
+          - img [ref=e29]
+        - button "Daily" [ref=e32] [cursor=pointer]:
+          - text: Daily
+          - img [ref=e33]
+        - button "Party" [ref=e36] [cursor=pointer]:
+          - text: Party
+          - img [ref=e37]
+        - button "Teams" [ref=e40] [cursor=pointer]:
+          - text: Teams
+          - img [ref=e41]
+        - button "More" [ref=e44] [cursor=pointer]:
+          - text: More
+          - img [ref=e45]
+  - generic [ref=e47]:
+    - banner [ref=e48]:
+      - heading "Games to play alone" [level=1] [ref=e49]
+      - paragraph [ref=e50]: No friends needed, no download, no signup. Some are endless so you can keep replaying to beat your best score. Others give you one fresh puzzle a day and a streak worth protecting.
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - paragraph [ref=e53]: Endless
+        - heading "Play again and again" [level=2] [ref=e55]
+        - paragraph [ref=e56]: No daily limit. Replay until you beat your best.
+      - generic [ref=e57]:
+        - link "NEW Higher or Lower Which is bigger? One life, endless streak. Solo 2+ min Play →" [ref=e58] [cursor=pointer]:
+          - /url: /higher-or-lower
+          - generic [ref=e60]: NEW
+          - generic [ref=e61]:
+            - img [ref=e63]
+            - heading "Higher or Lower" [level=3] [ref=e66]
+            - paragraph [ref=e67]: Which is bigger? One life, endless streak.
+            - generic [ref=e68]:
+              - generic [ref=e69]:
+                - img [ref=e70]
+                - text: Solo
+              - generic [ref=e73]:
+                - img [ref=e74]
+                - text: 2+ min
+            - generic [ref=e77]:
+              - text: Play
+              - generic [ref=e78]: →
+        - link "NEW What Farm Animal Are You? Eight questions. Are you the Cow, the Goat or the Sheepdog? Solo 1 min Play →" [ref=e79] [cursor=pointer]:
+          - /url: /what-farm-animal-are-you
+          - generic [ref=e81]: NEW
+          - generic [ref=e82]:
+            - img [ref=e84]
+            - heading "What Farm Animal Are You?" [level=3] [ref=e87]
+            - paragraph [ref=e88]: Eight questions. Are you the Cow, the Goat or the Sheepdog?
+            - generic [ref=e89]:
+              - generic [ref=e90]:
+                - img [ref=e91]
+                - text: Solo
+              - generic [ref=e94]:
+                - img [ref=e95]
+                - text: 1 min
+            - generic [ref=e98]:
+              - text: Play
+              - generic [ref=e99]: →
+        - link "NEW Guess the Year Five famous films. Slide to the year you think each came out. Solo 3 min Play →" [ref=e100] [cursor=pointer]:
+          - /url: /guess-the-year
+          - generic [ref=e102]: NEW
+          - generic [ref=e103]:
+            - img [ref=e105]
+            - heading "Guess the Year" [level=3] [ref=e108]
+            - paragraph [ref=e109]: Five famous films. Slide to the year you think each came out.
+            - generic [ref=e110]:
+              - generic [ref=e111]:
+                - img [ref=e112]
+                - text: Solo
+              - generic [ref=e115]:
+                - img [ref=e116]
+                - text: 3 min
+            - generic [ref=e119]:
+              - text: Play
+              - generic [ref=e120]: →
+        - link "NEW Herd Memory Watch the pasture light up, then tap it back. One more each round. Solo 2+ min Play →" [ref=e121] [cursor=pointer]:
+          - /url: /memory-game
+          - generic [ref=e123]: NEW
+          - generic [ref=e124]:
+            - img [ref=e126]
+            - heading "Herd Memory" [level=3] [ref=e131]
+            - paragraph [ref=e132]: Watch the pasture light up, then tap it back. One more each round.
+            - generic [ref=e133]:
+              - generic [ref=e134]:
+                - img [ref=e135]
+                - text: Solo
+              - generic [ref=e138]:
+                - img [ref=e139]
+                - text: 2+ min
+            - generic [ref=e142]:
+              - text: Play
+              - generic [ref=e143]: →
+    - generic [ref=e144]:
+      - generic [ref=e145]:
+        - paragraph [ref=e146]: Daily
+        - heading "One a day" [level=2] [ref=e148]
+        - paragraph [ref=e149]: A fresh puzzle every day. Come back tomorrow to keep your streak.
+      - generic [ref=e150]:
+        - link "Daily Herd Answer like everyone else. Match the herd to score. Solo 2 min Play →" [ref=e151] [cursor=pointer]:
+          - /url: /daily
+          - generic [ref=e153]:
+            - img [ref=e155]
+            - heading "Daily Herd" [level=3] [ref=e161]
+            - paragraph [ref=e162]: Answer like everyone else. Match the herd to score.
+            - generic [ref=e163]:
+              - generic [ref=e164]:
+                - img [ref=e165]
+                - text: Solo
+              - generic [ref=e168]:
+                - img [ref=e169]
+                - text: 2 min
+            - generic [ref=e172]:
+              - text: Play
+              - generic [ref=e173]: →
+        - link "Daily Trivia Ten fresh questions every day. Build your streak. Solo 3 min Play →" [ref=e174] [cursor=pointer]:
+          - /url: /trivia
+          - generic [ref=e176]:
+            - img [ref=e178]
+            - heading "Daily Trivia" [level=3] [ref=e181]
+            - paragraph [ref=e182]: Ten fresh questions every day. Build your streak.
+            - generic [ref=e183]:
+              - generic [ref=e184]:
+                - img [ref=e185]
+                - text: Solo
+              - generic [ref=e188]:
+                - img [ref=e189]
+                - text: 3 min
+            - generic [ref=e192]:
+              - text: Play
+              - generic [ref=e193]: →
+        - link "Huddle Find the four hidden groups. One puzzle a day. Solo 4 min Play →" [ref=e194] [cursor=pointer]:
+          - /url: /connections
+          - generic [ref=e196]:
+            - img [ref=e198]
+            - heading "Huddle" [level=3] [ref=e203]
+            - paragraph [ref=e204]: Find the four hidden groups. One puzzle a day.
+            - generic [ref=e205]:
+              - generic [ref=e206]:
+                - img [ref=e207]
+                - text: Solo
+              - generic [ref=e210]:
+                - img [ref=e211]
+                - text: 4 min
+            - generic [ref=e214]:
+              - text: Play
+              - generic [ref=e215]: →
+        - link "Daily Aura Answer a few vibe questions, reveal today’s aura colour. Solo 2 min Play →" [ref=e216] [cursor=pointer]:
+          - /url: /aura
+          - generic [ref=e218]:
+            - img [ref=e220]
+            - heading "Daily Aura" [level=3] [ref=e223]
+            - paragraph [ref=e224]: Answer a few vibe questions, reveal today’s aura colour.
+            - generic [ref=e225]:
+              - generic [ref=e226]:
+                - img [ref=e227]
+                - text: Solo
+              - generic [ref=e230]:
+                - img [ref=e231]
+                - text: 2 min
+            - generic [ref=e234]:
+              - text: Play
+              - generic [ref=e235]: →
+        - link "Daily Hot Takes Pick a side on spicy takes. See how far you are from the crowd. Solo 2 min Play →" [ref=e236] [cursor=pointer]:
+          - /url: /hot-takes
+          - generic [ref=e238]:
+            - img [ref=e240]
+            - heading "Daily Hot Takes" [level=3] [ref=e242]
+            - paragraph [ref=e243]: Pick a side on spicy takes. See how far you are from the crowd.
+            - generic [ref=e244]:
+              - generic [ref=e245]:
+                - img [ref=e246]
+                - text: Solo
+              - generic [ref=e249]:
+                - img [ref=e250]
+                - text: 2 min
+            - generic [ref=e253]:
+              - text: Play
+              - generic [ref=e254]: →
+        - link "Trivia Topics Music, movies, Harry Potter, Marvel and more — pick your topic. Solo 3 min Play →" [ref=e255] [cursor=pointer]:
+          - /url: /trivia-games
+          - generic [ref=e257]:
+            - img [ref=e259]
+            - heading "Trivia Topics" [level=3] [ref=e263]
+            - paragraph [ref=e264]: Music, movies, Harry Potter, Marvel and more — pick your topic.
+            - generic [ref=e265]:
+              - generic [ref=e266]:
+                - img [ref=e267]
+                - text: Solo
+              - generic [ref=e270]:
+                - img [ref=e271]
+                - text: 3 min
+            - generic [ref=e274]:
+              - text: Play
+              - generic [ref=e275]: →
+    - generic [ref=e276]:
+      - heading "Free single player games in your browser" [level=2] [ref=e277]
+      - paragraph [ref=e278]: Every game on this page is free and runs straight in your browser, on a phone or a laptop. There is nothing to install and no account to create, so you can go from opening the page to playing in a couple of seconds. Your streaks and high scores are stored on your own device.
+      - paragraph [ref=e279]:
+        - text: If you want something you can play
+        - strong [ref=e280]: right now and then immediately play again
+        - text: ", start with"
+        - link "Higher or Lower" [ref=e281] [cursor=pointer]:
+          - /url: /higher-or-lower
+        - text: — one wrong guess ends the run, which makes “just one more go” very hard to resist.
+      - paragraph [ref=e282]: If you would rather have a small daily ritual, the daily puzzles refresh every morning. Playing one each day builds a streak, and most take two to four minutes.
+      - heading "Questions" [level=2] [ref=e283]
+      - generic [ref=e284]:
+        - generic [ref=e285]:
+          - heading "What games can I play alone for free?" [level=3] [ref=e286]
+          - paragraph [ref=e287]: All of these. Higher or Lower is endless, so you can keep playing as long as you like. Daily Herd, Daily Trivia, Huddle, Daily Aura and Daily Hot Takes each give you one fresh puzzle a day and track your streak. Everything is free, in the browser, with no signup or download.
+        - generic [ref=e288]:
+          - heading "Do I need to download anything or make an account?" [level=3] [ref=e289]
+          - paragraph [ref=e290]: No. Every game runs in your browser on phone or laptop. There is no app, no account and no cost. Your streaks and best scores are saved on your own device.
+        - generic [ref=e291]:
+          - heading "What is the difference between the daily games and the endless ones?" [level=3] [ref=e292]
+          - paragraph [ref=e293]: Daily games give you one puzzle per day, which is what makes the streak meaningful and gives you a reason to come back tomorrow. Endless games like Higher or Lower have no limit, so you can replay them immediately to beat your best score.
+        - generic [ref=e294]:
+          - heading "Are these good for killing five minutes?" [level=3] [ref=e295]
+          - paragraph [ref=e296]: Yes. Most of the dailies take two to four minutes. Higher or Lower can be a thirty second run or a twenty minute session, depending on how long your streak survives.
+      - paragraph [ref=e297]:
+        - text: Playing with other people instead?
+        - link "See every game in the hub" [ref=e298] [cursor=pointer]:
+          - /url: /all-games
+        - text: or browse the
+        - link "games for work" [ref=e299] [cursor=pointer]:
+          - /url: /office-games
+        - text: .

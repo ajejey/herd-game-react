@@ -1,0 +1,92 @@
+- generic [ref=e4]:
+  - navigation [ref=e5]:
+    - generic [ref=e6]:
+      - link "Herd Game" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e9]
+        - generic [ref=e25]: Herd Game
+      - generic [ref=e26]:
+        - button "Solo" [ref=e28] [cursor=pointer]:
+          - text: Solo
+          - img [ref=e29]
+          - img [ref=e31]
+        - button "Daily" [ref=e34] [cursor=pointer]:
+          - text: Daily
+          - img [ref=e35]
+        - button "Party" [ref=e38] [cursor=pointer]:
+          - text: Party
+          - img [ref=e39]
+        - button "Teams" [ref=e42] [cursor=pointer]:
+          - text: Teams
+          - img [ref=e43]
+        - button "More" [ref=e46] [cursor=pointer]:
+          - text: More
+          - img [ref=e47]
+  - generic [ref=e49]:
+    - generic [ref=e50]:
+      - heading "Higher or Lower" [level=1] [ref=e51]
+      - paragraph [ref=e52]: One life. Endless streak. Pick a category and see how far you get.
+      - generic [ref=e53]:
+        - button "Country population Which country has MORE people?" [ref=e54] [cursor=pointer]:
+          - paragraph [ref=e55]: Country population
+          - paragraph [ref=e56]: Which country has MORE people?
+        - button "City population Which city has MORE people?" [ref=e57] [cursor=pointer]:
+          - paragraph [ref=e58]: City population
+          - paragraph [ref=e59]: Which city has MORE people?
+        - button "Building height Which is TALLER?" [ref=e60] [cursor=pointer]:
+          - paragraph [ref=e61]: Building height
+          - paragraph [ref=e62]: Which is TALLER?
+        - button "Movie release year Which came out LATER?" [ref=e63] [cursor=pointer]:
+          - paragraph [ref=e64]: Movie release year
+          - paragraph [ref=e65]: Which came out LATER?
+        - button "Mountain height Which mountain is HIGHER?" [ref=e66] [cursor=pointer]:
+          - paragraph [ref=e67]: Mountain height
+          - paragraph [ref=e68]: Which mountain is HIGHER?
+        - button "River length Which river is LONGER?" [ref=e69] [cursor=pointer]:
+          - paragraph [ref=e70]: River length
+          - paragraph [ref=e71]: Which river is LONGER?
+        - button "Top speed Which one is FASTER?" [ref=e72] [cursor=pointer]:
+          - paragraph [ref=e73]: Top speed
+          - paragraph [ref=e74]: Which one is FASTER?
+        - button "Lifespan Which lives LONGER?" [ref=e75] [cursor=pointer]:
+          - paragraph [ref=e76]: Lifespan
+          - paragraph [ref=e77]: Which lives LONGER?
+      - paragraph [ref=e78]:
+        - text: Free, no signup. Want something with friends?
+        - link "Browse the hub" [ref=e79] [cursor=pointer]:
+          - /url: /
+        - text: .
+    - generic [ref=e80]:
+      - heading "How to play Higher or Lower" [level=2] [ref=e81]
+      - paragraph [ref=e82]:
+        - text: You are shown two things side by side. The left one has its value revealed; the right one is hidden. Decide whether the hidden value is
+        - strong [ref=e83]: higher
+        - text: or
+        - strong [ref=e84]: lower
+        - text: . Guess right and it slides across to become the new anchor, and your streak grows. Guess wrong and the run ends — so every answer counts.
+      - paragraph [ref=e85]: There is no daily limit and no signup. Play as many runs as you like, across 8 categories, and try to beat your own best streak. It works on phone and laptop, and your best score is saved on your device.
+      - heading "Questions" [level=2] [ref=e86]
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - heading "What is the Higher or Lower game?" [level=3] [ref=e89]
+          - paragraph [ref=e90]: Higher or Lower is a free guessing game. You see one item with its value revealed and a second item hidden, and you guess whether the hidden one is higher or lower. Every correct guess extends your streak; one wrong guess ends the run.
+        - generic [ref=e91]:
+          - heading "Is it free to play?" [level=3] [ref=e92]
+          - paragraph [ref=e93]: Yes, completely free. No signup, no download, no app. It runs in your browser on phone or laptop, and your best streak is saved on your device.
+        - generic [ref=e94]:
+          - heading "Can I play Higher or Lower alone?" [level=3] [ref=e95]
+          - paragraph [ref=e96]: Yes, it is a single player game you can play as many times as you like. There is no daily limit, so you can keep going until you beat your best streak.
+        - generic [ref=e97]:
+          - heading "What categories can I play?" [level=3] [ref=e98]
+          - paragraph [ref=e99]: Country population, city population, building height, mountain height, river length, movie release year, animal top speed and animal lifespan. Each run stays in one category so every comparison uses the same unit and is always fair.
+      - paragraph [ref=e100]:
+        - text: "More to play:"
+        - link "solo games" [ref=e101] [cursor=pointer]:
+          - /url: /solo-games
+        - text: ","
+        - link "Daily Trivia" [ref=e102] [cursor=pointer]:
+          - /url: /trivia
+        - text: ", or"
+        - link "the full game hub" [ref=e103] [cursor=pointer]:
+          - /url: /all-games
+        - text: .

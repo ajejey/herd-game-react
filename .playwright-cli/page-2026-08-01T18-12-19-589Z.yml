@@ -1,0 +1,82 @@
+- generic [ref=e4]:
+  - navigation [ref=e5]:
+    - generic [ref=e6]:
+      - link "Herd Game" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e9]
+        - generic [ref=e25]: Herd Game
+      - generic [ref=e26]:
+        - button "Solo" [ref=e28] [cursor=pointer]:
+          - text: Solo
+          - img [ref=e29]
+          - img [ref=e31]
+        - button "Daily" [ref=e34] [cursor=pointer]:
+          - text: Daily
+          - img [ref=e35]
+        - button "Party" [ref=e38] [cursor=pointer]:
+          - text: Party
+          - img [ref=e39]
+        - button "Teams" [ref=e42] [cursor=pointer]:
+          - text: Teams
+          - img [ref=e43]
+        - button "More" [ref=e46] [cursor=pointer]:
+          - text: More
+          - img [ref=e47]
+  - generic [ref=e49]:
+    - generic [ref=e50]:
+      - heading "What farm animal are you?" [level=1] [ref=e51]
+      - paragraph [ref=e52]: Eight questions about how you handle plans, people and rules. No signup, no email — just your animal and a card you can send to the group chat.
+      - button "Start the quiz" [ref=e53] [cursor=pointer]
+      - paragraph [ref=e54]: Takes about a minute · 8 possible results
+    - generic [ref=e55]:
+      - heading "The eight farm animals" [level=2] [ref=e56]
+      - generic [ref=e57]:
+        - generic [ref=e58]:
+          - heading "The Cow" [level=3] [ref=e59]
+          - paragraph [ref=e60]: Calm, warm, quietly the heart of the herd.
+        - generic [ref=e61]:
+          - heading "The Sheepdog" [level=3] [ref=e62]
+          - paragraph [ref=e63]: Organised, loyal, secretly running everything.
+        - generic [ref=e64]:
+          - heading "The Goat" [level=3] [ref=e65]
+          - paragraph [ref=e66]: Chaotic, curious, climbing something they should not be.
+        - generic [ref=e67]:
+          - heading "The Horse" [level=3] [ref=e68]
+          - paragraph [ref=e69]: Proud, driven, happiest at full speed.
+        - generic [ref=e70]:
+          - heading "The Pig" [level=3] [ref=e71]
+          - paragraph [ref=e72]: Clever, comfortable, wildly underestimated.
+        - generic [ref=e73]:
+          - heading "The Chicken" [level=3] [ref=e74]
+          - paragraph [ref=e75]: Loud, social, has an opinion and will share it.
+        - generic [ref=e76]:
+          - heading "The Duck" [level=3] [ref=e77]
+          - paragraph [ref=e78]: Unbothered on the surface, paddling hard underneath.
+        - generic [ref=e79]:
+          - heading "The Sheep" [level=3] [ref=e80]
+          - paragraph [ref=e81]: Agreeable, easy company, happiest among your people.
+      - heading "Questions" [level=2] [ref=e82]
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - heading "What is the farm animal personality quiz?" [level=3] [ref=e85]
+          - paragraph [ref=e86]: It is a free eight question quiz that matches you to one of eight farm animals based on how you handle plans, groups, rules and pressure. You get a result with its traits and a card you can share.
+        - generic [ref=e87]:
+          - heading "Is it free?" [level=3] [ref=e88]
+          - paragraph [ref=e89]: Yes, completely free. No signup, no download and no email needed. It runs in your browser on a phone or a laptop.
+        - generic [ref=e90]:
+          - heading "How many results are there?" [level=3] [ref=e91]
+          - paragraph [ref=e92]: "Eight: the Cow, the Sheepdog, the Goat, the Horse, the Pig, the Chicken, the Duck and the Sheep. Each has its own traits and description."
+        - generic [ref=e93]:
+          - heading "Can I take it more than once?" [level=3] [ref=e94]
+          - paragraph [ref=e95]: Yes, as many times as you like. There is no daily limit, so you can retake it or send it to friends and compare results.
+      - paragraph [ref=e96]:
+        - text: "More to play:"
+        - link "solo games" [ref=e97] [cursor=pointer]:
+          - /url: /solo-games
+        - text: ","
+        - link "Daily Aura" [ref=e98] [cursor=pointer]:
+          - /url: /aura
+        - text: ", or"
+        - link "the full game hub" [ref=e99] [cursor=pointer]:
+          - /url: /all-games
+        - text: .

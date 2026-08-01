@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useSocket } from '../context/SocketContext';
+import { useLiveSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
 import Confetti from 'react-confetti';
 import AdSlot from './AdSlot';
@@ -18,7 +18,7 @@ const GameRoom = () => {
   const [showAdjust, setShowAdjust] = useState(false);
   const { roomCode } = useParams();
   const navigate = useNavigate();
-  const { socket } = useSocket();
+  const { socket } = useLiveSocket();
   const { gameState, dispatch } = useGame();
 
   // Handle initial connection and reconnection

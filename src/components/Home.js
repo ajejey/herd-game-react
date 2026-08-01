@@ -267,7 +267,9 @@ const Home = () => {
   const [showReconnect, setShowReconnect] = useState(false);
   const [savedSession, setSavedSession] = useState(null);
   const [activeTab, setActiveTab] = useState('join');
-  const { socket } = useSocket();
+  // No socket on mount: most homepage visitors never start a game. connect()
+  // is called in the handlers below and returns the instance synchronously.
+  const { connect } = useSocket();
   const { dispatch } = useGame();
   const navigate = useNavigate();
   const location = useLocation();
@@ -300,6 +302,7 @@ const Home = () => {
 
   const handleReconnect = () => {
     if (!savedSession) return;
+    const socket = connect();
     socket.emit('reconnect_game', savedSession);
     socket.once('game_rejoined', (gameState) => {
       dispatch({ type: 'GAME_REJOINED', payload: gameState });
@@ -321,6 +324,7 @@ const Home = () => {
     }
     setIsJoining(true);
     localStorage.setItem('username', username);
+    const socket = connect();
     socket.emit('create_game', { username });
     socket.once('game_created', ({ gameId, roomCode, playerId }) => {
       saveGameSession(gameId, roomCode, playerId, username);
@@ -340,6 +344,7 @@ const Home = () => {
       return;
     }
     setIsJoining(true);
+    const socket = connect();
     socket.emit('join_game', { username, roomCode });
     socket.once('game_joined', ({ gameId, playerId }) => {
       saveGameSession(gameId, roomCode, playerId, username);
