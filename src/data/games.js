@@ -18,7 +18,7 @@
 import {
   FiTrendingUp, FiSun, FiHelpCircle, FiGrid, FiFeather, FiZap,
   FiEdit3, FiTarget, FiHexagon, FiEyeOff, FiSliders, FiType,
-  FiShuffle, FiMessageSquare, FiSlash, FiUsers, FiBriefcase, FiClock,
+  FiShuffle, FiMessageSquare, FiSlash, FiUsers, FiBriefcase, FiClock, FiFilm,
   FiAward, FiCheckSquare, FiLayers,
 } from 'react-icons/fi';
 
@@ -61,6 +61,29 @@ export const GAMES = [
     players: '1', minutes: '2+', accent: '#3D8B5A', Icon: FiGrid,
     isNew: true, featured: true,
     tags: ['memory', 'brain', 'endless'],
+  },
+
+  {
+    id: 'odd-one-out', name: 'Odd One Out', slug: '/odd-one-out', mode: 'solo',
+    blurb: 'Four words, one impostor. Three lives, one long streak.',
+    players: '1', minutes: '2+', accent: '#1F7A8C', Icon: FiSlash,
+    isNew: true,
+    tags: ['word', 'puzzle', 'endless'],
+  },
+  {
+    id: 'reaction-time', name: 'Reaction Time Test', slug: '/reaction-time-test', mode: 'solo',
+    blurb: 'Wait for green, then tap. How fast are you really?',
+    players: '1', minutes: '1', accent: '#C9762F', Icon: FiZap,
+    isNew: true,
+    tags: ['reflex', 'test', 'endless'],
+  },
+
+  {
+    id: 'emoji-movie-quiz', name: 'Emoji Movie Quiz', slug: '/emoji-movie-quiz', mode: 'solo',
+    blurb: 'Ten films told entirely in emoji. Name them.',
+    players: '1', minutes: '3', accent: '#8E5CF7', Icon: FiFilm,
+    isNew: true,
+    tags: ['movies', 'quiz', 'emoji'],
   },
 
   /* -------------------------------- DAILY -------------------------------- */
