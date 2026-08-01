@@ -103,39 +103,51 @@ export function GameCard({ game }) {
   row onto a soft coloured panel, which is what visually separates it from the
   neighbouring homepage sections.
 */
-export function GameSection({ title, tagline, games, moreHref, moreLabel, id, eyebrow, accent = '#3D8B5A', tint }) {
+export function GameSection({
+  title, tagline, games, moreHref, moreLabel, id, eyebrow, accent = '#3D8B5A', tint, limit,
+}) {
   if (!games?.length) return null;
+
+  /* `limit` keeps the homepage from growing a row per new game. The hub page
+     shows the full list; here we show a handful and hand off. */
+  const shown = limit ? games.slice(0, limit) : games;
+  const hidden = games.length - shown.length;
 
   const inner = (
     <>
-      <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
-        <div>
-          {eyebrow && (
-            <p
-              style={{ ...quicksand, color: accent }}
-              className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em]"
-            >
-              <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full" style={{ background: accent }} />
-              {eyebrow}
-            </p>
-          )}
-          <h2 style={fredoka} className="text-2xl font-bold text-[#2D1810] md:text-3xl">{title}</h2>
-          {tagline && <p style={quicksand} className="mt-1 text-sm text-[#6B5B4A]">{tagline}</p>}
-        </div>
-        {moreHref && (
-          <Link
-            to={moreHref}
-            style={quicksand}
-            className="shrink-0 text-sm font-bold underline-offset-4 hover:underline"
+      <div className="mb-4">
+        {eyebrow && (
+          <p
+            style={{ ...quicksand, color: accent }}
+            className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em]"
           >
-            <span style={{ color: accent }}>{moreLabel || 'See all'} →</span>
-          </Link>
+            <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full" style={{ background: accent }} />
+            {eyebrow}
+          </p>
         )}
+        <h2 style={fredoka} className="text-2xl font-bold text-[#2D1810] md:text-3xl">{title}</h2>
+        {tagline && <p style={quicksand} className="mt-1 text-sm text-[#6B5B4A]">{tagline}</p>}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {games.map((g) => <GameCard key={g.id} game={g} />)}
+        {shown.map((g) => <GameCard key={g.id} game={g} />)}
       </div>
+
+      {/* One clear way onward, placed AFTER the cards where someone who has
+          finished scanning actually is. Replaces the old small top-right link,
+          which was easy to miss and duplicated this. */}
+      {moreHref && (
+        <div className="mt-5 text-center">
+          <Link
+            to={moreHref}
+            style={{ ...fredoka, borderColor: accent, color: accent }}
+            className="inline-flex items-center gap-2 rounded-full border-[3px] bg-white px-6 py-3 text-base font-bold transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+          >
+            {hidden > 0 ? `See all ${games.length} ${moreLabel || 'games'}` : (moreLabel || 'See all')}
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      )}
     </>
   );
 

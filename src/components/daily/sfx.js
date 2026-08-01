@@ -55,6 +55,18 @@ function note(freq, start, dur, { type = 'sine', gain = 0.13 } = {}) {
   } catch { /* never throw from sfx */ }
 }
 
+/*
+  A single pitched note, for games that need one tone per element rather than a
+  fixed effect — Herd Memory gives each tile its own pitch, which is half of
+  what makes a Simon-style sequence memorable.
+
+  Exported from here (rather than reimplemented) so the site keeps ONE mute
+  preference: muting on Daily Herd mutes everywhere.
+*/
+export function tone(freq, dur = 0.22, opts = {}) {
+  note(freq, 0, dur, { type: 'triangle', gain: 0.1, ...opts });
+}
+
 export const sfx = {
   click() { note(523.25, 0, 0.08, { type: 'triangle', gain: 0.08 }); },
   next()  { note(659.25, 0, 0.09, { type: 'triangle', gain: 0.08 }); },

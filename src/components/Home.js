@@ -557,8 +557,9 @@ const Home = () => {
           title="Play right now, on your own"
           tagline="No friends needed, no daily limit — replay until you beat your best."
           games={byMode('solo')}
+          limit={3}
           moreHref="/solo-games"
-          moreLabel="All solo games"
+          moreLabel="solo games"
         />
 
         {/* ─── GAME HUB ────────────────────────────────────────────────── */}
@@ -964,7 +965,7 @@ const Home = () => {
           tagline="Team building that needs no download, no signup and nothing for IT to approve."
           games={byMode('work')}
           moreHref="/office-games"
-          moreLabel="Office games guide"
+          moreLabel="office games and guides"
         />
 
         <div className="mb-12 text-center">

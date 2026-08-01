@@ -55,6 +55,14 @@ export const GAMES = [
     tags: ['trivia', 'movies', 'guessing'],
   },
 
+  {
+    id: 'herd-memory', name: 'Herd Memory', slug: '/memory-game', mode: 'solo',
+    blurb: 'Watch the pasture light up, then tap it back. One more each round.',
+    players: '1', minutes: '2+', accent: '#3D8B5A', Icon: FiGrid,
+    isNew: true, featured: true,
+    tags: ['memory', 'brain', 'endless'],
+  },
+
   /* -------------------------------- DAILY -------------------------------- */
   {
     id: 'daily-herd', name: 'Daily Herd', slug: '/daily', mode: 'daily',
