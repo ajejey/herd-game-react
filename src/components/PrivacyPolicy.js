@@ -3,8 +3,27 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import MeadowLayout, { GrassStrip, fredokaStyle } from './MeadowLayout';
 
+/*
+  Privacy Policy.
+
+  Written to describe what this site ACTUALLY does, not from a template. The
+  previous version claimed "We use Google AdSense to serve ads" — which stopped
+  being true in July 2026 when AdSense was removed (see AdSlot.js). An
+  inaccurate disclosure is worse than a thin one, and it also read as a
+  competing ad network to any reviewer.
+
+  If the data we collect changes, THIS FILE MUST CHANGE TOO. The specifics
+  below were taken from: lib/pingEvent.js (completion beacons), lib/reportError.js
+  (error reports), the localStorage keys used across the games, and the
+  daily_events / analytics_events collections in the backend.
+*/
+
 const H2 = ({ children }) => (
   <h2 style={fredokaStyle} className="text-xl md:text-2xl font-bold text-[#3D8B5A] mt-6 mb-3">{children}</h2>
+);
+
+const A = ({ href, children }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">{children}</a>
 );
 
 const PrivacyPolicy = () => {
@@ -12,7 +31,8 @@ const PrivacyPolicy = () => {
     <MeadowLayout>
       <Helmet>
         <title>Privacy Policy | Herd Game</title>
-        <meta name="description" content="Privacy Policy for Herd Game - Learn how we collect, use, and protect your information when you play our online multiplayer game." />
+        <meta name="description" content="Privacy Policy for Herd Game — what we collect, who we share it with, our advertising and analytics partners, and how to exercise your GDPR and CCPA rights." />
+        <link rel="canonical" href="https://herdgamesonline.com/privacy-policy" />
       </Helmet>
 
       <div className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)] border-4 border-[#FFE8C8] p-6 md:p-8">
@@ -22,75 +42,167 @@ const PrivacyPolicy = () => {
         </div>
 
         <div className="text-[#4A2D1B] leading-relaxed">
-          <p className="text-lg">
-            Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          <p className="text-lg">Last updated: 2 August 2026</p>
+
+          <p className="mt-3">
+            Herd Game (&ldquo;we&rdquo;, &ldquo;us&rdquo;) operates <strong className="text-[#2D1810]">herdgamesonline.com</strong>.
+            This policy explains what we collect, why, who we share it with, and the choices you have. It is
+            written to be read rather than skimmed, because most of the answer is short:
+            <strong className="text-[#2D1810]"> you do not need an account to play anything here, and we do not ask you for personal
+            details in order to play.</strong>
           </p>
 
-          <H2>1. Introduction</H2>
-          <p>
-            Welcome to Herd Game. We respect your privacy and are committed to protecting your personal data.
-            This privacy policy will inform you about how we look after your personal data when you visit our website
-            and tell you about your privacy rights and how the law protects you.
-          </p>
-
-          <H2>2. Information We Collect</H2>
-          <p>We may collect the following types of information:</p>
+          <H2>1. The short version</H2>
           <ul className="list-disc pl-6 mt-2 mb-4 space-y-1">
-            <li><strong className="text-[#2D1810]">Personal Information:</strong> Username and optional contact information if provided.</li>
-            <li><strong className="text-[#2D1810]">Game Data:</strong> Information about your game sessions, scores, and in-game actions.</li>
-            <li><strong className="text-[#2D1810]">Technical Data:</strong> IP address, browser type and version, time zone setting, browser plug-in types and versions, operating system and platform, and other technology on the devices you use to access our website.</li>
-            <li><strong className="text-[#2D1810]">Usage Data:</strong> Information about how you use our website and game.</li>
+            <li>No signup, no account and no password is required to play any game on this site.</li>
+            <li>Your high scores and streaks are saved <strong className="text-[#2D1810]">on your own device</strong>, not on our servers.</li>
+            <li>We record anonymous &ldquo;a game was finished&rdquo; events so we know which games people enjoy.</li>
+            <li>We use analytics and advertising partners, described in section 5, who set cookies.</li>
+            <li>You can clear everything we store on your device at any time by clearing your browser data.</li>
           </ul>
 
-          <H2>3. How We Use Your Information</H2>
-          <p>We use your information for the following purposes:</p>
+          <H2>2. Information you give us directly</H2>
           <ul className="list-disc pl-6 mt-2 mb-4 space-y-1">
-            <li>To provide and maintain our service</li>
-            <li>To notify you about changes to our service</li>
-            <li>To allow you to participate in interactive features of our game</li>
-            <li>To provide customer support</li>
-            <li>To gather analysis or valuable information so that we can improve our service</li>
-            <li>To monitor the usage of our service</li>
-            <li>To detect, prevent and address technical issues</li>
-            <li>To serve relevant advertisements (if applicable)</li>
+            <li><strong className="text-[#2D1810]">A display name.</strong> To join a multiplayer room you type a name. It is shown to the other players in that room and is not required to be your real name. It is kept only for the life of the game room.</li>
+            <li><strong className="text-[#2D1810]">Answers you type during a game.</strong> In games like Say Anything or Scattergories, what you write is shown to the other players in your room, which is the point of the game. Please do not type anything private.</li>
+            <li><strong className="text-[#2D1810]">Your email address, only if you choose to give it.</strong> If you join a waiting list or email us, we keep your address to reply to you or to contact you about that specific thing. We do not sell it, and we do not add you to unrelated mailing lists.</li>
           </ul>
 
-          <H2>4. Cookies and Tracking Technologies</H2>
+          <H2>3. Information collected automatically</H2>
+          <ul className="list-disc pl-6 mt-2 mb-4 space-y-1">
+            <li>
+              <strong className="text-[#2D1810]">An anonymous device identifier.</strong> A random string
+              (for example <code className="bg-[#FFF8E7] px-1 rounded">a_k3f9x2</code>) is generated in your browser and stored
+              on your device. It is not linked to your name, email or any account, and it exists so a daily
+              puzzle knows you have already played today and so we can count players rather than page loads.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">Game completion events.</strong> When you finish a game we send
+              the game&rsquo;s name, your score, whether you won, and that anonymous identifier to our server.
+              Our server also records the IP address the request came from, and the time.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">Error reports.</strong> If something breaks, your browser sends us
+              the error message and a technical stack trace so we can fix it. These do not contain your
+              personal details.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">Standard technical data.</strong> IP address, browser type and version,
+              device type, operating system, language, referring page and the pages you view — the usual
+              information any web server and analytics tool receives.
+            </li>
+          </ul>
+
+          <H2>4. Information stored on your device (not sent to us)</H2>
           <p>
-            We use cookies and similar tracking technologies to track activity on our website and hold certain information.
-            Cookies are files with a small amount of data which may include an anonymous unique identifier.
-            You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.
+            Your best scores, streaks and daily progress are kept in your browser&rsquo;s local storage — for example
+            your best typing speed, your Minesweeper time or your daily streak. This data never leaves your
+            device, we cannot read it, and it is the reason your scores are lost if you clear your browser data
+            or switch to another device or browser.
           </p>
 
-          <H2>5. Google AdSense</H2>
+          <H2>5. Advertising, analytics and other third parties</H2>
+          <p>We work with the following third parties. Each has its own privacy policy, linked below.</p>
+          <ul className="list-disc pl-6 mt-2 mb-4 space-y-2">
+            <li>
+              <strong className="text-[#2D1810]">Journey by Mediavine (advertising and audience measurement).</strong>{' '}
+              We use Mediavine&rsquo;s Grow software, and Mediavine manages advertising on this site. Mediavine and
+              its advertising partners may use cookies and similar technologies to collect data about your
+              browsing in order to measure audiences and to select and deliver advertising, including
+              personalised advertising where you have consented or where it is otherwise permitted. See the{' '}
+              <A href="https://www.mediavine.com/privacy-policy/">Mediavine Privacy Policy</A>.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">Google Analytics.</strong> We use Google Analytics 4 to understand which
+              pages and games people use, in aggregate. See{' '}
+              <A href="https://policies.google.com/privacy">Google&rsquo;s Privacy Policy</A> and{' '}
+              <A href="https://tools.google.com/dlpage/gaoptout">Google&rsquo;s opt-out browser add-on</A>.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">Hosting and infrastructure providers</strong>, who process requests to
+              the site and necessarily see IP addresses in order to deliver it.
+            </li>
+          </ul>
           <p>
-            We use Google AdSense to serve ads on our website. Google AdSense uses cookies to serve ads based on your visit to our site and other sites on the Internet.
-            You may opt out of personalized advertising by visiting{' '}
-            <a href="https://www.google.com/settings/ads" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.
+            <strong className="text-[#2D1810]">We do not use Google AdSense.</strong> It was previously used on this site and
+            was removed in July 2026. We do not sell your personal information for money.
           </p>
 
-          <H2>6. Data Security</H2>
+          <H2>6. Cookies and similar technologies</H2>
           <p>
-            We value your trust in providing us your personal information, thus we strive to use commercially acceptable means of protecting it.
-            But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.
+            Cookies are small files stored by your browser. We and the partners above use them, and comparable
+            technologies such as local storage, to remember your progress, to measure how the site is used, and
+            to deliver and measure advertising. You can refuse or delete cookies in your browser settings;
+            games will still work, though your streaks and scores will not be remembered. Where required by
+            law, we ask for your consent before non-essential cookies are set, and you can change or withdraw
+            that consent at any time using the privacy controls provided on the site by our advertising partner.
           </p>
 
-          <H2>7. Children's Privacy</H2>
+          <H2>7. Your rights in the EEA and UK (GDPR)</H2>
           <p>
-            Our service is not intended for use by children under the age of 13. We do not knowingly collect personally identifiable information from children under 13.
-            If we discover that a child under 13 has provided us with personal information, we will delete this from our servers.
+            If you are in the European Economic Area or the United Kingdom, you have the right to access,
+            correct, delete, restrict or object to our use of your personal data, the right to data portability,
+            and the right to withdraw consent at any time. Where we rely on consent — principally for
+            non-essential cookies and personalised advertising — you may withdraw it without affecting anything
+            done beforehand. Our lawful bases are your consent, and our legitimate interest in running,
+            securing and improving a free website. You also have the right to complain to your local data
+            protection authority.
           </p>
 
-          <H2>8. Changes to This Privacy Policy</H2>
+          <H2>8. Your rights in California and other US states (CCPA/CPRA)</H2>
           <p>
-            We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.
-            You are advised to review this Privacy Policy periodically for any changes.
+            If you are a California resident, you have the right to know what personal information is collected
+            and how it is used, to request deletion, to correct inaccurate information, and to opt out of the
+            &ldquo;sale&rdquo; or &ldquo;sharing&rdquo; of personal information for cross-context behavioural advertising. We do not
+            sell personal information for money. However, the use of advertising cookies described in section 5
+            may be treated as &ldquo;sharing&rdquo; under California law.
+          </p>
+          <p className="mt-2">
+            <strong className="text-[#2D1810]">To exercise the right to opt out — &ldquo;Do Not Sell or Share My Personal
+            Information&rdquo;</strong> — use the privacy settings link provided on this site by our advertising
+            partner, or email us at{' '}
+            <a href="mailto:ajejey@gmail.com?subject=Do%20Not%20Sell%20or%20Share%20My%20Personal%20Information" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">ajejey@gmail.com</a>{' '}
+            with the subject &ldquo;Do Not Sell or Share My Personal Information&rdquo;. We will not discriminate against
+            you for exercising any of these rights. Residents of other US states with similar laws have
+            comparable rights and may use the same contact.
           </p>
 
-          <H2>9. Contact Us</H2>
+          <H2>9. Children&rsquo;s privacy</H2>
           <p>
-            If you have any questions about this Privacy Policy, please contact us at:{' '}
-            <a href="mailto:ajejey@gmail.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">ajejey@gmail.com</a>
+            This site is intended for a general audience and is not directed at children under 13. We do not
+            knowingly collect personal information from children under 13. If you believe a child has provided
+            us with personal information, email us and we will delete it.
+          </p>
+
+          <H2>10. How long we keep things</H2>
+          <p>
+            Multiplayer game rooms and the names in them are deleted shortly after the game ends. Anonymous
+            completion events and error reports are kept while they remain useful for understanding and fixing
+            the site. Email addresses you have given us are kept until you ask us to remove them. Scores held
+            on your own device stay there until you clear your browser data.
+          </p>
+
+          <H2>11. Security</H2>
+          <p>
+            The site is served over HTTPS and we take reasonable measures to protect the limited data we hold.
+            No method of transmission or storage is completely secure, and we cannot guarantee absolute
+            security. Because we deliberately collect very little, there is very little to lose.
+          </p>
+
+          <H2>12. Changes to this policy</H2>
+          <p>
+            We may update this policy. Material changes will be reflected here with a new &ldquo;last updated&rdquo; date
+            above. Continued use of the site after a change means you accept the updated policy.
+          </p>
+
+          <H2>13. Contact</H2>
+          <p>
+            Questions, requests or complaints about privacy — including any request to access or delete your
+            data — can be sent to{' '}
+            <a href="mailto:ajejey@gmail.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">ajejey@gmail.com</a>.
+            We aim to reply within a few days. See also our{' '}
+            <Link to="/terms-of-service" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">Terms of Service</Link> and{' '}
+            <Link to="/about-contact" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">About page</Link>.
           </p>
         </div>
 
