@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import Navigation from '../Navigation';
 import AdSlot from '../AdSlot';
 import { GameSection } from '../common/GameCard';
-import { byMode, MODES, GAME_COUNT } from '../../data/games';
+import { byMode, MODES } from '../../data/games';
 
 /*
   /all-games — the full catalogue.
@@ -20,7 +20,7 @@ const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
 
 const FAQS = [
-  { q: 'How many games are there?', a: `There are ${GAME_COUNT} games and guides in the hub right now, covering solo play, daily puzzles, party games for a group, and team building games for work. We add new ones regularly.` },
+  { q: 'How many games are there?', a: 'The hub covers solo play, daily puzzles, party games for a group, and team building games for work. We add new ones regularly.' },
   { q: 'Are all the games free?', a: 'Yes, every game is completely free. There is no download, no signup and no paid tier. Multiplayer games just need one person to create a room and share the code.' },
   { q: 'How do the multiplayer games work?', a: 'One person opens the game and creates a room, then shares the short room code or link. Everyone else joins from their own phone or laptop, so nobody has to share a screen. That makes them work over Zoom, Microsoft Teams or around a table.' },
   { q: 'Can I play on my phone?', a: 'Yes. Every game is built mobile first, because most people play on a phone. Nothing needs installing.' },
@@ -31,7 +31,7 @@ const SCHEMA = {
   '@type': 'CollectionPage',
   name: 'All Games',
   url: CANONICAL,
-  description: `All ${GAME_COUNT} free browser games on Herd Game — solo games, daily puzzles, party games and team building games. No download, no signup.`,
+  description: `Every free browser game on Herd Game — solo games, daily puzzles, party games and team building games. No download, no signup.`,
 };
 
 const FAQ_SCHEMA = {
@@ -45,7 +45,7 @@ export default function AllGamesHub() {
     <div className="min-h-screen bg-[#FFF8E7]">
       <Helmet>
         <title>All Games — Free Browser Party & Solo Games (No Download)</title>
-        <meta name="description" content={`Every free game on Herd Game: ${GAME_COUNT} solo games, daily puzzles, party games for groups and team building games for work. No download, no signup, play in your browser.`} />
+        <meta name="description" content={`Every free game on Herd Game: solo games, daily puzzles, party games for groups and team building games for work. No download, no signup, play in your browser.`} />
         <meta name="keywords" content="free online games, party games no download, browser games, games to play with friends online, free games hub" />
         <link rel="canonical" href={CANONICAL} />
         <meta property="og:title" content="All Games — Free Browser Party & Solo Games" />
@@ -65,7 +65,7 @@ export default function AllGamesHub() {
             All games
           </h1>
           <p style={quicksand} className="mx-auto mt-3 max-w-2xl text-base text-[#6B5B4A] md:text-lg">
-            {GAME_COUNT} free games, all in the browser. Nothing to download, no account to make.
+            Free games, all in the browser. Nothing to download, no account to make.
             Play on your own, with friends, or with the team at work.
           </p>
         </header>

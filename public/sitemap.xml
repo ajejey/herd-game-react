@@ -224,6 +224,16 @@
   <url><loc>https://herdgamesonline.com/trivia-streak</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://herdgamesonline.com/chimp-test</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://herdgamesonline.com/colour-match</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/typing-test</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/click-speed-test</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/number-memory-test</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/visual-memory-test</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/aim-trainer</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/verbal-memory-test</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/hangman</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/minesweeper</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/tic-tac-toe</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://herdgamesonline.com/which-game-should-i-play</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://herdgamesonline.com/solo-games</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://herdgamesonline.com/all-games</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://herdgamesonline.com/christmas-trivia</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>

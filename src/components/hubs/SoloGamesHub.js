@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import Navigation from '../Navigation';
 import AdSlot from '../AdSlot';
 import { GameSection } from '../common/GameCard';
-import { byMode } from '../../data/games';
+import { byMode, soloGrouped } from '../../data/games';
 
 /*
   /solo-games — the single-player hub.
@@ -41,7 +41,7 @@ const FAQ_SCHEMA = {
 };
 
 export default function SoloGamesHub() {
-  const endless = byMode('solo');
+  const groups = soloGrouped();
   const daily = byMode('daily');
 
   return (
@@ -73,13 +73,35 @@ export default function SoloGamesHub() {
           </p>
         </header>
 
-        <GameSection
-          eyebrow="Endless"
-          accent="#E84A8B"
-          title="Play again and again"
-          tagline="No daily limit. Replay until you beat your best."
-          games={endless}
-        />
+        {/* Grouping alone does not shorten a catalogue — it actually adds a
+            little height — so the page also needs a way to skip down it. These
+            jump links are what turn ten screens of scrolling into one tap. */}
+        <nav aria-label="Jump to a category" className="mb-10 flex flex-wrap justify-center gap-2">
+          {groups.map((g) => (
+            <a
+              key={g.id}
+              href={`#${g.id}`}
+              style={{ ...quicksand, borderColor: g.accent, color: g.accent }}
+              className="rounded-full border-2 bg-white px-4 py-2 text-sm font-bold"
+            >
+              {g.eyebrow} <span style={{ opacity: 0.7 }}>({g.games.length})</span>
+            </a>
+          ))}
+        </nav>
+
+        {/* Every game is still linked from this page, so nothing changes for
+            search — this is purely about not presenting a wall of cards. */}
+        {groups.map((g) => (
+          <div key={g.id} id={g.id} className="scroll-mt-24">
+            <GameSection
+              eyebrow={g.eyebrow}
+              accent={g.accent}
+              title={g.title}
+              tagline={g.tagline}
+              games={g.games}
+            />
+          </div>
+        ))}
 
         <GameSection
           eyebrow="Daily"

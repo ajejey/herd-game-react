@@ -26,6 +26,16 @@ import Scramble from './components/scramble/Scramble';
 import TriviaStreak from './components/triviastreak/TriviaStreak';
 import ChimpTest from './components/chimp/ChimpTest';
 import ColourMatch from './components/colourmatch/ColourMatch';
+import TypingTest from './components/typing/TypingTest';
+import ClickSpeedTest from './components/clickspeed/ClickSpeedTest';
+import NumberMemory from './components/numbermemory/NumberMemory';
+import VisualMemory from './components/visualmemory/VisualMemory';
+import AimTrainer from './components/aim/AimTrainer';
+import VerbalMemory from './components/verbal/VerbalMemory';
+import Hangman from './components/hangman/Hangman';
+import Minesweeper from './components/minesweeper/Minesweeper';
+import TicTacToe from './components/tictactoe/TicTacToe';
+import WhichGame from './components/whichgame/WhichGame';
 import SoloGamesHub from './components/hubs/SoloGamesHub';
 import AllGamesHub from './components/hubs/AllGamesHub';
 import ScrollToTop from './components/ScrollToTop';
@@ -139,6 +149,16 @@ function App() {
               <Route path="/trivia-streak" element={<TriviaStreak />} />
               <Route path="/chimp-test" element={<ChimpTest />} />
               <Route path="/colour-match" element={<ColourMatch />} />
+              <Route path="/typing-test" element={<TypingTest />} />
+              <Route path="/click-speed-test" element={<ClickSpeedTest />} />
+              <Route path="/number-memory-test" element={<NumberMemory />} />
+              <Route path="/visual-memory-test" element={<VisualMemory />} />
+              <Route path="/aim-trainer" element={<AimTrainer />} />
+              <Route path="/verbal-memory-test" element={<VerbalMemory />} />
+              <Route path="/hangman" element={<Hangman />} />
+              <Route path="/minesweeper" element={<Minesweeper />} />
+              <Route path="/tic-tac-toe" element={<TicTacToe />} />
+              <Route path="/which-game-should-i-play" element={<WhichGame />} />
               <Route path="/solo-games" element={<SoloGamesHub />} />
               <Route path="/all-games" element={<AllGamesHub />} />
               <Route path="/office-games" element={<OfficeGamesHub />} />

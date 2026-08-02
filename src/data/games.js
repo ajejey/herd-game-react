@@ -19,7 +19,8 @@ import {
   FiTrendingUp, FiSun, FiHelpCircle, FiGrid, FiFeather, FiZap,
   FiEdit3, FiTarget, FiHexagon, FiEyeOff, FiSliders, FiType,
   FiShuffle, FiMessageSquare, FiSlash, FiUsers, FiBriefcase, FiClock, FiFilm,
-  FiAward, FiCheckSquare, FiLayers,
+  FiAward, FiCheckSquare, FiLayers, FiKey, FiMousePointer, FiHash,
+  FiSquare, FiCrosshair, FiBookOpen, FiFlag, FiAlignLeft, FiCpu, FiCompass,
 } from 'react-icons/fi';
 
 export const MODES = {
@@ -128,6 +129,76 @@ export const GAMES = [
     players: '1', minutes: '1', accent: '#7A3E9D', Icon: FiZap,
     isNew: true,
     tags: ['reflex', 'brain', 'stroop'],
+  },
+  {
+    id: 'typing-test', name: 'Typing Speed Test', slug: '/typing-test', mode: 'solo',
+    blurb: 'One minute, as many words as you can. Most people manage 40.',
+    players: '1', minutes: '1', accent: '#1F7A6B', Icon: FiKey,
+    isNew: true,
+    tags: ['typing', 'skill', 'test'],
+  },
+  {
+    id: 'click-speed-test', name: 'Click Speed Test', slug: '/click-speed-test', mode: 'solo',
+    blurb: 'Five seconds. Click as fast as your finger allows.',
+    players: '1', minutes: '1', accent: '#C2410C', Icon: FiMousePointer,
+    isNew: true,
+    tags: ['reflex', 'test', 'cps'],
+  },
+  {
+    id: 'number-memory-test', name: 'Number Memory Test', slug: '/number-memory-test', mode: 'solo',
+    blurb: 'A number flashes, then vanishes. One digit longer each round.',
+    players: '1', minutes: '2', accent: '#1D5FA8', Icon: FiHash,
+    isNew: true,
+    tags: ['memory', 'brain', 'test'],
+  },
+  {
+    id: 'visual-memory-test', name: 'Visual Memory Test', slug: '/visual-memory-test', mode: 'solo',
+    blurb: 'Squares flash, then vanish. Tap the ones that lit up.',
+    players: '1', minutes: '2', accent: '#6D3BC4', Icon: FiSquare,
+    isNew: true,
+    tags: ['memory', 'brain', 'test'],
+  },
+  {
+    id: 'aim-trainer', name: 'Aim Trainer', slug: '/aim-trainer', mode: 'solo',
+    blurb: 'Thirty targets, one at a time. How fast can you hit them?',
+    players: '1', minutes: '1', accent: '#B02E62', Icon: FiCrosshair,
+    isNew: true,
+    tags: ['reflex', 'test', 'aim'],
+  },
+  {
+    id: 'verbal-memory-test', name: 'Verbal Memory Test', slug: '/verbal-memory-test', mode: 'solo',
+    blurb: 'Seen this word already, or is it new? The list keeps growing.',
+    players: '1', minutes: '3', accent: '#0F6E7A', Icon: FiBookOpen,
+    isNew: true,
+    tags: ['memory', 'word', 'test'],
+  },
+  {
+    id: 'hangman', name: 'Hangman', slug: '/hangman', mode: 'solo',
+    blurb: 'Guess the word letter by letter. Six lives, endless streak.',
+    players: '1', minutes: '3+', accent: '#2F6B4F', Icon: FiAlignLeft,
+    isNew: true,
+    tags: ['word', 'puzzle', 'endless'],
+  },
+  {
+    id: 'minesweeper', name: 'Minesweeper', slug: '/minesweeper', mode: 'solo',
+    blurb: 'Clear the board without hitting a mine. First tap always safe.',
+    players: '1', minutes: '5', accent: '#3A5A8C', Icon: FiFlag,
+    isNew: true,
+    tags: ['puzzle', 'logic', 'classic'],
+  },
+  {
+    id: 'tic-tac-toe', name: 'Tic Tac Toe', slug: '/tic-tac-toe', mode: 'solo',
+    blurb: 'Play the computer. One difficulty is genuinely unbeatable.',
+    players: '1', minutes: '1', accent: '#7A2E6B', Icon: FiCpu,
+    isNew: true,
+    tags: ['classic', 'strategy', 'computer'],
+  },
+  {
+    id: 'which-game', name: 'Which Game Should You Play?', slug: '/which-game-should-i-play', mode: 'solo',
+    blurb: 'Six questions and we pick one for you, from all of them.',
+    players: '1', minutes: '1', accent: '#A8620A', Icon: FiCompass,
+    isNew: true,
+    tags: ['quiz', 'shareable', 'personality'],
   },
 
   /* -------------------------------- DAILY -------------------------------- */
@@ -260,6 +331,67 @@ export const GAMES = [
 
 /* ----------------------------- derived helpers ---------------------------- */
 
+/*
+  Solo hub grouping.
+
+  One flat list stopped working at about a dozen games — /solo-games had grown
+  to nine phone-screens of identical cards, which is a wall, not a catalogue.
+  These groups split it by what the game asks of you.
+
+  Matching is first-group-wins, so ORDER MATTERS: Colour Match is tagged both
+  'reflex' and 'brain', and it belongs under reflex, so reflex is checked first.
+  Anything matching nothing at all falls into a final catch-all rather than
+  vanishing — a game silently missing from the hub would be invisible in review.
+*/
+export const SOLO_GROUPS = [
+  {
+    id: 'trivia', eyebrow: 'Trivia & guessing', accent: '#E84A8B',
+    title: 'How much do you actually know?',
+    tagline: 'Guessing games and quizzes. One wrong answer is rarely the end.',
+    match: (t) => ['trivia', 'quiz', 'guessing', 'personality'].some((x) => t.includes(x)),
+  },
+  {
+    id: 'reflex', eyebrow: 'Speed & reflex', accent: '#C2410C',
+    title: 'How fast are you?',
+    tagline: 'Short, sharp and over in a minute. Built to be replayed.',
+    match: (t) => ['reflex', 'typing'].some((x) => t.includes(x)),
+  },
+  {
+    id: 'memory', eyebrow: 'Brain & memory', accent: '#4C5BD4',
+    title: 'How much can you hold?',
+    tagline: 'Memory and mental arithmetic. Most people plateau around seven.',
+    match: (t) => ['memory', 'brain'].some((x) => t.includes(x)),
+  },
+  {
+    id: 'word', eyebrow: 'Words & puzzles', accent: '#1F7A8C',
+    title: 'Work it out',
+    tagline: 'Letters, order and logic. No clock breathing down your neck.',
+    match: (t) => ['word', 'puzzle', 'anagram', 'ranking'].some((x) => t.includes(x)),
+  },
+];
+
+/** Solo games bucketed into SOLO_GROUPS. Empty groups are dropped; anything
+ *  unmatched is returned under a final "More to play" group so it still shows. */
+export const soloGrouped = () => {
+  const rest = [];
+  const buckets = new Map(SOLO_GROUPS.map((g) => [g.id, []]));
+  for (const game of byMode('solo')) {
+    const group = SOLO_GROUPS.find((g) => g.match(game.tags || []));
+    if (group) buckets.get(group.id).push(game);
+    else rest.push(game);
+  }
+  const out = SOLO_GROUPS
+    .map((g) => ({ ...g, games: buckets.get(g.id) }))
+    .filter((g) => g.games.length);
+  if (rest.length) {
+    out.push({
+      id: 'more', eyebrow: 'More', accent: '#6B5B4A',
+      title: 'More to play', tagline: 'Everything else in the solo lane.', games: rest,
+    });
+  }
+  return out;
+};
+
 export const byMode = (mode) => GAMES.filter((g) => g.mode === mode);
 export const featuredByMode = (mode, n = 6) => byMode(mode).filter((g) => g.featured).slice(0, n);
 export const gameBySlug = (slug) => GAMES.find((g) => g.slug === slug);
@@ -270,3 +402,4 @@ export const allGameRoutes = () => GAMES.map((g) => g.slug);
 
 /** Rough "how many games" claim used in copy, so it can never go stale. */
 export const GAME_COUNT = GAMES.length;
+

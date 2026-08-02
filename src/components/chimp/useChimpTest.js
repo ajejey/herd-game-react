@@ -76,6 +76,11 @@ export function useChimpTest() {
       // the two look completely different on screen and flashing a failure
       // after a success would be a nasty little bug.
       sfx.next();
+      // Bank the best as soon as the level is cleared. Saving only in the
+      // status === 'over' effect meant you had to LOSE to record a score —
+      // clear 12 numbers, close the tab, and it was never saved.
+      const cleared = tiles.length;
+      if (cleared > readBest()) { writeBest(cleared); setBest(cleared); setIsNewBest(true); }
       const nextLevel = level + 1;
       setLevel(nextLevel);
       setStatus('cleared');
