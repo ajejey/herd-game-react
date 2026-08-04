@@ -17,9 +17,37 @@ const RED = '#D0463B';
   beneath it in red, laid out like the physical Taboo card people already
   recognise. Nothing else competes for attention.
 
-  The opposing team gets a full-width BUZZ button, because in real Taboo their
-  job is catching slips — without it they are passive spectators.
+  The opposing team gets that same card plus a full-width BUZZ button, because
+  in real Taboo the other team holds the card — that is the only way catching a
+  slip is possible. Show them the button without the card and the buzz is a
+  guess, which is exactly the complaint we got. The giver's own team never sees
+  it: they are guessing, and the card is the answer.
 */
+
+/* The physical Taboo card: target word on top, forbidden words below in red.
+   The giver performs from it, the opposing team scans it for slips — same
+   object, two jobs, so they share a layout and the watcher's is just tighter
+   to leave room for the buzz button on a phone. */
+function TabooCard({ card, compact = false }) {
+  if (!card) return null;
+  return (
+    <div className={`rounded-3xl border-4 border-[#2D1810] overflow-hidden mx-auto shadow-[0_14px_30px_-14px_rgba(45,24,16,0.5)] ${compact ? 'max-w-xs' : 'max-w-sm'}`}>
+      <div className={`bg-[#2D1810] px-3 ${compact ? 'py-2.5' : 'py-4'}`}>
+        <p style={fredokaStyle} className={`font-bold text-white leading-tight break-words ${compact ? 'text-xl' : 'text-3xl md:text-4xl'}`}>{card.word}</p>
+      </div>
+      <div className={`bg-[#FFF8EE] px-3 ${compact ? 'py-2' : 'py-3'}`}>
+        <p className="text-[10px] font-bold tracking-widest uppercase mb-1.5" style={{ color: RED }}>Don’t say</p>
+        <ul className={compact ? 'space-y-0.5' : 'space-y-1'}>
+          {(card.forbidden || []).map((f, i) => (
+            <li key={i} style={fredokaStyle} className={`font-bold leading-tight ${compact ? 'text-base' : 'text-lg'}`}>
+              <span style={{ color: RED }}>{f}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 export default function TabooRoom() {
   const { roomCode: codeParam } = useParams();
@@ -107,8 +135,8 @@ export default function TabooRoom() {
             <>
               <p className="text-xs text-[#8B6347] mt-3">
                 {connectedCount < 3 ? 'You need 3 players to start.'
-                  : connectedCount === 3 ? 'With 3 you’ll play co-op — one shared score. Add a 4th for two teams.'
-                    : 'You’ll be split into two teams.'}
+                  : connectedCount === 3 ? 'With 3 you’ll play co-op — one shared score, no buzzing. Add a 4th for two teams.'
+                    : 'You’ll be split into two teams — each team sees the other’s card and can buzz them.'}
               </p>
               <button onClick={startGame} disabled={connectedCount < 3} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
                 className="mt-2 w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-40">Start game 🚫</button>
@@ -125,7 +153,9 @@ export default function TabooRoom() {
   const myTeam = state.teams?.A?.includes(myId) ? 'A' : state.teams?.B?.includes(myId) ? 'B' : null;
   const iWon = finished && (state.coop || state.winner === myTeam);
   const onGiversTeam = myTeam && myTeam === state.currentTeam;
-  const canBuzz = turn && !amGiver && (state.coop || !onGiversTeam);
+  // Only the opposing team can buzz — they're the ones holding the card. Co-op
+  // has no opposing team (everyone else is guessing), so there's nobody to police.
+  const canBuzz = !!turn && !amGiver && !state.coop && !!myTeam && !onGiversTeam;
 
   const TeamPill = ({ team, color }) => (
     <div className="flex-1 rounded-2xl p-3 text-center text-white" style={{ background: color, opacity: state.currentTeam === team && !finished ? 1 : 0.7 }}>
@@ -172,21 +202,7 @@ export default function TabooRoom() {
             <div className="text-center">
               <div className={`inline-block px-4 py-1 rounded-full font-bold mb-3 ${secondsLeft <= 10 ? 'bg-[#FFE1E1] text-[#D0463B]' : 'bg-[#FFF0F5] text-[#E84A8B]'}`}>⏱ {secondsLeft}s</div>
 
-              <div className="rounded-3xl border-4 border-[#2D1810] overflow-hidden max-w-sm mx-auto shadow-[0_14px_30px_-14px_rgba(45,24,16,0.5)]">
-                <div className="bg-[#2D1810] py-4 px-3">
-                  <p style={fredokaStyle} className="text-3xl md:text-4xl font-bold text-white leading-tight break-words">{state.card?.word}</p>
-                </div>
-                <div className="bg-[#FFF8EE] py-3 px-3">
-                  <p className="text-[10px] font-bold tracking-widest uppercase mb-1.5" style={{ color: RED }}>Don’t say</p>
-                  <ul className="space-y-1">
-                    {(state.card?.forbidden || []).map((f, i) => (
-                      <li key={i} style={fredokaStyle} className="text-lg font-bold leading-tight" >
-                        <span style={{ color: RED }}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <TabooCard card={state.card} />
 
               <div className="flex gap-2 justify-center mt-4">
                 <button onClick={() => sendAction('got_word')} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
@@ -205,9 +221,11 @@ export default function TabooRoom() {
 
               {canBuzz ? (
                 <>
-                  <p className="text-sm text-[#4A2D1B] mt-4 mb-2">Hear a forbidden word? Catch them out.</p>
+                  {/* You hold their card — that is what makes the buzz real. */}
+                  <p className="text-sm text-[#4A2D1B] mt-4 mb-2">Their card is below. Hear a forbidden word? Catch them out.</p>
+                  <TabooCard card={state.card} compact />
                   <button onClick={() => sendAction('buzz')} style={{ background: RED, fontFamily: 'Fredoka, sans-serif' }}
-                    className="w-full max-w-sm mx-auto py-5 rounded-2xl text-white font-bold text-2xl shadow-[0_10px_24px_-10px_rgba(208,70,59,0.9)] active:scale-95 transition-transform">
+                    className="w-full max-w-sm mx-auto mt-4 py-5 rounded-2xl text-white font-bold text-2xl shadow-[0_10px_24px_-10px_rgba(208,70,59,0.9)] active:scale-95 transition-transform">
                     BUZZ! 🚫
                   </button>
                   <p className="text-xs text-[#8B6347] mt-2">−1 point to their team</p>
