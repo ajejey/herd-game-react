@@ -103,11 +103,22 @@ const Navigation = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      // Column flexbox capped to the viewport so the open mobile menu can never
+      // extend past the fold. Measuring the header with flex rather than
+      // subtracting a guessed height matters: the row is 68px, not the 4rem you
+      // would assume from its padding, so a hardcoded cap left the last few
+      // pixels of the panel unreachable.
+      //
+      // 100dvh inline, 100vh via max-h-screen as the fallback: on mobile the URL
+      // bar collapses and 100vh is the LARGEST viewport, which overflows while
+      // the bar is visible. Browsers without dvh discard the inline value and
+      // fall back to the class.
+      style={{ maxHeight: '100dvh' }}
+      className={`fixed top-0 left-0 right-0 z-50 flex flex-col max-h-screen transition-all duration-300 ${
         scrolled || menuOpen ? 'bg-[#FFF8E7]/95 backdrop-blur-md shadow-[0_2px_18px_-10px_rgba(45,24,16,0.35)]' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 py-3 flex items-center justify-between shrink-0">
         <Link to="/" className="flex items-center gap-2 group">
           <span className="transition-transform group-hover:-rotate-6 group-hover:scale-110">
             <CowHeadLogo size={36} />
@@ -149,7 +160,14 @@ const Navigation = () => {
                 {/* dropdown panel (no gap so hover bridges) */}
                 {open && (
                   <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3">
-                    <div className="min-w-[12rem] rounded-2xl border-2 border-[#FFE8C8] bg-[#FFF8E7] shadow-[0_18px_40px_-18px_rgba(45,24,16,0.4)] p-2">
+                    {/* Same reachability problem as the mobile panel, on a
+                        short desktop window: Solo alone has 23 games, so the
+                        tail of the list fell below the fold with no way to get
+                        at it. Cap to the space under the header and scroll. */}
+                    <div
+                      style={{ maxHeight: 'calc(100dvh - 6rem)' }}
+                      className="min-w-[12rem] max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain rounded-2xl border-2 border-[#FFE8C8] bg-[#FFF8E7] shadow-[0_18px_40px_-18px_rgba(45,24,16,0.4)] p-2"
+                    >
                       {group.items.map(({ to, label }) => (
                         <Link
                           key={to + label}
@@ -205,8 +223,17 @@ const Navigation = () => {
       {/* Mobile dropdown panel */}
       {menuOpen && (
         <div
+          // The panel lives inside a position:fixed nav, so anything taller than
+          // the viewport is simply unreachable — the page behind cannot scroll
+          // it. With 40+ games in MENU that was everything below "Aim Trainer".
+          //
+          // flex-1 takes whatever height the header leaves, min-h-0 is what
+          // actually permits a flex child to shrink below its content and
+          // scroll (without it the panel keeps its full content height and
+          // overflows again), and overscroll-contain stops the scroll chaining
+          // to the page behind when you reach the end of the list.
           style={quicksand}
-          className="md:hidden border-t border-[#FFE8C8] bg-[#FFF8E7]/95 backdrop-blur-md px-4 pb-4 pt-2 font-semibold"
+          className="md:hidden border-t border-[#FFE8C8] bg-[#FFF8E7]/95 backdrop-blur-md px-4 pb-4 pt-2 font-semibold flex-1 min-h-0 overflow-y-auto overscroll-contain"
         >
           <div className="flex flex-col gap-2">
             <Link to="/" className={`py-2.5 px-2 ${pathname === '/' ? 'text-[#3D8B5A]' : 'text-[#2D1810]'}`}>Home</Link>
