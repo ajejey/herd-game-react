@@ -4,9 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { installGlobalErrorReporting } from './lib/reportError';
+import { initNativeApp } from './lib/nativeApp';
 
 // Capture uncaught JS errors + unhandled promise rejections (fire-and-forget).
 installGlobalErrorReporting();
+
+// Status bar, Android back button, splash dismiss. No-op in the browser.
+initNativeApp();
 
 const rootElement = document.getElementById('root');
 const app = (

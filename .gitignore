@@ -24,3 +24,24 @@ yarn-error.log*
 
 # playwright-cli scratch output (snapshots, console/network logs)
 .playwright-cli/
+
+# Capacitor / Android
+# The android/ project itself IS committed — it holds the manifest, icons and
+# gradle config we edit by hand. Only generated output and secrets are ignored.
+android/.gradle/
+android/build/
+android/app/build/
+android/captures/
+android/local.properties
+android/.idea/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/app/release/
+
+# Signing material — never commit these. Losing the keystore means you can
+# never update the app on Play again, so back it up somewhere safe offline.
+*.keystore
+*.jks
+keystore.properties
+google-services.json

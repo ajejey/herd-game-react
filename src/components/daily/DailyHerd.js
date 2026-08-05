@@ -11,6 +11,7 @@ import { Sheep, Wolf } from './HerdCritters';
 import { sfx, isMuted, setMuted } from './sfx';
 import { getIdentity, buildShareText, buildShareImageFile, recordHistory, readHistory } from './herdIdentity';
 import DailyChecklist from '../DailyChecklist';
+import DailyReminder from './DailyReminder';
 import { useDailyHerd } from '../../hooks/useDailyHerd';
 
 const PINK = '#E84A8B';
@@ -127,6 +128,9 @@ function Intro({ dayNumber, streak, onStart, loadState = 'ready' }) {
           {loadState === 'ready' ? "Play today's herd →" : 'Waking the herd…'}
         </button>
       )}
+
+      {/* App only — renders nothing in a browser. */}
+      <DailyReminder />
     </motion.div>
   );
 }
