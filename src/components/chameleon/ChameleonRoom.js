@@ -153,6 +153,10 @@ export default function ChameleonRoom() {
         {/* CLUE */}
         {phase === 'clue' && (
           <div className="mt-5 text-center">
+            {/* Every in-game phase needs a heading. Without one there is nothing
+                announcing the screen to a screen reader and nothing orienting a
+                player who looks up mid-round. */}
+            <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-2">Give your clue</h2>
             {myClue ? (
               <p className="text-[#3D8B5A] font-semibold">Your clue “{myClue.word}” is in — waiting for others… ({round.clueCount}/{connectedCount})</p>
             ) : (
@@ -169,6 +173,7 @@ export default function ChameleonRoom() {
         {/* VOTING */}
         {phase === 'voting' && (
           <div className="mt-5">
+            <h2 style={fredokaStyle} className="text-center text-xl font-bold text-[#2D1810] mb-1">Who is the Chameleon?</h2>
             <h3 style={fredokaStyle} className="text-center text-lg font-bold text-[#2D1810] mb-2">The clues</h3>
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               {round.clues.map((c) => (
@@ -190,7 +195,7 @@ export default function ChameleonRoom() {
         {/* GUESSING */}
         {phase === 'guessing' && (
           <div className="mt-5 text-center">
-            <p style={fredokaStyle} className="text-lg font-bold text-[#2D1810]">Caught! <strong>{chameleonName}</strong> was the Chameleon 🦎</p>
+            <h2 style={fredokaStyle} className="text-lg font-bold text-[#2D1810]">Caught! <strong>{chameleonName}</strong> was the Chameleon 🦎</h2>
             {amChameleon ? <p className="text-[#4A2D1B] mt-1">Tap your guess at the secret word above to steal the win.</p>
               : <p className="text-[#4A2D1B] mt-1">The Chameleon is guessing the secret word…</p>}
           </div>

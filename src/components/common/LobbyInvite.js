@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiShare2, FiCheck, FiCopy } from 'react-icons/fi';
 import { fredokaStyle } from '../MeadowLayout';
+import { share as shareSheet, copyText } from '../../lib/shareSheet';
 
 /*
   Shared lobby invite block.
@@ -32,26 +33,26 @@ export default function LobbyInvite({
   const needed = Math.max(0, minPlayers - playerCount);
   const ready = needed === 0;
 
-  async function share() {
+  // navigator.share does not exist in an Android WebView, so in the app this
+  // branch was always false and inviting anyone meant a silent clipboard copy.
+  // shareSheet() routes to the native Android share intent there and to the Web
+  // Share API in a browser.
+  function share() {
     const text = `Join my ${gameName} game! ${url}`;
-    try {
-      if (navigator.share) { await navigator.share({ title: gameName, text, url }); return; }
-      await navigator.clipboard.writeText(url);
-      setCopied(true); setTimeout(() => setCopied(false), 2200);
-    } catch (err) {
-      if (err?.name === 'AbortError') return; // user actually dismissed the share sheet
-      try {
-        await navigator.clipboard.writeText(url);
-        setCopied(true); setTimeout(() => setCopied(false), 2200);
-      } catch { /* clipboard blocked too */ }
-    }
+    shareSheet({ title: gameName, text, url, dialogTitle: `Invite friends to ${gameName}` })
+      .then((res) => {
+        if (res.via !== 'clipboard') return;
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2200);
+      });
   }
 
-  async function copyCode() {
-    try {
-      await navigator.clipboard.writeText(roomCode);
-      setCodeCopied(true); setTimeout(() => setCodeCopied(false), 2000);
-    } catch { /* ignore */ }
+  function copyCode() {
+    copyText(roomCode).then((ok) => {
+      if (!ok) return;
+      setCodeCopied(true);
+      setTimeout(() => setCodeCopied(false), 2000);
+    });
   }
 
   return (

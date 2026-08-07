@@ -58,7 +58,15 @@ const AboutContact = () => {
           <p className="text-lg">
             Herd Game is a small, independent growing collection of free browser games — party games you play
             with friends over a video call, daily puzzles, and single-player games you can pick up for a minute.
-            No download, no signup, no app store.
+            {/* Previously ended "no app store", which stops being true the moment
+                the Android app is listed. The point being made was never
+                anti-app-store, it was "there is nothing standing between you and
+                a game" — so say that instead. */}
+            No signup, no accounts, nothing standing between you and a game.
+          </p>
+          <p>
+            The whole thing runs in a browser, so you can start a game from a link on any device. There is also
+            a free Android app if you would rather have it on your home screen.
           </p>
 
           <H2>Who makes it</H2>

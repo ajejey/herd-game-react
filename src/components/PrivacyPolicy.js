@@ -16,6 +16,16 @@ import MeadowLayout, { GrassStrip, fredokaStyle } from './MeadowLayout';
   below were taken from: lib/pingEvent.js (completion beacons), lib/reportError.js
   (error reports), the localStorage keys used across the games, and the
   daily_events / analytics_events collections in the backend.
+
+  Covers the Android app as well as the site, which Google Play requires. The
+  app's footprint is genuinely SMALLER than the website's, and the difference is
+  load-bearing for the Play Data safety form:
+    - gtag and the Grow/Mediavine script in public/index.html are both guarded on
+      location.hostname, and the app's WebView origin is https://localhost. So
+      NEITHER Google Analytics NOR any advertising runs in the app.
+    - pingEvent.js, reportError.js and useGameStats.js are NOT guarded, so those
+      do run there.
+  Re-check those guards before changing this section.
 */
 
 const H2 = ({ children }) => (
@@ -42,10 +52,11 @@ const PrivacyPolicy = () => {
         </div>
 
         <div className="text-[#4A2D1B] leading-relaxed">
-          <p className="text-lg">Last updated: 2 August 2026</p>
+          <p className="text-lg">Last updated: 5 August 2026</p>
 
           <p className="mt-3">
-            Herd Game (&ldquo;we&rdquo;, &ldquo;us&rdquo;) operates <strong className="text-[#2D1810]">herdgamesonline.com</strong>.
+            Herd Game (&ldquo;we&rdquo;, &ldquo;us&rdquo;) operates <strong className="text-[#2D1810]">herdgamesonline.com</strong>{' '}
+            and the <strong className="text-[#2D1810]">Herd Games Android app</strong>.
             This policy explains what we collect, why, who we share it with, and the choices you have. It is
             written to be read rather than skimmed, because most of the answer is short:
             <strong className="text-[#2D1810]"> you do not need an account to play anything here, and we do not ask you for personal
@@ -54,11 +65,15 @@ const PrivacyPolicy = () => {
 
           <H2>1. The short version</H2>
           <ul className="list-disc pl-6 mt-2 mb-4 space-y-1">
-            <li>No signup, no account and no password is required to play any game on this site.</li>
+            <li>No signup, no account and no password is required to play any game, on the site or in the app.</li>
             <li>Your high scores and streaks are saved <strong className="text-[#2D1810]">on your own device</strong>, not on our servers.</li>
             <li>We record anonymous &ldquo;a game was finished&rdquo; events so we know which games people enjoy.</li>
-            <li>We use analytics and advertising partners, described in section 5, who set cookies.</li>
-            <li>You can clear everything we store on your device at any time by clearing your browser data.</li>
+            <li>On the website we use analytics and advertising partners, described in section 5, who set cookies.</li>
+            <li>
+              <strong className="text-[#2D1810]">The Android app shows no advertising and runs no Google Analytics.</strong>{' '}
+              It collects less than the website does — section 6.
+            </li>
+            <li>You can clear everything we store on your device at any time by clearing your browser data, or by clearing the app&rsquo;s storage.</li>
           </ul>
 
           <H2>2. Information you give us directly</H2>
@@ -91,6 +106,13 @@ const PrivacyPolicy = () => {
               device type, operating system, language, referring page and the pages you view — the usual
               information any web server and analytics tool receives.
             </li>
+            <li>
+              <strong className="text-[#2D1810]">A notification token, in the app only, and only if you ask for
+              notifications.</strong> If a future version of the app offers notifications that we send (rather
+              than reminders your own phone schedules), turning them on creates an anonymous token issued by
+              Google that lets us deliver a message to that installation. It is not linked to your name or
+              email, and it stops working if you turn notifications off or uninstall the app.
+            </li>
           </ul>
 
           <H2>4. Information stored on your device (not sent to us)</H2>
@@ -101,8 +123,13 @@ const PrivacyPolicy = () => {
             or switch to another device or browser.
           </p>
 
-          <H2>5. Advertising, analytics and other third parties</H2>
-          <p>We work with the following third parties. Each has its own privacy policy, linked below.</p>
+          <H2>5. Advertising, analytics and other third parties (website only)</H2>
+          <p>
+            <strong className="text-[#2D1810]">Everything in this section applies to the website only.</strong> None of
+            these partners are active inside the Android app: it serves no advertising and does not run Google
+            Analytics. See section 6.
+          </p>
+          <p className="mt-2">We work with the following third parties. Each has its own privacy policy, linked below.</p>
           <ul className="list-disc pl-6 mt-2 mb-4 space-y-2">
             <li>
               <strong className="text-[#2D1810]">Journey by Mediavine (advertising and audience measurement).</strong>{' '}
@@ -128,7 +155,43 @@ const PrivacyPolicy = () => {
             was removed in July 2026. We do not sell your personal information for money.
           </p>
 
-          <H2>6. Cookies and similar technologies</H2>
+          <H2>6. The Herd Games Android app</H2>
+          <p>
+            The app is the same games, packaged for Android and distributed through Google Play. Everything
+            above about display names, answers you type, anonymous completion events and error reports applies
+            in the app too. The differences are all reductions:
+          </p>
+          <ul className="list-disc pl-6 mt-2 mb-4 space-y-2">
+            <li>
+              <strong className="text-[#2D1810]">No advertising.</strong> The app contains no ad code at all. Our
+              advertising partner&rsquo;s software runs only on herdgamesonline.com and is switched off everywhere else.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">No Google Analytics.</strong> For the same reason, Google Analytics does
+              not run in the app.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">Daily reminders are scheduled by your own phone.</strong> If you turn on
+              the daily reminder, Android schedules it locally on your device. No reminder is sent from our
+              servers, we are not told when it fires, and it works with no internet connection. Turning it off,
+              or denying the notification permission, stops it completely.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">Permissions.</strong> The app asks only for notification permission, and
+              only at the moment you switch reminders on. You can refuse, and every game still works. It does
+              not request contacts, location, camera, microphone, photos or files.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">Your scores stay on the device</strong>, in the app&rsquo;s own storage. Clearing
+              the app&rsquo;s data or uninstalling it removes them, and they are not synced to us or to another device.
+            </li>
+          </ul>
+          <p>
+            Google Play also collects its own data about installs and crashes under{' '}
+            <A href="https://policies.google.com/privacy">Google&rsquo;s Privacy Policy</A>, which we do not control.
+          </p>
+
+          <H2>7. Cookies and similar technologies</H2>
           <p>
             Cookies are small files stored by your browser. We and the partners above use them, and comparable
             technologies such as local storage, to remember your progress, to measure how the site is used, and
@@ -138,7 +201,7 @@ const PrivacyPolicy = () => {
             that consent at any time using the privacy controls provided on the site by our advertising partner.
           </p>
 
-          <H2>7. Your rights in the EEA and UK (GDPR)</H2>
+          <H2>8. Your rights in the EEA and UK (GDPR)</H2>
           <p>
             If you are in the European Economic Area or the United Kingdom, you have the right to access,
             correct, delete, restrict or object to our use of your personal data, the right to data portability,
@@ -149,7 +212,7 @@ const PrivacyPolicy = () => {
             protection authority.
           </p>
 
-          <H2>8. Your rights in California and other US states (CCPA/CPRA)</H2>
+          <H2>9. Your rights in California and other US states (CCPA/CPRA)</H2>
           <p>
             If you are a California resident, you have the right to know what personal information is collected
             and how it is used, to request deletion, to correct inaccurate information, and to opt out of the
@@ -167,14 +230,15 @@ const PrivacyPolicy = () => {
             comparable rights and may use the same contact.
           </p>
 
-          <H2>9. Children&rsquo;s privacy</H2>
+          <H2>10. Children&rsquo;s privacy</H2>
           <p>
-            This site is intended for a general audience and is not directed at children under 13. We do not
-            knowingly collect personal information from children under 13. If you believe a child has provided
-            us with personal information, email us and we will delete it.
+            The site and the app are intended for a general audience and are not directed at children under 13.
+            The app is rated and distributed accordingly on Google Play, and is not part of the Google Play
+            Families programme. We do not knowingly collect personal information from children under 13. If you
+            believe a child has provided us with personal information, email us and we will delete it.
           </p>
 
-          <H2>10. How long we keep things</H2>
+          <H2>11. How long we keep things</H2>
           <p>
             Multiplayer game rooms and the names in them are deleted shortly after the game ends. Anonymous
             completion events and error reports are kept while they remain useful for understanding and fixing
@@ -182,20 +246,21 @@ const PrivacyPolicy = () => {
             on your own device stay there until you clear your browser data.
           </p>
 
-          <H2>11. Security</H2>
+          <H2>12. Security</H2>
           <p>
-            The site is served over HTTPS and we take reasonable measures to protect the limited data we hold.
+            The site and the app communicate with our servers over HTTPS, and we take reasonable measures to
+            protect the limited data we hold.
             No method of transmission or storage is completely secure, and we cannot guarantee absolute
             security. Because we deliberately collect very little, there is very little to lose.
           </p>
 
-          <H2>12. Changes to this policy</H2>
+          <H2>13. Changes to this policy</H2>
           <p>
             We may update this policy. Material changes will be reflected here with a new &ldquo;last updated&rdquo; date
-            above. Continued use of the site after a change means you accept the updated policy.
+            above. Continued use of the site or the app after a change means you accept the updated policy.
           </p>
 
-          <H2>13. Contact</H2>
+          <H2>14. Contact</H2>
           <p>
             Questions, requests or complaints about privacy — including any request to access or delete your
             data — can be sent to{' '}

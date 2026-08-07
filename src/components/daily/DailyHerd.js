@@ -12,6 +12,7 @@ import { sfx, isMuted, setMuted } from './sfx';
 import { getIdentity, buildShareText, buildShareImageFile, recordHistory, readHistory } from './herdIdentity';
 import DailyChecklist from '../DailyChecklist';
 import DailyReminder from './DailyReminder';
+import { share as shareSheet, saveImage as saveImageFile } from '../../lib/shareSheet';
 import { useDailyHerd } from '../../hooks/useDailyHerd';
 
 const PINK = '#E84A8B';
@@ -209,6 +210,7 @@ function ResultView({ dayNumber, result, streak }) {
   const { w, h } = useWindowSize();
   const [revealed, setRevealed] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [saved, setSaved] = useState(false);
   const identity = getIdentity(result.syncPct);
   const done = revealed >= result.perQuestion.length;
   const celebrate = result.syncPct >= 42 || result.syncPct < 8; // very sheep OR very rare wolf
@@ -229,33 +231,44 @@ function ResultView({ dayNumber, result, streak }) {
     return () => clearTimeout(t);
   }, [revealed]); // eslint-disable-line
 
-  async function share() {
+  // Render the share card AHEAD of the tap.
+  //
+  // navigator.share() only works while the click's transient user activation is
+  // still live. Building the image first — document.fonts.ready plus a
+  // 1080x1080 canvas — spent that activation, so the share sheet never opened on
+  // mobile web and the clipboard fallback (which needs activation too) usually
+  // failed as well. That is the "nothing happens, then the second tap copies"
+  // behaviour. Prebuilding here keeps the handler synchronous.
+  const [shareFile, setShareFile] = useState(null);
+  useEffect(() => {
+    let cancelled = false;
+    buildShareImageFile(dayNumber, result, identity)
+      .then((f) => { if (!cancelled) setShareFile(f); })
+      .catch(() => { /* text-only share is a fine outcome */ });
+    return () => { cancelled = true; };
+  }, [dayNumber, result, identity]);
+
+  function share() {
     const text = buildShareText(dayNumber, result, identity);
-    try {
-      const file = await buildShareImageFile(dayNumber, result, identity);
-      if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], text, title: 'Daily Herd' });
-        return;
-      }
-      if (navigator.share) { await navigator.share({ title: 'Daily Herd', text }); return; }
-      await navigator.clipboard.writeText(text);
-      setCopied(true); setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      if (err?.name === 'AbortError') return; // user actually dismissed the share sheet
-      try {
-        await navigator.clipboard.writeText(text);
-        setCopied(true); setTimeout(() => setCopied(false), 2000);
-      } catch { /* clipboard blocked too */ }
-    }
+    shareSheet({ title: 'Daily Herd', text, file: shareFile, dialogTitle: 'Share your herd' })
+      .then((res) => {
+        if (res.via !== 'clipboard') return;
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
   }
 
   async function saveImage() {
-    const file = await buildShareImageFile(dayNumber, result, identity);
+    // Reuse the prebuilt card when it is ready; only rebuild if the effect has
+    // not landed yet. <a download> is a no-op in the Android WebView, so this
+    // goes through saveImageFile(), which writes real bytes on the device.
+    const file = shareFile || (await buildShareImageFile(dayNumber, result, identity));
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    const a = document.createElement('a');
-    a.href = url; a.download = file.name; document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    const res = await saveImageFile(file);
+    if (res.ok) {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    }
   }
 
   return (
@@ -299,7 +312,7 @@ function ResultView({ dayNumber, result, streak }) {
             </button>
             <button onClick={saveImage}
               className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold hover:border-[#E84A8B]">
-              <FiDownload /> Save image
+              {saved ? <><FiCheck /> Saved</> : <><FiDownload /> Save image</>}
             </button>
           </div>
           <p className="text-xs text-[#8B6347] mt-2">Post it and see what your friends are — sheep or wolf?</p>

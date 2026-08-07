@@ -239,13 +239,19 @@ export default function TabooRoom() {
           <div className="text-center py-4">
             {myId === state.currentGiverId ? (
               <>
-                <p style={fredokaStyle} className="text-xl font-bold text-[#2D1810]">You’re describing{state.coop ? '!' : `, Team ${state.currentTeam}!`}</p>
+                {/* h2, not p: this is the screen's title. Every other game
+                    titles its in-game phase; Taboo did not, so a screen reader
+                    announced nothing and there was no orienting heading. */}
+                <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810]">You’re describing{state.coop ? '!' : `, Team ${state.currentTeam}!`}</h2>
                 <p className="text-[#4A2D1B] mt-1 mb-4">Get your team to say the word — without saying any of the forbidden ones.</p>
                 <button onClick={() => sendAction('start_turn')} style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}
                   className="px-8 py-3 rounded-2xl text-white font-bold text-lg">Start my turn →</button>
               </>
             ) : (
               <>
+                <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-1">
+                  {nameById(state.currentGiverId)} is up
+                </h2>
                 <p className="text-[#4A2D1B]">Waiting for <strong>{nameById(state.currentGiverId)}</strong> to start their turn…</p>
                 {state.lastTurn && <p className="text-[#8B6347] text-sm mt-2">Last turn: {nameById(state.lastTurn.giverId)} got {state.lastTurn.got}{state.lastTurn.buzzed ? `, buzzed ${state.lastTurn.buzzed}×` : ''}.</p>}
               </>
