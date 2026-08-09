@@ -20,11 +20,28 @@ const ENDPOINT = `${BACKEND_URL}/api/client-error`;
 const sent = new Set(); // dedup keys for this page session
 const MAX_UNIQUE = 25; // hard cap per session
 
+/*
+  A tiny ring buffer of what recently went wrong on this page.
+
+  Attached to a user's "report a problem" submission so a one-line "it froze" is
+  still actionable. Asking a frustrated person to describe their browser is how
+  you end up with no reports at all.
+*/
+const recent = [];
+const RECENT_MAX = 5;
+
+export function getRecentErrors() {
+  return recent.slice(-RECENT_MAX);
+}
+
 export function reportError(type, message, extra = {}) {
   try {
     if (sent.size >= MAX_UNIQUE) return;
     const msg = String(message || '').slice(0, 500);
     if (!msg && !extra.stack) return;
+
+    recent.push(`${type}: ${msg}`.slice(0, 300));
+    if (recent.length > RECENT_MAX) recent.shift();
 
     const key = `${type}|${msg}`.slice(0, 160);
     if (sent.has(key)) return;

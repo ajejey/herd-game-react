@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from './Navigation';
+import ReportProblem from './common/ReportProblem';
 
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
@@ -74,6 +75,12 @@ const MeadowLayout = ({ children, maxWidth = 'max-w-4xl' }) => {
             <Link to="/terms-of-service" className="hover:text-[#3D8B5A] transition-colors">Terms of Service</Link>
             <Link to="/about-contact" className="hover:text-[#3D8B5A] transition-colors">About / Contact</Link>
             <Link to="/faq" className="hover:text-[#3D8B5A] transition-colors">FAQ</Link>
+          </div>
+          {/* On every page, including inside a game room. A player who is stuck
+              must never have to hunt for how to tell us — the alternative is
+              they leave, or on Play, leave a one-star review instead. */}
+          <div className="mt-3">
+            <ReportProblem />
           </div>
         </footer>
       </div>
