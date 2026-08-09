@@ -4,6 +4,8 @@ import { useLiveSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
 import Confetti from 'react-confetti';
 import AdSlot from './AdSlot';
+import ReportProblem from './common/ReportProblem';
+import { share as shareSheet, copyText } from '../lib/shareSheet';
 
 const ROUND_AD_SLOT = '5698170537';
 const LOBBY_AD_SLOT = '5969633275';
@@ -146,37 +148,37 @@ const GameRoom = () => {
     navigate('/');
   };
 
-  const handleCopyRoomCode = async () => {
-    try {
-      await navigator.clipboard.writeText(roomCode);
+  const handleCopyRoomCode = () => {
+    // navigator.clipboard is unreliable in the Android WebView and rejects
+    // silently, which showed "Copied!" for something never copied.
+    copyText(roomCode).then((ok) => {
+      if (!ok) return;
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy room code:', err);
-    }
+    });
   };
 
   // One-tap invite: a clickable link that drops friends onto the Join form with
-  // the code prefilled. Native share sheet on mobile, clipboard everywhere else.
+  // the code prefilled.
+  //
+  // navigator.share does NOT exist in an Android WebView, so the old code here
+  // fell straight through to a clipboard copy and the app's main game could
+  // never open a share sheet. shareSheet() uses the native Android intent there
+  // and the Web Share API in a browser, and is not async so the web call still
+  // happens inside the click's user activation.
   const inviteUrl = `${window.location.origin}/?join=${roomCode}`;
-  const handleShareInvite = async () => {
+  const handleShareInvite = () => {
     const shareText = `Join my Herd Mentality game! Room code ${roomCode}`;
-    try {
-      if (navigator.share) {
-        await navigator.share({ title: 'Herd Mentality', text: shareText, url: inviteUrl });
-        return;
-      }
-      await navigator.clipboard.writeText(inviteUrl);
+    shareSheet({
+      title: 'Herd Mentality',
+      text: shareText,
+      url: inviteUrl,
+      dialogTitle: 'Invite friends to your game',
+    }).then((res) => {
+      if (res.via !== 'clipboard') return;
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
-    } catch (err) {
-      if (err?.name === 'AbortError') return; // user actually dismissed the share sheet
-      try {
-        await navigator.clipboard.writeText(inviteUrl);
-        setLinkCopied(true);
-        setTimeout(() => setLinkCopied(false), 2000);
-      } catch { /* clipboard blocked too */ }
-    }
+    });
   };
 
   const renderPlayerList = () => {
@@ -536,6 +538,13 @@ const GameRoom = () => {
         <div className="bg-white p-6 rounded-lg shadow-md">
           {renderGameContent()}
         </div>
+      </div>
+
+      {/* GameRoom does not use MeadowLayout, so it did not inherit the footer's
+          report link — the original Herd Mentality room was the one place a
+          stuck player had no way to tell us. */}
+      <div className="mt-6 text-center">
+        <ReportProblem />
       </div>
     </div>
   );

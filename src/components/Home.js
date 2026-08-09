@@ -11,6 +11,7 @@ import { Sheep } from './daily/HerdCritters';
 
 import { GameSection } from './common/GameCard';
 import { byMode } from '../data/games';
+import ReportProblem from './common/ReportProblem';
 
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
@@ -1285,6 +1286,11 @@ const Home = () => {
             <Link to="/terms-of-service" className="hover:text-[#3D8B5A] transition-colors">Terms of Service</Link>
             <Link to="/about-contact" className="hover:text-[#3D8B5A] transition-colors">About / Contact</Link>
             <Link to="/faq" className="hover:text-[#3D8B5A] transition-colors">FAQ</Link>
+          </div>
+          {/* Home has its own layout rather than MeadowLayout, so it does not
+              inherit the shared footer's report link. */}
+          <div className="mt-3">
+            <ReportProblem />
           </div>
         </footer>
       </div>
