@@ -1,55 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiAlertCircle, FiX, FiCheck } from 'react-icons/fi';
-import { getRecentErrors } from '../../lib/reportError';
+import { FiAlertCircle, FiX, FiCopy, FiCheck } from 'react-icons/fi';
+import { copyText } from '../../lib/shareSheet';
 
 /*
-  "Report a problem" — a direct line from a stuck player to us.
+  "Report a problem" — shows our email address and lets the player copy it.
 
-  Why this matters more than it looks: in this niche a player who hits a problem
-  does not write in, they leave. On Google Play they do something worse — they
-  leave a one-star review, which is public, permanent, and suppresses installs.
-  A report button turns silent churn into a signal AND keeps the complaint out
-  of the review section.
+  Deliberately does NOT fire a mailto: link. A mailto hands the player to
+  whatever the OS has registered as the default mail client, which is very often
+  something they have never used — it opened Outlook on the machine this was
+  tested on. Handing someone a dead Outlook window is worse than handing them
+  nothing, because they assume the report was sent.
 
-  Play policy note: this is deliberately a NEUTRAL, always-available control. It
-  never asks "are you enjoying the app?" and never routes happy users to the
-  store. Google's In-App Review policy explicitly prohibits gating a review
-  prompt on sentiment, so the "happy? → rate us / unhappy? → feedback" pattern
-  is not an option. This sidesteps that entirely.
+  Also deliberately not an in-app form posting to our server. That needs SMTP
+  credentials to notify anyone, and a report sitting unread in a database is the
+  same as no report. Someone motivated enough to report a bug will send an
+  email, and the reply then happens in a normal inbox thread.
 
-  The report auto-attaches context (page, game, room code, platform, recent
-  console errors) so a one-line "it froze" is still actionable. Asking a
-  frustrated person to describe their browser is how you get no reports at all.
+  The context line is there so we know where they were without a round trip;
+  copying the address copies it too.
 */
 
-const BACKEND_URL =
-  process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
-
+const CONTACT = 'ajejey@gmail.com';
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 
-function context() {
-  const path = typeof window !== 'undefined' ? window.location.pathname : '';
-  const m = path.match(/^\/([^/]+)(?:\/room\/([A-Z]{4}))?/i);
-  let platform = 'web';
+function contextLine() {
   try {
-    // Avoid importing Capacitor here — this renders on every page and the web
-    // bundle should not pay for it. The native WebView origin is enough.
-    if (window.location.hostname === 'localhost' && window.location.protocol === 'https:') platform = 'android';
-  } catch { /* ignore */ }
-  return {
-    page: path.slice(0, 300),
-    game: (m && m[1]) || '',
-    roomCode: (m && m[2]) || '',
-    platform,
-  };
+    const path = window.location.pathname || '';
+    const m = path.match(/^\/([^/]+)(?:\/room\/([A-Z]{4}))?/i);
+    const room = m && m[2];
+    return `Page: ${path}${room ? ` · Room: ${room}` : ''}`;
+  } catch {
+    return '';
+  }
 }
 
 export default function ReportProblem({ compact = false }) {
   const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const [email, setEmail] = useState('');
-  const [state, setState] = useState('idle'); // idle | sending | sent | error
+  const [copied, setCopied] = useState(null); // 'email' | 'both' | null
 
   useEffect(() => {
     if (!open) return;
@@ -58,30 +46,10 @@ export default function ReportProblem({ compact = false }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
-  async function submit(e) {
-    e.preventDefault();
-    if (message.trim().length < 3 || state === 'sending') return;
-    setState('sending');
-    try {
-      const res = await fetch(`${BACKEND_URL}/api/feedback`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: message.trim(),
-          email: email.trim(),
-          ...context(),
-          recentErrors: getRecentErrors ? getRecentErrors() : [],
-        }),
-      });
-      if (!res.ok) throw new Error('bad status');
-      setState('sent');
-      setMessage('');
-      setEmail('');
-      setTimeout(() => { setOpen(false); setState('idle'); }, 2200);
-    } catch {
-      setState('error');
-    }
-  }
+  const flash = (what) => {
+    setCopied(what);
+    setTimeout(() => setCopied(null), 2000);
+  };
 
   return (
     <>
@@ -89,13 +57,16 @@ export default function ReportProblem({ compact = false }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Report a problem"
+        style={fredoka}
         className={
-          compact
-            ? 'inline-flex items-center gap-1.5 text-sm text-[#8B6347] hover:text-[#E84A8B] transition-colors'
-            : 'inline-flex items-center gap-1.5 text-sm text-[#8B6347] hover:text-[#E84A8B] transition-colors'
+          'inline-flex items-center gap-2 rounded-full border-2 border-[#FFE8C8] bg-white ' +
+          'px-5 py-2.5 font-semibold text-[#2D1810] shadow-[0_6px_16px_-8px_rgba(45,24,16,0.4)] ' +
+          'transition-all hover:border-[#E84A8B] hover:text-[#E84A8B] hover:scale-105 active:scale-95 ' +
+          (compact ? 'text-sm' : 'text-base')
         }
       >
-        <FiAlertCircle /> Report a problem
+        <FiAlertCircle className="text-[#E84A8B]" size={18} />
+        Report a problem
       </button>
 
       <AnimatePresence>
@@ -115,60 +86,44 @@ export default function ReportProblem({ compact = false }) {
               className="w-full sm:max-w-md bg-[#FFF8E7] rounded-t-3xl sm:rounded-3xl border-4 border-[#FFE8C8] p-5 max-h-[90dvh] overflow-y-auto"
             >
               <div className="flex items-start justify-between gap-3 mb-3">
-                <h2 style={fredoka} className="text-xl font-bold text-[#2D1810]">
-                  {state === 'sent' ? 'Thank you' : 'Report a problem'}
-                </h2>
+                <h2 style={fredoka} className="text-xl font-bold text-[#2D1810]">Report a problem</h2>
                 <button type="button" onClick={() => setOpen(false)} aria-label="Close"
                   className="p-1 text-[#8B6347] hover:text-[#2D1810]"><FiX size={20} /></button>
               </div>
 
-              {state === 'sent' ? (
-                <p className="text-[#4A2D1B] flex items-center gap-2">
-                  <FiCheck className="text-[#3D8B5A]" /> Sent. That genuinely helps — thank you.
+              <p className="text-sm text-[#4A2D1B]">
+                Something broken or confusing? Email us and we&rsquo;ll look at it. A single
+                line is enough &mdash; we read every one.
+              </p>
+
+              <div className="mt-4 rounded-2xl border-2 border-[#FFE8C8] bg-white p-4 text-center">
+                <p className="text-xs uppercase tracking-widest text-[#A89A78] mb-1">Email us at</p>
+                <p style={fredoka} className="text-lg font-bold text-[#2D1810] break-all">{CONTACT}</p>
+                <button
+                  type="button"
+                  onClick={() => copyText(CONTACT).then((ok) => ok && flash('email'))}
+                  style={{ background: '#E84A8B', ...fredoka }}
+                  className="mt-3 inline-flex items-center gap-2 rounded-full px-5 py-2 text-white font-bold"
+                >
+                  {copied === 'email' ? <><FiCheck /> Copied</> : <><FiCopy /> Copy address</>}
+                </button>
+              </div>
+
+              <div className="mt-4">
+                <p className="text-xs text-[#8B6347] mb-1">
+                  Handy to paste in &mdash; it tells us where you were:
                 </p>
-              ) : (
-                <form onSubmit={submit}>
-                  <p className="text-sm text-[#4A2D1B] mb-3">
-                    What went wrong? Even one line helps. We attach the page and game
-                    automatically, so no need to describe your device.
-                  </p>
-                  <textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    rows={4}
-                    maxLength={2000}
-                    autoFocus
-                    placeholder="e.g. The buzz button did nothing when my team said a forbidden word"
-                    className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#E84A8B] outline-none text-[#2D1810] bg-white resize-none"
-                  />
-                  <label className="block mt-3">
-                    <span className="text-xs text-[#8B6347]">Email, only if you want a reply (optional)</span>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      maxLength={200}
-                      placeholder="you@example.com"
-                      className="mt-1 w-full px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] focus:border-[#E84A8B] outline-none text-[#2D1810] bg-white"
-                    />
-                  </label>
-
-                  {state === 'error' && (
-                    <p className="text-sm text-[#C0392B] mt-3">
-                      That didn&rsquo;t send. You can email us at ajejey@gmail.com instead.
-                    </p>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={message.trim().length < 3 || state === 'sending'}
-                    style={{ background: '#E84A8B', ...fredoka }}
-                    className="mt-4 w-full py-3 rounded-2xl text-white font-bold text-lg disabled:opacity-40"
-                  >
-                    {state === 'sending' ? 'Sending…' : 'Send report'}
-                  </button>
-                </form>
-              )}
+                <button
+                  type="button"
+                  onClick={() => copyText(contextLine()).then((ok) => ok && flash('both'))}
+                  className="w-full text-left rounded-xl border-2 border-[#FFE8C8] bg-white px-3 py-2 text-xs text-[#4A2D1B] hover:border-[#E84A8B]"
+                >
+                  <span className="font-mono break-all">{contextLine()}</span>
+                  <span className="block mt-1 font-semibold text-[#3D8B5A]">
+                    {copied === 'both' ? 'Copied' : 'Tap to copy'}
+                  </span>
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}

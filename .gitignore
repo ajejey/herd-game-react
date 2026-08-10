@@ -45,3 +45,11 @@ android/app/release/
 *.jks
 keystore.properties
 google-services.json
+
+# Anything that looks like a credential note left next to the keystore.
+# A PlaystorePass.txt.txt appeared here once; "git add -A" would have pushed a
+# signing password to a public repo. Broad on purpose.
+android/*.txt
+android/*password*
+android/*Pass*
+**/PlaystorePass*
