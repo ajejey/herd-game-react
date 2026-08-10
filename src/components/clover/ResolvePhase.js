@@ -87,7 +87,8 @@ export default function ResolvePhase({ game }) {
           const placed = placement.includes(card);
           const sel = selectedCard === card;
           return (
-            <button key={card} onClick={() => setSelectedCard(sel ? null : card)}
+            <button key={card} data-testid="clover-card" data-card={card} data-placed={placed ? '1' : '0'}
+              onClick={() => setSelectedCard(sel ? null : card)}
               className={`px-3 py-2 rounded-xl border-2 font-semibold text-sm transition-all ${
                 sel ? 'border-[#E84A8B] bg-[#FFE8F1] text-[#2D1810] scale-105'
                   : placed ? 'border-[#C9E3D0] bg-[#EAF6EE] text-[#6B8E76]'
@@ -99,7 +100,7 @@ export default function ResolvePhase({ game }) {
         })}
       </div>
 
-      <button onClick={() => sendAction('confirm_placement')} disabled={!allPlaced}
+      <button data-testid="clover-confirm" onClick={() => sendAction('confirm_placement')} disabled={!allPlaced}
         style={{ background: '#3D8B5A', fontFamily: 'Fredoka, sans-serif' }}
         className="w-full mt-5 py-4 rounded-2xl text-white font-bold text-lg disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-105 transition-all">
         {allPlaced ? 'Confirm placement →' : 'Place all 4 leaves first'}

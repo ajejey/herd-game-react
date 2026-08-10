@@ -63,6 +63,10 @@ export default function CloverBoard({ leaves = [], clues = [], mode = 'static', 
           <button
             key={`l${i}`}
             type="button"
+            data-testid="clover-leaf"
+            data-slot={i}
+            data-filled={content ? '1' : '0'}
+            aria-label={content ? `Leaf ${i + 1}: ${content}` : `Leaf ${i + 1}, empty`}
             disabled={!interactive}
             onClick={() => interactive && onLeafTap?.(i)}
             style={pos}
