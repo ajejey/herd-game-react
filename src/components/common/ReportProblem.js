@@ -1,43 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiAlertCircle, FiX, FiCopy, FiCheck } from 'react-icons/fi';
+import { FiAlertCircle, FiX, FiCheck, FiCopy } from 'react-icons/fi';
+import { getRecentErrors } from '../../lib/reportError';
 import { copyText } from '../../lib/shareSheet';
 
 /*
-  "Report a problem" — shows our email address and lets the player copy it.
+  "Report a problem" — an in-app form that posts to /api/feedback, plus our
+  email address as a fallback.
 
-  Deliberately does NOT fire a mailto: link. A mailto hands the player to
-  whatever the OS has registered as the default mail client, which is very often
-  something they have never used — it opened Outlook on the machine this was
-  tested on. Handing someone a dead Outlook window is worse than handing them
-  nothing, because they assume the report was sent.
+  History worth keeping, because this went back and forth: it was briefly
+  replaced by a mailto: link and then by an address-only dialog, on the
+  reasoning that a report nobody is notified about is a report nobody reads.
+  Reverted because the form demonstrably works — two players filed real reports
+  through it within days — and because a mailto hands people to whatever the OS
+  thinks their default mail client is, which is often something they never use.
 
-  Also deliberately not an in-app form posting to our server. That needs SMTP
-  credentials to notify anyone, and a report sitting unread in a database is the
-  same as no report. Someone motivated enough to report a bug will send an
-  email, and the reply then happens in a normal inbox thread.
+  Reports land in the `user_feedback` collection and are read with
+  `backend/scripts/feedback-report.js`. There is deliberately NO email
+  notification: that needs SMTP credentials, and checking the collection
+  periodically is the accepted trade.
 
-  The context line is there so we know where they were without a round trip;
-  copying the address copies it too.
+  The form auto-attaches page, game, room code, platform and the last few
+  console errors, so a one-line "it froze" is still actionable — asking a
+  frustrated person to describe their browser is how you get no reports at all.
 */
 
+const BACKEND_URL =
+  process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 const CONTACT = 'ajejey@gmail.com';
+
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 
-function contextLine() {
+function context() {
+  let path = '';
+  try { path = window.location.pathname || ''; } catch { /* ignore */ }
+  const m = path.match(/^\/([^/]+)(?:\/room\/([A-Z]{4}))?/i);
+  let platform = 'web';
   try {
-    const path = window.location.pathname || '';
-    const m = path.match(/^\/([^/]+)(?:\/room\/([A-Z]{4}))?/i);
-    const room = m && m[2];
-    return `Page: ${path}${room ? ` · Room: ${room}` : ''}`;
-  } catch {
-    return '';
-  }
+    // The app's WebView origin is https://localhost — enough to tell them apart
+    // without importing Capacitor into every page of the web bundle.
+    if (window.location.hostname === 'localhost' && window.location.protocol === 'https:') platform = 'android';
+  } catch { /* ignore */ }
+  return { page: path.slice(0, 300), game: (m && m[1]) || '', roomCode: (m && m[2]) || '', platform };
 }
 
 export default function ReportProblem({ compact = false }) {
   const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(null); // 'email' | 'both' | null
+  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const [state, setState] = useState('idle'); // idle | sending | sent | error
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -46,10 +58,30 @@ export default function ReportProblem({ compact = false }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
-  const flash = (what) => {
-    setCopied(what);
-    setTimeout(() => setCopied(null), 2000);
-  };
+  async function submit(e) {
+    e.preventDefault();
+    if (message.trim().length < 3 || state === 'sending') return;
+    setState('sending');
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/feedback`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: message.trim(),
+          email: email.trim(),
+          ...context(),
+          recentErrors: typeof getRecentErrors === 'function' ? getRecentErrors() : [],
+        }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      setState('sent');
+      setMessage('');
+      setEmail('');
+      setTimeout(() => { setOpen(false); setState('idle'); }, 2400);
+    } catch {
+      setState('error');
+    }
+  }
 
   return (
     <>
@@ -86,44 +118,82 @@ export default function ReportProblem({ compact = false }) {
               className="w-full sm:max-w-md bg-[#FFF8E7] rounded-t-3xl sm:rounded-3xl border-4 border-[#FFE8C8] p-5 max-h-[90dvh] overflow-y-auto"
             >
               <div className="flex items-start justify-between gap-3 mb-3">
-                <h2 style={fredoka} className="text-xl font-bold text-[#2D1810]">Report a problem</h2>
+                <h2 style={fredoka} className="text-xl font-bold text-[#2D1810]">
+                  {state === 'sent' ? 'Thank you' : 'Report a problem'}
+                </h2>
                 <button type="button" onClick={() => setOpen(false)} aria-label="Close"
                   className="p-1 text-[#8B6347] hover:text-[#2D1810]"><FiX size={20} /></button>
               </div>
 
-              <p className="text-sm text-[#4A2D1B]">
-                Something broken or confusing? Email us and we&rsquo;ll look at it. A single
-                line is enough &mdash; we read every one.
-              </p>
-
-              <div className="mt-4 rounded-2xl border-2 border-[#FFE8C8] bg-white p-4 text-center">
-                <p className="text-xs uppercase tracking-widest text-[#A89A78] mb-1">Email us at</p>
-                <p style={fredoka} className="text-lg font-bold text-[#2D1810] break-all">{CONTACT}</p>
-                <button
-                  type="button"
-                  onClick={() => copyText(CONTACT).then((ok) => ok && flash('email'))}
-                  style={{ background: '#E84A8B', ...fredoka }}
-                  className="mt-3 inline-flex items-center gap-2 rounded-full px-5 py-2 text-white font-bold"
-                >
-                  {copied === 'email' ? <><FiCheck /> Copied</> : <><FiCopy /> Copy address</>}
-                </button>
-              </div>
-
-              <div className="mt-4">
-                <p className="text-xs text-[#8B6347] mb-1">
-                  Handy to paste in &mdash; it tells us where you were:
+              {state === 'sent' ? (
+                <p className="text-[#4A2D1B] flex items-center gap-2">
+                  <FiCheck className="text-[#3D8B5A]" /> Sent. That genuinely helps &mdash; thank you.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => copyText(contextLine()).then((ok) => ok && flash('both'))}
-                  className="w-full text-left rounded-xl border-2 border-[#FFE8C8] bg-white px-3 py-2 text-xs text-[#4A2D1B] hover:border-[#E84A8B]"
-                >
-                  <span className="font-mono break-all">{contextLine()}</span>
-                  <span className="block mt-1 font-semibold text-[#3D8B5A]">
-                    {copied === 'both' ? 'Copied' : 'Tap to copy'}
-                  </span>
-                </button>
-              </div>
+              ) : (
+                <>
+                  <form onSubmit={submit}>
+                    <p className="text-sm text-[#4A2D1B] mb-3">
+                      What went wrong? Even one line helps. We attach the page and game
+                      automatically, so no need to describe your device.
+                    </p>
+                    <textarea
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      rows={4}
+                      maxLength={2000}
+                      autoFocus
+                      placeholder="e.g. The buzz button did nothing when my team said a forbidden word"
+                      className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#E84A8B] outline-none text-[#2D1810] bg-white resize-none"
+                    />
+                    <label className="block mt-3">
+                      <span className="text-xs text-[#8B6347]">Email, only if you want a reply (optional)</span>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        maxLength={200}
+                        placeholder="you@example.com"
+                        className="mt-1 w-full px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] focus:border-[#E84A8B] outline-none text-[#2D1810] bg-white"
+                      />
+                    </label>
+
+                    {state === 'error' && (
+                      <p className="text-sm text-[#C0392B] mt-3">
+                        That didn&rsquo;t send &mdash; please use the email address below instead.
+                      </p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={message.trim().length < 3 || state === 'sending'}
+                      style={{ background: '#E84A8B', ...fredoka }}
+                      className="mt-4 w-full py-3 rounded-2xl text-white font-bold text-lg disabled:opacity-40"
+                    >
+                      {state === 'sending' ? 'Sending…' : 'Send report'}
+                    </button>
+                  </form>
+
+                  {/* Fallback for anyone who would rather email, and the escape
+                      hatch when the POST fails. */}
+                  <div className="mt-4 pt-4 border-t border-[#FFE8C8] text-center">
+                    <p className="text-xs text-[#8B6347]">Or email us directly</p>
+                    <div className="mt-1 flex items-center justify-center gap-2 flex-wrap">
+                      <span style={fredoka} className="font-bold text-[#2D1810] break-all">{CONTACT}</span>
+                      <button
+                        type="button"
+                        onClick={() => copyText(CONTACT).then((ok) => {
+                          if (!ok) return;
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2000);
+                        })}
+                        className="inline-flex items-center gap-1 rounded-full border-2 border-[#FFE8C8] bg-white px-3 py-1 text-xs font-semibold text-[#2D1810] hover:border-[#E84A8B]"
+                      >
+                        {copied ? <><FiCheck /> Copied</> : <><FiCopy /> Copy</>}
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
             </motion.div>
           </motion.div>
         )}
