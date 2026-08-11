@@ -59,12 +59,32 @@
          this file is served by the CRA dev server, the Playwright harness, and
          (now) the Capacitor Android app, whose WebView origin is
          https://localhost. Web ad tags are not permitted to serve inside a
-         native WebView, and Journey is currently being evaluated on exactly the
-         session data this script reports — so dev runs, e2e sweeps and the app
-         must all stay out of it. Only the live domain loads Grow. -->
+         native WebView, and Journey was evaluated on exactly the session data
+         this script reports — so dev runs, e2e sweeps and the app must all stay
+         out of it. Only the live domain loads Grow. -->
     <script data-grow-initializer="">
       if (location.hostname === 'herdgamesonline.com' || location.hostname === 'www.herdgamesonline.com') {
         !(function(){window.growMe||((window.growMe=function(e){window.growMe._.push(e);}),(window.growMe._=[]));var e=document.createElement("script");(e.type="text/javascript"),(e.src="https://faves.grow.me/main.js"),(e.defer=!0),e.setAttribute("data-grow-faves-site-id","U2l0ZTo2MmMwNGZhOS1hNThiLTQ4OWItYTc1Yi1iNDk4YjQ0MzNjMjY=");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();
+      }
+    </script>
+
+    <!-- Mediavine ad script (Journey approved, Aug 2026). This is the tag that
+         actually serves ads; Grow above only measures. Mediavine places ads
+         itself from this one script, so there is no per-slot markup to add.
+
+         Domain-guarded for the same reasons as Grow, and here the guard is not
+         just tidiness: serving a web ad tag inside the Capacitor Android app's
+         WebView (origin https://localhost) is against ad-network policy and
+         puts the account at risk. Dev and Playwright runs are also kept out so
+         they cannot register as ad impressions.
+
+         Injected rather than pasted inline so it can sit behind that guard.
+         data-noptimize / data-cfasync are carried over from Mediavine's snippet
+         — they tell HTML-rewriting optimisers (Autoptimize, Cloudflare Rocket
+         Loader) to leave the tag alone. -->
+    <script>
+      if (location.hostname === 'herdgamesonline.com' || location.hostname === 'www.herdgamesonline.com') {
+        !(function(){var e=document.createElement("script");(e.type="text/javascript"),(e.async=!0),e.setAttribute("data-noptimize","1"),e.setAttribute("data-cfasync","false"),(e.src="https://scripts.scriptwrapper.com/tags/5cfb4e63-a18f-450b-889c-733e3f6bd378.js");var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t);})();
       }
     </script>
 
