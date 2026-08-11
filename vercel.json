@@ -24,6 +24,11 @@
       "dest": "/robots.txt",
       "headers": { "Content-Type": "text/plain; charset=utf-8" }
     },
+    {
+      "src": "/ads\\.txt/?",
+      "status": 301,
+      "headers": { "Location": "https://adstxt.journeymv.com/sites/5cfb4e63-a18f-450b-889c-733e3f6bd378/ads.txt" }
+    },
     { "handle": "filesystem" },
     {
       "src": "/daily/[^/]+/?",
