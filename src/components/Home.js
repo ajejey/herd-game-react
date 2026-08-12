@@ -266,6 +266,16 @@ const Home = () => {
   const [username, setUsername] = useState('');
   const [roomCode, setRoomCode] = useState('');
   const [isJoining, setIsJoining] = useState(false);
+  /*
+    In-page, not alert().
+
+    Both join complaints came from phones, and one from the Android app's
+    WebView, where a blocking alert() is unreliable and sometimes never appears
+    at all. A player who taps Join and sees precisely nothing has no way to
+    know they mistyped the code — so the failure has to be rendered on the page
+    next to the button they just pressed.
+  */
+  const [joinError, setJoinError] = useState('');
   const [showReconnect, setShowReconnect] = useState(false);
   const [savedSession, setSavedSession] = useState(null);
   const [activeTab, setActiveTab] = useState('join');
@@ -337,8 +347,9 @@ const Home = () => {
 
   const handleCreateGame = (e) => {
     e.preventDefault();
+    setJoinError('');
     if (!username.trim()) {
-      alert('Please enter a username to create a game');
+      setJoinError('Please enter your name to create a game.');
       return;
     }
     setIsJoining(true);
@@ -355,27 +366,42 @@ const Home = () => {
     });
     socket.once('error', ({ message }) => {
       setIsJoining(false);
-      alert(message);
+      setJoinError(message || 'Could not create a game.');
     });
   };
 
   const handleJoinGame = (e) => {
     e.preventDefault();
+    setJoinError('');
     if (!username.trim() || !roomCode.trim()) {
-      alert('Please enter both username and room code');
+      setJoinError('Please enter both your name and the room code.');
       return;
     }
+    /*
+      Normalise before anything else uses it.
+
+      Room codes are generated uppercase and matched exactly, and this path
+      sent whatever was in the box. The invite-link path already normalised;
+      typing the code did not — so a phone that autocapitalised to "Wi9nvo",
+      or a paste that brought a trailing space, produced "Game not found" for
+      a room the player was looking straight at. The same raw value was then
+      written into the saved session and the URL, so even a successful join
+      could leave a session the reconnect handler would not recognise.
+    */
+    const code = roomCode.trim().toUpperCase();
+    const name = username.trim();
+    setRoomCode(code);
     setIsJoining(true);
     const socket = connect();
-    socket.emit('join_game', { username, roomCode });
+    socket.emit('join_game', { username: name, roomCode: code });
     socket.once('game_joined', ({ gameId, playerId }) => {
-      saveGameSession(gameId, roomCode, playerId, username);
+      saveGameSession(gameId, code, playerId, name);
       dispatch({ type: 'GAME_JOINED', payload: { gameId, playerId } });
-      navigate(`/game/${roomCode}`);
+      navigate(`/game/${code}`);
     });
     socket.once('error', ({ message }) => {
       setIsJoining(false);
-      alert(message);
+      setJoinError(message || 'Could not join that game.');
     });
   };
 
@@ -1129,6 +1155,24 @@ const Home = () => {
                   required
                 />
               </div>
+            )}
+
+            {joinError && (
+              <p
+                role="alert"
+                style={{ background: '#FDECEA', borderColor: '#D0463B', color: '#8A2B22' }}
+                className="rounded-2xl border-2 px-4 py-3 text-center text-base font-bold"
+              >
+                {joinError}
+                {/* The overwhelmingly likely cause of "Game not found" is a
+                    mistyped code, so say so rather than leaving them staring
+                    at a dead end. */}
+                {/not found/i.test(joinError) && (
+                  <span className="mt-1 block font-semibold" style={{ color: '#6B5B4A' }}>
+                    Check the code with the person who made the room — it is 6 characters.
+                  </span>
+                )}
+              </p>
             )}
 
             <button
