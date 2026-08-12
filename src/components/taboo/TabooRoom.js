@@ -31,12 +31,15 @@ const RED = '#D0463B';
 function TabooCard({ card, compact = false }) {
   if (!card) return null;
   return (
-    <div className={`rounded-3xl border-4 border-[#2D1810] overflow-hidden mx-auto shadow-[0_14px_30px_-14px_rgba(45,24,16,0.5)] ${compact ? 'max-w-xs' : 'max-w-sm'}`}>
+    // The testid is what the role-visibility matrix asserts on: exactly which
+    // seats this card reaches is the one thing about Taboo a smoke test can
+    // never check, and it shipped wrong once already.
+    <div data-testid="taboo-card" className={`rounded-3xl border-4 border-[#2D1810] overflow-hidden mx-auto shadow-[0_14px_30px_-14px_rgba(45,24,16,0.5)] ${compact ? 'max-w-xs' : 'max-w-sm'}`}>
       <div className={`bg-[#2D1810] px-3 ${compact ? 'py-2.5' : 'py-4'}`}>
-        <p style={fredokaStyle} className={`font-bold text-white leading-tight break-words ${compact ? 'text-xl' : 'text-3xl md:text-4xl'}`}>{card.word}</p>
+        <p data-testid="taboo-word" style={fredokaStyle} className={`font-bold text-white leading-tight break-words ${compact ? 'text-xl' : 'text-3xl md:text-4xl'}`}>{card.word}</p>
       </div>
       <div className={`bg-[#FFF8EE] px-3 ${compact ? 'py-2' : 'py-3'}`}>
-        <p className="text-[10px] font-bold tracking-widest uppercase mb-1.5" style={{ color: RED }}>Don’t say</p>
+        <p className="text-sm font-bold tracking-widest uppercase mb-1.5" style={{ color: RED }}>Don’t say</p>
         <ul className={compact ? 'space-y-0.5' : 'space-y-1'}>
           {(card.forbidden || []).map((f, i) => (
             <li key={i} style={fredokaStyle} className={`font-bold leading-tight ${compact ? 'text-base' : 'text-lg'}`}>
@@ -95,8 +98,8 @@ export default function TabooRoom() {
         <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-6 text-center">
           <h1 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-1">Join Taboo</h1>
           <p className="text-[#4A2D1B] mb-4">Room <span className="font-mono font-bold">{codeParam}</span></p>
-          {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
-          {roomNotFound && <p className="text-[#8B6347] text-sm mb-2">That room wasn’t found — check the code.</p>}
+          {error && <p className="text-red-600 text-base mb-2">{error}</p>}
+          {roomNotFound && <p className="text-[#8B6347] text-base mb-2">That room wasn’t found — check the code.</p>}
           <form onSubmit={(e) => { e.preventDefault(); if (name.trim()) joinGame(codeParam, name); }} className="space-y-3">
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" maxLength={20}
               className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -123,17 +126,17 @@ export default function TabooRoom() {
             playerCount={connectedCount} minPlayers={3} />
 
           <div className="mt-5 text-left">
-            <p className="text-sm font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
+            <p className="text-base font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
             <div className="flex flex-wrap gap-2">
               {players.map((p) => (
-                <span key={p.id} className={`px-3 py-1 rounded-full text-sm font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
+                <span key={p.id} className={`px-3 py-1 rounded-full text-base font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
               ))}
             </div>
           </div>
-          {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
+          {error && <p className="text-red-600 text-base mt-3">{error}</p>}
           {isHost ? (
             <>
-              <p className="text-xs text-[#8B6347] mt-3">
+              <p className="text-sm text-[#8B6347] mt-3">
                 {connectedCount < 3 ? 'You need 3 players to start.'
                   : connectedCount === 3 ? 'With 3 you’ll play co-op — one shared score, no buzzing. Add a 4th for two teams.'
                     : 'You’ll be split into two teams — each team sees the other’s card and can buzz them.'}
@@ -142,7 +145,7 @@ export default function TabooRoom() {
                 className="mt-2 w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-40">Start game 🚫</button>
             </>
           ) : <p className="text-[#4A2D1B] mt-4">Waiting for the host to start…</p>}
-          <button onClick={leaveGame} className="mt-3 text-sm text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
+          <button onClick={leaveGame} className="mt-3 text-base text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
         </div>
       </MeadowLayout>
     );
@@ -159,9 +162,9 @@ export default function TabooRoom() {
 
   const TeamPill = ({ team, color }) => (
     <div className="flex-1 rounded-2xl p-3 text-center text-white" style={{ background: color, opacity: state.currentTeam === team && !finished ? 1 : 0.7 }}>
-      <div className="text-xs font-semibold">Team {team}{state.currentTeam === team && !finished ? ' • now' : ''}</div>
+      <div className="text-sm font-semibold">Team {team}{state.currentTeam === team && !finished ? ' • now' : ''}</div>
       <div style={fredokaStyle} className="text-3xl font-bold leading-none">{scores[team]}</div>
-      <div className="text-[11px] mt-1 opacity-90">{state.teams?.[team]?.map(nameById).join(', ')}</div>
+      <div className="text-[13px] mt-1 opacity-90">{state.teams?.[team]?.map(nameById).join(', ')}</div>
     </div>
   );
 
@@ -169,7 +172,7 @@ export default function TabooRoom() {
     <MeadowLayout maxWidth="max-w-xl">
       {iWon && <Confetti width={win.w} height={win.h} numberOfPieces={180} recycle={false} gravity={0.25} />}
       <div className={`bg-white rounded-3xl border-4 p-5 md:p-7 transition-colors ${buzzFlash ? 'border-[#D0463B]' : 'border-[#FFE8C8]'}`}>
-        <div className="flex justify-between items-center text-sm text-[#8B6347] mb-3">
+        <div className="flex justify-between items-center text-base text-[#8B6347] mb-3">
           <span>Round {Math.min(state.turnsTaken?.[state.currentTeam] + 1 || 1, state.totalRounds)} / {state.totalRounds}</span>
           <span className="font-semibold">{state.coop ? 'Co-op' : `Team ${state.currentTeam}’s turn`}</span>
         </div>
@@ -177,7 +180,7 @@ export default function TabooRoom() {
         {/* Score */}
         {state.coop ? (
           <div className="rounded-2xl p-4 mb-5 text-center text-white" style={{ background: BLUE }}>
-            <div className="text-xs font-semibold">Team score</div>
+            <div className="text-sm font-semibold">Team score</div>
             <div style={fredokaStyle} className="text-4xl font-bold leading-none">{scores.A}</div>
           </div>
         ) : (
@@ -210,8 +213,8 @@ export default function TabooRoom() {
                 <button onClick={() => sendAction('skip_word')}
                   className="px-5 py-4 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold">Skip</button>
               </div>
-              <button onClick={() => sendAction('end_turn')} className="mt-3 text-sm text-[#8B6347] underline">End turn</button>
-              <p className="text-xs text-[#8B6347] mt-2">✓ {turn.got} · skipped {turn.skipped} · buzzed {turn.buzzed}</p>
+              <button onClick={() => sendAction('end_turn')} className="mt-3 text-base text-[#8B6347] underline">End turn</button>
+              <p className="text-sm text-[#8B6347] mt-2">✓ {turn.got} · skipped {turn.skipped} · buzzed {turn.buzzed}</p>
             </div>
           ) : (
             /* ── EVERYONE ELSE: guess, or catch them out. ── */
@@ -222,13 +225,13 @@ export default function TabooRoom() {
               {canBuzz ? (
                 <>
                   {/* You hold their card — that is what makes the buzz real. */}
-                  <p className="text-sm text-[#4A2D1B] mt-4 mb-2">Their card is below. Hear a forbidden word? Catch them out.</p>
+                  <p className="text-base text-[#4A2D1B] mt-4 mb-2">Their card is below. Hear a forbidden word? Catch them out.</p>
                   <TabooCard card={state.card} compact />
                   <button onClick={() => sendAction('buzz')} style={{ background: RED, fontFamily: 'Fredoka, sans-serif' }}
                     className="w-full max-w-sm mx-auto mt-4 py-5 rounded-2xl text-white font-bold text-2xl shadow-[0_10px_24px_-10px_rgba(208,70,59,0.9)] active:scale-95 transition-transform">
                     BUZZ! 🚫
                   </button>
-                  <p className="text-xs text-[#8B6347] mt-2">−1 point to their team</p>
+                  <p className="text-sm text-[#8B6347] mt-2">−1 point to their team</p>
                 </>
               ) : (
                 <p className="text-[#4A2D1B] mt-4">Shout your guesses! 📣</p>
@@ -253,14 +256,14 @@ export default function TabooRoom() {
                   {nameById(state.currentGiverId)} is up
                 </h2>
                 <p className="text-[#4A2D1B]">Waiting for <strong>{nameById(state.currentGiverId)}</strong> to start their turn…</p>
-                {state.lastTurn && <p className="text-[#8B6347] text-sm mt-2">Last turn: {nameById(state.lastTurn.giverId)} got {state.lastTurn.got}{state.lastTurn.buzzed ? `, buzzed ${state.lastTurn.buzzed}×` : ''}.</p>}
+                {state.lastTurn && <p className="text-[#8B6347] text-base mt-2">Last turn: {nameById(state.lastTurn.giverId)} got {state.lastTurn.got}{state.lastTurn.buzzed ? `, buzzed ${state.lastTurn.buzzed}×` : ''}.</p>}
               </>
             )}
           </div>
         )}
       </div>
 
-      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-sm hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
+      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-base hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
     </MeadowLayout>
   );
 }

@@ -19,11 +19,25 @@ const LEAF_POS = [
   { bottom: '0%', left: '50%', transform: 'translate(-50%, 0)' },
   { top: '50%', left: '0%', transform: 'translate(0, -50%)' },
 ];
+/*
+  All four chips are anchored from the SAME two edges — top and left — because
+  the wrapper carries `-translate-x-1/2 -translate-y-1/2` and that only centres
+  a box on its anchor when the anchor is the top-left one. Anchored from `right`
+  instead, the -50% shift pulls the chip further INWARD rather than centring it,
+  so the two right-hand chips crept under the leaves while the two left-hand
+  ones sat clear. Nothing caught it: the board is absolutely positioned, so an
+  overlapping chip still renders, still reads, and still passes every test —
+  right up until the type got a size bigger and the clue disappeared behind a
+  card on the reveal screen.
+
+  The percentages put each chip on the diagonal between two leaves, which is the
+  one part of the board no leaf occupies at any breakpoint.
+*/
 const CLUE_POS = [
-  { top: '14%', right: '14%' },
-  { bottom: '14%', right: '14%' },
-  { bottom: '14%', left: '14%' },
-  { top: '14%', left: '14%' },
+  { top: '17%', left: '83%' }, // NE, between the top and right leaves
+  { top: '83%', left: '83%' }, // SE
+  { top: '83%', left: '17%' }, // SW
+  { top: '17%', left: '17%' }, // NW
 ];
 
 export default function CloverBoard({ leaves = [], clues = [], mode = 'static', onLeafTap, selectedSlot, correctMask }) {
@@ -42,7 +56,7 @@ export default function CloverBoard({ leaves = [], clues = [], mode = 'static', 
         <div key={`c${i}`} style={CLUE_POS[i]}
           className="absolute -translate-x-1/2 -translate-y-1/2 max-w-[88px]"
         >
-          <div className="bg-[#FFD56B] text-[#2D1810] text-xs sm:text-sm font-bold px-2.5 py-1 rounded-full shadow text-center break-words border border-[#E8B84B]">
+          <div data-testid="clover-clue" className="bg-[#FFD56B] text-[#2D1810] text-sm sm:text-base font-bold px-2.5 py-1 rounded-full shadow text-center break-words border border-[#E8B84B]">
             {clue || '—'}
           </div>
         </div>
@@ -72,8 +86,8 @@ export default function CloverBoard({ leaves = [], clues = [], mode = 'static', 
             style={pos}
             className={`absolute w-[92px] h-[92px] sm:w-[104px] sm:h-[104px] rounded-2xl border-4 ${border} bg-white flex items-center justify-center p-2 text-center transition-all ${interactive ? 'hover:border-[#E84A8B] active:scale-95 cursor-pointer' : ''}`}
           >
-            <span className="text-[#2D1810] font-bold text-sm sm:text-base break-words leading-tight">
-              {content || (interactive ? <span className="text-[#C9B79B] font-medium text-xs">tap</span> : '')}
+            <span className="text-[#2D1810] font-bold text-base break-words leading-tight">
+              {content || (interactive ? <span className="text-[#C9B79B] font-medium text-sm">tap</span> : '')}
             </span>
           </button>
         );
