@@ -196,17 +196,17 @@ const GameRoom = () => {
               <div className="flex items-center space-x-2">
                 <span>{player.username}</span>
                 {player.isHost && (
-                  <span className="px-2 py-0.5 text-xs bg-blue-100 text-blue-800 rounded-full">
+                  <span className="px-2 py-0.5 text-sm bg-blue-100 text-blue-800 rounded-full">
                     Host
                   </span>
                 )}
                 {gameState.pinkCowHolder === player._id && (
-                  <span className="px-2 py-0.5 text-xs bg-pink-100 text-pink-800 rounded-full">
+                  <span className="px-2 py-0.5 text-sm bg-pink-100 text-pink-800 rounded-full">
                     🐄
                   </span>
                 )}
                 {!player.isConnected && (
-                  <span className="px-2 py-0.5 text-xs bg-red-100 text-red-800 rounded-full">
+                  <span className="px-2 py-0.5 text-sm bg-red-100 text-red-800 rounded-full">
                     Disconnected
                   </span>
                 )}
@@ -237,7 +237,7 @@ const GameRoom = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
-                {isCopied && <span className="text-sm">Copied!</span>}
+                {isCopied && <span className="text-base">Copied!</span>}
               </button>
             </div>
           </div>
@@ -253,7 +253,7 @@ const GameRoom = () => {
             </svg>
             {linkCopied ? 'Invite link copied!' : 'Invite friends'}
           </button>
-          <p className="text-xs text-gray-500">Shares a link that opens straight to this room — friends just enter their name.</p>
+          <p className="text-sm text-gray-500">Shares a link that opens straight to this room — friends just enter their name.</p>
 
           <p className="text-gray-600">Waiting for players...</p>
           {gameState.isHost && (
@@ -268,12 +268,12 @@ const GameRoom = () => {
           <AdSlot slot={LOBBY_AD_SLOT} format="auto" className="my-2" />
 
           <div className="mt-4">
-            <p className="text-sm text-gray-500 mb-2">Players in room:</p>
+            <p className="text-base text-gray-500 mb-2">Players in room:</p>
             <div className="flex flex-wrap justify-center gap-2">
               {gameState.players.map((player) => (
                 <div
                   key={player._id}
-                  className="bg-purple-50 px-3 py-1 rounded-full text-purple-700 text-sm"
+                  className="bg-purple-50 px-3 py-1 rounded-full text-purple-700 text-base"
                 >
                   {player.username} {player._id === gameState.hostId && '(Host)'}
                 </div>
@@ -316,7 +316,7 @@ const GameRoom = () => {
               <div className="flex justify-end">
                 <button
                   onClick={() => setShowAdjust(s => !s)}
-                  className="text-xs text-gray-400 hover:text-purple-600 underline-offset-2 hover:underline transition-colors"
+                  className="text-sm text-gray-400 hover:text-purple-600 underline-offset-2 hover:underline transition-colors"
                   title="Manually adjust scores for typos or synonyms"
                 >
                   {showAdjust ? 'Hide score adjustments' : 'Dispute scores?'}
@@ -324,7 +324,7 @@ const GameRoom = () => {
               </div>
             )}
             {showAdjust && gameState.isHost && gameState.gameStatus === 'in-progress' && (
-              <p className="text-xs text-gray-500 italic">
+              <p className="text-sm text-gray-500 italic">
                 Tap a player's <span className="text-green-700 font-medium">+</span> to award a point (typo of the herd) or <span className="text-red-700 font-medium">−</span> to remove one. Pink cow movement is unaffected.
               </p>
             )}
@@ -341,7 +341,7 @@ const GameRoom = () => {
                     <div className="flex items-center space-x-2">
                       <span className="font-medium">{answer.username}</span>
                       {gameState.pinkCowHolder === answer.playerId && <span title="Pink Cow Holder">🐄</span>}
-                      <span className={`text-sm px-2 py-1 rounded-full ${
+                      <span className={`text-base px-2 py-1 rounded-full ${
                         gameState.roundResults.majorityAnswer
                           ? isInHerd ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
                           : 'bg-yellow-200 text-yellow-800'
@@ -351,7 +351,7 @@ const GameRoom = () => {
                     </div>
                     <div className="flex items-center space-x-4">
                       <span className="text-gray-600">"{answer.answer || ''}"</span>
-                      <span className="text-sm">{player?.score || 0} ({scoreChange})</span>
+                      <span className="text-base">{player?.score || 0} ({scoreChange})</span>
                       {showAdjust && gameState.isHost && gameState.gameStatus === 'in-progress' && (
                         <span className="flex items-center ml-2 border border-gray-200 rounded-full overflow-hidden bg-gray-50">
                           <button
@@ -506,7 +506,7 @@ const GameRoom = () => {
                         {player.username}
                       </span>
                       {gameState.pinkCowHolder === player._id && (
-                        <span className="text-sm">🐄</span>
+                        <span className="text-base">🐄</span>
                       )}
                     </div>
                     <span className="font-semibold">

@@ -19,8 +19,8 @@ export default function HuddleBoard({
         {solved.map((g, i) => (
           <motion.div key={g.name} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
             className="rounded-2xl px-3 py-2 text-center text-white" style={{ background: colorForLevel(g.level) }}>
-            <p style={fredokaStyle} className="font-bold uppercase tracking-wide text-sm md:text-base">{g.name}</p>
-            <p className="text-xs md:text-sm opacity-95">{g.words.join(' · ')}</p>
+            <p style={fredokaStyle} className="font-bold uppercase tracking-wide text-base md:text-base">{g.name}</p>
+            <p className="text-sm md:text-base opacity-95">{g.words.join(' · ')}</p>
           </motion.div>
         ))}
       </div>
@@ -39,7 +39,7 @@ export default function HuddleBoard({
                 className={`aspect-[5/4] md:aspect-[3/2] rounded-xl font-bold uppercase leading-none flex items-center justify-center text-center px-1 transition-colors select-none
                   ${isSel ? 'text-white' : 'bg-[#FFF1DC] text-[#2D1810] hover:bg-[#FFE3BC]'}`}
               >
-                <span className="text-[11px] sm:text-sm md:text-base break-words">{t.word}</span>
+                <span className="text-[13px] sm:text-base md:text-base break-words">{t.word}</span>
               </button>
             );
           })}
@@ -48,10 +48,10 @@ export default function HuddleBoard({
 
       {/* message + mistakes */}
       <div className="mt-4 flex flex-col items-center gap-3">
-        {message && <p className="text-sm font-semibold text-[#8B6347] min-h-[1.25rem]">{message}</p>}
+        {message && <p className="text-base font-semibold text-[#8B6347] min-h-[1.25rem]">{message}</p>}
 
         {playing && (
-          <div className="flex items-center gap-2 text-sm text-[#8B6347]">
+          <div className="flex items-center gap-2 text-base text-[#8B6347]">
             <span>Mistakes left:</span>
             <span className="flex gap-1">
               {Array.from({ length: maxMistakes }).map((_, i) => (

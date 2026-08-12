@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiShare2, FiCheck, FiDownload, FiRotateCcw, FiHeart, FiArrowUp, FiArrowDown } from 'react-icons/fi';
 import Navigation from '../Navigation';
 import AdSlot from '../AdSlot';
+import PlayHint from '../common/PlayHint';
 import { THEME, FREDOKA, QUICKSAND, CATEGORIES, rankFor } from './orderData';
 import { useInOrder } from './useInOrder';
 import { buildShareText, buildOrderCard } from './share';
@@ -105,7 +106,7 @@ export default function InOrder() {
             >
               Start playing
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               {CATEGORIES.length} kinds of round · endless
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.plum }}>{g.best}</strong></>}
             </p>
@@ -115,7 +116,7 @@ export default function InOrder() {
         {playing && g.round && (
           <div>
             <div className="mb-4 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Streak <strong style={{ color: THEME.plum }}>{g.score}</strong>
                 {g.best > 0 && <> · best {g.best}</>}
               </span>
@@ -132,7 +133,7 @@ export default function InOrder() {
             </div>
 
             <p style={FREDOKA} className="mb-1 text-center text-xl font-bold md:text-2xl">{g.round.ask}</p>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mb-4 flex items-center justify-center gap-2 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mb-4 flex items-center justify-center gap-2 text-base">
               <FiArrowUp size={13} aria-hidden="true" /> {g.round.low}
               <span aria-hidden="true">·</span>
               {g.round.high} <FiArrowDown size={13} aria-hidden="true" />
@@ -151,13 +152,13 @@ export default function InOrder() {
                   <span
                     aria-hidden="true"
                     style={{ ...FREDOKA, color: THEME.mut }}
-                    className="w-5 shrink-0 text-sm font-bold"
+                    className="w-5 shrink-0 text-base font-bold"
                   >
                     {i + 1}
                   </span>
                   <span style={FREDOKA} className="min-w-0 flex-1 text-base font-bold md:text-lg">{item.n}</span>
                   {g.status === 'reveal' && (
-                    <span style={{ color: THEME.mut }} className="shrink-0 text-sm font-bold">
+                    <span style={{ color: THEME.mut }} className="shrink-0 text-base font-bold">
                       {g.round.fmt(item.v)}
                     </span>
                   )}
@@ -167,9 +168,9 @@ export default function InOrder() {
 
             {g.status === 'playing' && (
               <>
-                <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-3 text-center text-sm">
+                <PlayHint accent={THEME.plum} ink={THEME.ink} live className="mt-3">
                   {g.selected === null ? 'Tap an item, then tap another to swap them' : 'Now tap the one to swap it with'}
-                </p>
+                </PlayHint>
                 <button
                   onClick={g.submit}
                   style={{ ...FREDOKA, background: THEME.plum }}
@@ -193,7 +194,7 @@ export default function InOrder() {
                     {g.wasCorrect ? 'Exactly right!' : 'Not quite'}
                   </p>
                   {!g.wasCorrect && (
-                    <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-1 text-sm">
+                    <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-1 text-base">
                       Correct order: {g.round.answer.join(' → ')}
                     </p>
                   )}
@@ -212,7 +213,7 @@ export default function InOrder() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You got</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You got</p>
             <p style={{ ...FREDOKA, color: THEME.plum }} className="my-1 text-7xl font-bold md:text-8xl">{g.score}</p>
             <p style={QUICKSAND} className="text-lg">in a row</p>
 
@@ -280,7 +281,7 @@ export default function InOrder() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/higher-or-lower" className="font-bold underline" style={{ color: THEME.plum }}>Higher or Lower</Link>,{' '}
             <Link to="/odd-one-out" className="font-bold underline" style={{ color: THEME.plum }}>Odd One Out</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.plum }}>all solo games</Link>.

@@ -96,7 +96,7 @@ function Intro({ dayNumber, streak, onStart, loadState = 'ready' }) {
 
       <div className="bg-[#FFF6E9] rounded-2xl border-2 border-[#FFE8C8] p-5 mt-6 text-left max-w-sm mx-auto">
         <h2 style={fredokaStyle} className="font-bold text-[#2D1810] mb-2">How it works</h2>
-        <ol className="text-[#4A2D1B] text-sm space-y-1.5 list-decimal list-inside">
+        <ol className="text-[#4A2D1B] text-base space-y-1.5 list-decimal list-inside">
           <li>You'll get <strong>5 quick questions</strong> — the same 5 for everyone today.</li>
           <li>Type the answer you think <strong>most people</strong> will give.</li>
           <li>Match the herd to score. See how the world answered.</li>
@@ -104,7 +104,7 @@ function Intro({ dayNumber, streak, onStart, loadState = 'ready' }) {
         </ol>
       </div>
 
-      <div className="flex items-center justify-center gap-3 mt-5 text-sm text-[#8B6347]">
+      <div className="flex items-center justify-center gap-3 mt-5 text-base text-[#8B6347]">
         {dayNumber != null && <span>Herd #{dayNumber}</span>}
         {streak > 0 && (
           <span className="inline-flex items-center gap-1 font-semibold text-[#E84A8B]">
@@ -120,7 +120,7 @@ function Intro({ dayNumber, streak, onStart, loadState = 'ready' }) {
             className="mt-6 px-10 py-4 rounded-2xl text-white font-bold text-xl hover:scale-105 transition-transform">
             Couldn't reach the herd — retry
           </button>
-          <p className="text-xs text-[#8B6347] mt-2">Check your connection and try again.</p>
+          <p className="text-sm text-[#8B6347] mt-2">Check your connection and try again.</p>
         </>
       ) : (
         <button onClick={() => { sfx.click(); onStart(); }} disabled={loadState !== 'ready'}
@@ -165,7 +165,7 @@ function Playing({ questions, onDone, busy, error }) {
   return (
     <div>
       {/* progress */}
-      <div className="flex items-center justify-between text-sm text-[#8B6347] mb-2">
+      <div className="flex items-center justify-between text-base text-[#8B6347] mb-2">
         <span className="font-semibold">Question {i + 1} of {questions.length}</span>
         <span>Type what MOST people would say</span>
       </div>
@@ -191,14 +191,14 @@ function Playing({ questions, onDone, busy, error }) {
             placeholder="Your answer…"
             className="w-full mt-5 px-5 py-4 rounded-2xl border-2 border-[#FFE8C8] focus:border-[#E84A8B] outline-none text-lg text-center text-[#2D1810] bg-white"
           />
-          <p className="text-center text-xs text-[#8B6347] mt-2">Keep it short — one or two words works best.</p>
+          <p className="text-center text-sm text-[#8B6347] mt-2">Keep it short — one or two words works best.</p>
 
           <button onClick={commit} disabled={!val.trim() || busy}
             style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}
             className="w-full mt-5 py-4 rounded-2xl font-bold text-white text-lg transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-105">
             {busy ? 'Counting the herd…' : last ? 'See how you did →' : 'Next →'}
           </button>
-          {error && <p className="text-center text-sm text-red-500 mt-3">{error}</p>}
+          {error && <p className="text-center text-base text-red-500 mt-3">{error}</p>}
         </motion.div>
       </AnimatePresence>
     </div>
@@ -275,7 +275,7 @@ function ResultView({ dayNumber, result, streak }) {
     <div className="text-center">
       {done && celebrate && <Confetti width={w} height={h} numberOfPieces={180} recycle={false} gravity={0.25} />}
 
-      <p className="text-[#8B6347] text-sm">Daily Herd #{dayNumber}</p>
+      <p className="text-[#8B6347] text-base">Daily Herd #{dayNumber}</p>
       {!done && <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-1">Revealing the herd…</h2>}
 
       {/* THE VERDICT (and share) — leads the results, before the breakdown */}
@@ -284,17 +284,17 @@ function ResultView({ dayNumber, result, streak }) {
           <motion.div initial={{ scale: 0.92 }} animate={{ scale: 1 }}
             className="mt-2 rounded-3xl border-4 p-5 bg-white" style={{ borderColor: identity.color + '66' }}>
             <div className="flex justify-center mb-1"><Animal size={72} /></div>
-            <p className="text-[#8B6347] text-sm">Today you are a…</p>
+            <p className="text-[#8B6347] text-base">Today you are a…</p>
             <p style={{ ...fredokaStyle, color: identity.color }} className="text-3xl md:text-4xl font-bold">{identity.name}</p>
             <p style={{ color: identity.color }} className="text-lg font-bold mt-1">{result.syncPct}% in sync with the herd</p>
-            <p className="text-sm text-[#8B6347] mt-1">You out-synced {result.beatPct}% of today's herd · {result.responders} played</p>
+            <p className="text-base text-[#8B6347] mt-1">You out-synced {result.beatPct}% of today's herd · {result.responders} played</p>
             <p className="text-[#4A2D1B] mt-2">{identity.tag}</p>
           </motion.div>
 
           {/* weekly trend */}
           {history.length > 1 && (
             <div className="mt-4">
-              <p className="text-xs text-[#8B6347] mb-1">Your recent days</p>
+              <p className="text-sm text-[#8B6347] mb-1">Your recent days</p>
               <div className="flex justify-center items-center gap-1">
                 {history.slice(-7).map((e, i) => (
                   <span key={i}>{e.animal === 'sheep' ? <Sheep size={24} /> : <Wolf size={24} />}</span>
@@ -315,9 +315,9 @@ function ResultView({ dayNumber, result, streak }) {
               {saved ? <><FiCheck /> Saved</> : <><FiDownload /> Save image</>}
             </button>
           </div>
-          <p className="text-xs text-[#8B6347] mt-2">Post it and see what your friends are — sheep or wolf?</p>
+          <p className="text-sm text-[#8B6347] mt-2">Post it and see what your friends are — sheep or wolf?</p>
 
-          <p className="text-sm font-semibold text-[#8B6347] mt-6">How the herd answered</p>
+          <p className="text-base font-semibold text-[#8B6347] mt-6">How the herd answered</p>
         </motion.div>
       )}
 
@@ -339,7 +339,7 @@ function ResultView({ dayNumber, result, streak }) {
                   </p>
                   <div className="mt-2 space-y-1">
                     {q.topAnswers.map((t, j) => (
-                      <div key={j} className="flex items-center gap-2 text-sm">
+                      <div key={j} className="flex items-center gap-2 text-base">
                         <div className="flex-1 bg-[#FFF1DC] rounded-full h-5 overflow-hidden relative">
                           <motion.div className="h-full" style={{ background: j === 0 ? GREEN : '#FFD56B' }}
                             initial={{ width: 0 }} animate={{ width: `${t.pct}%` }} transition={{ duration: 0.5 }} />
@@ -370,7 +370,7 @@ function ResultView({ dayNumber, result, streak }) {
 
           <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8]">
             <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-3">Want more? Play with friends</h2>
-            <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
+            <div className="flex flex-wrap justify-center gap-3 text-base font-semibold">
               <Link to="/" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Herd Mentality</Link>
               <Link to="/guesstimate" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Guesstimate</Link>
               <Link to="/say-anything" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Say Anything</Link>

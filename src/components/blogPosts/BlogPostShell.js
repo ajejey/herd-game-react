@@ -71,13 +71,13 @@ const BlogPostShell = ({ slug, title, description, h1, datePublished, dateModifi
       )}
       <article className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)] border-4 border-[#FFE8C8] p-6 md:p-8 herd-blog-prose">
         <div className="mb-4 flex justify-end">
-          <Link to="/blog" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold text-sm">
+          <Link to="/blog" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold text-base">
             &larr; All articles
           </Link>
         </div>
 
         {heading && <h1 style={fredokaStyle}>{heading}</h1>}
-        {prettyDate && <p className="text-sm text-[#8B6347] mb-6">Published {prettyDate}</p>}
+        {prettyDate && <p className="text-base text-[#8B6347] mb-6">Published {prettyDate}</p>}
 
         {children}
 
@@ -86,7 +86,7 @@ const BlogPostShell = ({ slug, title, description, h1, datePublished, dateModifi
           <AdSlot slot="5698170537" />
         </div>
 
-        <div className="mt-6 pt-6 border-t border-[#FFE8C8] flex flex-wrap gap-3 justify-between items-center text-sm">
+        <div className="mt-6 pt-6 border-t border-[#FFE8C8] flex flex-wrap gap-3 justify-between items-center text-base">
           <Link to="/blog" className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold">&larr; Back to all articles</Link>
           <Link to="/" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">Play Herd Game &rarr;</Link>
         </div>

@@ -158,13 +158,13 @@ const AboutContact = () => {
                 ajejey@gmail.com
               </a>
             </p>
-            <p className="mt-2 text-sm">
+            <p className="mt-2 text-base">
               We usually reply within a few days. If you are reporting a bug, telling us which game and which
               browser you were using makes it far quicker to fix.
             </p>
           </div>
 
-          <p className="text-sm">
+          <p className="text-base">
             See also our{' '}
             <Link to="/privacy-policy" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">Privacy Policy</Link>,{' '}
             <Link to="/terms-of-service" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">Terms of Service</Link> and{' '}

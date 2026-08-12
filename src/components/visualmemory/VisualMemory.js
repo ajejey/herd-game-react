@@ -96,7 +96,7 @@ export default function VisualMemory() {
             >
               Take the test
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               Most people stop around level 6
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.violet }}>{g.best}</strong></>}
             </p>
@@ -106,7 +106,7 @@ export default function VisualMemory() {
         {active && (
           <div>
             <div className="mb-4 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Level {g.level}{g.best > 0 && <> · best {g.best}</>}
               </span>
               <span className="flex items-center gap-1" aria-label={`${g.lives} lives left`}>
@@ -166,7 +166,7 @@ export default function VisualMemory() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You reached</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You reached</p>
             <p style={{ ...FREDOKA, color: THEME.violet }} className="my-1 text-7xl font-bold md:text-8xl">{g.reached}</p>
             <p style={QUICKSAND} className="text-lg">levels</p>
 
@@ -234,7 +234,7 @@ export default function VisualMemory() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/chimp-test" className="font-bold underline" style={{ color: THEME.violet }}>Chimp Test</Link>,{' '}
             <Link to="/number-memory-test" className="font-bold underline" style={{ color: THEME.violet }}>Number Memory Test</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.violet }}>all solo games</Link>.

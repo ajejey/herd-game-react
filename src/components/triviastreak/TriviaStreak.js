@@ -103,7 +103,7 @@ export default function TriviaStreak() {
             >
               Start the streak
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               {QUESTION_COUNT.toLocaleString()} questions · {CATEGORIES.length} categories
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.forest }}>{g.best}</strong></>}
             </p>
@@ -113,7 +113,7 @@ export default function TriviaStreak() {
         {playing && g.question && (
           <div>
             <div className="mb-4 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Streak <strong style={{ color: THEME.forest }}>{g.score}</strong>
                 {g.best > 0 && <> · best {g.best}</>}
               </span>
@@ -133,7 +133,7 @@ export default function TriviaStreak() {
               className="rounded-3xl border-2 p-5"
               style={{ background: THEME.bgAlt, borderColor: THEME.border }}
             >
-              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mb-2 text-center text-xs font-bold uppercase tracking-widest">
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mb-2 text-center text-sm font-bold uppercase tracking-widest">
                 {g.question.category} · {DIFFICULTY_LABEL[g.question.difficulty] || 'Mixed'}
               </p>
               <h2 style={FREDOKA} className="mb-5 text-center text-xl font-bold leading-snug md:text-2xl">
@@ -183,7 +183,7 @@ export default function TriviaStreak() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">Your streak</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">Your streak</p>
             <p style={{ ...FREDOKA, color: THEME.forest }} className="my-1 text-7xl font-bold md:text-8xl">{g.score}</p>
             <p style={QUICKSAND} className="text-lg">{g.score === 1 ? 'question' : 'questions'}</p>
 
@@ -256,9 +256,9 @@ export default function TriviaStreak() {
           </div>
 
           {/* CC BY-SA 4.0 requires this. Do not remove. */}
-          <p className="mt-8 text-xs" style={{ color: THEME.mut }}>{ATTRIBUTION}</p>
+          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>{ATTRIBUTION}</p>
 
-          <p className="mt-4 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-4 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/odd-one-out" className="font-bold underline" style={{ color: THEME.forest }}>Odd One Out</Link>,{' '}
             <Link to="/guess-the-year" className="font-bold underline" style={{ color: THEME.forest }}>Guess the Year</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.forest }}>all solo games</Link>.

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { FiShare2, FiCheck, FiDownload, FiRotateCcw, FiClock } from 'react-icons/fi';
 import Navigation from '../Navigation';
 import AdSlot from '../AdSlot';
+import PlayHint from '../common/PlayHint';
 import { THEME, FREDOKA, QUICKSAND, rankFor } from './typingData';
 import { useTypingTest } from './useTypingTest';
 import { buildShareText, buildTypingCard } from './share';
@@ -109,7 +110,7 @@ export default function TypingTest() {
                 <FiClock aria-hidden="true" />
                 {g.status === 'idle' ? `${g.duration}s` : `${g.timeLeft}s`}
               </span>
-              <span data-testid="typing-stat" className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span data-testid="typing-stat" className="text-base font-bold" style={{ color: THEME.mut }}>
                 {g.status === 'running' && g.liveWpm !== null ? <>{g.liveWpm} WPM</> : <>net WPM</>}
                 {g.best > 0 && <> · best {g.best}</>}
               </span>
@@ -165,15 +166,15 @@ export default function TypingTest() {
               className="mt-3 w-full rounded-2xl border-[3px] px-4 py-4 text-xl font-bold outline-none"
             />
 
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-3 text-center text-sm">
+            <PlayHint accent={THEME.teal} ink={THEME.ink} className="mt-3">
               Press space after each word. Only correct words count.
-            </p>
+            </PlayHint>
           </div>
         )}
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You typed</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You typed</p>
             <p style={{ ...FREDOKA, color: THEME.teal }} className="my-1 text-7xl font-bold md:text-8xl">{g.wpm}</p>
             <p style={QUICKSAND} className="text-lg">words per minute</p>
             <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2">
@@ -244,7 +245,7 @@ export default function TypingTest() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/reaction-time-test" className="font-bold underline" style={{ color: THEME.teal }}>Reaction Time Test</Link>,{' '}
             <Link to="/word-scramble" className="font-bold underline" style={{ color: THEME.teal }}>Word Scramble</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.teal }}>all solo games</Link>.

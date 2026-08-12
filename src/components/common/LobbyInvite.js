@@ -80,7 +80,7 @@ export default function LobbyInvite({
       {/* Secondary: the code, for anyone typing it in manually */}
       <button
         onClick={copyCode}
-        className="w-full mt-2 flex items-center justify-center gap-2 text-sm text-[#8B6347] hover:text-[#2D1810] py-1"
+        className="w-full mt-2 flex items-center justify-center gap-2 text-base text-[#8B6347] hover:text-[#2D1810] py-1"
       >
         {codeCopied ? <><FiCheck /> Code copied</> : <><FiCopy /> or share the code <span className="font-mono font-bold tracking-widest text-[#2D1810]">{roomCode}</span></>}
       </button>

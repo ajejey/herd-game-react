@@ -96,8 +96,8 @@ export default function ChameleonHome() {
             </button>
           ))}
         </div>
-        {error && <p className="text-red-600 text-sm mb-3 text-center">{error}</p>}
-        {!connected && <p className="text-[#8B6347] text-sm mb-3 text-center">Connecting…</p>}
+        {error && <p className="text-red-600 text-base mb-3 text-center">{error}</p>}
+        {!connected && <p className="text-[#8B6347] text-base mb-3 text-center">Connecting…</p>}
         <form onSubmit={tab === 'create' ? handleCreate : handleJoin} className="space-y-3">
           <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your name" maxLength={20}
             className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -110,7 +110,7 @@ export default function ChameleonHome() {
             {tab === 'create' ? 'Create game 🦎' : 'Join game →'}
           </button>
         </form>
-        <p className="text-xs text-[#8B6347] mt-3 text-center">3+ players · no download · no signup</p>
+        <p className="text-sm text-[#8B6347] mt-3 text-center">3+ players · no download · no signup</p>
       </div>
 
       <div className="max-w-2xl mx-auto mt-10 text-[#4A2D1B] leading-relaxed">

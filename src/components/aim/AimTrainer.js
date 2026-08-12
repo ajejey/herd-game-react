@@ -90,7 +90,7 @@ export default function AimTrainer() {
               <span className="text-lg font-bold" style={{ color: THEME.rose }}>
                 {g.status === 'running' ? `${g.remaining} left` : `${g.total} targets`}
               </span>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 {/* "lower is better" is already in the subtitle — repeating it
                     here just spends a line saying nothing new. */}
                 {g.best > 0 ? <>best {g.best}ms</> : <>no best yet</>}
@@ -110,8 +110,8 @@ export default function AimTrainer() {
             >
               {g.status === 'idle' && (
                 <p
-                  style={{ ...QUICKSAND, color: THEME.mut }}
-                  className="pointer-events-none absolute inset-x-0 top-6 text-center text-sm font-bold"
+                  style={{ ...QUICKSAND, color: THEME.ink }}
+                  className="pointer-events-none absolute inset-x-0 top-6 text-center text-lg font-bold"
                 >
                   Hit the first target to start
                 </p>
@@ -134,7 +134,7 @@ export default function AimTrainer() {
               />
             </div>
 
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-center text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-center text-base">
               Most people average 650–800ms per target
             </p>
           </div>
@@ -142,7 +142,7 @@ export default function AimTrainer() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">Average per target</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">Average per target</p>
             <p data-testid="aim-avg" style={{ ...FREDOKA, color: THEME.rose }} className="my-1 text-7xl font-bold md:text-8xl">{g.avg}</p>
             <p data-testid="aim-result" style={QUICKSAND} className="text-lg">milliseconds</p>
             <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2">across {g.total} targets</p>
@@ -212,7 +212,7 @@ export default function AimTrainer() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/reaction-time-test" className="font-bold underline" style={{ color: THEME.rose }}>Reaction Time Test</Link>,{' '}
             <Link to="/click-speed-test" className="font-bold underline" style={{ color: THEME.rose }}>Click Speed Test</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.rose }}>all solo games</Link>.

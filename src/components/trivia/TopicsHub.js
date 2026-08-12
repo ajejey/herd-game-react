@@ -67,7 +67,7 @@ export default function TopicsHub() {
           <span className="text-4xl" aria-hidden="true">🔥</span>
           <div>
             <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810]">Daily Trivia</h2>
-            <p className="text-[#4A2D1B] text-sm">A new 10-question quiz every day. Build your streak and share your score →</p>
+            <p className="text-[#4A2D1B] text-base">A new 10-question quiz every day. Build your streak and share your score →</p>
           </div>
         </div>
       </Link>

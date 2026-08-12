@@ -11,12 +11,12 @@ export default function JudgingPhase({ game }) {
     return (
       <div className="max-w-lg mx-auto">
         <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-5 mb-5 text-center">
-          <p className="text-xs text-[#8B6347] uppercase tracking-widest mb-1">The question</p>
+          <p className="text-sm text-[#8B6347] uppercase tracking-widest mb-1">The question</p>
           <p style={fredokaStyle} className="text-xl text-[#2D1810] font-bold">{round.question}</p>
         </div>
 
         <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-1">Pick your favourite</h2>
-        <p className="text-[#8B6347] text-sm mb-4">Only you can see which answer you pick.</p>
+        <p className="text-[#8B6347] text-base mb-4">Only you can see which answer you pick.</p>
 
         <div className="space-y-3">
           {round.answers.map(a => (
@@ -26,7 +26,7 @@ export default function JudgingPhase({ game }) {
               className="w-full text-left px-5 py-4 rounded-2xl bg-white border-2 border-[#FFE8C8] hover:border-[#E84A8B] hover:bg-[#FFF0F7] transition-all"
             >
               <p className="text-[#2D1810] font-semibold">{a.text}</p>
-              <p className="text-xs text-[#8B6347] mt-1">{a.username}</p>
+              <p className="text-sm text-[#8B6347] mt-1">{a.username}</p>
             </button>
           ))}
         </div>
@@ -37,7 +37,7 @@ export default function JudgingPhase({ game }) {
   return (
     <div className="max-w-lg mx-auto">
       <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-5 mb-5 text-center">
-        <p className="text-xs text-[#8B6347] uppercase tracking-widest mb-1">The question</p>
+        <p className="text-sm text-[#8B6347] uppercase tracking-widest mb-1">The question</p>
         <p style={fredokaStyle} className="text-xl text-[#2D1810] font-bold">{round.question}</p>
       </div>
 
@@ -54,7 +54,7 @@ export default function JudgingPhase({ game }) {
         {round.answers.map(a => (
           <div key={a.id} className="px-5 py-3 rounded-2xl bg-white border-2 border-[#FFE8C8]">
             <p className="text-[#2D1810] font-semibold">{a.text}</p>
-            <p className="text-xs text-[#8B6347] mt-0.5">{a.username}</p>
+            <p className="text-sm text-[#8B6347] mt-0.5">{a.username}</p>
           </div>
         ))}
       </div>

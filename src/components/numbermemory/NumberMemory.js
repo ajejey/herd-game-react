@@ -98,7 +98,7 @@ export default function NumberMemory() {
             >
               Take the test
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               Most people stop around 7
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.blue }}>{g.best}</strong></>}
             </p>
@@ -108,7 +108,7 @@ export default function NumberMemory() {
         {active && (
           <div>
             <div className="mb-6 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 {g.digits} digits{g.best > 0 && <> · best {g.best}</>}
               </span>
               <span className="flex items-center gap-1" aria-label={`${g.lives} lives left`}>
@@ -150,7 +150,7 @@ export default function NumberMemory() {
 
               {g.status === 'recall' && (
                 <>
-                  <p style={{ ...QUICKSAND, color: THEME.mut }} className="mb-3 text-sm font-bold uppercase tracking-widest">
+                  <p style={{ ...QUICKSAND, color: THEME.mut }} className="mb-3 text-base font-bold uppercase tracking-widest">
                     What was the number?
                   </p>
                   <input
@@ -183,11 +183,11 @@ export default function NumberMemory() {
               {g.status === 'wrong' && (
                 <div role="status" className="text-center">
                   <p style={{ ...FREDOKA, color: THEME.red }} className="text-2xl font-bold">Not quite</p>
-                  <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-3 text-sm">It was</p>
+                  <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-3 text-base">It was</p>
                   <p style={{ ...FREDOKA, color: THEME.ink, letterSpacing: '0.08em' }} className="break-all text-2xl font-bold">
                     {g.number}
                   </p>
-                  <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2 text-sm">
+                  <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2 text-base">
                     you typed {g.entry || '—'}
                   </p>
                 </div>
@@ -209,7 +209,7 @@ export default function NumberMemory() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You reached</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You reached</p>
             <p style={{ ...FREDOKA, color: THEME.blue }} className="my-1 text-7xl font-bold md:text-8xl">{g.reached}</p>
             <p style={QUICKSAND} className="text-lg">digits</p>
 
@@ -278,7 +278,7 @@ export default function NumberMemory() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/chimp-test" className="font-bold underline" style={{ color: THEME.blue }}>Chimp Test</Link>,{' '}
             <Link to="/memory-game" className="font-bold underline" style={{ color: THEME.blue }}>Herd Memory</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.blue }}>all solo games</Link>.

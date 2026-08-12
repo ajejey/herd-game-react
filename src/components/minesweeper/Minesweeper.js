@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { FiFlag, FiClock, FiRotateCcw } from 'react-icons/fi';
 import Navigation from '../Navigation';
 import AdSlot from '../AdSlot';
+import PlayHint from '../common/PlayHint';
 import { THEME, FREDOKA, QUICKSAND, NUMBER_COLOURS, rankFor } from './mineData';
 import { useMinesweeper } from './useMinesweeper';
 
@@ -137,7 +138,7 @@ export default function Minesweeper() {
                 color: lv.id === g.level.id ? '#FFFFFF' : THEME.mut,
                 borderColor: THEME.slate,
               }}
-              className="rounded-full border-2 px-4 py-1.5 text-sm font-bold"
+              className="rounded-full border-2 px-4 py-1.5 text-base font-bold"
             >
               {lv.name}
             </button>
@@ -145,7 +146,7 @@ export default function Minesweeper() {
         </div>
 
         <div className="mt-4 flex items-center justify-between" style={QUICKSAND}>
-          <span data-testid="ms-mines" className="text-sm font-bold" style={{ color: THEME.mut }}>
+          <span data-testid="ms-mines" className="text-base font-bold" style={{ color: THEME.mut }}>
             <FiFlag aria-hidden="true" className="mr-1 inline" />{g.minesLeft}
           </span>
           <button
@@ -158,12 +159,12 @@ export default function Minesweeper() {
               color: g.flagMode ? '#FFFFFF' : THEME.mut,
               borderColor: THEME.slate,
             }}
-            className="rounded-full border-2 px-4 py-1.5 text-sm font-bold"
+            className="rounded-full border-2 px-4 py-1.5 text-base font-bold"
           >
             <FiFlag aria-hidden="true" className="mr-1 inline" />
             {g.flagMode ? 'Flag mode on' : 'Flag mode'}
           </button>
-          <span className="text-sm font-bold" style={{ color: THEME.mut }} role="timer" aria-live="off">
+          <span className="text-base font-bold" style={{ color: THEME.mut }} role="timer" aria-live="off">
             <FiClock aria-hidden="true" className="mr-1 inline" />{g.seconds}s
           </span>
         </div>
@@ -202,7 +203,7 @@ export default function Minesweeper() {
                   userSelect: 'none',
                   WebkitTapHighlightColor: 'transparent',
                 }}
-                className="aspect-square rounded border text-xs font-bold leading-none md:text-sm"
+                className="aspect-square rounded border text-sm font-bold leading-none md:text-base"
               >
                 {isFlagged && !isRevealed ? (
                   <FiFlag aria-hidden="true" className="mx-auto" style={{ color: THEME.red }} />
@@ -242,10 +243,21 @@ export default function Minesweeper() {
           </motion.div>
         )}
 
+        {/* Press-and-hold is the one rule of this board a player cannot guess,
+            so it gets the hint chip on its own. The best time is a nice-to-know
+            and stays out of it — bundling the two behind a "·" was how the rule
+            ended up looking like a stats line. */}
         {!done && (
-          <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-center text-sm">
-            Press and hold to flag a mine{g.best > 0 && <> · best {g.best}s on {g.level.name}</>}
-          </p>
+          <>
+            <PlayHint accent={THEME.slate} ink={THEME.ink} className="mt-4">
+              Press and hold a square to flag a mine
+            </PlayHint>
+            {g.best > 0 && (
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2 text-center text-base">
+                Best {g.best}s on {g.level.name}
+              </p>
+            )}
+          </>
         )}
 
         <div className="mt-12"><AdSlot /></div>
@@ -275,7 +287,7 @@ export default function Minesweeper() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/put-in-order" className="font-bold underline" style={{ color: THEME.slate }}>Put in Order</Link>,{' '}
             <Link to="/hangman" className="font-bold underline" style={{ color: THEME.slate }}>Hangman</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.slate }}>all solo games</Link>.

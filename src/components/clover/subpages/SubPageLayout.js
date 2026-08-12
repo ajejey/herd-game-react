@@ -44,7 +44,7 @@ export default function SubPageLayout({ slug, title, description, h1, keywords, 
       </Helmet>
 
       <div className="max-w-3xl mx-auto">
-        <nav className="text-sm text-[#8B6347] mb-4 flex items-center gap-2 flex-wrap">
+        <nav className="text-base text-[#8B6347] mb-4 flex items-center gap-2 flex-wrap">
           <Link to="/" className="hover:text-[#2D1810]">Home</Link>
           <span>›</span>
           <Link to="/clover" className="hover:text-[#2D1810]">Clover Clues</Link>
@@ -86,7 +86,7 @@ export default function SubPageLayout({ slug, title, description, h1, keywords, 
 
         <RelatedGuides currentSlug={slug} />
 
-        <p className="text-[#8B6347] text-xs italic text-center mb-6">
+        <p className="text-[#8B6347] text-sm italic text-center mb-6">
           Clover Clues is an original game inspired by the co-op word-game genre. Not affiliated with or endorsed by Repos Production. So Clover! is a trademark of its respective owner.
         </p>
       </div>
@@ -133,7 +133,7 @@ function RelatedGuides({ currentSlug }) {
           <li key={g.slug}>
             <Link to={`/clover/${g.slug}`} className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#FFE8C8] text-[#2D1810] font-semibold transition-colors">
               <span className="text-xl">{g.emoji}</span>
-              <span className="text-sm md:text-base">{g.title}</span>
+              <span className="text-base md:text-base">{g.title}</span>
             </Link>
           </li>
         ))}

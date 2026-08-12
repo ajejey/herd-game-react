@@ -106,8 +106,8 @@ export default function CloverHome() {
           ))}
         </div>
 
-        {error && <p className="text-red-600 text-sm mb-3 text-center">{error}</p>}
-        {!connected && <p className="text-[#8B6347] text-sm mb-3 text-center">Connecting…</p>}
+        {error && <p className="text-red-600 text-base mb-3 text-center">{error}</p>}
+        {!connected && <p className="text-[#8B6347] text-base mb-3 text-center">Connecting…</p>}
 
         <form onSubmit={tab === 'create' ? handleCreate : handleJoin} className="space-y-3">
           <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your name" maxLength={20}
@@ -121,7 +121,7 @@ export default function CloverHome() {
             {tab === 'create' ? 'Create game 🍀' : 'Join game →'}
           </button>
         </form>
-        <p className="text-xs text-[#8B6347] mt-3 text-center">no download · no signup</p>
+        <p className="text-sm text-[#8B6347] mt-3 text-center">no download · no signup</p>
         <RemotePlayNotice minPlayers={3} maxPlayers={6} accent="#E84A8B" />
       </div>
 

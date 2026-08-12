@@ -55,8 +55,8 @@ export default function TeamTriviaRoom() {
         <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-6 text-center">
           <h1 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-1">Join Team Trivia</h1>
           <p className="text-[#4A2D1B] mb-4">Room <span className="font-mono font-bold">{codeParam}</span></p>
-          {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
-          {roomNotFound && <p className="text-[#8B6347] text-sm mb-2">That room wasn’t found — check the code.</p>}
+          {error && <p className="text-red-600 text-base mb-2">{error}</p>}
+          {roomNotFound && <p className="text-[#8B6347] text-base mb-2">That room wasn’t found — check the code.</p>}
           <form onSubmit={(e) => { e.preventDefault(); if (name.trim()) joinGame(codeParam, name); }} className="space-y-3">
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" maxLength={20}
               className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -83,24 +83,24 @@ export default function TeamTriviaRoom() {
             playerCount={connectedCount} minPlayers={2} />
 
           <div className="mt-5 text-left">
-            <p className="text-sm font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
+            <p className="text-base font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
             <div className="flex flex-wrap gap-2">
               {players.map((p) => (
-                <span key={p.id} className={`px-3 py-1 rounded-full text-sm font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>
+                <span key={p.id} className={`px-3 py-1 rounded-full text-base font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>
                   {p.username}{p.isHost ? ' 👑' : ''}
                 </span>
               ))}
             </div>
           </div>
 
-          {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
+          {error && <p className="text-red-600 text-base mt-3">{error}</p>}
           {isHost ? (
             <button onClick={startGame} disabled={connectedCount < 2} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
               className="mt-4 w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-40">Start trivia 🧠</button>
           ) : (
             <p className="text-[#4A2D1B] mt-4">Waiting for the host to start…</p>
           )}
-          <button onClick={leaveGame} className="mt-3 text-sm text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
+          <button onClick={leaveGame} className="mt-3 text-base text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
         </div>
       </MeadowLayout>
     );
@@ -118,7 +118,7 @@ export default function TeamTriviaRoom() {
     <MeadowLayout maxWidth="max-w-xl">
       {finished && state.winner && state.winner.id === myId && <Confetti width={w.w} height={w.h} numberOfPieces={180} recycle={false} gravity={0.25} />}
       <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 md:p-7">
-        <div className="flex justify-between items-center text-sm text-[#8B6347] mb-3">
+        <div className="flex justify-between items-center text-base text-[#8B6347] mb-3">
           <span>Round {round?.number} / {state.totalRounds}</span>
           <span className="font-semibold">{round?.category}</span>
         </div>
@@ -138,7 +138,7 @@ export default function TeamTriviaRoom() {
                     style={{ background: bg, color, borderColor: border }}
                     className="w-full text-left px-4 py-3 rounded-2xl border-2 font-semibold transition-colors disabled:cursor-default flex items-center justify-between">
                     <span><span className="opacity-60 mr-2">{LETTERS[i]}</span>{opt}</span>
-                    {isReveal && <span className="text-sm opacity-90">{results?.tally?.[i] ?? 0}</span>}
+                    {isReveal && <span className="text-base opacity-90">{results?.tally?.[i] ?? 0}</span>}
                   </button>
                 );
               })}
@@ -147,8 +147,8 @@ export default function TeamTriviaRoom() {
             {!isReveal && (
               <div className="mt-4 text-center">
                 {answered ? <p className="text-[#3D8B5A] font-semibold">Locked in — waiting for others…</p>
-                  : <p className="text-[#8B6347] text-sm">Tap your answer.</p>}
-                <p className="text-xs text-[#8B6347] mt-1">{round?.answeredCount ?? 0}/{connectedCount} answered</p>
+                  : <p className="text-[#8B6347] text-base">Tap your answer.</p>}
+                <p className="text-sm text-[#8B6347] mt-1">{round?.answeredCount ?? 0}/{connectedCount} answered</p>
                 {isHost && <button onClick={() => sendAction('force_reveal')} className="mt-2 px-5 py-2 rounded-full border-2 border-[#2D1810] text-[#2D1810] font-semibold hover:bg-[#FFF1DC]">Reveal answers →</button>}
               </div>
             )}
@@ -182,7 +182,7 @@ export default function TeamTriviaRoom() {
       </div>
 
       <p className="text-center mt-4">
-        <Link to="/office-games" className="text-[#8B6347] text-sm hover:text-[#2D1810] underline">More office &amp; team games</Link>
+        <Link to="/office-games" className="text-[#8B6347] text-base hover:text-[#2D1810] underline">More office &amp; team games</Link>
       </p>
     </MeadowLayout>
   );

@@ -58,7 +58,7 @@ function Panel({ item, reveal, label, unitFmt, tone }) {
     <div className="flex-1 flex flex-col items-center justify-center px-5 py-4 md:py-12 text-center min-h-[22vh] md:min-h-[46vh]">
       {item.e && <div className="text-4xl md:text-7xl mb-2" aria-hidden="true">{item.e}</div>}
       <h2 style={HEAVY} className="text-2xl md:text-4xl leading-tight" >{item.n}</h2>
-      <p style={BODY} className="mt-1 text-sm md:text-base" >{label}</p>
+      <p style={BODY} className="mt-1 text-base md:text-base" >{label}</p>
       <div className="mt-3 h-[56px] md:h-[80px] flex items-center justify-center">
         <AnimatePresence mode="wait">
           {reveal ? (
@@ -137,15 +137,15 @@ export default function HigherLower() {
                     className="rounded-2xl border-2 p-5 text-left transition-transform hover:-translate-y-0.5 hover:border-[#3D8B5A] focus:outline-none focus:ring-2 focus:ring-[#3D8B5A]"
                   >
                     <p style={HEAVY} className="text-xl">{c.label}</p>
-                    <p style={{ ...BODY, color: THEME.mut }} className="text-sm mt-1">{c.question}</p>
+                    <p style={{ ...BODY, color: THEME.mut }} className="text-base mt-1">{c.question}</p>
                     {best > 0 && (
-                      <p style={{ ...BODY, color: THEME.hot }} className="text-sm mt-2 font-bold">Best streak: {best}</p>
+                      <p style={{ ...BODY, color: THEME.hot }} className="text-base mt-2 font-bold">Best streak: {best}</p>
                     )}
                   </button>
                 );
               })}
             </div>
-            <p style={{ ...BODY, color: THEME.mut }} className="mt-8 text-sm">
+            <p style={{ ...BODY, color: THEME.mut }} className="mt-8 text-base">
               Free, no signup. Want something with friends?{' '}
               <Link to="/" className="underline" style={{ color: THEME.hot }}>Browse the hub</Link>.
             </p>
@@ -156,12 +156,12 @@ export default function HigherLower() {
         {(g.status === 'playing' || g.status === 'reveal') && (
           <>
             <div className="flex items-center justify-between mb-4">
-              <button onClick={g.toMenu} style={{ ...BODY, color: THEME.mut }} className="text-sm underline">
+              <button onClick={g.toMenu} style={{ ...BODY, color: THEME.mut }} className="text-base underline">
                 ← Categories
               </button>
               <div className="text-right">
                 <p style={{ ...HEAVY, color: THEME.hot }} className="text-2xl leading-none">{g.score}</p>
-                <p style={{ ...BODY, color: THEME.mut }} className="text-xs">streak{g.best ? ` · best ${g.best}` : ''}</p>
+                <p style={{ ...BODY, color: THEME.mut }} className="text-sm">streak{g.best ? ` · best ${g.best}` : ''}</p>
               </div>
             </div>
 
@@ -209,7 +209,7 @@ export default function HigherLower() {
               </div>
             </div>
 
-            <p style={{ ...BODY, color: THEME.mut }} className="text-center text-sm mt-5">
+            <p style={{ ...BODY, color: THEME.mut }} className="text-center text-base mt-5">
               Is <strong style={{ color: THEME.ink }}>{g.challenger?.n}</strong> higher or lower than{' '}
               <strong style={{ color: THEME.ink }}>{g.anchor?.n}</strong>?
             </p>
@@ -222,7 +222,7 @@ export default function HigherLower() {
             {(() => { const r = rankFor(g.score); return (
               <>
                 <div className="text-6xl mb-2" aria-hidden="true">{r.e}</div>
-                <p style={{ ...BODY, color: THEME.mut }} className="text-sm uppercase tracking-widest">Final streak</p>
+                <p style={{ ...BODY, color: THEME.mut }} className="text-base uppercase tracking-widest">Final streak</p>
                 <p style={{ ...HEAVY, color: THEME.hot }} className="text-7xl md:text-8xl leading-none my-2">{g.score}</p>
                 <p style={HEAVY} className="text-2xl">{r.label}</p>
                 {g.isNewBest && (
@@ -258,7 +258,7 @@ export default function HigherLower() {
                   <FiDownload aria-hidden="true" /> Image
                 </button>
               </div>
-              <button onClick={g.toMenu} style={{ ...BODY, color: THEME.mut }} className="text-sm underline mt-1 flex items-center justify-center gap-2">
+              <button onClick={g.toMenu} style={{ ...BODY, color: THEME.mut }} className="text-base underline mt-1 flex items-center justify-center gap-2">
                 <FiGrid aria-hidden="true" /> Try another category
               </button>
             </div>
@@ -292,7 +292,7 @@ export default function HigherLower() {
             ))}
           </div>
 
-          <p style={{ color: THEME.mut }} className="mt-8 text-sm">
+          <p style={{ color: THEME.mut }} className="mt-8 text-base">
             More to play: <Link to="/solo-games" className="underline" style={{ color: THEME.hot }}>solo games</Link>,{' '}
             <Link to="/trivia" className="underline" style={{ color: THEME.hot }}>Daily Trivia</Link>, or{' '}
             <Link to="/all-games" className="underline" style={{ color: THEME.hot }}>the full game hub</Link>.

@@ -95,7 +95,7 @@ export default function ColourMatch() {
             >
               Start the test
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               {DURATION_S} seconds · wrong answers cost {g.penaltySeconds}s
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.accent }}>{g.best}</strong></>}
             </p>
@@ -105,11 +105,11 @@ export default function ColourMatch() {
         {g.status === 'playing' && g.round && (
           <div>
             <div className="mb-2 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Score <strong style={{ color: THEME.accent }}>{g.score}</strong>
               </span>
               <span
-                className="text-sm font-bold"
+                className="text-base font-bold"
                 style={{ color: g.remaining <= 10 ? THEME.red : THEME.mut }}
                 role="timer"
                 aria-live="off"
@@ -128,10 +128,18 @@ export default function ColourMatch() {
               className="rounded-3xl border-2 p-8 text-center transition-colors duration-150"
               style={{ background: THEME.bgAlt, borderColor: cardBorder }}
             >
+              {/* This line is not decoration, it is the entire game: it flips
+                  between "the colour" and "what it says" round to round, and a
+                  player who reads it once and then stops reading it is now
+                  answering a different question from the one being asked. It
+                  was set in muted small caps — the exact styling the eye learns
+                  to treat as a heading and skip. */}
               <p
-                style={{ ...QUICKSAND, color: THEME.mut }}
-                className="mb-4 text-sm font-bold uppercase tracking-widest"
+                style={{ ...QUICKSAND, color: THEME.accent }}
+                className="mb-4 text-lg font-bold uppercase tracking-widest md:text-xl"
                 data-testid="cm-ask"
+                role="status"
+                aria-live="polite"
               >
                 {g.round.mode.ask}
               </p>
@@ -167,7 +175,7 @@ export default function ColourMatch() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You got</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You got</p>
             <p style={{ ...FREDOKA, color: THEME.accent }} className="my-1 text-7xl font-bold md:text-8xl">{g.score}</p>
             <p style={QUICKSAND} className="text-lg">in {DURATION_S} seconds</p>
 
@@ -179,7 +187,7 @@ export default function ColourMatch() {
             ); })()}
 
             {g.wrong > 0 && (
-              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-3 text-sm">
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-3 text-base">
                 {g.wrong} wrong, costing {(g.wrong * g.penaltySeconds).toFixed(1)}s
               </p>
             )}
@@ -240,7 +248,7 @@ export default function ColourMatch() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/reaction-time-test" className="font-bold underline" style={{ color: THEME.accent }}>Reaction Time Test</Link>,{' '}
             <Link to="/chimp-test" className="font-bold underline" style={{ color: THEME.accent }}>Chimp Test</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.accent }}>all solo games</Link>.

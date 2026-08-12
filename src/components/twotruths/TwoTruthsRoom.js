@@ -53,8 +53,8 @@ export default function TwoTruthsRoom() {
         <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-6 text-center">
           <h1 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-1">Join the game</h1>
           <p className="text-[#4A2D1B] mb-4">Room <span className="font-mono font-bold">{codeParam}</span></p>
-          {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
-          {roomNotFound && <p className="text-[#8B6347] text-sm mb-2">That room wasn’t found — check the code.</p>}
+          {error && <p className="text-red-600 text-base mb-2">{error}</p>}
+          {roomNotFound && <p className="text-[#8B6347] text-base mb-2">That room wasn’t found — check the code.</p>}
           <form onSubmit={(e) => { e.preventDefault(); if (name.trim()) joinGame(codeParam, name); }} className="space-y-3">
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" maxLength={20}
               className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -79,19 +79,19 @@ export default function TwoTruthsRoom() {
             playerCount={connectedCount} minPlayers={3} />
 
           <div className="mt-5 text-left">
-            <p className="text-sm font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
+            <p className="text-base font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
             <div className="flex flex-wrap gap-2">
               {players.map((p) => (
-                <span key={p.id} className={`px-3 py-1 rounded-full text-sm font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
+                <span key={p.id} className={`px-3 py-1 rounded-full text-base font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
               ))}
             </div>
           </div>
-          {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
+          {error && <p className="text-red-600 text-base mt-3">{error}</p>}
           {isHost ? (
             <button onClick={startGame} disabled={connectedCount < 3} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
               className="mt-4 w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-40">Start game 🤥</button>
           ) : <p className="text-[#4A2D1B] mt-4">Waiting for the host to start…</p>}
-          <button onClick={leaveGame} className="mt-3 text-sm text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
+          <button onClick={leaveGame} className="mt-3 text-base text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
         </div>
       </MeadowLayout>
     );
@@ -118,7 +118,7 @@ export default function TwoTruthsRoom() {
             <form onSubmit={(e) => { e.preventDefault(); if (stmts.every((s) => s.trim())) sendAction('submit_statements', { statements: stmts, lieIndex: lie }); }} className="space-y-3">
               {stmts.map((s, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <label className="flex items-center gap-1 text-sm text-[#8B6347]">
+                  <label className="flex items-center gap-1 text-base text-[#8B6347]">
                     <input type="radio" name="lie" checked={lie === i} onChange={() => setLie(i)} /> lie
                   </label>
                   <input value={s} onChange={(e) => { const n = [...stmts]; n[i] = e.target.value; setStmts(n); }}
@@ -130,7 +130,7 @@ export default function TwoTruthsRoom() {
                 className="w-full py-3 rounded-xl text-white font-bold disabled:opacity-50">Submit my statements</button>
             </form>
           )}
-          {isHost && <div className="text-center"><button onClick={() => sendAction('force_start')} className="mt-3 text-sm text-[#8B6347] underline">Start with who’s ready →</button></div>}
+          {isHost && <div className="text-center"><button onClick={() => sendAction('force_start')} className="mt-3 text-base text-[#8B6347] underline">Start with who’s ready →</button></div>}
         </div>
       </MeadowLayout>
     );
@@ -157,7 +157,7 @@ export default function TwoTruthsRoom() {
   return (
     <MeadowLayout maxWidth="max-w-xl">
       <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 md:p-7">
-        <p className="text-center text-sm text-[#8B6347] mb-1">Player {state.subjectIndex + 1} of {state.subjects.length}</p>
+        <p className="text-center text-base text-[#8B6347] mb-1">Player {state.subjectIndex + 1} of {state.subjects.length}</p>
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] text-center mb-1">{subjectName}’s statements</h2>
         <p className="text-center text-[#4A2D1B] mb-4">
           {phase === 'reveal' ? 'Here’s the lie…' : amSubject ? 'The group is guessing your lie…' : 'Which one is the lie?'}
@@ -180,7 +180,7 @@ export default function TwoTruthsRoom() {
                 style={style}
                 className="w-full text-left px-4 py-3 rounded-2xl border-2 font-semibold flex items-center justify-between disabled:cursor-default">
                 <span>{s}</span>
-                {phase === 'reveal' && <span className="text-xs opacity-90">{isLie ? 'THE LIE' : ''} {votes ? `· ${votes} guessed` : ''}</span>}
+                {phase === 'reveal' && <span className="text-sm opacity-90">{isLie ? 'THE LIE' : ''} {votes ? `· ${votes} guessed` : ''}</span>}
               </button>
             );
           })}
@@ -190,8 +190,8 @@ export default function TwoTruthsRoom() {
           <div className="text-center mt-4">
             {amSubject ? <p className="text-[#4A2D1B]">Sit tight — they’re trying to spot your lie. ({current.guessCount}/{connectedCount - 1})</p>
               : myGuess ? <p className="text-[#3D8B5A] font-semibold">Locked in — waiting… ({current.guessCount}/{connectedCount - 1})</p>
-                : <p className="text-[#8B6347] text-sm">Tap the statement you think is the lie.</p>}
-            {isHost && <button onClick={() => sendAction('force_reveal')} className="mt-2 block mx-auto text-sm text-[#8B6347] underline">Reveal now →</button>}
+                : <p className="text-[#8B6347] text-base">Tap the statement you think is the lie.</p>}
+            {isHost && <button onClick={() => sendAction('force_reveal')} className="mt-2 block mx-auto text-base text-[#8B6347] underline">Reveal now →</button>}
           </div>
         )}
 
@@ -205,7 +205,7 @@ export default function TwoTruthsRoom() {
           </div>
         )}
       </div>
-      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-sm hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
+      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-base hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
     </MeadowLayout>
   );
 }

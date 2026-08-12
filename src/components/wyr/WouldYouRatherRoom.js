@@ -52,8 +52,8 @@ export default function WouldYouRatherRoom() {
         <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-6 text-center">
           <h1 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-1">Join Would You Rather</h1>
           <p className="text-[#4A2D1B] mb-4">Room <span className="font-mono font-bold">{codeParam}</span></p>
-          {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
-          {roomNotFound && <p className="text-[#8B6347] text-sm mb-2">That room wasn’t found — check the code.</p>}
+          {error && <p className="text-red-600 text-base mb-2">{error}</p>}
+          {roomNotFound && <p className="text-[#8B6347] text-base mb-2">That room wasn’t found — check the code.</p>}
           <form onSubmit={(e) => { e.preventDefault(); if (name.trim()) joinGame(codeParam, name); }} className="space-y-3">
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" maxLength={20}
               className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -80,19 +80,19 @@ export default function WouldYouRatherRoom() {
             playerCount={connectedCount} minPlayers={2} />
 
           <div className="mt-5 text-left">
-            <p className="text-sm font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
+            <p className="text-base font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
             <div className="flex flex-wrap gap-2">
               {players.map((p) => (
-                <span key={p.id} className={`px-3 py-1 rounded-full text-sm font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
+                <span key={p.id} className={`px-3 py-1 rounded-full text-base font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
               ))}
             </div>
           </div>
-          {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
+          {error && <p className="text-red-600 text-base mt-3">{error}</p>}
           {isHost ? (
             <button onClick={startGame} disabled={connectedCount < 2} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
               className="mt-4 w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-40">Start game 🤔</button>
           ) : <p className="text-[#4A2D1B] mt-4">Waiting for the host to start…</p>}
-          <button onClick={leaveGame} className="mt-3 text-sm text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
+          <button onClick={leaveGame} className="mt-3 text-base text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
         </div>
       </MeadowLayout>
     );
@@ -116,7 +116,7 @@ export default function WouldYouRatherRoom() {
       className="w-full rounded-2xl border-4 p-5 text-left transition-transform disabled:cursor-default hover:-translate-y-0.5 disabled:hover:translate-y-0"
       style={{ borderColor: yourVote === letter ? color : '#FFE8C8', background: yourVote === letter ? color : '#fff' }}
     >
-      <span className="text-xs font-bold" style={{ color: yourVote === letter ? '#fff' : color }}>{letter}</span>
+      <span className="text-sm font-bold" style={{ color: yourVote === letter ? '#fff' : color }}>{letter}</span>
       <p style={fredokaStyle} className={`text-lg font-bold leading-snug ${yourVote === letter ? 'text-white' : 'text-[#2D1810]'}`}>{text}</p>
     </button>
   );
@@ -125,7 +125,7 @@ export default function WouldYouRatherRoom() {
     <MeadowLayout maxWidth="max-w-xl">
       {iWon && <Confetti width={win.w} height={win.h} numberOfPieces={180} recycle={false} gravity={0.25} />}
       <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 md:p-7">
-        <div className="flex justify-between items-center text-sm text-[#8B6347] mb-4">
+        <div className="flex justify-between items-center text-base text-[#8B6347] mb-4">
           <span>Round {round?.number} / {state.totalRounds}</span>
           <span className="font-semibold">Would you rather…</span>
         </div>
@@ -135,13 +135,13 @@ export default function WouldYouRatherRoom() {
           <div>
             <div className="space-y-3">
               <OptionCard letter="A" text={round.optionA} color={BLUE} />
-              <div className="text-center text-[#8B6347] font-bold text-sm">— or —</div>
+              <div className="text-center text-[#8B6347] font-bold text-base">— or —</div>
               <OptionCard letter="B" text={round.optionB} color={PINK} />
             </div>
-            <p className="text-center text-[#8B6347] text-sm mt-4">
+            <p className="text-center text-[#8B6347] text-base mt-4">
               {yourVote ? `Locked in — waiting for others… (${round.votedCount}/${connectedCount})` : 'Tap the one you’d pick.'}
             </p>
-            {isHost && <div className="text-center"><button onClick={() => sendAction('force_reveal')} className="mt-2 text-sm text-[#8B6347] underline">Reveal now →</button></div>}
+            {isHost && <div className="text-center"><button onClick={() => sendAction('force_reveal')} className="mt-2 text-base text-[#8B6347] underline">Reveal now →</button></div>}
           </div>
         )}
 
@@ -157,13 +157,13 @@ export default function WouldYouRatherRoom() {
                 <span>{pctB}%</span>
               </div>
             </div>
-            <div className="flex justify-between text-sm font-semibold text-[#2D1810] mt-2 gap-3">
+            <div className="flex justify-between text-base font-semibold text-[#2D1810] mt-2 gap-3">
               <span className="flex-1">🅰 {round.optionA}</span>
               <span className="flex-1 text-right">🅱 {round.optionB}</span>
             </div>
 
             {/* who picked what */}
-            <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
+            <div className="mt-3 grid grid-cols-2 gap-2 text-base">
               <div className="rounded-xl bg-[#EEF5FC] p-2">
                 {players.filter((p) => round.votes[p.id] === 'A').map((p) => <div key={p.id} className="text-[#2D1810]">{p.username}{p.id === myId ? ' (you)' : ''}</div>)}
               </div>
@@ -193,7 +193,7 @@ export default function WouldYouRatherRoom() {
         )}
       </div>
 
-      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-sm hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
+      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-base hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
     </MeadowLayout>
   );
 }

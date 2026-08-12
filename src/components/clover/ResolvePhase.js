@@ -29,7 +29,7 @@ export default function ResolvePhase({ game }) {
           <CloverBoard leaves={solution} clues={clues} mode="reveal" correctMask={result.correctMask} />
         </div>
 
-        <p className="text-sm text-[#8B6347]">The decoy card was <strong className="text-[#2D1810]">{decoy || '—'}</strong>.</p>
+        <p className="text-base text-[#8B6347]">The decoy card was <strong className="text-[#2D1810]">{decoy || '—'}</strong>.</p>
 
         <button onClick={() => sendAction('next_clover')}
           style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
@@ -46,10 +46,10 @@ export default function ResolvePhase({ game }) {
       <div className="max-w-md mx-auto text-center">
         <div className="bg-[#FFF6E9] border-2 border-[#FFE8C8] rounded-2xl p-3 mb-4">
           <p style={fredokaStyle} className="font-bold text-[#2D1810]">This is your clover — stay quiet! 🤫</p>
-          <p className="text-sm text-[#4A2D1B]">No hints, no faces. Let your team rebuild it from your clues.</p>
+          <p className="text-base text-[#4A2D1B]">No hints, no faces. Let your team rebuild it from your clues.</p>
         </div>
         <CloverBoard leaves={placement} clues={clues} mode="static" />
-        <p className="text-sm text-[#8B6347] mt-4">Your team is placing cards now…</p>
+        <p className="text-base text-[#8B6347] mt-4">Your team is placing cards now…</p>
       </div>
     );
   }
@@ -70,8 +70,8 @@ export default function ResolvePhase({ game }) {
       <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810]">
         Rebuild {authorName}'s clover
       </h2>
-      <p className="text-[#8B6347] text-sm">Clover {progress.index + 1} of {progress.total}</p>
-      <p className="text-[#4A2D1B] text-sm mt-1">
+      <p className="text-[#8B6347] text-base">Clover {progress.index + 1} of {progress.total}</p>
+      <p className="text-[#4A2D1B] text-base mt-1">
         Use the clues to place <strong>4 of the 5</strong> words back in the right leaves. One is a decoy — leave it out.
       </p>
 
@@ -79,7 +79,7 @@ export default function ResolvePhase({ game }) {
         <CloverBoard leaves={placement} clues={clues} mode="resolve" onLeafTap={onLeafTap} />
       </div>
 
-      <p className="text-xs text-[#8B6347] mb-2">Tap a word, then tap a leaf. Tap a filled leaf to clear it.</p>
+      <p className="text-sm text-[#8B6347] mb-2">Tap a word, then tap a leaf. Tap a filled leaf to clear it.</p>
 
       {/* card tray */}
       <div className="flex flex-wrap justify-center gap-2">
@@ -89,7 +89,7 @@ export default function ResolvePhase({ game }) {
           return (
             <button key={card} data-testid="clover-card" data-card={card} data-placed={placed ? '1' : '0'}
               onClick={() => setSelectedCard(sel ? null : card)}
-              className={`px-3 py-2 rounded-xl border-2 font-semibold text-sm transition-all ${
+              className={`px-3 py-2 rounded-xl border-2 font-semibold text-base transition-all ${
                 sel ? 'border-[#E84A8B] bg-[#FFE8F1] text-[#2D1810] scale-105'
                   : placed ? 'border-[#C9E3D0] bg-[#EAF6EE] text-[#6B8E76]'
                   : 'border-[#FFE8C8] bg-white text-[#2D1810] hover:border-[#E84A8B]'

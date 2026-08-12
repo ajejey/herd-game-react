@@ -103,7 +103,7 @@ export default function OddOneOut() {
             >
               Start playing
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               {GROUPS.length} categories · endless
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.teal }}>{g.best}</strong></>}
             </p>
@@ -114,7 +114,7 @@ export default function OddOneOut() {
         {playing && g.round && (
           <div>
             <div className="mb-5 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Streak <strong style={{ color: THEME.teal }}>{g.score}</strong>
                 {g.best > 0 && <> · best {g.best}</>}
               </span>
@@ -182,7 +182,7 @@ export default function OddOneOut() {
         {/* ---------------- OVER ---------------- */}
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You got</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You got</p>
             <p style={{ ...FREDOKA, color: THEME.teal }} className="my-1 text-7xl font-bold md:text-8xl">{g.score}</p>
             <p style={QUICKSAND} className="text-lg">correct in a row</p>
 
@@ -253,7 +253,7 @@ export default function OddOneOut() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/memory-game" className="font-bold underline" style={{ color: THEME.teal }}>Herd Memory</Link>,{' '}
             <Link to="/guess-the-year" className="font-bold underline" style={{ color: THEME.teal }}>Guess the Year</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.teal }}>all solo games</Link>.

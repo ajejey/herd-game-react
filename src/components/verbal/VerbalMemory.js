@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { FiShare2, FiCheck, FiDownload, FiRotateCcw, FiHeart } from 'react-icons/fi';
 import Navigation from '../Navigation';
 import AdSlot from '../AdSlot';
+import PlayHint from '../common/PlayHint';
 import { THEME, FREDOKA, QUICKSAND, WORD_COUNT, rankFor } from './verbalData';
 import { useVerbalMemory } from './useVerbalMemory';
 import { buildShareText, buildVerbalCard } from './share';
@@ -91,7 +92,7 @@ export default function VerbalMemory() {
             >
               Start the test
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               Most runs end around 25
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.teal }}>{g.best}</strong></>}
             </p>
@@ -101,7 +102,7 @@ export default function VerbalMemory() {
         {g.status === 'playing' && g.current && (
           <div>
             <div className="mb-6 flex items-center justify-between" style={QUICKSAND}>
-              <span data-testid="vb-score" className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span data-testid="vb-score" className="text-base font-bold" style={{ color: THEME.mut }}>
                 Score {g.score}{g.best > 0 && <> · best {g.best}</>}
               </span>
               <span className="flex items-center gap-1" aria-label={`${g.lives} lives left`}>
@@ -155,15 +156,15 @@ export default function VerbalMemory() {
               </button>
             </div>
 
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-center text-sm">
-              SEEN if it has already come up this run
-            </p>
+            <PlayHint accent={THEME.teal} ink={THEME.ink} className="mt-4">
+              SEEN if the word has already come up this run
+            </PlayHint>
           </div>
         )}
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You got</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You got</p>
             <p style={{ ...FREDOKA, color: THEME.teal }} className="my-1 text-7xl font-bold md:text-8xl">{g.score}</p>
             <p style={QUICKSAND} className="text-lg">words</p>
 
@@ -232,7 +233,7 @@ export default function VerbalMemory() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/number-memory-test" className="font-bold underline" style={{ color: THEME.teal }}>Number Memory Test</Link>,{' '}
             <Link to="/visual-memory-test" className="font-bold underline" style={{ color: THEME.teal }}>Visual Memory Test</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.teal }}>all solo games</Link>.

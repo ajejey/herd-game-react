@@ -208,7 +208,7 @@ function HuddleGame({ day, today, isArchive }) {
         <div className="text-center mb-5">
           <h1 style={fredokaStyle} className="text-4xl md:text-5xl font-bold text-[#2D1810]">Huddle</h1>
           <p className="text-[#4A2D1B] mt-1">Sort 16 words into 4 hidden groups. {isArchive ? `Puzzle #${day}.` : 'A new puzzle every day.'}</p>
-          {isArchive && <Link to="/connections" className="text-[#E84A8B] font-semibold text-sm underline">← Back to today's puzzle</Link>}
+          {isArchive && <Link to="/connections" className="text-[#E84A8B] font-semibold text-base underline">← Back to today's puzzle</Link>}
         </div>
 
         <HuddleBoard {...game} />
@@ -261,7 +261,7 @@ function HuddleGame({ day, today, isArchive }) {
             {/* cross-promotion — the hub "play one, try another" loop */}
             <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8]">
               <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-3">More quick games</h2>
-              <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
+              <div className="flex flex-wrap justify-center gap-3 text-base font-semibold">
                 <Link to="/daily" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Daily Herd (solo)</Link>
                 <Link to="/guesstimate" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Guesstimate</Link>
                 <Link to="/say-anything" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Say Anything</Link>

@@ -94,7 +94,7 @@ export default function ChimpTest() {
             >
               Take the test
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               Most adults stop around 7
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.indigo }}>{g.best}</strong></>}
             </p>
@@ -104,7 +104,7 @@ export default function ChimpTest() {
         {active && (
           <div>
             <div className="mb-4 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 {g.count} numbers{g.best > 0 && <> · best {g.best}</>}
               </span>
               <span className="flex items-center gap-1" aria-label={`${g.lives} lives left`}>
@@ -168,7 +168,7 @@ export default function ChimpTest() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You reached</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You reached</p>
             <p style={{ ...FREDOKA, color: THEME.indigo }} className="my-1 text-7xl font-bold md:text-8xl">{g.reached}</p>
             <p style={QUICKSAND} className="text-lg">numbers</p>
 
@@ -237,7 +237,7 @@ export default function ChimpTest() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/memory-game" className="font-bold underline" style={{ color: THEME.indigo }}>Herd Memory</Link>,{' '}
             <Link to="/reaction-time-test" className="font-bold underline" style={{ color: THEME.indigo }}>Reaction Time Test</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.indigo }}>all solo games</Link>.

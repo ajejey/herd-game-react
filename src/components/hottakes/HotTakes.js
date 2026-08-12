@@ -60,7 +60,7 @@ export default function HotTakes() {
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>
 
-      <div className="px-5 pt-5"><Link to="/" className="text-sm font-semibold" style={{ color: THEME.mut }}>← Herd Games</Link></div>
+      <div className="px-5 pt-5"><Link to="/" className="text-base font-semibold" style={{ color: THEME.mut }}>← Herd Games</Link></div>
 
       <div className="container mx-auto px-4 pt-6 pb-16 max-w-lg">
         {(status === 'loading' || status === 'intro' || status === 'error') && (
@@ -93,17 +93,17 @@ export default function HotTakes() {
 function Intro({ dayNumber, streak, onStart, loadState, error }) {
   return (
     <div className="text-center pt-8">
-      <p style={{ color: THEME.hot }} className="font-bold tracking-widest uppercase text-sm">🌶️ Daily</p>
+      <p style={{ color: THEME.hot }} className="font-bold tracking-widest uppercase text-base">🌶️ Daily</p>
       <h1 style={HEAVY} className="text-5xl md:text-6xl mt-1">Hot Takes</h1>
       <p className="text-lg mt-3" style={{ color: THEME.mut }}>A few this-or-that opinions. Find your archetype. See where the crowd lands.</p>
-      <div className="flex items-center justify-center gap-3 mt-4 text-sm" style={{ color: THEME.mut }}>
+      <div className="flex items-center justify-center gap-3 mt-4 text-base" style={{ color: THEME.mut }}>
         {dayNumber != null && <span>Takes #{dayNumber}</span>}
         {streak > 0 && <span className="inline-flex items-center gap-1 font-semibold" style={{ color: THEME.hot }}><FaFire /> {streak}-day streak</span>}
       </div>
       {loadState === 'error' ? (
         <>
           <button onClick={() => window.location.reload()} style={{ ...HEAVY, background: THEME.ink }} className="mt-7 px-10 py-4 rounded-full text-white text-lg">Couldn’t load — retry</button>
-          {error && <p className="text-sm mt-2" style={{ color: THEME.mut }}>{error}</p>}
+          {error && <p className="text-base mt-2" style={{ color: THEME.mut }}>{error}</p>}
         </>
       ) : (
         <button onClick={onStart} disabled={loadState !== 'ready'} style={{ ...HEAVY, background: THEME.hot }}
@@ -148,7 +148,7 @@ function Playing({ questions, onDone, busy, error }) {
 
   return (
     <div className="pt-6">
-      <div className="flex items-center justify-between text-sm mb-3" style={{ color: THEME.mut }}>
+      <div className="flex items-center justify-between text-base mb-3" style={{ color: THEME.mut }}>
         <span className="font-semibold">Take {idx + 1} of {questions.length}</span>
         <span>Pick a side</span>
       </div>
@@ -169,7 +169,7 @@ function Playing({ questions, onDone, busy, error }) {
               </button>
             ))}
           </div>
-          <p className="text-center text-xs mt-3" style={{ color: THEME.mut }}>No wrong answers. Just yours.</p>
+          <p className="text-center text-sm mt-3" style={{ color: THEME.mut }}>No wrong answers. Just yours.</p>
         </motion.div>
       </AnimatePresence>
     </div>
@@ -191,12 +191,12 @@ function Reveal({ day, result, streak }) {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center pt-4">
-      <p className="text-sm" style={{ color: THEME.mut }}>Your opinion archetype</p>
+      <p className="text-base" style={{ color: THEME.mut }}>Your opinion archetype</p>
       <motion.h1 initial={{ scale: 0.9 }} animate={{ scale: 1 }} style={{ ...HEAVY, color: a.color }} className="text-5xl md:text-6xl leading-tight mt-1">{a.name}</motion.h1>
       <div className="text-6xl mt-2" aria-hidden="true">{a.swatch}</div>
       <div className="mt-2 flex flex-wrap justify-center gap-2">
         {a.traits.map((t) => (
-          <span key={t} className="px-3 py-1 rounded-full bg-white border text-sm font-semibold capitalize" style={{ color: a.color, borderColor: a.color + '55' }}>{t}</span>
+          <span key={t} className="px-3 py-1 rounded-full bg-white border text-base font-semibold capitalize" style={{ color: a.color, borderColor: a.color + '55' }}>{t}</span>
         ))}
       </div>
       <p className="mt-4 max-w-sm mx-auto text-lg" style={{ color: '#5C534C' }}>{a.line}</p>
@@ -205,19 +205,19 @@ function Reveal({ day, result, streak }) {
       <div className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border" style={{ borderColor: '#EADBCF' }}>
         <span className="font-bold" style={{ color: THEME.ink }}>{s.label}</span>
         <span aria-hidden="true">{s.chili}</span>
-        <span className="text-sm" style={{ color: THEME.mut }}>· {result.spice}/{result.total} against the crowd</span>
+        <span className="text-base" style={{ color: THEME.mut }}>· {result.spice}/{result.total} against the crowd</span>
       </div>
 
       {/* crowd split per take */}
       <div className="mt-7 text-left space-y-3">
-        <p className="text-sm font-semibold text-center" style={{ color: THEME.mut }}>How the crowd split{result.responders > 1 ? ` · ${result.responders} played` : ''}</p>
+        <p className="text-base font-semibold text-center" style={{ color: THEME.mut }}>How the crowd split{result.responders > 1 ? ` · ${result.responders} played` : ''}</p>
         {result.perQuestion.map((pq, i) => {
           const minority = pq.yourPct < 50;
           return (
             <div key={i} className="bg-white rounded-2xl border p-4" style={{ borderColor: '#EFE4DA' }}>
-              <p className="font-semibold text-sm" style={{ color: THEME.ink }}>{pq.prompt}</p>
+              <p className="font-semibold text-base" style={{ color: THEME.ink }}>{pq.prompt}</p>
               {/* label sits ABOVE the bar so text never overlaps the fill */}
-              <div className="mt-2 flex items-baseline justify-between gap-2 text-sm">
+              <div className="mt-2 flex items-baseline justify-between gap-2 text-base">
                 <span className="font-semibold" style={{ color: THEME.ink }}>You: {pq.yourLabel}</span>
                 <span className="font-bold shrink-0" style={{ color: minority ? THEME.hot : THEME.cool }}>
                   {pq.yourPct}% agree{minority ? ' · spicy 🌶️' : ''}
@@ -250,7 +250,7 @@ function Reveal({ day, result, streak }) {
 
       <div className="mt-8 pt-6 border-t" style={{ borderColor: '#EFE4DA' }}>
         <h2 style={HEAVY} className="text-xl mb-3">More daily games</h2>
-        <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
+        <div className="flex flex-wrap justify-center gap-3 text-base font-semibold">
           <Link to="/aura" className="underline" style={{ color: THEME.hot }}>Daily Aura</Link>
           <Link to="/daily" className="underline" style={{ color: THEME.hot }}>Daily Herd</Link>
           <Link to="/trivia" className="underline" style={{ color: THEME.hot }}>Daily Trivia</Link>

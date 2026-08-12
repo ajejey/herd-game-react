@@ -11,17 +11,17 @@ import React from 'react';
 export default function RemotePlayNotice({ minPlayers = 3, maxPlayers = 8, accent = '#3D8B5A' }) {
   return (
     <div
-      className="mt-4 rounded-2xl border-2 bg-[#FFFDF8] px-4 py-3 text-sm text-[#4A2D1B]"
+      className="mt-4 rounded-2xl border-2 bg-[#FFFDF8] px-4 py-3 text-base text-[#4A2D1B]"
       style={{ borderColor: '#FFE8C8' }}
     >
       <div className="flex items-center gap-2 flex-wrap">
         <span
-          className="inline-flex items-center gap-1 rounded-full text-white px-3 py-1 text-xs font-bold"
+          className="inline-flex items-center gap-1 rounded-full text-white px-3 py-1 text-sm font-bold"
           style={{ background: accent }}
         >
           👥 Minimum {minPlayers} players
         </span>
-        {maxPlayers ? <span className="text-xs text-[#8B6347]">(up to {maxPlayers}) · one device each</span> : <span className="text-xs text-[#8B6347]">one device each</span>}
+        {maxPlayers ? <span className="text-sm text-[#8B6347]">(up to {maxPlayers}) · one device each</span> : <span className="text-sm text-[#8B6347]">one device each</span>}
       </div>
       <p className="mt-2 text-[#6B4A33]">
         🎥 Playing remotely? Hop on a <strong>FaceTime, Zoom or any video call</strong> first, then

@@ -128,7 +128,7 @@ export default function FarmAnimal() {
             >
               Start the quiz
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               Takes about a minute · 8 possible results
             </p>
           </div>
@@ -139,10 +139,10 @@ export default function FarmAnimal() {
           <div>
             <div className="mb-6">
               <div className="mb-2 flex items-center justify-between" style={QUICKSAND}>
-                <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+                <span className="text-base font-bold" style={{ color: THEME.mut }}>
                   Question {step + 1} of {QUESTIONS.length}
                 </span>
-                <button onClick={restart} className="text-sm underline" style={{ color: THEME.mut }}>
+                <button onClick={restart} className="text-base underline" style={{ color: THEME.mut }}>
                   Start over
                 </button>
               </div>
@@ -188,7 +188,7 @@ export default function FarmAnimal() {
         {/* ---------------- RESULT ---------------- */}
         {done && animal && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm font-bold uppercase tracking-widest">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base font-bold uppercase tracking-widest">
               You are
             </p>
             <h1 style={{ ...FREDOKA, color: animal.color }} className="my-2 text-5xl font-bold md:text-7xl">
@@ -201,7 +201,7 @@ export default function FarmAnimal() {
               style={{ background: THEME.bgAlt, borderColor: THEME.border }}
             >
               <p style={QUICKSAND} className="text-base leading-relaxed">{animal.line}</p>
-              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
                 <strong style={{ color: animal.color }}>You are good at:</strong> {animal.goodAt}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -209,7 +209,7 @@ export default function FarmAnimal() {
                   <span
                     key={t}
                     style={{ ...QUICKSAND, background: `${animal.color}1A`, color: animal.color }}
-                    className="rounded-full px-3 py-1 text-sm font-bold"
+                    className="rounded-full px-3 py-1 text-base font-bold"
                   >
                     {t}
                   </span>
@@ -243,7 +243,7 @@ export default function FarmAnimal() {
               </div>
             </div>
 
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-6 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-6 text-base">
               Now make your friends take it and find out who the Goat is.
             </p>
           </motion.div>
@@ -263,7 +263,7 @@ export default function FarmAnimal() {
                 {Object.values(ANIMALS).map((a) => (
                   <div key={a.id} className="rounded-2xl border-2 p-4" style={{ background: THEME.bgAlt, borderColor: THEME.border }}>
                     <h3 style={{ ...FREDOKA, color: a.color }} className="text-lg font-bold">{a.name}</h3>
-                    <p className="mt-1 text-sm" style={{ color: THEME.mut }}>{a.tagline}</p>
+                    <p className="mt-1 text-base" style={{ color: THEME.mut }}>{a.tagline}</p>
                   </div>
                 ))}
               </div>
@@ -280,7 +280,7 @@ export default function FarmAnimal() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.green }}>solo games</Link>,{' '}
             <Link to="/aura" className="font-bold underline" style={{ color: THEME.green }}>Daily Aura</Link>, or{' '}
             <Link to="/all-games" className="font-bold underline" style={{ color: THEME.green }}>the full game hub</Link>.

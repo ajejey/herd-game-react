@@ -39,8 +39,8 @@ export default function PhaseBanner({ phase, isJudge }) {
         <Icon size={36} />
       </div>
       <div className="min-w-0">
-        <p style={fredokaStyle} className="text-[#2D1810] font-bold text-sm md:text-base leading-tight">{title}</p>
-        <p className="text-[#6B4226] text-xs md:text-sm leading-snug">{sub}</p>
+        <p style={fredokaStyle} className="text-[#2D1810] font-bold text-base md:text-base leading-tight">{title}</p>
+        <p className="text-[#6B4226] text-sm md:text-base leading-snug">{sub}</p>
       </div>
     </div>
   );

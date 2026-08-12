@@ -15,15 +15,15 @@ export default function RevealPhase({ game }) {
   return (
     <div className="max-w-lg mx-auto">
       <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-4 mb-4 text-center">
-        <p className="text-xs uppercase tracking-widest text-[#8B6347] mb-1">Round {currentRound} of {totalRounds}</p>
+        <p className="text-sm uppercase tracking-widest text-[#8B6347] mb-1">Round {currentRound} of {totalRounds}</p>
         <p style={fredokaStyle} className="text-base md:text-lg text-[#2D1810] font-bold">{round.question}</p>
       </div>
 
       {/* Big reveal */}
       <div className="text-center mb-4">
-        <p className="text-sm text-[#8B6347]">The actual answer is…</p>
+        <p className="text-base text-[#8B6347]">The actual answer is…</p>
         <p style={fredokaStyle} className="text-4xl md:text-5xl text-[#E84A8B] font-bold my-2">{round.actualAnswer}</p>
-        <p className="text-sm text-[#4A2D1B]">
+        <p className="text-base text-[#4A2D1B]">
           Closest without going over: <strong>{winningSlot?.number ?? '—'}</strong>
           {winningAuthors.length > 0 && (
             <> by <strong>{winningAuthors.map(a => a.username).join(', ')}</strong></>
@@ -45,7 +45,7 @@ export default function RevealPhase({ game }) {
         {state.players.map(p => {
           const delta = round.scores?.[p.id] ?? 0;
           return (
-            <div key={p.id} className="flex justify-between text-sm py-1">
+            <div key={p.id} className="flex justify-between text-base py-1">
               <span className={`font-semibold ${p.id === myId ? 'text-[#E84A8B]' : 'text-[#2D1810]'}`}>
                 {p.username} {p.id === myId ? '(you)' : ''}
               </span>
@@ -79,7 +79,7 @@ export default function RevealPhase({ game }) {
           Next round →
         </button>
       ) : (
-        <p className="text-center text-[#8B6347] text-sm py-2">Waiting for host to start the next round…</p>
+        <p className="text-center text-[#8B6347] text-base py-2">Waiting for host to start the next round…</p>
       )}
     </div>
   );

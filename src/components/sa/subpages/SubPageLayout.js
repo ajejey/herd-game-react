@@ -64,7 +64,7 @@ export default function SubPageLayout({ slug, title, description, h1, keywords, 
 
       <div className="max-w-3xl mx-auto">
         {/* Breadcrumb */}
-        <nav className="text-sm text-[#8B6347] mb-4 flex items-center gap-2 flex-wrap" aria-label="Breadcrumb">
+        <nav className="text-base text-[#8B6347] mb-4 flex items-center gap-2 flex-wrap" aria-label="Breadcrumb">
           <Link to="/" className="hover:text-[#2D1810]">Home</Link>
           <span>›</span>
           <Link to="/say-anything" className="hover:text-[#2D1810]">Say Anything</Link>
@@ -165,7 +165,7 @@ function RelatedGuides({ currentSlug }) {
               className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#FFE8C8] text-[#2D1810] font-semibold transition-colors"
             >
               <span className="text-xl">{g.emoji}</span>
-              <span className="text-sm md:text-base">{g.title}</span>
+              <span className="text-base md:text-base">{g.title}</span>
             </Link>
           </li>
         ))}

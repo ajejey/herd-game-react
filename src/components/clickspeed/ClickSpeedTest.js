@@ -121,7 +121,7 @@ export default function ClickSpeedTest() {
               )}
             </button>
 
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               Most people manage 5 to 7 per second
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.orange }}>{g.best}</strong></>}
             </p>
@@ -130,7 +130,7 @@ export default function ClickSpeedTest() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">Your speed</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">Your speed</p>
             <p data-testid="cps-value" style={{ ...FREDOKA, color: THEME.orange }} className="my-1 text-7xl font-bold md:text-8xl">{g.cps}</p>
             <p data-testid="cps-result" style={QUICKSAND} className="text-lg">clicks per second</p>
             <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2">
@@ -201,7 +201,7 @@ export default function ClickSpeedTest() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/reaction-time-test" className="font-bold underline" style={{ color: THEME.orange }}>Reaction Time Test</Link>,{' '}
             <Link to="/typing-test" className="font-bold underline" style={{ color: THEME.orange }}>Typing Speed Test</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.orange }}>all solo games</Link>.

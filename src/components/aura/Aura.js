@@ -93,7 +93,7 @@ export default function Aura() {
 
       {/* slim top bar back to the hub */}
       <div className="relative z-10 px-5 pt-5">
-        <Link to="/" style={soft} className="text-sm font-semibold text-[#7A6E8C] hover:text-[#4A3FB0]">← Herd Games</Link>
+        <Link to="/" style={soft} className="text-base font-semibold text-[#7A6E8C] hover:text-[#4A3FB0]">← Herd Games</Link>
       </div>
 
       <div className="relative z-10 container mx-auto px-4 pt-6 pb-16 max-w-lg">
@@ -146,7 +146,7 @@ function AuraGame({ day, isArchive }) {
     return (
       <div className="text-center pt-6">
         <AuraBlob from="#EAD9FF" to="#B6D9F5" size={160} className="mb-6 opacity-80" />
-        <p className="text-xs font-semibold text-[#9A93A8] uppercase tracking-widest">Question {idx + 1} of {total}</p>
+        <p className="text-sm font-semibold text-[#9A93A8] uppercase tracking-widest">Question {idx + 1} of {total}</p>
         <AnimatePresence mode="wait">
           <motion.div key={idx}
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }}
@@ -179,7 +179,7 @@ function Intro({ day, isArchive, streak, onStart }) {
       <AuraBlob from="#FBD3E9" to="#C9AEFF" size={220} className="mb-6" />
       <h1 style={soft} className="text-4xl md:text-5xl font-bold text-[#3A3350]">Daily Aura</h1>
       <p className="text-[#6B6478] text-lg mt-2">Answer a few vibe questions. Reveal your aura color of the day.</p>
-      <div className="flex items-center justify-center gap-3 mt-4 text-sm text-[#9A93A8]">
+      <div className="flex items-center justify-center gap-3 mt-4 text-base text-[#9A93A8]">
         <span>Aura #{day}{isArchive ? ' (archive)' : ''}</span>
         {streak > 0 && <span className="inline-flex items-center gap-1 font-semibold text-[#C77DAE]"><FaFire /> {streak}-day streak</span>}
       </div>
@@ -211,19 +211,19 @@ function Reveal({ day, isArchive, colorId, streak, alreadyPlayed }) {
         <AuraBlob from={c.from} to={c.to} size={260} className="mb-5" />
       </motion.div>
 
-      <p className="text-[#9A93A8] text-sm">{alreadyPlayed ? 'Your aura today' : 'Today you are…'}</p>
+      <p className="text-[#9A93A8] text-base">{alreadyPlayed ? 'Your aura today' : 'Today you are…'}</p>
       <h1 style={{ ...soft, color: c.ink }} className="text-5xl md:text-6xl font-bold leading-tight">{c.name}</h1>
       <div className="mt-3 flex flex-wrap justify-center gap-2">
         {c.traits.map((t) => (
           <span key={t} style={{ color: c.ink, borderColor: c.to }}
-            className="px-3 py-1 rounded-full bg-white/70 border text-sm font-semibold capitalize">{t}</span>
+            className="px-3 py-1 rounded-full bg-white/70 border text-base font-semibold capitalize">{t}</span>
         ))}
       </div>
       <p className="text-[#5C5470] mt-4 max-w-sm mx-auto text-lg">{c.line}</p>
 
       {history.length > 1 && (
         <div className="mt-6">
-          <p className="text-xs text-[#9A93A8] mb-1">Your recent auras</p>
+          <p className="text-sm text-[#9A93A8] mb-1">Your recent auras</p>
           <div className="flex justify-center items-center gap-1.5">
             {history.slice(-7).map((e) => {
               const h = AURA_COLORS[e.colorId];
@@ -255,7 +255,7 @@ function Reveal({ day, isArchive, colorId, streak, alreadyPlayed }) {
 
       <div className="mt-8 pt-6 border-t border-[#EADFF5]">
         <h2 style={soft} className="text-xl font-bold text-[#3A3350] mb-3">More daily games</h2>
-        <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
+        <div className="flex flex-wrap justify-center gap-3 text-base font-semibold">
           <Link to="/daily" className="underline text-[#7A4FB5] hover:text-[#5C3A92]">Daily Herd</Link>
           <Link to="/trivia" className="underline text-[#7A4FB5] hover:text-[#5C3A92]">Daily Trivia</Link>
           <Link to="/connections" className="underline text-[#7A4FB5] hover:text-[#5C3A92]">Huddle</Link>

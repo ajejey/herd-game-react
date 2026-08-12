@@ -42,7 +42,7 @@ export default function BettingPhase({ game }) {
         {isHost && bettedCount > 0 && (
           <button
             onClick={() => sendAction('force_reveal')}
-            className="mt-6 px-5 py-2 rounded-xl border-2 border-[#8B6347] text-[#8B6347] text-sm font-semibold hover:bg-[#FFF5E8]"
+            className="mt-6 px-5 py-2 rounded-xl border-2 border-[#8B6347] text-[#8B6347] text-base font-semibold hover:bg-[#FFF5E8]"
           >
             Reveal now →
           </button>
@@ -58,7 +58,7 @@ export default function BettingPhase({ game }) {
     <div className="max-w-lg mx-auto">
       {/* Question card */}
       <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-4 md:p-5 mb-4 text-center">
-        <p className="text-xs text-[#8B6347] uppercase tracking-widest mb-1">The question</p>
+        <p className="text-sm text-[#8B6347] uppercase tracking-widest mb-1">The question</p>
         <p style={fredokaStyle} className="text-lg md:text-xl text-[#2D1810] font-bold">{round.question}</p>
       </div>
 
@@ -67,7 +67,7 @@ export default function BettingPhase({ game }) {
 
       {/* Directional cue — the real CTA is below */}
       {!allTokensPlaced && (
-        <p className="text-center text-sm font-bold text-[#E84A8B] mb-2 flex items-center justify-center gap-1.5 animate-[arrowBob_1.2s_ease-in-out_infinite]">
+        <p className="text-center text-base font-bold text-[#E84A8B] mb-2 flex items-center justify-center gap-1.5 animate-[arrowBob_1.2s_ease-in-out_infinite]">
           <span style={fredokaStyle}>Tap an answer to place a token</span>
           <span className="text-lg">↓</span>
         </p>
@@ -94,7 +94,7 @@ export default function BettingPhase({ game }) {
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold break-words">{a.text}</p>
-                  <p className={`text-xs mt-1 ${count > 0 ? 'text-pink-100' : 'text-[#8B6347]'}`}>by {a.username}</p>
+                  <p className={`text-sm mt-1 ${count > 0 ? 'text-pink-100' : 'text-[#8B6347]'}`}>by {a.username}</p>
                 </div>
                 {count > 0 && (
                   <div className="flex gap-1 shrink-0">
@@ -113,7 +113,7 @@ export default function BettingPhase({ game }) {
       {allTokensPlaced && (
         <div className="mt-5 px-4 py-3 bg-[#F0FFF4] border-2 border-[#3D8B5A] rounded-xl flex items-center justify-center gap-2">
           <ClockIcon size={20} />
-          <p className="text-[#2F6E45] font-semibold text-sm">
+          <p className="text-[#2F6E45] font-semibold text-base">
             Bets locked in — waiting for {Math.max(0, eligibleCount - bettedCount)} more…
           </p>
         </div>

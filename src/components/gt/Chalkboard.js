@@ -30,11 +30,11 @@ export default function Chalkboard({ board, selectedIndices = [], onSelect, winn
       >
         {/* Header row */}
         <div className="flex items-center justify-between mb-2 pb-2 border-b-2 border-dashed border-white/30">
-          <span style={fredokaStyle} className="text-white/90 text-xs md:text-sm tracking-wider uppercase font-bold">
+          <span style={fredokaStyle} className="text-white/90 text-sm md:text-base tracking-wider uppercase font-bold">
             The Board
           </span>
           {actualAnswer != null && (
-            <span style={fredokaStyle} className="text-[#FFD56B] text-xs md:text-sm font-bold">
+            <span style={fredokaStyle} className="text-[#FFD56B] text-sm md:text-base font-bold">
               Actual: {actualAnswer}
             </span>
           )}
@@ -65,7 +65,7 @@ export default function Chalkboard({ board, selectedIndices = [], onSelect, winn
               >
                 {/* Left: position + payout */}
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
+                  <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold ${
                     isWinning ? 'bg-[#FBC02D] text-white' : 'bg-white/20 text-white/90'
                   }`}>
                     {slot.payout}×
@@ -76,7 +76,7 @@ export default function Chalkboard({ board, selectedIndices = [], onSelect, winn
                   <span style={fredokaStyle} className={`block text-base md:text-lg font-bold ${isWinning ? 'text-[#2D1810]' : myCount > 0 ? 'text-white' : 'text-white'}`}>
                     {slot.number}
                   </span>
-                  <span className={`block text-[10px] md:text-xs truncate ${isWinning ? 'text-[#8B6347]' : 'text-white/70'}`}>
+                  <span className={`block text-[12px] md:text-sm truncate ${isWinning ? 'text-[#8B6347]' : 'text-white/70'}`}>
                     {slot.authors.map(a => a.username).join(', ')}
                   </span>
                 </div>

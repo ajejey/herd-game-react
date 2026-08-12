@@ -23,7 +23,7 @@ export default function BetTokenTracker({ placedAnswers = [] }) {
     <div className="bg-[#FFFBE8] border-2 border-[#FFE8C8] rounded-2xl px-4 py-3 mb-2">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <span style={fredokaStyle} className="text-sm font-bold text-[#2D1810] shrink-0">
+          <span style={fredokaStyle} className="text-base font-bold text-[#2D1810] shrink-0">
             Your tokens:
           </span>
           {/* Two small horizontal chips */}
@@ -33,7 +33,7 @@ export default function BetTokenTracker({ placedAnswers = [] }) {
               return placed ? (
                 <div key={i} className="flex items-center gap-1 bg-white rounded-full pl-0.5 pr-2 py-0.5 border-2 border-[#FBC02D]">
                   <TokenIcon size={22} />
-                  <span className="text-xs font-bold text-[#2D1810] truncate max-w-[80px]">{placed.authorName}</span>
+                  <span className="text-sm font-bold text-[#2D1810] truncate max-w-[80px]">{placed.authorName}</span>
                 </div>
               ) : (
                 <TokenSlotIcon key={i} size={26} />
@@ -41,27 +41,27 @@ export default function BetTokenTracker({ placedAnswers = [] }) {
             })}
           </div>
         </div>
-        <span className="text-xs font-bold text-[#8B6347] shrink-0">
+        <span className="text-sm font-bold text-[#8B6347] shrink-0">
           {placedAnswers.length}/2
         </span>
       </div>
 
       {/* Status sub-line */}
       {!allPlaced && (
-        <p className="text-xs text-[#8B6347] mt-1.5">
+        <p className="text-sm text-[#8B6347] mt-1.5">
           {placedAnswers.length === 0
             ? 'Tap any answer below to place a token. Both on one = double-down.'
             : 'One token left — tap any answer to place it.'}
         </p>
       )}
       {isDoubledDown && (
-        <div className="mt-1.5 flex items-center gap-1.5 text-[#D84315] font-bold text-xs">
+        <div className="mt-1.5 flex items-center gap-1.5 text-[#D84315] font-bold text-sm">
           <FireIcon size={16} />
           <span style={fredokaStyle}>Doubled-down on {placedAnswers[0].authorName} — bold!</span>
         </div>
       )}
       {isHedged && (
-        <div className="mt-1.5 flex items-center gap-1.5 text-[#2D6FA0] font-bold text-xs">
+        <div className="mt-1.5 flex items-center gap-1.5 text-[#2D6FA0] font-bold text-sm">
           <ShieldIcon size={16} />
           <span style={fredokaStyle}>Hedged across two — playing it safe.</span>
         </div>

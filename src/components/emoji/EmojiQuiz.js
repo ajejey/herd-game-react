@@ -100,7 +100,7 @@ export default function EmojiQuiz() {
             >
               Start the quiz
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               {ROUNDS} rounds · {PUZZLES.length} puzzles in the deck
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.purple }}>{g.best}/{ROUNDS}</strong></>}
             </p>
@@ -110,17 +110,17 @@ export default function EmojiQuiz() {
         {playing && g.current && (
           <div>
             <div className="mb-5 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Round {g.round + 1} of {g.roundsTotal}
               </span>
-              <span className="text-sm font-bold" style={{ color: THEME.purple }}>{g.score} correct</span>
+              <span className="text-base font-bold" style={{ color: THEME.purple }}>{g.score} correct</span>
             </div>
 
             <div
               className="rounded-3xl border-2 p-6 text-center"
               style={{ background: THEME.bgAlt, borderColor: THEME.border }}
             >
-              <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">
                 Which film is this?
               </p>
               <p className="my-5 text-6xl leading-tight md:text-7xl" aria-label={`Emoji clue: ${g.current.emoji}`}>
@@ -170,7 +170,7 @@ export default function EmojiQuiz() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You scored</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You scored</p>
             <p style={{ ...FREDOKA, color: THEME.purple }} className="my-1 text-7xl font-bold md:text-8xl">
               {g.score}<span className="text-4xl">/{g.roundsTotal}</span>
             </p>
@@ -194,7 +194,7 @@ export default function EmojiQuiz() {
                   style={{ background: THEME.bgAlt, borderColor: THEME.border }}
                 >
                   <span className="text-xl" aria-hidden="true">{r.emoji}</span>
-                  <span style={QUICKSAND} className="min-w-0 flex-1 truncate text-sm font-bold">{r.answer}</span>
+                  <span style={QUICKSAND} className="min-w-0 flex-1 truncate text-base font-bold">{r.answer}</span>
                   <span aria-hidden="true" style={{ color: r.correct ? THEME.green : THEME.red }} className="font-bold">
                     {r.correct ? '✓' : '✗'}
                   </span>
@@ -254,7 +254,7 @@ export default function EmojiQuiz() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/guess-the-year" className="font-bold underline" style={{ color: THEME.purple }}>Guess the Year</Link>,{' '}
             <Link to="/odd-one-out" className="font-bold underline" style={{ color: THEME.purple }}>Odd One Out</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.purple }}>all solo games</Link>.

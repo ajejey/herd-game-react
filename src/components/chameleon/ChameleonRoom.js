@@ -22,7 +22,7 @@ function Grid({ words, secretIndex, guessIndex, clickable, onPick }) {
           <button key={i} disabled={!clickable} onClick={() => clickable && onPick(i)}
             style={style}
             className={`aspect-[5/4] rounded-xl border-2 px-1 flex items-center justify-center text-center leading-tight ${clickable ? 'hover:brightness-95 cursor-pointer' : 'cursor-default'}`}>
-            <span className="text-[10px] sm:text-xs md:text-sm font-semibold break-words">{w}</span>
+            <span className="text-[12px] sm:text-sm md:text-base font-semibold break-words">{w}</span>
           </button>
         );
       })}
@@ -73,8 +73,8 @@ export default function ChameleonRoom() {
         <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-6 text-center">
           <h1 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-1">Join Chameleon</h1>
           <p className="text-[#4A2D1B] mb-4">Room <span className="font-mono font-bold">{codeParam}</span></p>
-          {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
-          {roomNotFound && <p className="text-[#8B6347] text-sm mb-2">That room wasn’t found — check the code.</p>}
+          {error && <p className="text-red-600 text-base mb-2">{error}</p>}
+          {roomNotFound && <p className="text-[#8B6347] text-base mb-2">That room wasn’t found — check the code.</p>}
           <form onSubmit={(e) => { e.preventDefault(); if (name.trim()) joinGame(codeParam, name); }} className="space-y-3">
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" maxLength={20}
               className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -101,19 +101,19 @@ export default function ChameleonRoom() {
             playerCount={connectedCount} minPlayers={3} />
 
           <div className="mt-5 text-left">
-            <p className="text-sm font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
+            <p className="text-base font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
             <div className="flex flex-wrap gap-2">
               {players.map((p) => (
-                <span key={p.id} className={`px-3 py-1 rounded-full text-sm font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
+                <span key={p.id} className={`px-3 py-1 rounded-full text-base font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
               ))}
             </div>
           </div>
-          {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
+          {error && <p className="text-red-600 text-base mt-3">{error}</p>}
           {isHost ? (
             <button onClick={startGame} disabled={connectedCount < 3} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
               className="mt-4 w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-40">Start game 🦎</button>
           ) : <p className="text-[#4A2D1B] mt-4">Waiting for the host to start…</p>}
-          <button onClick={leaveGame} className="mt-3 text-sm text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
+          <button onClick={leaveGame} className="mt-3 text-base text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
         </div>
       </MeadowLayout>
     );
@@ -133,7 +133,7 @@ export default function ChameleonRoom() {
     <MeadowLayout maxWidth="max-w-xl">
       {iWon && <Confetti width={win.w} height={win.h} numberOfPieces={180} recycle={false} gravity={0.25} />}
       <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 md:p-7">
-        <div className="flex justify-between items-center text-sm text-[#8B6347] mb-3">
+        <div className="flex justify-between items-center text-base text-[#8B6347] mb-3">
           <span>Round {round?.number} / {state.totalRounds}</span>
           <span className="font-semibold uppercase tracking-wide">{round?.category}</span>
         </div>
@@ -166,7 +166,7 @@ export default function ChameleonRoom() {
                 <button type="submit" style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }} className="px-5 rounded-xl text-white font-bold">Send</button>
               </form>
             )}
-            {isHost && <button onClick={() => sendAction('force_voting')} className="mt-3 text-sm text-[#8B6347] underline">Skip to voting →</button>}
+            {isHost && <button onClick={() => sendAction('force_voting')} className="mt-3 text-base text-[#8B6347] underline">Skip to voting →</button>}
           </div>
         )}
 
@@ -177,10 +177,10 @@ export default function ChameleonRoom() {
             <h3 style={fredokaStyle} className="text-center text-lg font-bold text-[#2D1810] mb-2">The clues</h3>
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               {round.clues.map((c) => (
-                <span key={c.playerId} className="px-3 py-1.5 rounded-full bg-[#FFF1DC] text-[#2D1810] text-sm"><strong>{c.username}:</strong> {c.word}</span>
+                <span key={c.playerId} className="px-3 py-1.5 rounded-full bg-[#FFF1DC] text-[#2D1810] text-base"><strong>{c.username}:</strong> {c.word}</span>
               ))}
             </div>
-            <p className="text-center text-sm font-semibold text-[#8B6347] mb-2">Who is the Chameleon? {myVote ? '(voted)' : `(${round.voteCount}/${connectedCount} voted)`}</p>
+            <p className="text-center text-base font-semibold text-[#8B6347] mb-2">Who is the Chameleon? {myVote ? '(voted)' : `(${round.voteCount}/${connectedCount} voted)`}</p>
             <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto">
               {players.filter((p) => p.id !== myId).map((p) => (
                 <button key={p.id} disabled={!!myVote} onClick={() => sendAction('submit_vote', { suspectId: p.id })}
@@ -188,7 +188,7 @@ export default function ChameleonRoom() {
                   className="px-3 py-2 rounded-xl border-2 border-[#FFE8C8] font-semibold disabled:opacity-70">{p.username}</button>
               ))}
             </div>
-            {isHost && <div className="text-center"><button onClick={() => sendAction('force_votes')} className="mt-3 text-sm text-[#8B6347] underline">Tally votes now →</button></div>}
+            {isHost && <div className="text-center"><button onClick={() => sendAction('force_votes')} className="mt-3 text-base text-[#8B6347] underline">Tally votes now →</button></div>}
           </div>
         )}
 
@@ -227,7 +227,7 @@ export default function ChameleonRoom() {
         )}
       </div>
 
-      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-sm hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
+      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-base hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
     </MeadowLayout>
   );
 }

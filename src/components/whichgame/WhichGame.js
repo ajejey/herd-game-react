@@ -76,7 +76,7 @@ export default function WhichGame() {
               </p>
             </div>
 
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-6 text-center text-sm font-bold uppercase tracking-widest">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-6 text-center text-base font-bold uppercase tracking-widest">
               Question {step + 1} of {QUESTIONS.length}
             </p>
 
@@ -109,14 +109,14 @@ export default function WhichGame() {
 
         {done && top && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-center text-sm uppercase tracking-widest">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-center text-base uppercase tracking-widest">
               You should play
             </p>
             <h1 data-testid="wg-result" style={{ ...FREDOKA, color: top.accent }} className="mt-1 text-center text-4xl font-bold md:text-5xl">
               {top.name}
             </h1>
             <p style={QUICKSAND} className="mx-auto mt-3 max-w-sm text-center text-lg">{top.blurb}</p>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2 text-center text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2 text-center text-base">
               {top.players} player{top.players === '1' ? '' : 's'} · about {top.minutes} min
             </p>
 
@@ -131,7 +131,7 @@ export default function WhichGame() {
 
             {rest.length > 0 && (
               <div className="mt-8">
-                <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-center text-sm font-bold uppercase tracking-widest">
+                <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-center text-base font-bold uppercase tracking-widest">
                   Also a good fit
                 </p>
                 <div className="mt-3 grid gap-2">
@@ -186,7 +186,7 @@ export default function WhichGame() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             Or just browse: <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.gold }}>games to play alone</Link>,{' '}
             <Link to="/all-games" className="font-bold underline" style={{ color: THEME.gold }}>every game in the hub</Link>, or{' '}
             <Link to="/office-games" className="font-bold underline" style={{ color: THEME.gold }}>games for work</Link>.

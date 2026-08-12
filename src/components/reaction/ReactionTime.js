@@ -103,7 +103,7 @@ export default function ReactionTime() {
             >
               Start the test
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               {ROUNDS} rounds · about 30 seconds
               {g.best > 0 && <> · your best average: <strong style={{ color: THEME.go }}>{g.best}ms</strong></>}
             </p>
@@ -113,11 +113,11 @@ export default function ReactionTime() {
         {active && (
           <div>
             <div className="mb-4 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Round {Math.min(g.round + 1, g.roundsTotal)} of {g.roundsTotal}
               </span>
               {g.average > 0 && (
-                <span className="text-sm font-bold" style={{ color: THEME.go }}>avg {g.average}ms</span>
+                <span className="text-base font-bold" style={{ color: THEME.go }}>avg {g.average}ms</span>
               )}
             </div>
 
@@ -133,7 +133,7 @@ export default function ReactionTime() {
             >
               {g.status === 'result' ? (
                 <>
-                  <span style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">
+                  <span style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">
                     That one took
                   </span>
                   <span style={{ ...FREDOKA, color: THEME.go }} className="text-6xl font-bold md:text-7xl">
@@ -158,7 +158,7 @@ export default function ReactionTime() {
             </button>
 
             {g.times.length > 0 && (
-              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-center text-sm">
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-center text-base">
                 {g.times.map((t) => `${t}ms`).join(' · ')}
               </p>
             )}
@@ -167,7 +167,7 @@ export default function ReactionTime() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">
               Your average
             </p>
             <p style={{ ...FREDOKA, color: THEME.go }} className="my-1 text-7xl font-bold md:text-8xl">
@@ -188,7 +188,7 @@ export default function ReactionTime() {
               <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2">Your best average is {g.best}ms.</p>
             )}
 
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               {g.times.map((t) => `${t}ms`).join(' · ')}
             </p>
 
@@ -247,7 +247,7 @@ export default function ReactionTime() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/memory-game" className="font-bold underline" style={{ color: THEME.go }}>Herd Memory</Link>,{' '}
             <Link to="/odd-one-out" className="font-bold underline" style={{ color: THEME.go }}>Odd One Out</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.go }}>all solo games</Link>.

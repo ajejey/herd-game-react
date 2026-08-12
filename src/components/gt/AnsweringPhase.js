@@ -24,17 +24,17 @@ export default function AnsweringPhase({ game }) {
     <div className="max-w-lg mx-auto">
       {/* Question card */}
       <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-5 mb-4 text-center">
-        <p className="text-xs uppercase tracking-widest text-[#8B6347] mb-2">Round {state.currentRound} of {state.totalRounds}</p>
+        <p className="text-sm uppercase tracking-widest text-[#8B6347] mb-2">Round {state.currentRound} of {state.totalRounds}</p>
         <p style={fredokaStyle} className="text-xl md:text-2xl text-[#2D1810] font-bold">{round.question}</p>
       </div>
 
       {myAnswer ? (
         <div className="text-center py-4">
           <div className="inline-block bg-[#F0FFF4] border-2 border-[#3D8B5A] rounded-2xl px-6 py-4 mb-3">
-            <p className="text-[#2D1810] font-semibold text-sm">Your guess:</p>
+            <p className="text-[#2D1810] font-semibold text-base">Your guess:</p>
             <p style={fredokaStyle} className="text-3xl text-[#3D8B5A] font-bold">{myAnswer.number}</p>
           </div>
-          <p className="text-[#8B6347] text-sm flex items-center justify-center gap-2">
+          <p className="text-[#8B6347] text-base flex items-center justify-center gap-2">
             <ClockIcon size={18} />
             {answeredCount} of {eligibleCount} answered — waiting for others…
           </p>
@@ -47,7 +47,7 @@ export default function AnsweringPhase({ game }) {
           {isHost && answeredCount > 0 && answeredCount < eligibleCount && (
             <button
               onClick={() => sendAction('force_betting')}
-              className="mt-4 px-5 py-2 rounded-xl border-2 border-[#8B6347] text-[#8B6347] text-sm font-semibold hover:bg-[#FFF5E8]"
+              className="mt-4 px-5 py-2 rounded-xl border-2 border-[#8B6347] text-[#8B6347] text-base font-semibold hover:bg-[#FFF5E8]"
             >
               Skip slow players →
             </button>
@@ -77,7 +77,7 @@ export default function AnsweringPhase({ game }) {
           >
             Lock in my guess
           </button>
-          <p className="text-center text-xs text-[#8B6347]">
+          <p className="text-center text-sm text-[#8B6347]">
             Closest WITHOUT going over wins. Wild guesses welcome.
           </p>
         </form>
@@ -87,7 +87,7 @@ export default function AnsweringPhase({ game }) {
         <div className="mt-6 flex justify-center">
           <button
             onClick={() => sendAction('cancel_round')}
-            className="px-4 py-1.5 rounded-lg border-2 border-red-300 text-red-500 text-xs font-semibold hover:bg-red-50"
+            className="px-4 py-1.5 rounded-lg border-2 border-red-300 text-red-500 text-sm font-semibold hover:bg-red-50"
           >
             Cancel round
           </button>

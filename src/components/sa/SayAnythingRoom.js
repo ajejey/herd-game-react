@@ -61,7 +61,7 @@ export default function SayAnythingRoom() {
         <div className="text-center py-20">
           <div className="text-5xl mb-4 animate-spin">⟳</div>
           <p style={fredokaStyle} className="text-2xl text-[#2D1810]">Reconnecting…</p>
-          <p className="text-[#8B6347] mt-2 text-sm">Your spot is saved. Hang tight.</p>
+          <p className="text-[#8B6347] mt-2 text-base">Your spot is saved. Hang tight.</p>
         </div>
       </MeadowLayout>
     );
@@ -103,7 +103,7 @@ export default function SayAnythingRoom() {
   return (
     <MeadowLayout>
       {/* Top bar */}
-      <div className="flex items-center justify-between mb-4 text-sm text-[#8B6347]">
+      <div className="flex items-center justify-between mb-4 text-base text-[#8B6347]">
         <span style={fredokaStyle} className="text-lg font-bold text-[#2D1810]">Say Anything</span>
         <div className="flex items-center gap-2">
           <button
@@ -124,7 +124,7 @@ export default function SayAnythingRoom() {
         {[...state.players].sort((a, b) => b.score - a.score).map(p => (
           <div
             key={p.id}
-            className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold border-2 ${
+            className={`flex items-center gap-1 px-3 py-1 rounded-full text-base font-semibold border-2 ${
               p.id === myId ? 'bg-[#E84A8B] text-white border-[#C73B73]' : 'bg-white text-[#2D1810] border-[#FFE8C8]'
             } ${!p.connected ? 'opacity-40' : ''}`}
           >
@@ -136,7 +136,7 @@ export default function SayAnythingRoom() {
       </div>
 
       {/* Round indicator */}
-      <p className="text-xs text-[#8B6347] mb-3">Round {state.currentRound}</p>
+      <p className="text-sm text-[#8B6347] mb-3">Round {state.currentRound}</p>
 
       {/* Phase banner — fun context for each phase */}
       <PhaseBanner phase={phase} isJudge={game.isJudge} />
@@ -146,7 +146,7 @@ export default function SayAnythingRoom() {
 
       {/* Transient error toast */}
       {error && !kicked && (
-        <div className="mb-4 px-4 py-2 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+        <div className="mb-4 px-4 py-2 bg-red-50 border border-red-200 rounded-xl text-red-700 text-base">
           {error}
         </div>
       )}
@@ -168,18 +168,18 @@ function JudgeDisconnectBanner({ game }) {
 
   return (
     <div className="mb-4 px-4 py-3 bg-amber-50 border-2 border-amber-300 rounded-xl flex items-center justify-between gap-3 flex-wrap">
-      <div className="text-sm text-amber-900">
+      <div className="text-base text-amber-900">
         <span className="font-bold">⚠️ {judge.username}</span> (the judge) disconnected.
       </div>
       {isHost ? (
         <button
           onClick={() => sendAction('cancel_round')}
-          className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold"
+          className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-base font-bold"
         >
           Skip round →
         </button>
       ) : (
-        <span className="text-xs text-amber-700">Host can skip the round.</span>
+        <span className="text-sm text-amber-700">Host can skip the round.</span>
       )}
     </div>
   );
@@ -198,7 +198,7 @@ function QuickJoin({ roomCode, joinGame, error }) {
       <div className="max-w-sm mx-auto">
         <h2 style={fredokaStyle} className="text-3xl font-bold text-[#2D1810] mb-2 text-center">Join game</h2>
         <p className="text-center text-[#8B6347] mb-6">Room <span className="font-mono font-bold">{roomCode}</span></p>
-        {error && <p className="text-red-600 text-sm mb-4 text-center">{error}</p>}
+        {error && <p className="text-red-600 text-base mb-4 text-center">{error}</p>}
         <form onSubmit={handle} className="space-y-4">
           <input
             type="text"

@@ -61,7 +61,7 @@ const Blog = () => {
                   style={{ background: t.bg, transform: `rotate(${t.rotate})` }}
                 >
                   <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-2">{post.title}</h2>
-                  <p className="text-xs text-[#A89A78] mb-3">{post.date}</p>
+                  <p className="text-sm text-[#A89A78] mb-3">{post.date}</p>
                   <p className="text-[#4A2D1B] mb-4">{post.excerpt}</p>
                   <span className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold">Read more &rarr;</span>
                 </div>

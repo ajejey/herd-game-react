@@ -24,7 +24,7 @@ export default function DailyChecklist({ exclude, className = '' }) {
           Today’s daily games · {doneCount}/{DAILY_GAMES.length}
         </h3>
         {streak >= 1 && (
-          <span className="inline-flex items-center gap-1 text-[#E84A8B] font-bold text-sm">
+          <span className="inline-flex items-center gap-1 text-[#E84A8B] font-bold text-base">
             <FaFire /> {streak}-day streak
           </span>
         )}
@@ -44,11 +44,11 @@ export default function DailyChecklist({ exclude, className = '' }) {
                 }`}
               >
                 <span className="text-xl" aria-hidden="true">{g.emoji}</span>
-                <span style={fredokaStyle} className="text-sm font-bold text-[#2D1810] flex-1 text-left">{g.label}</span>
+                <span style={fredokaStyle} className="text-base font-bold text-[#2D1810] flex-1 text-left">{g.label}</span>
                 {done ? (
-                  <span className="inline-flex items-center gap-1 text-[#3D8B5A] text-xs font-bold"><FiCheck /> Done</span>
+                  <span className="inline-flex items-center gap-1 text-[#3D8B5A] text-sm font-bold"><FiCheck /> Done</span>
                 ) : (
-                  <span className="text-[#E84A8B] text-xs font-bold">Play →</span>
+                  <span className="text-[#E84A8B] text-sm font-bold">Play →</span>
                 )}
               </Link>
             </li>
@@ -57,7 +57,7 @@ export default function DailyChecklist({ exclude, className = '' }) {
       </ul>
 
       {doneCount >= DAILY_GAMES.length && (
-        <p className="text-center text-[#3D8B5A] font-semibold text-sm mt-3">All done today — come back tomorrow! 🎉</p>
+        <p className="text-center text-[#3D8B5A] font-semibold text-base mt-3">All done today — come back tomorrow! 🎉</p>
       )}
     </div>
   );

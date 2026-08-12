@@ -11,7 +11,7 @@ const GREEN = '#3D8B5A';
 function Bar({ leftLabel, rightLabel, target, guesses = [], myValue, showMy }) {
   return (
     <div>
-      <div className="flex justify-between text-sm font-bold text-[#2D1810] mb-1">
+      <div className="flex justify-between text-base font-bold text-[#2D1810] mb-1">
         <span>{leftLabel}</span><span>{rightLabel}</span>
       </div>
       <div className="relative h-12 rounded-full overflow-visible"
@@ -23,7 +23,7 @@ function Bar({ leftLabel, rightLabel, target, guesses = [], myValue, showMy }) {
           <div className="absolute -top-2 -bottom-2 w-1 rounded-full bg-[#3D8B5A]" style={{ left: `${myValue}%`, transform: 'translateX(-50%)' }} />
         )}
         {guesses.map((g, i) => (
-          <div key={i} className="absolute -top-7 text-[10px] font-semibold text-[#2D1810] whitespace-nowrap"
+          <div key={i} className="absolute -top-7 text-[12px] font-semibold text-[#2D1810] whitespace-nowrap"
             style={{ left: `${g.value}%`, transform: 'translateX(-50%)' }}>
             <span className="bg-white/90 px-1 rounded">{g.username || ''}{g.points != null ? ` +${g.points}` : ''}</span>
             <div className="w-0.5 h-4 bg-[#2D1810] mx-auto" />
@@ -78,8 +78,8 @@ export default function SpectrumRoom() {
         <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-6 text-center">
           <h1 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-1">Join Spectrum</h1>
           <p className="text-[#4A2D1B] mb-4">Room <span className="font-mono font-bold">{codeParam}</span></p>
-          {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
-          {roomNotFound && <p className="text-[#8B6347] text-sm mb-2">That room wasn’t found — check the code.</p>}
+          {error && <p className="text-red-600 text-base mb-2">{error}</p>}
+          {roomNotFound && <p className="text-[#8B6347] text-base mb-2">That room wasn’t found — check the code.</p>}
           <form onSubmit={(e) => { e.preventDefault(); if (name.trim()) joinGame(codeParam, name); }} className="space-y-3">
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" maxLength={20}
               className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -105,19 +105,19 @@ export default function SpectrumRoom() {
             playerCount={connectedCount} minPlayers={3} />
 
           <div className="mt-5 text-left">
-            <p className="text-sm font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
+            <p className="text-base font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
             <div className="flex flex-wrap gap-2">
               {players.map((p) => (
-                <span key={p.id} className={`px-3 py-1 rounded-full text-sm font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
+                <span key={p.id} className={`px-3 py-1 rounded-full text-base font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
               ))}
             </div>
           </div>
-          {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
+          {error && <p className="text-red-600 text-base mt-3">{error}</p>}
           {isHost ? (
             <button onClick={startGame} disabled={connectedCount < 3} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
               className="mt-4 w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-40">Start game 🎯</button>
           ) : <p className="text-[#4A2D1B] mt-4">Waiting for the host to start…</p>}
-          <button onClick={leaveGame} className="mt-3 text-sm text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
+          <button onClick={leaveGame} className="mt-3 text-base text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
         </div>
       </MeadowLayout>
     );
@@ -135,7 +135,7 @@ export default function SpectrumRoom() {
     <MeadowLayout maxWidth="max-w-xl">
       {iWon && <Confetti width={win.w} height={win.h} numberOfPieces={180} recycle={false} gravity={0.25} />}
       <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 md:p-7">
-        <div className="flex justify-between items-center text-sm text-[#8B6347] mb-4">
+        <div className="flex justify-between items-center text-base text-[#8B6347] mb-4">
           <span>Round {round?.number} / {state.totalRounds}</span>
           <span className="font-semibold">{amGiver ? 'You give the clue' : `${giverName} gives the clue`}</span>
         </div>
@@ -161,7 +161,7 @@ export default function SpectrumRoom() {
 
         {phase === 'guessing' && (
           <div className="text-center">
-            <p className="text-[#8B6347] text-sm">The clue is</p>
+            <p className="text-[#8B6347] text-base">The clue is</p>
             <p style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-4">“{round.clue}”</p>
             {amGiver ? (
               <p className="text-[#4A2D1B]">Waiting for everyone to guess… ({round.guessCount}/{connectedCount - 1})</p>
@@ -174,7 +174,7 @@ export default function SpectrumRoom() {
                   className="mt-3 px-7 py-3 rounded-2xl text-white font-bold">Lock in my guess</button>
               </div>
             )}
-            {isHost && <div><button onClick={() => sendAction('force_reveal')} className="mt-3 text-sm text-[#8B6347] underline">Reveal now →</button></div>}
+            {isHost && <div><button onClick={() => sendAction('force_reveal')} className="mt-3 text-base text-[#8B6347] underline">Reveal now →</button></div>}
           </div>
         )}
 
@@ -196,7 +196,7 @@ export default function SpectrumRoom() {
         )}
       </div>
 
-      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-sm hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
+      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-base hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
     </MeadowLayout>
   );
 }

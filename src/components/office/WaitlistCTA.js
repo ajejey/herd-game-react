@@ -52,7 +52,7 @@ export default function WaitlistCTA({ source = 'office' }) {
           className="px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-white" />
         <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company (optional)"
           className="px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-white" />
-        <div className="flex items-center gap-3 text-sm text-[#4A2D1B] sm:col-span-2">
+        <div className="flex items-center gap-3 text-base text-[#4A2D1B] sm:col-span-2">
           <span className="font-semibold">We use:</span>
           {['teams', 'slack', 'other'].map((t) => (
             <label key={t} className="inline-flex items-center gap-1 cursor-pointer">
@@ -66,7 +66,7 @@ export default function WaitlistCTA({ source = 'office' }) {
           className="sm:col-span-2 py-3 rounded-xl text-white font-bold text-lg disabled:opacity-60">
           {status === 'sending' ? 'Joining…' : 'Join the waitlist →'}
         </button>
-        {status === 'error' && <p className="sm:col-span-2 text-sm text-red-600">Please enter a valid email and try again.</p>}
+        {status === 'error' && <p className="sm:col-span-2 text-base text-red-600">Please enter a valid email and try again.</p>}
       </form>
     </section>
   );

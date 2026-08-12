@@ -94,7 +94,7 @@ export default function GuessTheYear() {
             >
               Start playing
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               {ROUNDS} rounds · {FILMS.length} films in the deck
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.amberDeep }}>{g.best}</strong></>}
             </p>
@@ -105,17 +105,17 @@ export default function GuessTheYear() {
         {(g.status === 'guessing' || g.status === 'reveal') && g.film && (
           <div>
             <div className="mb-5 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Round {g.round + 1} of {g.roundsTotal}
               </span>
-              <span className="text-sm font-bold" style={{ color: THEME.amberDeep }}>{g.total} pts</span>
+              <span className="text-base font-bold" style={{ color: THEME.amberDeep }}>{g.total} pts</span>
             </div>
 
             <div
               className="rounded-3xl border-2 p-6 text-center"
               style={{ background: THEME.bgAlt, borderColor: THEME.border }}
             >
-              <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">
                 What year did this come out?
               </p>
               <h2 style={FREDOKA} className="mt-2 text-3xl font-bold leading-tight md:text-4xl">
@@ -158,7 +158,7 @@ export default function GuessTheYear() {
                         <FiPlus aria-hidden="true" />
                       </button>
                     </div>
-                    <div style={{ ...QUICKSAND, color: THEME.mut }} className="mt-1 flex justify-between text-xs font-bold">
+                    <div style={{ ...QUICKSAND, color: THEME.mut }} className="mt-1 flex justify-between text-sm font-bold">
                       <span>{g.minYear}</span><span>{g.maxYear}</span>
                     </div>
 
@@ -178,7 +178,7 @@ export default function GuessTheYear() {
                       const v = verdictFor(r.diff);
                       return (
                         <>
-                          <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-6 text-sm">It came out in</p>
+                          <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-6 text-base">It came out in</p>
                           <p style={{ ...FREDOKA, color: v.color }} className="text-6xl font-bold md:text-7xl">{r.actual}</p>
                           <p style={{ ...FREDOKA, color: v.color }} className="mt-2 text-2xl font-bold">{v.label}</p>
                           <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-1">
@@ -208,7 +208,7 @@ export default function GuessTheYear() {
         {/* ---------------- OVER ---------------- */}
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You scored</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You scored</p>
             <p style={{ ...FREDOKA, color: THEME.amberDeep }} className="my-1 text-7xl font-bold md:text-8xl">{g.total}</p>
             <p style={QUICKSAND} className="text-lg">out of {g.roundsTotal * MAX_ROUND_SCORE}</p>
             {(() => { const r = rankFor(g.total); return (
@@ -232,11 +232,11 @@ export default function GuessTheYear() {
                     className="flex items-center justify-between gap-3 rounded-2xl border-2 px-4 py-3"
                     style={{ background: THEME.bgAlt, borderColor: THEME.border }}
                   >
-                    <span style={QUICKSAND} className="min-w-0 flex-1 truncate text-sm font-bold">{r.film.n}</span>
-                    <span style={{ ...QUICKSAND, color: THEME.mut }} className="shrink-0 text-sm">
+                    <span style={QUICKSAND} className="min-w-0 flex-1 truncate text-base font-bold">{r.film.n}</span>
+                    <span style={{ ...QUICKSAND, color: THEME.mut }} className="shrink-0 text-base">
                       {r.guess} → <strong style={{ color: v.color }}>{r.actual}</strong>
                     </span>
-                    <span style={{ ...FREDOKA, color: v.color }} className="w-12 shrink-0 text-right text-sm font-bold">
+                    <span style={{ ...FREDOKA, color: v.color }} className="w-12 shrink-0 text-right text-base font-bold">
                       +{r.points}
                     </span>
                   </div>
@@ -297,7 +297,7 @@ export default function GuessTheYear() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/higher-or-lower" className="font-bold underline" style={{ color: THEME.green }}>Higher or Lower</Link>,{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.green }}>all solo games</Link>, or{' '}
             <Link to="/all-games" className="font-bold underline" style={{ color: THEME.green }}>the full game hub</Link>.

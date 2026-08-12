@@ -17,14 +17,14 @@ export default function AnsweringPhase({ game }) {
     return (
       <div className="max-w-lg mx-auto">
         <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-6 mb-4 text-center">
-          <p className="text-xs text-[#8B6347] uppercase tracking-widest mb-2">The question</p>
+          <p className="text-sm text-[#8B6347] uppercase tracking-widest mb-2">The question</p>
           <p style={fredokaStyle} className="text-2xl text-[#2D1810] font-bold">{round.question}</p>
         </div>
         <div className="text-center py-6">
           <p className="text-[#4A2D1B] mb-1">
             <span className="font-bold text-[#E84A8B]">{answeredCount}</span> of {eligibleCount} answered
           </p>
-          <p className="text-[#8B6347] text-sm">Waiting for everyone to answer…</p>
+          <p className="text-[#8B6347] text-base">Waiting for everyone to answer…</p>
           {/* Ad — judge is passively waiting */}
           <div className="mt-6 max-h-[280px] overflow-hidden">
             <AdSlot slot="5698170537" />
@@ -35,14 +35,14 @@ export default function AnsweringPhase({ game }) {
               {answeredCount > 0 && (
                 <button
                   onClick={() => sendAction('force_judging')}
-                  className="px-5 py-2 rounded-xl border-2 border-[#8B6347] text-[#8B6347] text-sm font-semibold hover:bg-[#FFF5E8]"
+                  className="px-5 py-2 rounded-xl border-2 border-[#8B6347] text-[#8B6347] text-base font-semibold hover:bg-[#FFF5E8]"
                 >
                   Skip slow players →
                 </button>
               )}
               <button
                 onClick={() => sendAction('cancel_round')}
-                className="px-5 py-2 rounded-xl border-2 border-red-300 text-red-600 text-sm font-semibold hover:bg-red-50"
+                className="px-5 py-2 rounded-xl border-2 border-red-300 text-red-600 text-base font-semibold hover:bg-red-50"
               >
                 Cancel round
               </button>
@@ -56,7 +56,7 @@ export default function AnsweringPhase({ game }) {
   return (
     <div className="max-w-lg mx-auto">
       <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-6 mb-4 text-center">
-        <p className="text-xs text-[#8B6347] uppercase tracking-widest mb-2">
+        <p className="text-sm text-[#8B6347] uppercase tracking-widest mb-2">
           {judge?.username} asks…
         </p>
         <p style={fredokaStyle} className="text-2xl text-[#2D1810] font-bold">{round.question}</p>
@@ -68,7 +68,7 @@ export default function AnsweringPhase({ game }) {
             <p className="text-[#2D1810] font-semibold">Your answer:</p>
             <p style={fredokaStyle} className="text-xl text-[#3D8B5A] font-bold">{myAnswer.text}</p>
           </div>
-          <p className="text-[#8B6347] text-sm">
+          <p className="text-[#8B6347] text-base">
             {answeredCount} of {eligibleCount} answered — waiting for others…
           </p>
         </div>

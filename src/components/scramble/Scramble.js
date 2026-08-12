@@ -94,7 +94,7 @@ export default function Scramble() {
             >
               Start playing
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               No typing · endless
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.rust }}>{g.best}</strong></>}
             </p>
@@ -104,7 +104,7 @@ export default function Scramble() {
         {playing && g.round && (
           <div>
             <div className="mb-5 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Streak <strong style={{ color: THEME.rust }}>{g.score}</strong>
                 {g.best > 0 && <> · best {g.best}</>}
               </span>
@@ -125,8 +125,11 @@ export default function Scramble() {
               className="flex min-h-[5rem] flex-wrap items-center justify-center gap-2 rounded-3xl border-2 p-4"
               style={{ background: THEME.bgAlt, borderColor: THEME.border }}
             >
+              {/* Sits inside the empty answer box, which is exactly where the eye
+                  already is, so it does not need the hint chip — it needs the
+                  contrast. Muted grey here read as placeholder decoration. */}
               {g.picked.length === 0 && (
-                <span style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm">
+                <span style={{ ...QUICKSAND, color: THEME.ink }} className="text-base font-bold">
                   Tap the letters below to spell the word
                 </span>
               )}
@@ -219,7 +222,7 @@ export default function Scramble() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You unscrambled</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You unscrambled</p>
             <p style={{ ...FREDOKA, color: THEME.rust }} className="my-1 text-7xl font-bold md:text-8xl">{g.score}</p>
             <p style={QUICKSAND} className="text-lg">{g.score === 1 ? 'word' : 'words'}</p>
 
@@ -287,7 +290,7 @@ export default function Scramble() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/odd-one-out" className="font-bold underline" style={{ color: THEME.rust }}>Odd One Out</Link>,{' '}
             <Link to="/math-game" className="font-bold underline" style={{ color: THEME.rust }}>Maths Sprint</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.rust }}>all solo games</Link>.

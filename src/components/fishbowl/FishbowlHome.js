@@ -93,13 +93,13 @@ export default function FishbowlHome() {
             { n: '3', t: 'One word', s: 'a single clue' },
           ].map((r) => (
             <div key={r.n} className="flex-1 rounded-2xl border-2 border-[#FFE8C8] bg-white/70 p-2.5">
-              <div style={fredokaStyle} className="text-[#E84A8B] font-bold text-sm">Round {r.n}</div>
+              <div style={fredokaStyle} className="text-[#E84A8B] font-bold text-base">Round {r.n}</div>
               <div style={fredokaStyle} className="font-bold text-[#2D1810] leading-tight">{r.t}</div>
-              <div className="text-[11px] text-[#8B6347] leading-tight mt-0.5">{r.s}</div>
+              <div className="text-[13px] text-[#8B6347] leading-tight mt-0.5">{r.s}</div>
             </div>
           ))}
         </div>
-        <p className="text-xs text-[#8B6347] mt-3">3+ players · about 10 minutes · no download, no signup</p>
+        <p className="text-sm text-[#8B6347] mt-3">3+ players · about 10 minutes · no download, no signup</p>
       </div>
 
       <div className="max-w-sm mx-auto bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)]">
@@ -111,8 +111,8 @@ export default function FishbowlHome() {
             </button>
           ))}
         </div>
-        {error && <p className="text-red-600 text-sm mb-3 text-center">{error}</p>}
-        {!connected && <p className="text-[#8B6347] text-sm mb-3 text-center">Connecting…</p>}
+        {error && <p className="text-red-600 text-base mb-3 text-center">{error}</p>}
+        {!connected && <p className="text-[#8B6347] text-base mb-3 text-center">Connecting…</p>}
         <form onSubmit={tab === 'create' ? handleCreate : handleJoin} className="space-y-3">
           <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your name" maxLength={20}
             className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -125,7 +125,7 @@ export default function FishbowlHome() {
             {tab === 'create' ? 'Create game 🎣' : 'Join game →'}
           </button>
         </form>
-        <p className="text-xs text-[#8B6347] mt-3 text-center">3+ players · no download · no signup</p>
+        <p className="text-sm text-[#8B6347] mt-3 text-center">3+ players · no download · no signup</p>
       </div>
 
       {/* SEO content */}

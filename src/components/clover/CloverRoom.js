@@ -44,17 +44,17 @@ export default function CloverRoom() {
 
   return (
     <MeadowLayout>
-      <div className="flex items-center justify-between mb-4 text-sm text-[#8B6347]">
+      <div className="flex items-center justify-between mb-4 text-base text-[#8B6347]">
         <span style={fredokaStyle} className="text-lg font-bold text-[#2D1810]">Clover Clues</span>
         <span className="font-mono bg-[#FFE8C8] px-3 py-1 rounded-lg text-[#2D1810] font-bold tracking-widest">{roomCode}</span>
       </div>
 
       {typeof state.totalScore === 'number' && state.phase === 'resolving' && (
-        <p className="text-center text-sm text-[#8B6347] mb-3">Team score so far: <strong className="text-[#3D8B5A]">{state.totalScore}</strong></p>
+        <p className="text-center text-base text-[#8B6347] mb-3">Team score so far: <strong className="text-[#3D8B5A]">{state.totalScore}</strong></p>
       )}
 
       {error && !kicked && (
-        <div className="mb-4 px-4 py-2 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm text-center">{error}</div>
+        <div className="mb-4 px-4 py-2 bg-red-50 border border-red-200 rounded-xl text-red-700 text-base text-center">{error}</div>
       )}
 
       {state.phase === 'writing' && <WritePhase game={game} />}
@@ -93,7 +93,7 @@ function Finished({ state, onLeave }) {
 
       <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8]">
         <h2 style={fredokaStyle} className="text-lg font-bold text-[#2D1810] mb-3">More games in the herd</h2>
-        <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
+        <div className="flex flex-wrap justify-center gap-3 text-base font-semibold">
           <Link to="/" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Herd Mentality</Link>
           <Link to="/guesstimate" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Guesstimate</Link>
           <Link to="/say-anything" className="underline text-[#3D8B5A] hover:text-[#2F6E45]">Say Anything</Link>
@@ -123,7 +123,7 @@ function QuickJoin({ roomCode, joinGame, error }) {
       <div className="max-w-sm mx-auto">
         <h2 style={fredokaStyle} className="text-3xl font-bold text-[#2D1810] mb-2 text-center">Join game</h2>
         <p className="text-center text-[#8B6347] mb-6">Room <span className="font-mono font-bold">{roomCode}</span></p>
-        {error && <p className="text-red-600 text-sm mb-4 text-center">{error}</p>}
+        {error && <p className="text-red-600 text-base mb-4 text-center">{error}</p>}
         <form onSubmit={(e) => { e.preventDefault(); if (name.trim()) joinGame(roomCode, name); }} className="space-y-4">
           <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" maxLength={20}
             className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] focus:outline-none text-[#2D1810] bg-[#FFFDF8]" />

@@ -152,7 +152,7 @@ export default function GuesstimateHome() {
           <p className="text-[#4A2D1B] text-lg">
             Free trivia-betting party game. Guess the answer, bet on the winner.
           </p>
-          <p className="text-[#8B6347] text-sm mt-1">A free alternative to Wits &amp; Wagers — 2–12 players, no download.</p>
+          <p className="text-[#8B6347] text-base mt-1">A free alternative to Wits &amp; Wagers — 2–12 players, no download.</p>
         </div>
 
         <div className="bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)] border-4 border-[#FFE8C8] p-6">
@@ -161,7 +161,7 @@ export default function GuesstimateHome() {
               <button
                 key={t}
                 onClick={() => { setTab(t); clearError(); }}
-                className={`flex-1 py-2 rounded-xl font-semibold text-sm transition-all ${
+                className={`flex-1 py-2 rounded-xl font-semibold text-base transition-all ${
                   tab === t ? 'bg-white text-[#2D1810] shadow-sm' : 'text-[#8B6347] hover:text-[#2D1810]'
                 }`}
                 style={tab === t ? fredokaStyle : {}}
@@ -172,23 +172,23 @@ export default function GuesstimateHome() {
           </div>
 
           {error && (
-            <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">{error}</div>
+            <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-base">{error}</div>
           )}
           {!connected && (
-            <div className="mb-4 px-4 py-3 bg-yellow-50 border border-yellow-200 rounded-xl text-yellow-700 text-sm flex items-center gap-2">
+            <div className="mb-4 px-4 py-3 bg-yellow-50 border border-yellow-200 rounded-xl text-yellow-700 text-base flex items-center gap-2">
               <span className="animate-spin">⟳</span> Connecting to server…
             </div>
           )}
 
           <form onSubmit={tab === 'create' ? handleCreate : handleJoin} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-[#4A2D1B] mb-1">Your name</label>
+              <label className="block text-base font-semibold text-[#4A2D1B] mb-1">Your name</label>
               <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="e.g. Alex" maxLength={20}
                 className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] focus:outline-none text-[#2D1810] bg-[#FFFDF8]" />
             </div>
             {tab === 'join' && (
               <div>
-                <label className="block text-sm font-semibold text-[#4A2D1B] mb-1">Room code</label>
+                <label className="block text-base font-semibold text-[#4A2D1B] mb-1">Room code</label>
                 <input type="text" value={code} onChange={e => setCode(e.target.value.toUpperCase().replace(/[^A-Z]/g, ''))}
                   placeholder="e.g. ABCD" maxLength={4}
                   className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] focus:outline-none text-[#2D1810] bg-[#FFFDF8] uppercase tracking-widest text-center text-xl font-bold" />
@@ -258,7 +258,7 @@ export default function GuesstimateHome() {
             <li>✓ <strong>200+ original trivia questions</strong> — independently written, family-safe</li>
             <li>✓ <strong>2–12 players</strong></li>
           </ul>
-          <p className="text-[#8B6347] text-xs mt-4 italic">
+          <p className="text-[#8B6347] text-sm mt-4 italic">
             Guesstimate is an independent project and is not affiliated with or endorsed by North Star Games. <em>Wits &amp; Wagers</em> is a registered trademark of North Star Games, LLC.
           </p>
         </section>
@@ -288,75 +288,75 @@ export default function GuesstimateHome() {
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <li><Link to="/guesstimate/how-to-play-online-trivia-betting-game" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">📖 How to Play (full rules)</h3>
-              <p className="text-sm text-[#8B6347]">Rules, scoring, payout odds, examples.</p>
+              <p className="text-base text-[#8B6347]">Rules, scoring, payout odds, examples.</p>
             </Link></li>
             <li><Link to="/guesstimate/200-trivia-questions-with-numerical-answers" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🎯 200 Trivia Questions</h3>
-              <p className="text-sm text-[#8B6347]">Free list with numerical answers.</p>
+              <p className="text-base text-[#8B6347]">Free list with numerical answers.</p>
             </Link></li>
             <li><Link to="/guesstimate/free-alternative-to-wits-and-wagers-online" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🆓 Free Wits and Wagers Alternative</h3>
-              <p className="text-sm text-[#8B6347]">How Guesstimate compares.</p>
+              <p className="text-base text-[#8B6347]">How Guesstimate compares.</p>
             </Link></li>
             <li><Link to="/guesstimate/best-online-trivia-games-for-family-game-night" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">👨‍👩‍👧 Family Trivia Games</h3>
-              <p className="text-sm text-[#8B6347]">Best online options for game night.</p>
+              <p className="text-base text-[#8B6347]">Best online options for game night.</p>
             </Link></li>
             <li><Link to="/guesstimate/how-to-host-virtual-trivia-night-on-zoom" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">💻 Virtual Trivia Night on Zoom</h3>
-              <p className="text-sm text-[#8B6347]">Step-by-step setup guide.</p>
+              <p className="text-base text-[#8B6347]">Step-by-step setup guide.</p>
             </Link></li>
             <li><Link to="/guesstimate/online-trivia-betting-game-rules-and-scoring" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🎲 Scoring &amp; Strategy</h3>
-              <p className="text-sm text-[#8B6347]">Payout math, double-down strategy.</p>
+              <p className="text-base text-[#8B6347]">Payout math, double-down strategy.</p>
             </Link></li>
             <li><Link to="/guesstimate/free-jackbox-alternative-no-download" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">📦 Free Jackbox Alternative</h3>
-              <p className="text-sm text-[#8B6347]">No download, no signup, plays in browser.</p>
+              <p className="text-base text-[#8B6347]">No download, no signup, plays in browser.</p>
             </Link></li>
             <li><Link to="/guesstimate/kahoot-alternative-for-adults" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🎓 Kahoot Alternative for Adults</h3>
-              <p className="text-sm text-[#8B6347]">Party-night trivia, not a classroom quiz.</p>
+              <p className="text-base text-[#8B6347]">Party-night trivia, not a classroom quiz.</p>
             </Link></li>
             <li><Link to="/guesstimate/christmas-and-holiday-trivia-party-games-online" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🎄 Holiday Trivia Party Games</h3>
-              <p className="text-sm text-[#8B6347]">Christmas, New Year, Halloween, Thanksgiving.</p>
+              <p className="text-base text-[#8B6347]">Christmas, New Year, Halloween, Thanksgiving.</p>
             </Link></li>
             <li><Link to="/guesstimate/price-is-right-style-party-game-online" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">💰 Price Is Right Style Game</h3>
-              <p className="text-sm text-[#8B6347]">Closest-without-going-over guessing fun.</p>
+              <p className="text-base text-[#8B6347]">Closest-without-going-over guessing fun.</p>
             </Link></li>
             <li><Link to="/guesstimate/trivia-games-for-2-players-online-free" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">👥 Trivia for 2 Players</h3>
-              <p className="text-sm text-[#8B6347]">Works great head-to-head, online and free.</p>
+              <p className="text-base text-[#8B6347]">Works great head-to-head, online and free.</p>
             </Link></li>
             <li><Link to="/guesstimate/virtual-team-building-trivia-game-for-work" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🏢 Virtual Team Building Trivia</h3>
-              <p className="text-sm text-[#8B6347]">Remote team icebreakers and game nights.</p>
+              <p className="text-base text-[#8B6347]">Remote team icebreakers and game nights.</p>
             </Link></li>
             <li><Link to="/guesstimate/online-games-for-long-distance-couples-free" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">❤️ Games for Long-Distance Couples</h3>
-              <p className="text-sm text-[#8B6347]">Play together over FaceTime or Zoom, free.</p>
+              <p className="text-base text-[#8B6347]">Play together over FaceTime or Zoom, free.</p>
             </Link></li>
             <li><Link to="/guesstimate/games-to-play-on-facetime-and-video-calls" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">📱 Games for FaceTime &amp; Video Calls</h3>
-              <p className="text-sm text-[#8B6347]">No app — play on any call with friends.</p>
+              <p className="text-base text-[#8B6347]">No app — play on any call with friends.</p>
             </Link></li>
             <li><Link to="/guesstimate/classroom-trivia-games-no-materials-for-teachers" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🏫 Classroom Games (No Materials)</h3>
-              <p className="text-sm text-[#8B6347]">No-prep trivia for teachers &amp; subs.</p>
+              <p className="text-base text-[#8B6347]">No-prep trivia for teachers &amp; subs.</p>
             </Link></li>
             <li><Link to="/guesstimate/new-years-eve-party-games-for-adults-large-groups" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🎉 New Year's Eve Party Games</h3>
-              <p className="text-sm text-[#8B6347]">For adults &amp; big groups — countdown trivia.</p>
+              <p className="text-base text-[#8B6347]">For adults &amp; big groups — countdown trivia.</p>
             </Link></li>
             <li><Link to="/guesstimate/drinking-party-games-online-free-for-adults" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🍻 Drinking Party Games</h3>
-              <p className="text-sm text-[#8B6347]">Adult trivia drinking game, no app.</p>
+              <p className="text-base text-[#8B6347]">Adult trivia drinking game, no app.</p>
             </Link></li>
             <li><Link to="/guesstimate/family-reunion-games-for-adults-large-groups" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">👨‍👩‍👧‍👦 Family Reunion Games</h3>
-              <p className="text-sm text-[#8B6347]">Big multi-generational groups, all ages.</p>
+              <p className="text-base text-[#8B6347]">Big multi-generational groups, all ages.</p>
             </Link></li>
           </ul>
         </section>

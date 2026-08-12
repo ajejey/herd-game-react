@@ -67,7 +67,7 @@ const MeadowLayout = ({ children, maxWidth = 'max-w-4xl' }) => {
       <div className={`relative container mx-auto px-4 pt-24 pb-12 ${maxWidth}`}>
         {children}
 
-        <footer className="text-center mt-10 text-[#6B4226] text-sm">
+        <footer className="text-center mt-10 text-[#6B4226] text-base">
           <p style={fredoka} className="font-semibold">Made with 🐄 in the meadow.</p>
           <p className="opacity-80">&copy; {new Date().getFullYear()} Herd Game. A social party game for everyone.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1">

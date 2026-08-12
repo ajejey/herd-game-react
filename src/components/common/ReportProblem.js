@@ -93,8 +93,12 @@ export default function ReportProblem({ compact = false }) {
         className={
           'inline-flex items-center gap-2 rounded-full border-2 border-[#FFE8C8] bg-white ' +
           'px-5 py-2.5 font-semibold text-[#2D1810] shadow-[0_6px_16px_-8px_rgba(45,24,16,0.4)] ' +
-          'transition-all hover:border-[#E84A8B] hover:text-[#E84A8B] hover:scale-105 active:scale-95 ' +
-          (compact ? 'text-sm' : 'text-base')
+          // `compact` used to shave this to 14px. It no longer does: 14px was
+          // below the size this app should ever print at, and the compact
+          // callers were exactly the cramped placements where a report link
+          // most needed to stay readable. The prop is kept so the ~20 call
+          // sites need no edit, and is now a no-op.
+          'transition-all hover:border-[#E84A8B] hover:text-[#E84A8B] hover:scale-105 active:scale-95 text-base'
         }
       >
         <FiAlertCircle className="text-[#E84A8B]" size={18} />
@@ -132,7 +136,7 @@ export default function ReportProblem({ compact = false }) {
               ) : (
                 <>
                   <form onSubmit={submit}>
-                    <p className="text-sm text-[#4A2D1B] mb-3">
+                    <p className="text-base text-[#4A2D1B] mb-3">
                       What went wrong? Even one line helps. We attach the page and game
                       automatically, so no need to describe your device.
                     </p>
@@ -146,7 +150,7 @@ export default function ReportProblem({ compact = false }) {
                       className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#E84A8B] outline-none text-[#2D1810] bg-white resize-none"
                     />
                     <label className="block mt-3">
-                      <span className="text-xs text-[#8B6347]">Email, only if you want a reply (optional)</span>
+                      <span className="text-sm text-[#8B6347]">Email, only if you want a reply (optional)</span>
                       <input
                         type="email"
                         value={email}
@@ -158,7 +162,7 @@ export default function ReportProblem({ compact = false }) {
                     </label>
 
                     {state === 'error' && (
-                      <p className="text-sm text-[#C0392B] mt-3">
+                      <p className="text-base text-[#C0392B] mt-3">
                         That didn&rsquo;t send &mdash; please use the email address below instead.
                       </p>
                     )}
@@ -176,7 +180,7 @@ export default function ReportProblem({ compact = false }) {
                   {/* Fallback for anyone who would rather email, and the escape
                       hatch when the POST fails. */}
                   <div className="mt-4 pt-4 border-t border-[#FFE8C8] text-center">
-                    <p className="text-xs text-[#8B6347]">Or email us directly</p>
+                    <p className="text-sm text-[#8B6347]">Or email us directly</p>
                     <div className="mt-1 flex items-center justify-center gap-2 flex-wrap">
                       <span style={fredoka} className="font-bold text-[#2D1810] break-all">{CONTACT}</span>
                       <button
@@ -186,7 +190,7 @@ export default function ReportProblem({ compact = false }) {
                           setCopied(true);
                           setTimeout(() => setCopied(false), 2000);
                         })}
-                        className="inline-flex items-center gap-1 rounded-full border-2 border-[#FFE8C8] bg-white px-3 py-1 text-xs font-semibold text-[#2D1810] hover:border-[#E84A8B]"
+                        className="inline-flex items-center gap-1 rounded-full border-2 border-[#FFE8C8] bg-white px-3 py-1 text-sm font-semibold text-[#2D1810] hover:border-[#E84A8B]"
                       >
                         {copied ? <><FiCheck /> Copied</> : <><FiCopy /> Copy</>}
                       </button>

@@ -65,7 +65,7 @@ export default function BestTeamTriviaGames() {
           className="inline-block px-8 py-4 rounded-2xl text-white font-bold text-lg shadow-[0_10px_24px_-10px_rgba(232,74,139,0.8)] hover:scale-[1.02] transition-transform">
           Start a Team Trivia game →
         </Link>
-        <p className="text-xs text-[#8B6347] mt-2">Free · everyone joins from their own device · no signup</p>
+        <p className="text-sm text-[#8B6347] mt-2">Free · everyone joins from their own device · no signup</p>
       </div>
 
       <div className="max-w-2xl mx-auto text-[#4A2D1B] leading-relaxed">
@@ -79,7 +79,7 @@ export default function BestTeamTriviaGames() {
               <span className="text-3xl" aria-hidden="true">{p.emoji}</span>
               <div>
                 <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] leading-tight">{i + 1}. {p.name}</h2>
-                <span className="text-xs font-semibold text-[#3D8B5A]">{p.best}</span>
+                <span className="text-sm font-semibold text-[#3D8B5A]">{p.best}</span>
               </div>
             </div>
             <p className="mt-2">{p.body}</p>

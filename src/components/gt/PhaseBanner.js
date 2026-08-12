@@ -19,8 +19,8 @@ export default function PhaseBanner({ phase }) {
     <div className="mb-4 bg-gradient-to-r from-[#FFF0F7] to-[#FFFBE8] border-2 border-[#FFE8C8] rounded-2xl px-4 py-3 flex items-center gap-3 shadow-sm">
       <div className="shrink-0"><Icon size={36} /></div>
       <div className="min-w-0">
-        <p style={fredokaStyle} className="text-[#2D1810] font-bold text-sm md:text-base leading-tight">{title}</p>
-        <p className="text-[#6B4226] text-xs md:text-sm leading-snug">{sub}</p>
+        <p style={fredokaStyle} className="text-[#2D1810] font-bold text-base md:text-base leading-tight">{title}</p>
+        <p className="text-[#6B4226] text-sm md:text-base leading-snug">{sub}</p>
       </div>
     </div>
   );

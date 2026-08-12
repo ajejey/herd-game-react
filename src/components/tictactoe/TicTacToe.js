@@ -99,13 +99,13 @@ export default function TicTacToe() {
                 color: lv.id === g.level.id ? '#FFFFFF' : THEME.mut,
                 borderColor: THEME.plum,
               }}
-              className="rounded-full border-2 px-4 py-1.5 text-sm font-bold"
+              className="rounded-full border-2 px-4 py-1.5 text-base font-bold"
             >
               {lv.name}
             </button>
           ))}
         </div>
-        <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2 text-center text-sm">{g.level.blurb}</p>
+        <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2 text-center text-base">{g.level.blurb}</p>
 
         <p
           data-testid="ttt-status"
@@ -162,12 +162,12 @@ export default function TicTacToe() {
           style={{ ...QUICKSAND, borderColor: THEME.border }}
           className="mx-auto mt-6 flex max-w-xs items-center justify-around rounded-2xl border-2 py-3 text-center"
         >
-          <span><strong style={{ color: THEME.green }}>{g.record.won}</strong><br /><span className="text-xs" style={{ color: THEME.mut }}>won</span></span>
-          <span><strong style={{ color: THEME.mut }}>{g.record.drawn}</strong><br /><span className="text-xs" style={{ color: THEME.mut }}>drawn</span></span>
-          <span><strong style={{ color: THEME.red }}>{g.record.lost}</strong><br /><span className="text-xs" style={{ color: THEME.mut }}>lost</span></span>
+          <span><strong style={{ color: THEME.green }}>{g.record.won}</strong><br /><span className="text-sm" style={{ color: THEME.mut }}>won</span></span>
+          <span><strong style={{ color: THEME.mut }}>{g.record.drawn}</strong><br /><span className="text-sm" style={{ color: THEME.mut }}>drawn</span></span>
+          <span><strong style={{ color: THEME.red }}>{g.record.lost}</strong><br /><span className="text-sm" style={{ color: THEME.mut }}>lost</span></span>
         </div>
         <div className="mt-2 text-center">
-          <button onClick={g.clearRecord} style={{ ...QUICKSAND, color: THEME.mut }} className="text-xs underline">
+          <button onClick={g.clearRecord} style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm underline">
             Reset record
           </button>
         </div>
@@ -198,7 +198,7 @@ export default function TicTacToe() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/minesweeper" className="font-bold underline" style={{ color: THEME.plum }}>Minesweeper</Link>,{' '}
             <Link to="/hangman" className="font-bold underline" style={{ color: THEME.plum }}>Hangman</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.plum }}>all solo games</Link>.

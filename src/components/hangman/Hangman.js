@@ -99,17 +99,17 @@ export default function Hangman() {
             </div>
 
             <div className="mt-4 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Streak {g.streak}{g.best > 0 && <> · best {g.best}</>}
               </span>
-              <span data-testid="hm-lives" className="text-sm font-bold" style={{ color: g.livesLeft <= 2 ? THEME.red : THEME.mut }}>
+              <span data-testid="hm-lives" className="text-base font-bold" style={{ color: g.livesLeft <= 2 ? THEME.red : THEME.mut }}>
                 {g.livesLeft} left
               </span>
             </div>
 
             <Gallows wrong={g.wrong} />
 
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-1 text-center text-sm font-bold uppercase tracking-widest">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-1 text-center text-base font-bold uppercase tracking-widest">
               {g.category}
             </p>
 
@@ -159,7 +159,7 @@ export default function Hangman() {
                       borderColor: THEME.border,
                       touchAction: 'manipulation',
                     }}
-                    className="aspect-square rounded-lg border-2 text-sm font-bold disabled:cursor-default md:text-base"
+                    className="aspect-square rounded-lg border-2 text-base font-bold disabled:cursor-default md:text-base"
                   >
                     {ch}
                   </button>
@@ -171,7 +171,7 @@ export default function Hangman() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">Your streak</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">Your streak</p>
             <p style={{ ...FREDOKA, color: THEME.forest }} className="my-1 text-7xl font-bold md:text-8xl">{g.streak}</p>
             <p style={QUICKSAND} className="text-lg">words in a row</p>
 
@@ -239,7 +239,7 @@ export default function Hangman() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/word-scramble" className="font-bold underline" style={{ color: THEME.forest }}>Word Scramble</Link>,{' '}
             <Link to="/odd-one-out" className="font-bold underline" style={{ color: THEME.forest }}>Odd One Out</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.forest }}>all solo games</Link>.

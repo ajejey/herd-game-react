@@ -20,15 +20,15 @@ export default function Lobby({ game }) {
       <div className="text-center mb-6">
         <button
           onClick={() => setShowHelp(true)}
-          className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold text-sm underline"
+          className="text-[#3D8B5A] hover:text-[#2F6E45] font-semibold text-base underline"
         >How to play →</button>
       </div>
       {showHelp && <HowToPlay onClose={() => setShowHelp(false)} />}
 
       {/* How to get everyone in — step-by-step so the host knows exactly what to do */}
       <div className="bg-[#FFF6E9] rounded-2xl border-2 border-[#FFE8C8] p-4 mb-4">
-        <h3 style={fredokaStyle} className="text-sm font-bold text-[#2D1810] mb-2">Getting everyone in</h3>
-        <ol className="text-sm text-[#4A2D1B] space-y-1.5 list-decimal list-inside">
+        <h3 style={fredokaStyle} className="text-base font-bold text-[#2D1810] mb-2">Getting everyone in</h3>
+        <ol className="text-base text-[#4A2D1B] space-y-1.5 list-decimal list-inside">
           <li>Each friend opens <span className="font-semibold">{JOIN_URL}</span> on their own phone or laptop.</li>
           <li>They tap <span className="font-semibold">Join Game</span> and enter code <span className="font-bold tracking-wide">{roomCode}</span>.</li>
           <li>They'll pop up in the player list below as they join.</li>
@@ -49,13 +49,13 @@ export default function Lobby({ game }) {
                 <span className={`font-semibold text-[#2D1810] ${!p.connected ? 'opacity-50' : ''}`}>
                   {p.username}
                 </span>
-                {p.isHost && <span className="text-xs bg-[#FFD56B] text-[#2D1810] px-2 py-0.5 rounded-full font-bold">Host</span>}
-                {p.id === myId && <span className="text-xs text-[#8B6347]">(you)</span>}
+                {p.isHost && <span className="text-sm bg-[#FFD56B] text-[#2D1810] px-2 py-0.5 rounded-full font-bold">Host</span>}
+                {p.id === myId && <span className="text-sm text-[#8B6347]">(you)</span>}
               </div>
               {isHost && p.id !== myId && (
                 <button
                   onClick={() => kickPlayer(p.id)}
-                  className="text-xs text-red-400 hover:text-red-600 font-semibold"
+                  className="text-sm text-red-400 hover:text-red-600 font-semibold"
                 >
                   Remove
                 </button>
@@ -69,11 +69,11 @@ export default function Lobby({ game }) {
       {isHost ? (
         <div className="space-y-2">
           {connected.length < 3 ? (
-            <p className="text-center text-[#8B6347] text-sm">
+            <p className="text-center text-[#8B6347] text-base">
               Need {3 - connected.length} more {3 - connected.length === 1 ? 'player' : 'players'} to start — share the code above.
             </p>
           ) : (
-            <p className="text-center text-[#8B6347] text-sm">
+            <p className="text-center text-[#8B6347] text-base">
               {connected.length} players in — start whenever you're ready, or wait for more.
             </p>
           )}
@@ -87,7 +87,7 @@ export default function Lobby({ game }) {
           </button>
         </div>
       ) : (
-        <p className="text-center text-[#8B6347] text-sm py-2">You're in! Waiting for the host to start the game…</p>
+        <p className="text-center text-[#8B6347] text-base py-2">You're in! Waiting for the host to start the game…</p>
       )}
 
       {/* Ad — lobby is the longest waiting moment */}

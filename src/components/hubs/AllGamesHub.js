@@ -87,7 +87,7 @@ export default function AllGamesHub() {
               </div>
             ))}
           </div>
-          <p className="mt-8 text-sm">
+          <p className="mt-8 text-base">
             New here? Try <Link to="/daily" className="font-bold text-[#3D8B5A] underline">Daily Herd</Link> for a
             two minute solo round, or <Link to="/say-anything" className="font-bold text-[#3D8B5A] underline">Say Anything</Link> if
             you have a group.

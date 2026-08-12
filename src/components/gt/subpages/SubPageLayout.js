@@ -44,7 +44,7 @@ export default function SubPageLayout({ slug, title, description, h1, keywords, 
       </Helmet>
 
       <div className="max-w-3xl mx-auto">
-        <nav className="text-sm text-[#8B6347] mb-4 flex items-center gap-2 flex-wrap">
+        <nav className="text-base text-[#8B6347] mb-4 flex items-center gap-2 flex-wrap">
           <Link to="/" className="hover:text-[#2D1810]">Home</Link>
           <span>›</span>
           <Link to="/guesstimate" className="hover:text-[#2D1810]">Guesstimate</Link>
@@ -87,7 +87,7 @@ export default function SubPageLayout({ slug, title, description, h1, keywords, 
 
         <RelatedGuides currentSlug={slug} />
 
-        <p className="text-[#8B6347] text-xs italic text-center mb-6">
+        <p className="text-[#8B6347] text-sm italic text-center mb-6">
           Not affiliated with North Star Games. Wits &amp; Wagers is a trademark of North Star Games, LLC.
         </p>
       </div>
@@ -143,7 +143,7 @@ function RelatedGuides({ currentSlug }) {
           <li key={g.slug}>
             <Link to={`/guesstimate/${g.slug}`} className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#FFE8C8] text-[#2D1810] font-semibold transition-colors">
               <span className="text-xl">{g.emoji}</span>
-              <span className="text-sm md:text-base">{g.title}</span>
+              <span className="text-base md:text-base">{g.title}</span>
             </Link>
           </li>
         ))}

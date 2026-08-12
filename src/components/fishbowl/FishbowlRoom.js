@@ -61,8 +61,8 @@ export default function FishbowlRoom() {
         <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-6 text-center">
           <h1 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-1">Join Fishbowl</h1>
           <p className="text-[#4A2D1B] mb-4">Room <span className="font-mono font-bold">{codeParam}</span></p>
-          {error && <p className="text-red-600 text-sm mb-2">{error}</p>}
-          {roomNotFound && <p className="text-[#8B6347] text-sm mb-2">That room wasn’t found — check the code.</p>}
+          {error && <p className="text-red-600 text-base mb-2">{error}</p>}
+          {roomNotFound && <p className="text-[#8B6347] text-base mb-2">That room wasn’t found — check the code.</p>}
           <form onSubmit={(e) => { e.preventDefault(); if (name.trim()) joinGame(codeParam, name); }} className="space-y-3">
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" maxLength={20}
               className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -89,17 +89,17 @@ export default function FishbowlRoom() {
             playerCount={connectedCount} minPlayers={3} />
 
           <div className="mt-5 text-left">
-            <p className="text-sm font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
+            <p className="text-base font-semibold text-[#8B6347] mb-1">Players ({connectedCount})</p>
             <div className="flex flex-wrap gap-2">
               {players.map((p) => (
-                <span key={p.id} className={`px-3 py-1 rounded-full text-sm font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
+                <span key={p.id} className={`px-3 py-1 rounded-full text-base font-semibold ${p.connected ? 'bg-[#FFE8C8] text-[#2D1810]' : 'bg-gray-100 text-gray-400'}`}>{p.username}{p.isHost ? ' 👑' : ''}</span>
               ))}
             </div>
           </div>
-          {error && <p className="text-red-600 text-sm mt-3">{error}</p>}
+          {error && <p className="text-red-600 text-base mt-3">{error}</p>}
           {isHost ? (
             <>
-              <p className="text-xs text-[#8B6347] mt-3">
+              <p className="text-sm text-[#8B6347] mt-3">
                 {connectedCount < 3
                   ? 'You need 3 players to start.'
                   : connectedCount === 3
@@ -110,7 +110,7 @@ export default function FishbowlRoom() {
                 className="mt-2 w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-40">Start game 🎣</button>
             </>
           ) : <p className="text-[#4A2D1B] mt-4">Waiting for the host to start…</p>}
-          <button onClick={leaveGame} className="mt-3 text-sm text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
+          <button onClick={leaveGame} className="mt-3 text-base text-[#8B6347] hover:text-[#2D1810]">Leave room</button>
         </div>
       </MeadowLayout>
     );
@@ -123,14 +123,14 @@ export default function FishbowlRoom() {
       <MeadowLayout maxWidth="max-w-md">
         <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-6">
           <h1 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] text-center mb-1">Fill the bowl 🎣</h1>
-          <p className="text-[#8B6347] text-sm text-center mb-4">Add {state.wordsPerPlayer} words, names or phrases — anything goes. Others won’t see them until they come up.</p>
+          <p className="text-[#8B6347] text-base text-center mb-4">Add {state.wordsPerPlayer} words, names or phrases — anything goes. Others won’t see them until they come up.</p>
           {submitted ? (
             <div className="text-center">
               <p className="text-[#3D8B5A] font-semibold">Added! Waiting for others… ({state.submittedIds?.length || 0}/{connectedCount})</p>
               <div className="mt-3 space-y-1">
-                {state.yourWords.map((w, i) => <div key={i} className="px-3 py-1.5 rounded-lg bg-[#FFF6E9] text-[#2D1810] font-semibold text-sm">{w}</div>)}
+                {state.yourWords.map((w, i) => <div key={i} className="px-3 py-1.5 rounded-lg bg-[#FFF6E9] text-[#2D1810] font-semibold text-base">{w}</div>)}
               </div>
-              {isHost && <button onClick={() => sendAction('force_begin')} className="mt-4 text-sm text-[#8B6347] underline">Start rounds now →</button>}
+              {isHost && <button onClick={() => sendAction('force_begin')} className="mt-4 text-base text-[#8B6347] underline">Start rounds now →</button>}
             </div>
           ) : (
             <form onSubmit={(e) => { e.preventDefault(); const clean = words.map((w) => w.trim()).filter(Boolean); if (clean.length) { submittedRef.current = true; sendAction('submit_words', { words: clean }); } }} className="space-y-2">
@@ -156,9 +156,9 @@ export default function FishbowlRoom() {
 
   const TeamPill = ({ team, color }) => (
     <div className="flex-1 rounded-2xl p-3 text-center text-white" style={{ background: color, opacity: state.currentTeam === team && !finished ? 1 : 0.75 }}>
-      <div className="text-xs font-semibold">Team {team}{state.currentTeam === team && !finished ? ' • now' : ''}</div>
+      <div className="text-sm font-semibold">Team {team}{state.currentTeam === team && !finished ? ' • now' : ''}</div>
       <div style={fredokaStyle} className="text-3xl font-bold leading-none">{scores[team]}</div>
-      <div className="text-[11px] mt-1 opacity-90">{state.teams?.[team]?.map(nameById).join(', ')}</div>
+      <div className="text-[13px] mt-1 opacity-90">{state.teams?.[team]?.map(nameById).join(', ')}</div>
     </div>
   );
 
@@ -166,7 +166,7 @@ export default function FishbowlRoom() {
     <MeadowLayout maxWidth="max-w-xl">
       {iWon && <Confetti width={win.w} height={win.h} numberOfPieces={180} recycle={false} gravity={0.25} />}
       <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 md:p-7">
-        <div className="flex justify-between items-center text-sm text-[#8B6347] mb-3">
+        <div className="flex justify-between items-center text-base text-[#8B6347] mb-3">
           <span>Round {state.roundType} / 3</span>
           <span className="font-semibold">{state.roundName}</span>
         </div>
@@ -174,9 +174,9 @@ export default function FishbowlRoom() {
         {/* Co-op (3 players) has one shared score, not two teams. */}
         {state.coop ? (
           <div className="rounded-2xl p-4 mb-5 text-center text-white" style={{ background: BLUE }}>
-            <div className="text-xs font-semibold">Team score</div>
+            <div className="text-sm font-semibold">Team score</div>
             <div style={fredokaStyle} className="text-4xl font-bold leading-none">{scores.A}</div>
-            <div className="text-[11px] mt-1 opacity-90">{state.teams?.A?.map(nameById).join(', ')}</div>
+            <div className="text-[13px] mt-1 opacity-90">{state.teams?.A?.map(nameById).join(', ')}</div>
           </div>
         ) : (
           <div className="flex gap-3 mb-5">
@@ -198,14 +198,14 @@ export default function FishbowlRoom() {
           amGiver ? (
             <div className="text-center">
               <div className={`inline-block px-4 py-1 rounded-full font-bold mb-3 ${secondsLeft <= 10 ? 'bg-[#FFE1E1] text-[#D0463B]' : 'bg-[#FFF0F5] text-[#E84A8B]'}`}>⏱ {secondsLeft}s</div>
-              <p className="text-[#8B6347] text-sm">Your word</p>
+              <p className="text-[#8B6347] text-base">Your word</p>
               <div style={fredokaStyle} className="text-3xl md:text-4xl font-bold text-[#2D1810] my-2 leading-tight">{state.currentWord || '—'}</div>
-              <p className="text-[#8B6347] text-sm mb-4">{state.roundName} · {state.wordsLeft} left</p>
+              <p className="text-[#8B6347] text-base mb-4">{state.roundName} · {state.wordsLeft} left</p>
               <div className="flex gap-2 justify-center">
                 <button onClick={() => sendAction('got_word')} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }} className="px-7 py-3 rounded-2xl text-white font-bold">Got it! ✓</button>
                 <button onClick={() => sendAction('skip_word')} className="px-5 py-3 rounded-2xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold">Skip</button>
               </div>
-              <button onClick={() => sendAction('end_turn')} className="mt-3 text-sm text-[#8B6347] underline block mx-auto">End turn</button>
+              <button onClick={() => sendAction('end_turn')} className="mt-3 text-base text-[#8B6347] underline block mx-auto">End turn</button>
             </div>
           ) : (
             <div className="text-center py-4">
@@ -225,14 +225,14 @@ export default function FishbowlRoom() {
             ) : (
               <>
                 <p className="text-[#4A2D1B]">Waiting for <strong>{nameById(currentGiverId)}</strong>{state.coop ? '' : ` (Team ${state.currentTeam})`} to start their turn…</p>
-                {state.lastTurn && <p className="text-[#8B6347] text-sm mt-2">Last turn: {nameById(state.lastTurn.giverId)} got {state.lastTurn.got}.</p>}
+                {state.lastTurn && <p className="text-[#8B6347] text-base mt-2">Last turn: {nameById(state.lastTurn.giverId)} got {state.lastTurn.got}.</p>}
               </>
             )}
           </div>
         )}
       </div>
 
-      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-sm hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
+      <p className="text-center mt-4"><Link to="/office-games" className="text-[#8B6347] text-base hover:text-[#2D1810] underline">More party &amp; team games</Link></p>
     </MeadowLayout>
   );
 }

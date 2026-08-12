@@ -143,7 +143,7 @@ export default function Trivia() {
           ))}
         </div>
 
-        {ATTRIBUTION && <p className="text-[#8B6347] text-xs italic mt-8 text-center">{ATTRIBUTION}</p>}
+        {ATTRIBUTION && <p className="text-[#8B6347] text-sm italic mt-8 text-center">{ATTRIBUTION}</p>}
       </div>
     </MeadowLayout>
   );
@@ -211,7 +211,7 @@ function TriviaGame({ day, today, isArchive }) {
       <div className="text-center mb-4">
         <h1 style={fredokaStyle} className="text-4xl md:text-5xl font-bold text-[#2D1810]">Daily Trivia</h1>
         <p className="text-[#4A2D1B] mt-1">10 questions a day. {isArchive ? `Quiz #${day}.` : 'A new quiz every day.'}</p>
-        {isArchive && <Link to="/trivia" className="text-[#E84A8B] font-semibold text-sm underline">← Back to today's quiz</Link>}
+        {isArchive && <Link to="/trivia" className="text-[#E84A8B] font-semibold text-base underline">← Back to today's quiz</Link>}
       </div>
 
       {/* progress marks */}
@@ -225,7 +225,7 @@ function TriviaGame({ day, today, isArchive }) {
 
       {!done && current && (
         <div>
-          <p className="text-center text-xs font-semibold text-[#8B6347] uppercase tracking-wide">
+          <p className="text-center text-sm font-semibold text-[#8B6347] uppercase tracking-wide">
             Question {idx + 1} of {total} · {current.category}
           </p>
           <h2 style={fredokaStyle} className="text-xl md:text-2xl font-bold text-[#2D1810] text-center mt-2 mb-5">{current.q}</h2>
@@ -286,7 +286,7 @@ function TriviaGame({ day, today, isArchive }) {
             </div>
           </div>
 
-          <p className="text-[#8B6347] text-sm mt-4 max-w-xs mx-auto">
+          <p className="text-[#8B6347] text-base mt-4 max-w-xs mx-auto">
             {score === total ? 'Nobody will believe this — make them try.'
               : score >= Math.ceil(total * 0.7) ? 'Flex it — dare a friend to beat your score.'
               : score >= total / 2 ? 'Send it to a friend and see who scores higher.'
@@ -301,12 +301,12 @@ function TriviaGame({ day, today, isArchive }) {
             </button>
             <div className="mt-2 flex justify-center gap-2">
               <button onClick={saveImage}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold text-sm hover:border-[#E84A8B]">
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold text-base hover:border-[#E84A8B]">
                 <FiDownload /> Save image
               </button>
               {today > 1 && (
                 <button onClick={playRandomPast}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold text-sm hover:border-[#E84A8B]">
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#FFE8C8] text-[#2D1810] font-semibold text-base hover:border-[#E84A8B]">
                   Play another →
                 </button>
               )}
@@ -316,7 +316,7 @@ function TriviaGame({ day, today, isArchive }) {
           <div className="mt-5 inline-flex items-center gap-2 bg-[#FFF0F5] border border-[#FFD6E0] text-[#E84A8B] font-bold px-4 py-1.5 rounded-full shadow-sm">
             <FaFire /> {streak}-day streak
           </div>
-          {!isArchive && <p className="text-[#4A2D1B] mt-2 text-sm">A new quiz drops tomorrow — keep your streak going.</p>}
+          {!isArchive && <p className="text-[#4A2D1B] mt-2 text-base">A new quiz drops tomorrow — keep your streak going.</p>}
 
           {/* Single primary next-action: keep playing the dailies. */}
           <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8] text-left">

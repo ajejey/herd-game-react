@@ -82,7 +82,7 @@ export default function SoloGamesHub() {
               key={g.id}
               href={`#${g.id}`}
               style={{ ...quicksand, borderColor: g.accent, color: g.accent }}
-              className="rounded-full border-2 bg-white px-4 py-2 text-sm font-bold"
+              className="rounded-full border-2 bg-white px-4 py-2 text-base font-bold"
             >
               {g.eyebrow} <span style={{ opacity: 0.7 }}>({g.games.length})</span>
             </a>
@@ -142,7 +142,7 @@ export default function SoloGamesHub() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm">
+          <p className="mt-8 text-base">
             Playing with other people instead?{' '}
             <Link to="/all-games" className="font-bold text-[#3D8B5A] underline">See every game in the hub</Link>{' '}
             or browse the <Link to="/office-games" className="font-bold text-[#3D8B5A] underline">games for work</Link>.

@@ -95,7 +95,7 @@ export default function MathSprint() {
             >
               Start the sprint
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               {DURATION_S} seconds · no negatives, no fractions
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.blue }}>{g.best}</strong></>}
             </p>
@@ -105,11 +105,11 @@ export default function MathSprint() {
         {g.status === 'playing' && g.question && (
           <div>
             <div className="mb-2 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Score <strong style={{ color: THEME.blue }}>{g.score}</strong>
               </span>
               <span
-                className="text-sm font-bold"
+                className="text-base font-bold"
                 style={{ color: g.remaining <= 10 ? THEME.red : THEME.mut }}
                 role="timer"
                 aria-live="off"
@@ -166,7 +166,7 @@ export default function MathSprint() {
 
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">You answered</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">You answered</p>
             <p style={{ ...FREDOKA, color: THEME.blue }} className="my-1 text-7xl font-bold md:text-8xl">{g.score}</p>
             <p style={QUICKSAND} className="text-lg">in {DURATION_S} seconds</p>
 
@@ -178,7 +178,7 @@ export default function MathSprint() {
             ); })()}
 
             {g.wrong > 0 && (
-              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-3 text-sm">
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-3 text-base">
                 {g.wrong} wrong {g.wrong === 1 ? 'answer' : 'answers'} along the way
               </p>
             )}
@@ -239,7 +239,7 @@ export default function MathSprint() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/reaction-time-test" className="font-bold underline" style={{ color: THEME.blue }}>Reaction Time Test</Link>,{' '}
             <Link to="/memory-game" className="font-bold underline" style={{ color: THEME.blue }}>Herd Memory</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.blue }}>all solo games</Link>.

@@ -76,7 +76,7 @@ export default function DailyReminder() {
             <BellIcon className="text-[#E84A8B]" />
             Daily reminder
           </p>
-          <p className="text-xs text-[#8B6347] mt-0.5">
+          <p className="text-sm text-[#8B6347] mt-0.5">
             {prefs.enabled
               ? `Every day at ${friendlyTime(prefs.hour, prefs.minute)}`
               : 'A nudge when the new herd lands'}
@@ -112,7 +112,7 @@ export default function DailyReminder() {
             className="overflow-hidden"
           >
             <label className="flex items-center justify-between gap-3 pt-3 mt-3 border-t border-[#FFE8C8]">
-              <span className="text-sm text-[#4A2D1B]">Remind me at</span>
+              <span className="text-base text-[#4A2D1B]">Remind me at</span>
               <input
                 type="time"
                 value={`${pad(prefs.hour)}:${pad(prefs.minute)}`}
@@ -125,7 +125,7 @@ export default function DailyReminder() {
       </AnimatePresence>
 
       {denied && (
-        <p className="text-xs text-[#C0392B] mt-3">
+        <p className="text-sm text-[#C0392B] mt-3">
           Notifications are switched off for Herd Games. Turn them on in your phone's
           Settings &rarr; Apps &rarr; Herd Games &rarr; Notifications.
         </p>

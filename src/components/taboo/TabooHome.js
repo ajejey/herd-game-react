@@ -89,13 +89,13 @@ export default function TabooHome() {
             <p style={fredokaStyle} className="text-3xl font-bold text-white leading-tight">Pizza</p>
           </div>
           <div className="bg-[#FFF8EE] py-2.5 px-3">
-            <p className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: RED }}>Don’t say</p>
+            <p className="text-[12px] font-bold tracking-widest uppercase mb-1" style={{ color: RED }}>Don’t say</p>
             {['Cheese', 'Italian', 'Slice', 'Pepperoni', 'Dough'].map((w) => (
               <p key={w} style={{ ...fredokaStyle, color: RED }} className="text-base font-bold leading-tight">{w}</p>
             ))}
           </div>
         </div>
-        <p className="text-xs text-[#8B6347] mt-3">3+ players · about 10 minutes · no download, no signup</p>
+        <p className="text-sm text-[#8B6347] mt-3">3+ players · about 10 minutes · no download, no signup</p>
       </div>
 
       <div className="max-w-sm mx-auto bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 shadow-[0_18px_40px_-18px_rgba(45,24,16,0.25)]">
@@ -107,8 +107,8 @@ export default function TabooHome() {
             </button>
           ))}
         </div>
-        {error && <p className="text-red-600 text-sm mb-3 text-center">{error}</p>}
-        {!connected && <p className="text-[#8B6347] text-sm mb-3 text-center">Connecting…</p>}
+        {error && <p className="text-red-600 text-base mb-3 text-center">{error}</p>}
+        {!connected && <p className="text-[#8B6347] text-base mb-3 text-center">Connecting…</p>}
         <form onSubmit={tab === 'create' ? handleCreate : handleJoin} className="space-y-3">
           <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your name" maxLength={20}
             className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -121,7 +121,7 @@ export default function TabooHome() {
             {tab === 'create' ? 'Create game 🚫' : 'Join game →'}
           </button>
         </form>
-        <p className="text-xs text-[#8B6347] mt-3 text-center">3+ players · no download · no signup</p>
+        <p className="text-sm text-[#8B6347] mt-3 text-center">3+ players · no download · no signup</p>
       </div>
 
       {/* SEO content */}

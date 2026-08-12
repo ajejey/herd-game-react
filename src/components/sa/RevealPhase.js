@@ -11,18 +11,18 @@ export default function RevealPhase({ game }) {
     <div className="max-w-lg mx-auto">
       {/* Question */}
       <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-5 mb-5 text-center">
-        <p className="text-xs text-[#8B6347] uppercase tracking-widest mb-1">The question</p>
+        <p className="text-sm text-[#8B6347] uppercase tracking-widest mb-1">The question</p>
         <p style={fredokaStyle} className="text-xl text-[#2D1810] font-bold">{round.question}</p>
       </div>
 
       {/* Judge's pick */}
       <div className="text-center mb-6">
-        <p className="text-[#8B6347] text-sm mb-2">{judge?.username} chose…</p>
+        <p className="text-[#8B6347] text-base mb-2">{judge?.username} chose…</p>
         <div className="inline-block bg-[#FFF0F7] border-4 border-[#E84A8B] rounded-2xl px-8 py-5">
           <p style={fredokaStyle} className="text-2xl text-[#2D1810] font-bold">
             {winningAnswer?.text ?? '—'}
           </p>
-          <p className="text-sm text-[#8B6347] mt-1">by {winningAnswer?.username}</p>
+          <p className="text-base text-[#8B6347] mt-1">by {winningAnswer?.username}</p>
         </div>
       </div>
 
@@ -49,9 +49,9 @@ export default function RevealPhase({ game }) {
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <p className="font-semibold text-[#2D1810]">{a.text}</p>
-                  <p className="text-xs text-[#8B6347] mt-0.5">by {a.username}</p>
+                  <p className="text-sm text-[#8B6347] mt-0.5">by {a.username}</p>
                   {bettors.length > 0 && (
-                    <p className="text-xs text-[#3D8B5A] mt-1">Bets: {bettors.join(', ')}</p>
+                    <p className="text-sm text-[#3D8B5A] mt-1">Bets: {bettors.join(', ')}</p>
                   )}
                 </div>
                 {isWinner && <span className="text-2xl">⭐</span>}
@@ -67,7 +67,7 @@ export default function RevealPhase({ game }) {
         {state.players.map(p => {
           const delta = round.scores?.[p.id] ?? 0;
           return (
-            <div key={p.id} className="flex justify-between text-sm py-1">
+            <div key={p.id} className="flex justify-between text-base py-1">
               <span className={`font-semibold ${p.id === myId ? 'text-[#E84A8B]' : 'text-[#2D1810]'}`}>
                 {p.username} {p.id === myId ? '(you)' : ''}
               </span>
@@ -96,7 +96,7 @@ export default function RevealPhase({ game }) {
           Next round →
         </button>
       ) : (
-        <p className="text-center text-[#8B6347] text-sm py-2">Waiting for host to start next round…</p>
+        <p className="text-center text-[#8B6347] text-base py-2">Waiting for host to start next round…</p>
       )}
     </div>
   );

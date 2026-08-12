@@ -40,7 +40,7 @@ export function GameCard({ game }) {
       {isNew && (
         <span
           style={{ ...quicksand, background: accent }}
-          className="absolute right-3 top-5 rounded-full px-2.5 py-0.5 text-[11px] font-bold text-white shadow-sm"
+          className="absolute right-3 top-5 rounded-full px-2.5 py-0.5 text-[13px] font-bold text-white shadow-sm"
         >
           NEW
         </span>
@@ -59,11 +59,11 @@ export function GameCard({ game }) {
           {name}
         </h3>
 
-        <p style={quicksand} className="mt-1.5 flex-1 text-sm leading-snug text-[#6B5B4A]">
+        <p style={quicksand} className="mt-1.5 flex-1 text-base leading-snug text-[#6B5B4A]">
           {blurb}
         </p>
 
-        <div style={quicksand} className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold text-[#A89A78]">
+        <div style={quicksand} className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-semibold text-[#A89A78]">
           <span className="inline-flex items-center gap-1">
             <FiUser size={12} aria-hidden="true" />
             {players === '1' ? 'Solo' : `${players} players`}
@@ -85,7 +85,7 @@ export function GameCard({ game }) {
 
         <span
           style={{ ...fredoka, color: accent }}
-          className="mt-3 inline-flex items-center gap-1 text-sm font-bold"
+          className="mt-3 inline-flex items-center gap-1 text-base font-bold"
         >
           Play
           <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
@@ -119,14 +119,14 @@ export function GameSection({
         {eyebrow && (
           <p
             style={{ ...quicksand, color: accent }}
-            className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em]"
+            className="mb-1 flex items-center gap-1.5 text-sm font-bold uppercase tracking-[0.18em]"
           >
             <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full" style={{ background: accent }} />
             {eyebrow}
           </p>
         )}
         <h2 style={fredoka} className="text-2xl font-bold text-[#2D1810] md:text-3xl">{title}</h2>
-        {tagline && <p style={quicksand} className="mt-1 text-sm text-[#6B5B4A]">{tagline}</p>}
+        {tagline && <p style={quicksand} className="mt-1 text-base text-[#6B5B4A]">{tagline}</p>}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

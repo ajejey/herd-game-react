@@ -178,7 +178,7 @@ export default function RemoteWorkBingo() {
                 style={on ? { background: GREEN, borderColor: GREEN } : { borderColor: '#FFE8C8' }}
                 className={`aspect-square rounded-xl border-2 p-1 flex items-center justify-center text-center leading-tight select-none transition-colors
                   ${on ? 'text-white' : 'bg-[#FFF8EE] text-[#2D1810] hover:bg-[#FFF1DC]'} ${cell.free ? 'font-bold' : ''}`}>
-                <span className="text-[9px] sm:text-[11px] md:text-xs break-words">{cell.text}</span>
+                <span className="text-[11px] sm:text-[13px] md:text-sm break-words">{cell.text}</span>
               </button>
             );
           })}
@@ -194,7 +194,7 @@ export default function RemoteWorkBingo() {
             {copied === 'challenge' ? <><FiCheck /> Link copied!</> : <><FiUsers /> Challenge your team (same card)</>}
           </button>
         </div>
-        <p className="text-center text-xs text-[#8B6347] mt-2">Tip: drop the “challenge” link in your Teams/Zoom chat so everyone plays the same card.</p>
+        <p className="text-center text-sm text-[#8B6347] mt-2">Tip: drop the “challenge” link in your Teams/Zoom chat so everyone plays the same card.</p>
 
         <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
       </div>

@@ -20,9 +20,9 @@ function GamesRoster({ heading = 'Pick a game — free, no download, play in sec
             style={{ borderColor: g.accent + '55' }}>
             <div className="flex items-center justify-between">
               <h3 style={fredokaStyle} className="text-lg font-bold text-[#2D1810]">{g.name}</h3>
-              <span className="text-xs font-bold text-white px-2 py-0.5 rounded-full" style={{ background: g.accent }}>{g.players}</span>
+              <span className="text-sm font-bold text-white px-2 py-0.5 rounded-full" style={{ background: g.accent }}>{g.players}</span>
             </div>
-            <p className="text-sm text-[#6B4226] mt-1 flex-1">{g.blurb}</p>
+            <p className="text-base text-[#6B4226] mt-1 flex-1">{g.blurb}</p>
             <span className="mt-2 inline-flex items-center gap-1 font-semibold" style={{ color: g.accent }}>
               Play now <span className="transition-transform group-hover:translate-x-1">→</span>
             </span>
@@ -81,7 +81,7 @@ export default function OfficeLayout({ slug = '', title, description, h1, keywor
       </Helmet>
 
       <div className="max-w-3xl mx-auto">
-        <nav className="text-sm text-[#8B6347] mb-4 flex items-center gap-2 flex-wrap">
+        <nav className="text-base text-[#8B6347] mb-4 flex items-center gap-2 flex-wrap">
           <Link to="/" className="hover:text-[#2D1810]">Home</Link>
           <span>›</span>
           {slug ? <Link to="/office-games" className="hover:text-[#2D1810]">Office Games</Link> : <span className="text-[#2D1810] font-semibold">Office Games</span>}
@@ -122,7 +122,7 @@ export default function OfficeLayout({ slug = '', title, description, h1, keywor
                 <li key={s.slug}>
                   <Link to={`/office-games/${s.slug}`} className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-[#FFE8C8] text-[#2D1810] font-semibold transition-colors">
                     <span className="text-xl">{s.emoji}</span>
-                    <span className="text-sm md:text-base">{s.title}</span>
+                    <span className="text-base md:text-base">{s.title}</span>
                   </Link>
                 </li>
               ))}

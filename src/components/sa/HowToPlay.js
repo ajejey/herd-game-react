@@ -27,43 +27,43 @@ export default function HowToPlay({ onClose, compact = false }) {
   return (
     <Wrap>
       <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-1">How to Play</h2>
-      <p className="text-[#8B6347] text-sm mb-4">A quick read — you'll get it in one round.</p>
+      <p className="text-[#8B6347] text-base mb-4">A quick read — you'll get it in one round.</p>
 
       {/* The flow */}
-      <ol className="space-y-3 text-[#2D1810] text-sm mb-5">
+      <ol className="space-y-3 text-[#2D1810] text-base mb-5">
         <li className="flex gap-3">
           <span className="shrink-0 w-7 h-7 rounded-full bg-[#FFE8C8] flex items-center justify-center font-bold text-[#2D1810]">1</span>
           <div>
             <p className="font-semibold">The judge picks a question</p>
-            <p className="text-[#8B6347] text-xs">Each round, one player is the judge. They choose from 3 questions.</p>
+            <p className="text-[#8B6347] text-sm">Each round, one player is the judge. They choose from 3 questions.</p>
           </div>
         </li>
         <li className="flex gap-3">
           <span className="shrink-0 w-7 h-7 rounded-full bg-[#FFE8C8] flex items-center justify-center font-bold text-[#2D1810]">2</span>
           <div>
             <p className="font-semibold">Everyone else writes an answer</p>
-            <p className="text-[#8B6347] text-xs">Be funny, be honest, be weird — there are no wrong answers.</p>
+            <p className="text-[#8B6347] text-sm">Be funny, be honest, be weird — there are no wrong answers.</p>
           </div>
         </li>
         <li className="flex gap-3">
           <span className="shrink-0 w-7 h-7 rounded-full bg-[#FFE8C8] flex items-center justify-center font-bold text-[#2D1810]">3</span>
           <div>
             <p className="font-semibold">The judge secretly picks a favourite</p>
-            <p className="text-[#8B6347] text-xs">Nobody knows their choice yet 🤫</p>
+            <p className="text-[#8B6347] text-sm">Nobody knows their choice yet 🤫</p>
           </div>
         </li>
         <li className="flex gap-3">
           <span className="shrink-0 w-7 h-7 rounded-full bg-[#FFE8C8] flex items-center justify-center font-bold text-[#2D1810]">4</span>
           <div>
             <p className="font-semibold">Everyone places 2 bets 🪙🪙</p>
-            <p className="text-[#8B6347] text-xs">Guess which answer the judge picked. Two tokens to spend, your call.</p>
+            <p className="text-[#8B6347] text-sm">Guess which answer the judge picked. Two tokens to spend, your call.</p>
           </div>
         </li>
         <li className="flex gap-3">
           <span className="shrink-0 w-7 h-7 rounded-full bg-[#FFE8C8] flex items-center justify-center font-bold text-[#2D1810]">5</span>
           <div>
             <p className="font-semibold">Reveal &amp; score</p>
-            <p className="text-[#8B6347] text-xs">The pick is shown. Points awarded. Next judge takes over.</p>
+            <p className="text-[#8B6347] text-sm">The pick is shown. Points awarded. Next judge takes over.</p>
           </div>
         </li>
       </ol>
@@ -71,7 +71,7 @@ export default function HowToPlay({ onClose, compact = false }) {
       {/* Betting strategy */}
       <div className="bg-[#FFF0F7] border-2 border-[#E84A8B] rounded-2xl p-4 mb-4">
         <p style={fredokaStyle} className="text-base font-bold text-[#2D1810] mb-1">🎲 Your 2 tokens — the choice</p>
-        <ul className="text-sm text-[#2D1810] space-y-1">
+        <ul className="text-base text-[#2D1810] space-y-1">
           <li><span className="font-bold">Double-down 🔥</span> — both on one answer. <span className="text-[#3D8B5A]">2 points if right</span>, nothing if wrong.</li>
           <li><span className="font-bold">Hedge 🛡️</span> — one on each of two answers. Safer, max 1 point.</li>
         </ul>
@@ -80,14 +80,14 @@ export default function HowToPlay({ onClose, compact = false }) {
       {/* Scoring */}
       <div className="bg-[#FFFBE8] border-2 border-[#FFD56B] rounded-2xl p-4 mb-2">
         <p style={fredokaStyle} className="text-base font-bold text-[#2D1810] mb-1">⭐ Points</p>
-        <ul className="text-sm text-[#2D1810] space-y-1">
+        <ul className="text-base text-[#2D1810] space-y-1">
           <li>📝 Your answer gets picked → <span className="font-bold text-[#3D8B5A]">+1</span></li>
           <li>🎯 Your token lands on the picked answer → <span className="font-bold text-[#3D8B5A]">+1 each</span></li>
           <li>⚖️ Judge gets <span className="font-bold text-[#3D8B5A]">+1 per correct token</span> placed by others</li>
         </ul>
       </div>
 
-      <p className="text-center text-[#8B6347] text-xs italic">First to 7 points wins 🏆</p>
+      <p className="text-center text-[#8B6347] text-sm italic">First to 7 points wins 🏆</p>
     </Wrap>
   );
 }

@@ -57,7 +57,7 @@ export default function GuesstimateRoom() {
         <div className="text-center py-20">
           <div className="text-5xl mb-4 animate-spin">⟳</div>
           <p style={fredokaStyle} className="text-2xl text-[#2D1810]">Reconnecting…</p>
-          <p className="text-[#8B6347] mt-2 text-sm">Your spot is saved.</p>
+          <p className="text-[#8B6347] mt-2 text-base">Your spot is saved.</p>
         </div>
       </MeadowLayout>
     );
@@ -93,7 +93,7 @@ export default function GuesstimateRoom() {
 
   return (
     <MeadowLayout>
-      <div className="flex items-center justify-between mb-4 text-sm text-[#8B6347]">
+      <div className="flex items-center justify-between mb-4 text-base text-[#8B6347]">
         <span style={fredokaStyle} className="text-lg font-bold text-[#2D1810]">Guesstimate</span>
         <div className="flex items-center gap-2">
           <button
@@ -114,7 +114,7 @@ export default function GuesstimateRoom() {
         {[...state.players].sort((a, b) => b.score - a.score).map(p => (
           <div
             key={p.id}
-            className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold border-2 ${
+            className={`flex items-center gap-1 px-3 py-1 rounded-full text-base font-semibold border-2 ${
               p.id === myId ? 'bg-[#E84A8B] text-white border-[#C73B73]' : 'bg-white text-[#2D1810] border-[#FFE8C8]'
             } ${!p.connected ? 'opacity-40' : ''}`}
           >
@@ -124,12 +124,12 @@ export default function GuesstimateRoom() {
         ))}
       </div>
 
-      <p className="text-xs text-[#8B6347] mb-3">Round {state.currentRound} of {state.totalRounds}</p>
+      <p className="text-sm text-[#8B6347] mb-3">Round {state.currentRound} of {state.totalRounds}</p>
 
       <PhaseBanner phase={state.phase} />
 
       {error && !kicked && (
-        <div className="mb-4 px-4 py-2 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+        <div className="mb-4 px-4 py-2 bg-red-50 border border-red-200 rounded-xl text-red-700 text-base">
           {error}
         </div>
       )}
@@ -148,7 +148,7 @@ function QuickJoin({ roomCode, joinGame, error }) {
       <div className="max-w-sm mx-auto">
         <h2 style={fredokaStyle} className="text-3xl font-bold text-[#2D1810] mb-2 text-center">Join game</h2>
         <p className="text-center text-[#8B6347] mb-6">Room <span className="font-mono font-bold">{roomCode}</span></p>
-        {error && <p className="text-red-600 text-sm mb-4 text-center">{error}</p>}
+        {error && <p className="text-red-600 text-base mb-4 text-center">{error}</p>}
         <form onSubmit={e => { e.preventDefault(); if (name.trim()) joinGame(roomCode, name); }} className="space-y-4">
           <input
             type="text"

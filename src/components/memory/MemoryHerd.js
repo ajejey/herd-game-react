@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { FiShare2, FiCheck, FiDownload, FiRotateCcw, FiVolume2, FiVolumeX } from 'react-icons/fi';
 import Navigation from '../Navigation';
 import AdSlot from '../AdSlot';
+import PlayHint from '../common/PlayHint';
 import { isMuted, setMuted } from '../daily/sfx';
 import { THEME, FREDOKA, QUICKSAND, rankFor } from './memoryData';
 import { useMemoryHerd } from './useMemoryHerd';
@@ -98,7 +99,7 @@ export default function MemoryHerd() {
             >
               Start remembering
             </button>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-sm">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-base">
               Endless · no signup
               {g.best > 0 && <> · your best: <strong style={{ color: THEME.green }}>{g.best} rounds</strong></>}
             </p>
@@ -109,7 +110,7 @@ export default function MemoryHerd() {
         {playing && (
           <div>
             <div className="mb-4 flex items-center justify-between" style={QUICKSAND}>
-              <span className="text-sm font-bold" style={{ color: THEME.mut }}>
+              <span className="text-base font-bold" style={{ color: THEME.mut }}>
                 Round {g.round}{g.best > 0 && <> · best {g.best}</>}
               </span>
               <button
@@ -155,18 +156,21 @@ export default function MemoryHerd() {
               })}
             </div>
 
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-4 text-center text-sm">
+            {/* Deliberately NOT `live`: the "Watch… / Your turn" line above is
+                already an aria-live status for this same state change, and two
+                live regions announcing the same transition talk over each other. */}
+            <PlayHint accent={THEME.pink} ink={THEME.ink} className="mt-4">
               {g.status === 'showing'
-                ? 'Memorise the order'
-                : 'Tap the tiles in the order they lit up'}
-            </p>
+                ? 'Watch — memorise the order they light up in'
+                : 'Now tap the tiles in the order they lit up'}
+            </PlayHint>
           </div>
         )}
 
         {/* ---------------- OVER ---------------- */}
         {g.status === 'over' && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-sm uppercase tracking-widest">
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">
               You survived
             </p>
             <p style={{ ...FREDOKA, color: THEME.green }} className="my-1 text-7xl font-bold md:text-8xl">
@@ -241,7 +245,7 @@ export default function MemoryHerd() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm" style={{ color: THEME.mut }}>
+          <p className="mt-8 text-base" style={{ color: THEME.mut }}>
             More to play: <Link to="/guess-the-year" className="font-bold underline" style={{ color: THEME.green }}>Guess the Year</Link>,{' '}
             <Link to="/higher-or-lower" className="font-bold underline" style={{ color: THEME.green }}>Higher or Lower</Link>, or{' '}
             <Link to="/solo-games" className="font-bold underline" style={{ color: THEME.green }}>all solo games</Link>.
