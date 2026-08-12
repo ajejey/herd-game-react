@@ -36,6 +36,7 @@ import Hangman from './components/hangman/Hangman';
 import Minesweeper from './components/minesweeper/Minesweeper';
 import TicTacToe from './components/tictactoe/TicTacToe';
 import WhichGame from './components/whichgame/WhichGame';
+import CustomPack from './components/custom/CustomPack';
 import SoloGamesHub from './components/hubs/SoloGamesHub';
 import AllGamesHub from './components/hubs/AllGamesHub';
 import ScrollToTop from './components/ScrollToTop';
@@ -159,6 +160,7 @@ function App() {
               <Route path="/minesweeper" element={<Minesweeper />} />
               <Route path="/tic-tac-toe" element={<TicTacToe />} />
               <Route path="/which-game-should-i-play" element={<WhichGame />} />
+              <Route path="/custom-questions" element={<CustomPack />} />
               <Route path="/solo-games" element={<SoloGamesHub />} />
               <Route path="/all-games" element={<AllGamesHub />} />
               <Route path="/office-games" element={<OfficeGamesHub />} />

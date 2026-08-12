@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import usePackFromUrl from '../../lib/usePackFromUrl';
 import { useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
@@ -52,13 +53,14 @@ const FAQ_SCHEMA = { '@context': 'https://schema.org', '@type': 'FAQPage', mainE
 export default function ScattergoriesHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useScattergories();
+  const { packCode, packInfo } = usePackFromUrl();
   const [tab, setTab] = useState('create');
   const [username, setUsername] = useState('');
   const [code, setCode] = useState('');
 
   useEffect(() => { if (state && roomCode) navigate(`/scattergories/room/${roomCode}`); }, [state, roomCode, navigate]);
 
-  function handleCreate(e) { e.preventDefault(); if (username.trim()) createGame(username); }
+  function handleCreate(e) { e.preventDefault(); if (username.trim()) createGame(username, packCode ? { packCode } : {}); }
   function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) joinGame(code, username); }
 
   return (
@@ -95,8 +97,30 @@ export default function ScattergoriesHome() {
             </button>
           ))}
         </div>
-        {error && <p className="text-red-600 text-sm mb-3 text-center">{error}</p>}
-        {!connected && <p className="text-[#8B6347] text-sm mb-3 text-center">Connecting…</p>}
+        {error && <p className="text-red-600 text-base mb-3 text-center">{error}</p>}
+        {!connected && <p className="text-[#8B6347] text-base mb-3 text-center">Connecting…</p>}
+        {tab === 'create' && packInfo && !packInfo.error && (
+          <div data-testid="pack-banner" className="mb-3 rounded-2xl border-2 border-[#3D8B5A] bg-[#EAF6EE] p-3 text-center">
+            <p className="font-bold text-[#2D6E45]">
+              Using your questions{packInfo.title ? ` — “${packInfo.title}”` : ''}
+            </p>
+            <p className="text-base text-[#3D8B5A]">{packInfo.count} custom · pack {packInfo.packCode}</p>
+          </div>
+        )}
+        {tab === 'create' && packInfo && packInfo.error && (
+          <div data-testid="pack-banner-error" className="mb-3 rounded-2xl border-2 border-[#D0463B] bg-[#FDECEA] p-3 text-center">
+            <p className="text-base font-bold text-[#B03A30]">
+              We couldn’t find that pack code — this game will use our built-in questions.
+            </p>
+          </div>
+        )}
+        {tab === 'create' && !packInfo && (
+          <p className="mb-3 text-center text-base text-[#6B4226]">
+            Playing with a class, family or team?{' '}
+            <Link to="/custom-questions" className="font-bold text-[#E84A8B] underline">Use your own questions</Link>
+          </p>
+        )}
+
         <form onSubmit={tab === 'create' ? handleCreate : handleJoin} className="space-y-3">
           <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your name" maxLength={20}
             className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
@@ -109,7 +133,7 @@ export default function ScattergoriesHome() {
             {tab === 'create' ? 'Create game 🅰️' : 'Join game →'}
           </button>
         </form>
-        <p className="text-xs text-[#8B6347] mt-3 text-center">2+ players · no download · no signup</p>
+        <p className="text-sm text-[#8B6347] mt-3 text-center">2+ players · no download · no signup</p>
       </div>
 
       {/* SEO content */}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import usePackFromUrl from '../../lib/usePackFromUrl';
 import { useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
@@ -202,6 +203,7 @@ function FaqItem({ q, a, defaultOpen = false }) {
 export default function SayAnythingHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useSayAnything();
+  const { packCode, packInfo } = usePackFromUrl();
 
   const [tab, setTab] = useState('create');
   const [username, setUsername] = useState('');
@@ -214,7 +216,7 @@ export default function SayAnythingHome() {
   function handleCreate(e) {
     e.preventDefault();
     if (!username.trim()) return;
-    createGame(username);
+    createGame(username, packCode ? { packCode } : {});
   }
 
   function handleJoin(e) {
@@ -271,7 +273,7 @@ export default function SayAnythingHome() {
               <button
                 key={t}
                 onClick={() => { setTab(t); clearError(); }}
-                className={`flex-1 py-2 rounded-xl font-semibold text-sm transition-all ${
+                className={`flex-1 py-2 rounded-xl font-semibold text-base transition-all ${
                   tab === t ? 'bg-white text-[#2D1810] shadow-sm' : 'text-[#8B6347] hover:text-[#2D1810]'
                 }`}
                 style={tab === t ? fredokaStyle : {}}
@@ -282,17 +284,39 @@ export default function SayAnythingHome() {
           </div>
 
           {error && (
-            <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">{error}</div>
+            <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-base">{error}</div>
           )}
           {!connected && (
-            <div className="mb-4 px-4 py-3 bg-yellow-50 border border-yellow-200 rounded-xl text-yellow-700 text-sm flex items-center gap-2">
+            <div className="mb-4 px-4 py-3 bg-yellow-50 border border-yellow-200 rounded-xl text-yellow-700 text-base flex items-center gap-2">
               <span className="animate-spin">⟳</span> Connecting to server…
             </div>
           )}
+        {tab === 'create' && packInfo && !packInfo.error && (
+          <div data-testid="pack-banner" className="mb-3 rounded-2xl border-2 border-[#3D8B5A] bg-[#EAF6EE] p-3 text-center">
+            <p className="font-bold text-[#2D6E45]">
+              Using your questions{packInfo.title ? ` — “${packInfo.title}”` : ''}
+            </p>
+            <p className="text-base text-[#3D8B5A]">{packInfo.count} custom · pack {packInfo.packCode}</p>
+          </div>
+        )}
+        {tab === 'create' && packInfo && packInfo.error && (
+          <div data-testid="pack-banner-error" className="mb-3 rounded-2xl border-2 border-[#D0463B] bg-[#FDECEA] p-3 text-center">
+            <p className="text-base font-bold text-[#B03A30]">
+              We couldn’t find that pack code — this game will use our built-in questions.
+            </p>
+          </div>
+        )}
+        {tab === 'create' && !packInfo && (
+          <p className="mb-3 text-center text-base text-[#6B4226]">
+            Playing with a class, family or team?{' '}
+            <Link to="/custom-questions" className="font-bold text-[#E84A8B] underline">Use your own questions</Link>
+          </p>
+        )}
+
 
           <form onSubmit={tab === 'create' ? handleCreate : handleJoin} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-[#4A2D1B] mb-1">Your name</label>
+              <label className="block text-base font-semibold text-[#4A2D1B] mb-1">Your name</label>
               <input
                 type="text"
                 value={username}
@@ -304,7 +328,7 @@ export default function SayAnythingHome() {
             </div>
             {tab === 'join' && (
               <div>
-                <label className="block text-sm font-semibold text-[#4A2D1B] mb-1">Room code</label>
+                <label className="block text-base font-semibold text-[#4A2D1B] mb-1">Room code</label>
                 <input
                   type="text"
                   value={code}
@@ -408,7 +432,7 @@ export default function SayAnythingHome() {
             Looking for a free alternative to Jackbox or Cards Against Humanity? Here's how Say Anything compares.
           </p>
           <div className="overflow-x-auto bg-white rounded-2xl border-2 border-[#FFE8C8]">
-            <table className="w-full text-sm md:text-base text-left">
+            <table className="w-full text-base md:text-base text-left">
               <thead className="bg-[#FFF5E8]">
                 <tr>
                   <th className="p-3 font-bold text-[#2D1810]"></th>
@@ -427,7 +451,7 @@ export default function SayAnythingHome() {
                 <tr className="border-t border-[#FFE8C8]"><td className="p-3 font-semibold">Works in any browser</td><td className="p-3 text-[#3D8B5A] font-bold">Yes</td><td className="p-3">No</td><td className="p-3">Yes</td></tr>
               </tbody>
             </table>
-            <p className="text-xs text-[#8B6347] p-3">*Free online clones exist; the official boxed game is $25.</p>
+            <p className="text-sm text-[#8B6347] p-3">*Free online clones exist; the official boxed game is $25.</p>
           </div>
         </section>
 
@@ -463,7 +487,7 @@ export default function SayAnythingHome() {
           <h2 style={fredokaStyle} className="text-2xl md:text-3xl font-bold text-[#2D1810] mb-1">
             Frequently asked questions
           </h2>
-          <p className="text-[#8B6347] text-sm mb-4">Everything you might wonder before starting a game.</p>
+          <p className="text-[#8B6347] text-base mb-4">Everything you might wonder before starting a game.</p>
           <div className="bg-white rounded-2xl border-2 border-[#FFE8C8] p-4 md:p-6">
             {FAQ_ITEMS.map((item, i) => (
               <FaqItem key={i} q={item.q} a={item.a} defaultOpen={i === 0} />
@@ -480,37 +504,37 @@ export default function SayAnythingHome() {
             <li>
               <Link to="/say-anything/how-to-play-say-anything-board-game-online" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
                 <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">📖 How to Play Say Anything Online</h3>
-                <p className="text-sm text-[#8B6347]">Full rules, scoring, judge rotation, betting explained.</p>
+                <p className="text-base text-[#8B6347]">Full rules, scoring, judge rotation, betting explained.</p>
               </Link>
             </li>
             <li>
               <Link to="/say-anything/100-funny-say-anything-game-questions" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
                 <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🎯 100 Funny Question Prompts</h3>
-                <p className="text-sm text-[#8B6347]">Free list of family-safe Say Anything questions.</p>
+                <p className="text-base text-[#8B6347]">Free list of family-safe Say Anything questions.</p>
               </Link>
             </li>
             <li>
               <Link to="/say-anything/can-you-play-say-anything-with-2-players" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
                 <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">👥 Can You Play With 2 Players?</h3>
-                <p className="text-sm text-[#8B6347]">Why 3 is the minimum + a couple's variant.</p>
+                <p className="text-base text-[#8B6347]">Why 3 is the minimum + a couple's variant.</p>
               </Link>
             </li>
             <li>
               <Link to="/say-anything/free-alternative-to-jackbox-party-pack" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
                 <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🆓 Free Jackbox Alternative</h3>
-                <p className="text-sm text-[#8B6347]">Free in-browser games like Quiplash, no Steam.</p>
+                <p className="text-base text-[#8B6347]">Free in-browser games like Quiplash, no Steam.</p>
               </Link>
             </li>
             <li>
               <Link to="/say-anything/how-to-play-party-games-on-zoom-with-friends" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
                 <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">💻 Play Party Games on Zoom</h3>
-                <p className="text-sm text-[#8B6347]">Step-by-step setup for video-call game nights.</p>
+                <p className="text-base text-[#8B6347]">Step-by-step setup for video-call game nights.</p>
               </Link>
             </li>
             <li>
               <Link to="/say-anything/family-friendly-party-games-to-play-online" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
                 <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">👨‍👩‍👧 Family-Friendly Party Games</h3>
-                <p className="text-sm text-[#8B6347]">Best free online games for kids, parents, grandparents.</p>
+                <p className="text-base text-[#8B6347]">Best free online games for kids, parents, grandparents.</p>
               </Link>
             </li>
           </ul>

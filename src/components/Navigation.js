@@ -66,6 +66,7 @@ const MENU = [
     label: 'More',
     items: [
       { to: '/all-games', label: 'All games' },
+      { to: '/custom-questions', label: 'Write your own questions' },
       { to: '/blog', label: 'Blog' },
       { to: '/faq', label: 'FAQ' },
       { to: '/about-contact', label: 'About' },
@@ -182,7 +183,7 @@ const Navigation = () => {
                       {group.more && (
                         <Link
                           to={group.more.to}
-                          className="mt-1 block whitespace-nowrap rounded-xl border-t-2 border-[#FFE8C8] px-3 py-2 text-sm font-bold text-[#3D8B5A] transition-colors hover:bg-[#FFF1DC]"
+                          className="mt-1 block whitespace-nowrap rounded-xl border-t-2 border-[#FFE8C8] px-3 py-2 text-base font-bold text-[#3D8B5A] transition-colors hover:bg-[#FFF1DC]"
                         >
                           {group.more.label} →
                         </Link>
@@ -239,7 +240,7 @@ const Navigation = () => {
             <Link to="/" className={`py-2.5 px-2 ${pathname === '/' ? 'text-[#3D8B5A]' : 'text-[#2D1810]'}`}>Home</Link>
             {MENU.map((group) => (
               <div key={group.label}>
-                <p className="px-2 pt-2 pb-1 text-xs font-bold uppercase tracking-widest text-[#A89A78]">{group.label}</p>
+                <p className="px-2 pt-2 pb-1 text-sm font-bold uppercase tracking-widest text-[#A89A78]">{group.label}</p>
                 {group.items.map(({ to, label }) => {
                   const active = pathname === to;
                   return (
@@ -253,7 +254,7 @@ const Navigation = () => {
                   );
                 })}
                 {group.more && (
-                  <Link to={group.more.to} className="block px-4 py-2.5 text-sm font-bold text-[#3D8B5A]">
+                  <Link to={group.more.to} className="block px-4 py-2.5 text-base font-bold text-[#3D8B5A]">
                     {group.more.label} →
                   </Link>
                 )}

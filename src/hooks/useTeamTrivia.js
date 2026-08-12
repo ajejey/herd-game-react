@@ -75,7 +75,9 @@ export function useTeamTrivia() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createGame = useCallback((username) => { clearSession(); setError(null); socketRef.current?.emit('create_game', { username: username.trim() }); }, []);
+  // `settings` carries optional room config — currently just packCode, which
+  // the engine resolves into the host's own questions before the game starts.
+  const createGame = useCallback((username, settings = {}) => { clearSession(); setError(null); socketRef.current?.emit('create_game', { username: username.trim(), settings }); }, []);
   const joinGame = useCallback((rc, username) => { setError(null); setRoomNotFound(false); socketRef.current?.emit('join_game', { roomCode: rc.toUpperCase().trim(), username: username.trim() }); }, []);
   const startGame = useCallback(() => { if (roomCode) socketRef.current?.emit('start_game', { roomCode }); }, [roomCode]);
   const sendAction = useCallback((action, payload = {}) => { if (roomCode && action) socketRef.current?.emit('game_action', { roomCode, action, payload }); }, [roomCode]);

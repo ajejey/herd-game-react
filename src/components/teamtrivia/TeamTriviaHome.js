@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
+import usePackFromUrl from '../../lib/usePackFromUrl';
 import { useTeamTrivia } from '../../hooks/useTeamTrivia';
 import AdSlot from '../AdSlot';
 import WaitlistCTA from '../office/WaitlistCTA';
@@ -59,7 +60,17 @@ const FAQ_SCHEMA = {
 
 export default function TeamTriviaHome() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useTeamTrivia();
+
+  // Custom question pack from a shared link (see CUSTOM_PACKS_PLAN.md). The
+  // host is shown what will be played BEFORE the room exists, so a mistyped
+  // code is caught here rather than in front of a class.
+  //
+  // This was an inline copy of the hook until it had already drifted from it:
+  // no unmount guard, and `[]` deps where the hook watches the query string.
+  // Four pages now read a pack the same way, from one place.
+  const { packCode, packInfo } = usePackFromUrl(location.search);
   const [tab, setTab] = useState('create');
   const [username, setUsername] = useState('');
   const [code, setCode] = useState('');
@@ -68,7 +79,7 @@ export default function TeamTriviaHome() {
     if (state && roomCode) navigate(`/team-trivia/room/${roomCode}`);
   }, [state, roomCode, navigate]);
 
-  function handleCreate(e) { e.preventDefault(); if (username.trim()) createGame(username); }
+  function handleCreate(e) { e.preventDefault(); if (username.trim()) createGame(username, packCode ? { packCode } : {}); }
   function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) joinGame(code, username); }
 
   return (
@@ -106,8 +117,33 @@ export default function TeamTriviaHome() {
           ))}
         </div>
 
-        {error && <p className="text-red-600 text-sm mb-3 text-center">{error}</p>}
-        {!connected && <p className="text-[#8B6347] text-sm mb-3 text-center">Connecting…</p>}
+        {error && <p className="text-red-600 text-base mb-3 text-center">{error}</p>}
+        {!connected && <p className="text-[#8B6347] text-base mb-3 text-center">Connecting…</p>}
+
+        {tab === 'create' && !packInfo && (
+          <p className="mb-3 text-center text-base text-[#6B4226]">
+            Running this for a class or a team?{' '}
+            <Link to="/custom-questions" className="font-bold text-[#E84A8B] underline">
+              Use your own questions
+            </Link>
+          </p>
+        )}
+
+        {tab === 'create' && packInfo && !packInfo.error && (
+          <div data-testid="tt-pack-banner" className="mb-3 rounded-2xl border-2 border-[#3D8B5A] bg-[#EAF6EE] p-3 text-center">
+            <p className="font-bold text-[#2D6E45]">
+              Using your questions{packInfo.title ? ` — “${packInfo.title}”` : ''}
+            </p>
+            <p className="text-base text-[#3D8B5A]">{packInfo.count} custom questions · pack {packInfo.packCode}</p>
+          </div>
+        )}
+        {tab === 'create' && packInfo && packInfo.error && (
+          <div data-testid="tt-pack-banner-error" className="mb-3 rounded-2xl border-2 border-[#D0463B] bg-[#FDECEA] p-3 text-center">
+            <p className="text-base font-bold text-[#B03A30]">
+              We couldn’t find that pack code — this game will use our built-in questions.
+            </p>
+          </div>
+        )}
 
         <form onSubmit={tab === 'create' ? handleCreate : handleJoin} className="space-y-3">
           <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your name" maxLength={20}
@@ -121,7 +157,7 @@ export default function TeamTriviaHome() {
             {tab === 'create' ? 'Create game 🧠' : 'Join game →'}
           </button>
         </form>
-        <p className="text-xs text-[#8B6347] mt-3 text-center">2+ players · no download · no signup</p>
+        <p className="text-sm text-[#8B6347] mt-3 text-center">2+ players · no download · no signup</p>
       </div>
 
       {/* Corporate willingness-to-pay probe — this is the highest team-intent page. */}

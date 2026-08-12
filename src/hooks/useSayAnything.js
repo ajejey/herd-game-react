@@ -124,10 +124,10 @@ export function useSayAnything() {
 
   // ── Actions ───────────────────────────────────────────────────────────────
 
-  const createGame = useCallback((username) => {
+  const createGame = useCallback((username, settings = {}) => {
     clearSession();
     setError(null);
-    socketRef.current?.emit('create_game', { username: username.trim() });
+    socketRef.current?.emit('create_game', { username: username.trim(), settings });
   }, []);
 
   const joinGame = useCallback((rc, username) => {

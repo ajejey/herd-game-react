@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import Navigation from './Navigation';
 import AdSlot from './AdSlot';
 import RemotePlayNotice from './common/RemotePlayNotice';
+import usePackFromUrl from '../lib/usePackFromUrl';
 
 import { Sheep } from './daily/HerdCritters';
 
@@ -317,6 +318,23 @@ const Home = () => {
     });
   };
 
+  // Custom question pack (see CUSTOM_PACKS_PLAN.md). Read from ?pack=CODE so a
+  // host can share one link, and remembered so the same group can run it again.
+  //
+  // The lookup itself was inlined here and had already lost the hook's unmount
+  // guard, so a slow reply could land on a dead component or overwrite a newer
+  // one. Only the tab nudge below is genuinely local to this page.
+  const { packCode, packInfo } = usePackFromUrl(location.search);
+
+  // A pack link is for the HOST who is about to start a game, so open on the
+  // create tab. This page alone defaults to "join", which meant the pack banner
+  // — and the create button itself — were simply not on screen for anyone
+  // arriving via a shared pack link. The four game home pages already default
+  // to create, so they need nothing.
+  useEffect(() => {
+    if (packCode) setActiveTab('create');
+  }, [packCode]);
+
   const handleCreateGame = (e) => {
     e.preventDefault();
     if (!username.trim()) {
@@ -326,7 +344,10 @@ const Home = () => {
     setIsJoining(true);
     localStorage.setItem('username', username);
     const socket = connect();
-    socket.emit('create_game', { username });
+    // A custom pack is optional and best-effort: if the code is wrong or the
+    // pack has expired the server falls back to the built-in questions rather
+    // than refusing to make the room. Nobody should be stuck at a party.
+    socket.emit('create_game', { username, packCode: packCode || undefined });
     socket.once('game_created', ({ gameId, roomCode, playerId }) => {
       saveGameSession(gameId, roomCode, playerId, username);
       dispatch({ type: 'GAME_CREATED', payload: { gameId, roomCode, playerId } });
@@ -487,15 +508,15 @@ const Home = () => {
         <section className="mb-10">
           <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
             <h2 style={fredoka} className="text-2xl md:text-3xl font-bold text-[#2D1810]">☀ Daily games</h2>
-            <span className="text-sm text-[#6B4226]">Play solo · no friends needed · new every day</span>
+            <span className="text-base text-[#6B4226]">Play solo · no friends needed · new every day</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Daily Herd */}
             <Link to="/daily" className="group rounded-3xl border-4 border-[#E84A8B] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
               <Sheep size={48} />
               <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Daily Herd</h3>
-              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">Match the herd — 5 quick questions, find out what you are.</p>
-              <span className="mt-2 text-[#E84A8B] font-semibold text-sm">Play today →</span>
+              <p className="text-base text-[#6B4226] mt-0.5 flex-1">Match the herd — 5 quick questions, find out what you are.</p>
+              <span className="mt-2 text-[#E84A8B] font-semibold text-base">Play today →</span>
             </Link>
             {/* Daily Trivia */}
             <Link to="/trivia" className="group rounded-3xl border-4 border-[#3D8B5A] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
@@ -504,8 +525,8 @@ const Home = () => {
                 <text x="12" y="17" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#fff" fontFamily="Fredoka, sans-serif">?</text>
               </svg>
               <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Daily Trivia</h3>
-              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">10 questions a day across every topic. Keep your streak.</p>
-              <span className="mt-2 text-[#3D8B5A] font-semibold text-sm">Play today →</span>
+              <p className="text-base text-[#6B4226] mt-0.5 flex-1">10 questions a day across every topic. Keep your streak.</p>
+              <span className="mt-2 text-[#3D8B5A] font-semibold text-base">Play today →</span>
             </Link>
             {/* Huddle */}
             <Link to="/connections" className="group rounded-3xl border-4 border-[#4A90D9] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
@@ -516,8 +537,8 @@ const Home = () => {
                 <rect x="13" y="13" width="8" height="8" rx="2" fill="#7C4DFF" />
               </svg>
               <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Huddle</h3>
-              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">Sort 16 words into 4 hidden groups. Free Connections-style.</p>
-              <span className="mt-2 text-[#4A90D9] font-semibold text-sm">Play today →</span>
+              <p className="text-base text-[#6B4226] mt-0.5 flex-1">Sort 16 words into 4 hidden groups. Free Connections-style.</p>
+              <span className="mt-2 text-[#4A90D9] font-semibold text-base">Play today →</span>
             </Link>
             {/* Daily Aura */}
             <Link to="/aura" className="group rounded-3xl border-4 border-[#C9AEFF] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
@@ -532,8 +553,8 @@ const Home = () => {
                 <circle cx="24" cy="24" r="18" fill="url(#auraDot)" />
               </svg>
               <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Daily Aura</h3>
-              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">Answer a few vibes, reveal your aura color of the day.</p>
-              <span className="mt-2 text-[#7A4FB5] font-semibold text-sm">Play today →</span>
+              <p className="text-base text-[#6B4226] mt-0.5 flex-1">Answer a few vibes, reveal your aura color of the day.</p>
+              <span className="mt-2 text-[#7A4FB5] font-semibold text-base">Play today →</span>
             </Link>
             {/* Daily Hot Takes */}
             <Link to="/hot-takes" className="group rounded-3xl border-4 border-[#FF4D2E] bg-[#FFF6E9] p-4 flex flex-col items-center text-center transition-transform hover:-translate-y-0.5">
@@ -543,8 +564,8 @@ const Home = () => {
                 <text x="12" y="15" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#fff" fontFamily="system-ui, sans-serif">VS</text>
               </svg>
               <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mt-2">Daily Hot Takes</h3>
-              <p className="text-sm text-[#6B4226] mt-0.5 flex-1">This-or-that opinions. Find your archetype, see the crowd split.</p>
-              <span className="mt-2 text-[#FF4D2E] font-semibold text-sm">Play today →</span>
+              <p className="text-base text-[#6B4226] mt-0.5 flex-1">This-or-that opinions. Find your archetype, see the crowd split.</p>
+              <span className="mt-2 text-[#FF4D2E] font-semibold text-base">Play today →</span>
             </Link>
           </div>
         </section>
@@ -593,12 +614,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Herd Mentality
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Think like the herd. Dodge the pink cow. The OG.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#3D8B5A] text-white px-3 py-1 text-xs font-bold">👥 Minimum 3 players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#3D8B5A] text-white px-3 py-1 text-sm font-bold">👥 Minimum 3 players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#3D8B5A] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -619,12 +640,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Say Anything
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Write the funniest answer. Bet on the judge's pick.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#E84A8B] text-white px-3 py-1 text-xs font-bold">👥 Minimum 3 players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#E84A8B] text-white px-3 py-1 text-sm font-bold">👥 Minimum 3 players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -645,12 +666,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Guesstimate
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Guess a trivia number. Bet on whose guess is closest. Free Wits &amp; Wagers-style.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#FB8C00] text-white px-3 py-1 text-xs font-bold">👥 Minimum 2 players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#FB8C00] text-white px-3 py-1 text-sm font-bold">👥 Minimum 2 players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#FB8C00] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -682,12 +703,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Clover Clues
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Write clues, rebuild each other's clovers. Co-op word game.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#3D8B5A] text-white px-3 py-1 text-xs font-bold">👥 Minimum 3 players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#3D8B5A] text-white px-3 py-1 text-sm font-bold">👥 Minimum 3 players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#3D8B5A] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -708,12 +729,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Two Truths and a Lie
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Write two truths and a lie — can the group spot which is which?
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#B06A2C] text-white px-3 py-1 text-xs font-bold">👥 3+ players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great icebreaker</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#B06A2C] text-white px-3 py-1 text-sm font-bold">👥 3+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great icebreaker</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#B06A2C] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -734,12 +755,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Spectrum
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Read the clue, guess where the hidden target sits on the scale. Wavelength-style.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#4A90D9] text-white px-3 py-1 text-xs font-bold">👥 3+ players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#4A90D9] text-white px-3 py-1 text-sm font-bold">👥 3+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#4A90D9] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -760,12 +781,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Chameleon
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Everyone gets a clue except the secret imposter. Bluff, then vote them out.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#2D7D46] text-white px-3 py-1 text-xs font-bold">👥 3+ players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#2D7D46] text-white px-3 py-1 text-sm font-bold">👥 3+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#2D7D46] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -786,12 +807,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Team Trivia
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Host a live quiz, everyone answers from their own screen. Live leaderboard.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#7C4DFF] text-white px-3 py-1 text-xs font-bold">👥 2+ players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#7C4DFF] text-white px-3 py-1 text-sm font-bold">👥 2+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#7C4DFF] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -812,12 +833,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Scattergories
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     A random letter, a list of categories, a ticking clock. Be quick — and unique.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#E8823B] text-white px-3 py-1 text-xs font-bold">👥 2+ players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#E8823B] text-white px-3 py-1 text-sm font-bold">👥 2+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#E8823B] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -838,12 +859,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Would You Rather
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Everyone votes A or B, then watch the split. Score for siding with the herd.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#E84A8B] text-white px-3 py-1 text-xs font-bold">👥 2+ players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great icebreaker</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#E84A8B] text-white px-3 py-1 text-sm font-bold">👥 2+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great icebreaker</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -871,11 +892,11 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Remote Work Bingo
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Mark the meeting clichés — "you're on mute", "let's take this offline". Bingo!
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#D7263D] text-white px-3 py-1 text-xs font-bold">🧑‍💻 Solo or team</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#D7263D] text-white px-3 py-1 text-sm font-bold">🧑‍💻 Solo or team</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#D7263D] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -896,12 +917,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Taboo
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Describe the word without saying the five forbidden ones. The other team can buzz you.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#D0463B] text-white px-3 py-1 text-xs font-bold">👥 3+ players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#D0463B] text-white px-3 py-1 text-sm font-bold">👥 3+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#D0463B] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -922,12 +943,12 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Fishbowl
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Describe, one-word, then charades — the same words three ways. Pure chaos.
                   </p>
                   <div className="mt-2 flex items-center gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#2AA9A0] text-white px-3 py-1 text-xs font-bold">👥 4+ players</span>
-                    <span className="text-xs text-[#8B6347]">🎥 great on video calls</span>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#2AA9A0] text-white px-3 py-1 text-sm font-bold">👥 4+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#2AA9A0] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -947,10 +968,10 @@ const Home = () => {
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
                     Got a game?
                   </h3>
-                  <p className="text-sm text-[#6B4226] mt-1">
+                  <p className="text-base text-[#6B4226] mt-1">
                     Tell us what to build next. We're listening.
                   </p>
-                  <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold text-sm">
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold text-base">
                     Suggest a game <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
@@ -987,7 +1008,7 @@ const Home = () => {
         {/* Join / Create card */}
         <div id="play" className="relative bg-white rounded-3xl shadow-[0_18px_40px_-18px_rgba(45,24,16,0.35)] border-4 border-[#FFE8C8] p-6 md:p-8 mb-10 scroll-mt-24">
           <div className="text-center mb-4">
-            <p className="text-xs uppercase tracking-widest text-[#3D8B5A] font-bold">🐄 Herd Mentality</p>
+            <p className="text-sm uppercase tracking-widest text-[#3D8B5A] font-bold">🐄 Herd Mentality</p>
             <h2 style={fredoka} className="text-2xl md:text-3xl font-bold text-[#2D1810]">Jump into a room</h2>
           </div>
           <div className="flex justify-center mb-6">
@@ -995,7 +1016,7 @@ const Home = () => {
               <button
                 onClick={() => setActiveTab('join')}
                 style={fredoka}
-                className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm md:text-base font-semibold transition-all ${
+                className={`flex items-center gap-2 px-5 py-2 rounded-full text-base md:text-base font-semibold transition-all ${
                   activeTab === 'join'
                     ? 'bg-[#3D8B5A] text-white shadow-md'
                     : 'text-[#2D1810] hover:bg-[#FFE8C8]'
@@ -1007,7 +1028,7 @@ const Home = () => {
               <button
                 onClick={() => setActiveTab('create')}
                 style={fredoka}
-                className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm md:text-base font-semibold transition-all ${
+                className={`flex items-center gap-2 px-5 py-2 rounded-full text-base md:text-base font-semibold transition-all ${
                   activeTab === 'create'
                     ? 'bg-[#E84A8B] text-white shadow-md'
                     : 'text-[#2D1810] hover:bg-[#FFE8C8]'
@@ -1024,7 +1045,7 @@ const Home = () => {
               <h3 style={fredoka} className="text-lg font-bold text-[#2D1810] mb-1">
                 🐄 Rejoin previous game?
               </h3>
-              <p className="text-sm text-[#6B4226] mb-3">
+              <p className="text-base text-[#6B4226] mb-3">
                 You have an active session as <span className="font-semibold">{savedSession.username}</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
@@ -1049,9 +1070,39 @@ const Home = () => {
             </div>
           )}
 
+          {activeTab !== 'join' && !packInfo && (
+            <p className="mb-4 text-center text-base text-[#6B4226]">
+              Playing with family, a class or your team?{' '}
+              <Link to="/custom-questions" className="font-bold text-[#E84A8B] underline">
+                Write your own questions
+              </Link>
+            </p>
+          )}
+
+          {/* Custom pack: confirm what will be played BEFORE the room is made.
+              A host who mistypes a code should find out here, not when the
+              first question turns out to be one of ours in front of a class. */}
+          {activeTab !== 'join' && packInfo && !packInfo.error && (
+            <div data-testid="pack-banner" className="mb-4 rounded-2xl border-2 border-[#3D8B5A] bg-[#EAF6EE] p-3 text-center">
+              <p style={fredoka} className="font-bold text-[#2D6E45]">
+                Using your questions{packInfo.title ? ` — “${packInfo.title}”` : ''}
+              </p>
+              <p className="text-base text-[#3D8B5A]">
+                {packInfo.count} custom questions · pack {packInfo.packCode}
+              </p>
+            </div>
+          )}
+          {activeTab !== 'join' && packInfo && packInfo.error && (
+            <div data-testid="pack-banner-error" className="mb-4 rounded-2xl border-2 border-[#D0463B] bg-[#FDECEA] p-3 text-center">
+              <p className="text-base font-bold text-[#B03A30]">
+                We couldn’t find that pack code — this game will use our built-in questions.
+              </p>
+            </div>
+          )}
+
           <form onSubmit={activeTab === 'join' ? handleJoinGame : handleCreateGame} className="space-y-4">
             <div>
-              <label style={fredoka} className="block text-sm font-semibold text-[#2D1810] mb-2">
+              <label style={fredoka} className="block text-base font-semibold text-[#2D1810] mb-2">
                 Your Name
               </label>
               <input
@@ -1066,7 +1117,7 @@ const Home = () => {
 
             {activeTab === 'join' && (
               <div>
-                <label style={fredoka} className="block text-sm font-semibold text-[#2D1810] mb-2">
+                <label style={fredoka} className="block text-base font-semibold text-[#2D1810] mb-2">
                   Room Code
                 </label>
                 <input
@@ -1209,7 +1260,7 @@ const Home = () => {
                 {['Friends & Family', 'Virtual Game Nights', 'Team Building', 'Office Games'].map(t => (
                   <span
                     key={t}
-                    className="px-3 py-1 rounded-full bg-[#FFF8E7] border-2 border-[#FFE8C8] text-sm font-semibold text-[#6B4226]"
+                    className="px-3 py-1 rounded-full bg-[#FFF8E7] border-2 border-[#FFE8C8] text-base font-semibold text-[#6B4226]"
                   >
                     {t}
                   </span>
@@ -1278,7 +1329,7 @@ const Home = () => {
           <GrassStrip className="absolute bottom-0 left-0 right-0 w-full h-5 -mb-[2px]" />
         </div>
 
-        <footer className="text-center mt-8 text-[#6B4226] text-sm">
+        <footer className="text-center mt-8 text-[#6B4226] text-base">
           <p style={fredoka} className="font-semibold">Made with 🐄 in the meadow.</p>
           <p className="opacity-80">&copy; {new Date().getFullYear()} Herd Game. A social party game for everyone.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1">
