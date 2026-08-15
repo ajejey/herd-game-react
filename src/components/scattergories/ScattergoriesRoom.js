@@ -33,7 +33,17 @@ export default function ScattergoriesRoom() {
   const [answers, setAnswers] = useState([]);
   const [now, setNow] = useState(Date.now());
   const [win, setWin] = useState({ w: 1024, h: 768 });
-  const submittedRef = useRef(false);
+  /*
+    When the last submit was sent, and how many times we have tried.
+
+    There used to be a `submittedRef` boolean here as well. Once the server's
+    own `submitted` became the thing that stops a send, nothing read it any
+    more — and a ref still called "submittedRef", still being assigned, is an
+    invitation for someone to restore the early-return that silently killed the
+    Submit button in the first place. Removed rather than left lying around.
+  */
+  const lastSendRef = useRef(0);
+  const sendCountRef = useRef(0);
 
   useEffect(() => {
     const on = () => setWin({ w: window.innerWidth, h: window.innerHeight });
@@ -54,16 +64,44 @@ export default function ScattergoriesRoom() {
   useEffect(() => {
     if (phase === 'writing') {
       setAnswers(Array(round?.categories?.length || 0).fill(''));
-      submittedRef.current = false;
+      lastSendRef.current = 0;
+      sendCountRef.current = 0;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, round?.number]);
 
   const secondsLeft = round?.deadline ? Math.max(0, Math.ceil((round.deadline - now) / 1000)) : null;
 
+  /*
+    The server decides whether you have submitted — not a local flag.
+
+    This used to early-return whenever `submittedRef.current` was true, and that
+    ref was only ever cleared when a NEW writing round began. So if a send did
+    not land — dropped socket, a frame lost on mobile, the auto-submit firing as
+    the connection blipped — the ref stayed true, `yourAnswers` stayed empty, the
+    form stayed on screen, and every further press of Submit was swallowed in
+    silence. "It is [not] letting me submit", reported from room CEBC.
+
+    Now `submitted` (which comes from the server's `yourAnswers`) is the only
+    thing that stops a send, so a player can always try again. The ref becomes a
+    short debounce for the one case it was really needed for: the timer's
+    auto-submit and a manual press landing in the same instant.
+  */
+  const MAX_SEND_ATTEMPTS = 5;
+
   function submit(list) {
-    if (submittedRef.current) return;
-    submittedRef.current = true;
+    if (submitted) return;
+    const t = Date.now();
+    if (t - lastSendRef.current < 1500) return;
+    // Bounded, because the auto-submit effect below re-runs twice a second for
+    // as long as the deadline has passed and the server has not acknowledged.
+    // Unbounded, a room whose phase stalls would have every client emitting
+    // submit_answers ~40 times a minute at a backend that must stay on one
+    // replica. Five tries over ~7 seconds covers a dropped frame; past that the
+    // problem is not one this retry can solve.
+    if (sendCountRef.current >= MAX_SEND_ATTEMPTS) return;
+    lastSendRef.current = t;
+    sendCountRef.current += 1;
     sendAction('submit_answers', { answers: list });
   }
 

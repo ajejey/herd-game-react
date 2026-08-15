@@ -11,6 +11,20 @@ const ROUND_AD_SLOT = '5698170537';
 const LOBBY_AD_SLOT = '5969633275';
 const GAMEOVER_AD_SLOT = '9390003532';
 
+/*
+  Quote and list the tied herds properly.
+
+  A three-way tie is not rare enough to fudge — {"coffee":2,"breakfast":2,"eat":2}
+  is a real round from the data that motivated the tie fix, so the players most
+  likely to read this sentence are exactly the ones a hardcoded "both" gets
+  wrong.
+*/
+function listHerds(herds) {
+  const quoted = herds.map((h) => `“${h}”`);
+  if (quoted.length <= 1) return quoted.join('');
+  return `${quoted.slice(0, -1).join(', ')} and ${quoted[quoted.length - 1]}`;
+}
+
 const GameRoom = () => {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [answer, setAnswer] = useState('');
@@ -220,6 +234,11 @@ const GameRoom = () => {
   };
 
   const renderGameContent = () => {
+    // Naming the host turns "nothing is happening" into "we are waiting for
+    // Sam" — the difference between a room that quietly dies and one where
+    // somebody nudges the person holding the button.
+    const hostName = (gameState.players || []).find((p) => p.isHost)?.username || '';
+
     if (gameState.gameStatus === 'waiting') {
       return (
         <div className="space-y-4 text-center">
@@ -255,7 +274,31 @@ const GameRoom = () => {
           </button>
           <p className="text-sm text-gray-500">Shares a link that opens straight to this room — friends just enter their name.</p>
 
-          <p className="text-gray-600">Waiting for players...</p>
+          {/*
+            Say WHO everyone is waiting for.
+
+            This used to read "Waiting for players..." to every person in the
+            room, and only the host was shown a Start button. So four people
+            could sit in a lobby indefinitely, each assuming the game was still
+            loading, while the one person who could start it had no idea it was
+            on them. Room 49HREF had five players stuck in `waiting` at round 0
+            when someone wrote in with "No question displayed" — the question
+            was never displayed because the game was never started.
+
+            931 of 2,733 rooms in the last 30 days were created and never
+            started. This is the cheapest thing that could move that number.
+          */}
+          {gameState.isHost ? (
+            <p className="text-gray-700 font-medium">
+              {gameState.players.length < 2
+                ? 'Share the code above — you need one more player to start.'
+                : "Everyone in? You're the host, so it's your call to start."}
+            </p>
+          ) : (
+            <p className="text-gray-700 font-medium">
+              {hostName ? `Waiting for ${hostName} to start the game…` : 'Waiting for the host to start the game…'}
+            </p>
+          )}
           {gameState.isHost && (
             <button
               className="btn btn-primary"
@@ -285,19 +328,48 @@ const GameRoom = () => {
     }
 
     if (gameState.roundResults) {
+      /*
+        Who scored is read from `scoringPlayers` — the server's own list of
+        player IDs — not by comparing text.
+
+        The old check was `answer.answer.toLowerCase() === majorityAnswer.toLowerCase()`,
+        which compares what the player TYPED against the NORMALISED herd answer.
+        Normalisation strips plurals and punctuation, so anyone who typed
+        "Chips" when the herd answer was "chip" was shown "Unique" and "0"
+        while the server had already given them the point. The badge disagreed
+        with the score, on the one screen where players check whether they
+        matched.
+
+        `majorityAnswers` is new; older payloads only have `majorityAnswer`, so
+        fall back to it rather than showing nothing to a client mid-deploy.
+      */
+      const rr = gameState.roundResults;
+      const herds = rr.majorityAnswers?.length
+        ? rr.majorityAnswers
+        : (rr.majorityAnswer ? [rr.majorityAnswer] : []);
+      const scored = new Set((rr.scoringPlayers || []).map(String));
+
       return (
         <div className="space-y-6">
           <div className="text-center space-y-2">
             <h2 className="text-2xl font-semibold">Round {gameState.currentRound} Results</h2>
             <p className="text-lg text-gray-600">Question: "{gameState.currentQuestion}"</p>
+            {/* A tie between two or more herds is not "no result" — everyone in
+                a tied herd scores. Saying "no majority answer" while quietly
+                awarding points would be the same confusion from the other side. */}
             <div className="inline-block px-4 py-2 bg-green-100 rounded-lg">
               <p className="text-lg">
-                {gameState.roundResults.majorityAnswer ? (
+                {herds.length === 1 ? (
                   <>
-                    Majority Answer: <span className="font-bold text-green-700">{gameState.roundResults.majorityAnswer}</span>
+                    Majority Answer: <span className="font-bold text-green-700">{herds[0]}</span>
+                  </>
+                ) : herds.length > 1 ? (
+                  <>
+                    It's a tie — <span className="font-bold text-green-700">{listHerds(herds)}</span>{' '}
+                    {herds.length === 2 ? 'both score' : 'all score'}
                   </>
                 ) : (
-                  <span className="text-yellow-700">No majority answer - it's a tie!</span>
+                  <span className="text-yellow-700">Everyone said something different — no points this round</span>
                 )}
               </p>
             </div>
@@ -331,9 +403,7 @@ const GameRoom = () => {
             <div className="grid gap-3">
               {gameState.roundResults.allAnswers.map((answer, index) => {
                 const player = gameState.players.find(p => p._id === answer.playerId);
-                const isInHerd = answer?.answer && gameState.roundResults?.majorityAnswer 
-                  ? answer.answer.toLowerCase() === gameState.roundResults.majorityAnswer.toLowerCase()
-                  : false;
+                const isInHerd = scored.has(String(answer.playerId));
                 const scoreChange = isInHerd ? '+1' : '0';
                 
                 return (
@@ -342,11 +412,11 @@ const GameRoom = () => {
                       <span className="font-medium">{answer.username}</span>
                       {gameState.pinkCowHolder === answer.playerId && <span title="Pink Cow Holder">🐄</span>}
                       <span className={`text-base px-2 py-1 rounded-full ${
-                        gameState.roundResults.majorityAnswer
+                        herds.length
                           ? isInHerd ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
                           : 'bg-yellow-200 text-yellow-800'
                       }`}>
-                        {gameState.roundResults.majorityAnswer ? (isInHerd ? 'In Herd' : 'Unique') : 'Tied'}
+                        {herds.length ? (isInHerd ? 'In Herd' : 'Unique') : 'No match'}
                       </span>
                     </div>
                     <div className="flex items-center space-x-4">
@@ -380,14 +450,23 @@ const GameRoom = () => {
             </div>
           </div>
 
-          {gameState.isHost && gameState.gameStatus === 'in-progress' && (
+          {/* Same omission as the lobby: the host got a button and everyone
+              else got silence, so "How to go to next round" was a fair
+              question with no answer anywhere on the screen. */}
+          {gameState.gameStatus === 'in-progress' && (
             <div className="text-center mt-6">
-              <button
-                onClick={() => socket.emit('next_round', { gameId: gameState.gameId })}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Start Next Round
-              </button>
+              {gameState.isHost ? (
+                <button
+                  onClick={() => socket.emit('next_round', { gameId: gameState.gameId })}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Start Next Round
+                </button>
+              ) : (
+                <p className="text-gray-700 font-medium">
+                  {hostName ? `Waiting for ${hostName} to start the next round…` : 'Waiting for the host to start the next round…'}
+                </p>
+              )}
             </div>
           )}
         </div>
