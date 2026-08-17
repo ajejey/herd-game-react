@@ -224,7 +224,7 @@ const PrivacyPolicy = () => {
             <strong className="text-[#2D1810]">To exercise the right to opt out — &ldquo;Do Not Sell or Share My Personal
             Information&rdquo;</strong> — use the privacy settings link provided on this site by our advertising
             partner, or email us at{' '}
-            <a href="mailto:ajejey@gmail.com?subject=Do%20Not%20Sell%20or%20Share%20My%20Personal%20Information" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">ajejey@gmail.com</a>{' '}
+            <a href="mailto:hello@herdgamesonline.com?subject=Do%20Not%20Sell%20or%20Share%20My%20Personal%20Information" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">hello@herdgamesonline.com</a>{' '}
             with the subject &ldquo;Do Not Sell or Share My Personal Information&rdquo;. We will not discriminate against
             you for exercising any of these rights. Residents of other US states with similar laws have
             comparable rights and may use the same contact.
@@ -264,7 +264,7 @@ const PrivacyPolicy = () => {
           <p>
             Questions, requests or complaints about privacy — including any request to access or delete your
             data — can be sent to{' '}
-            <a href="mailto:ajejey@gmail.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">ajejey@gmail.com</a>.
+            <a href="mailto:hello@herdgamesonline.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">hello@herdgamesonline.com</a>.
             We aim to reply within a few days. See also our{' '}
             <Link to="/terms-of-service" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">Terms of Service</Link> and{' '}
             <Link to="/about-contact" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">About page</Link>.

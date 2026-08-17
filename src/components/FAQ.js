@@ -33,7 +33,7 @@ const FAQ_QA = [
   ['What devices can I play Herd Game on?', 'Any device with a modern web browser — desktop, laptop, tablet, or phone. The game is fully responsive.'],
   ['What happens if I lose connection during a game?', 'The game tries to reconnect automatically; if that fails you can rejoin with the same room code and username, keeping your points.'],
   ['Is my data secure when playing Herd Game?', 'Yes. We store only the minimal data needed to run the game (a temporary username and game progress), collect no personal information, and delete game data after inactivity.'],
-  ['How do I report a bug or suggest a feature?', 'Contact us via the About/Contact page or email ajejey@gmail.com — we use feedback to improve the game.'],
+  ['How do I report a bug or suggest a feature?', 'Contact us via the About/Contact page or email support@herdgamesonline.com — we use feedback to improve the game.'],
 ];
 
 const FAQ_SCHEMA = {
@@ -163,7 +163,7 @@ const FAQ = () => {
           <h2 style={fredokaStyle} className="text-2xl md:text-3xl font-bold text-[#FFB300] mb-3">More Questions?</h2>
           <p className="mb-3 text-[#4A2D1B]">
             If you have a question that isn't answered here, please feel free to reach out to us.
-            You can contact us at <a href="mailto:ajejey@gmail.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">ajejey@gmail.com</a> or
+            You can contact us at <a href="mailto:support@herdgamesonline.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">support@herdgamesonline.com</a> or
             visit our <Link to="/about-contact" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">About/Contact page</Link>.
           </p>
           <p className="text-[#4A2D1B]">

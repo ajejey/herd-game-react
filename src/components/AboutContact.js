@@ -154,8 +154,8 @@ const AboutContact = () => {
           <div>
             <h3 style={fredokaStyle} className="text-lg font-bold text-[#2D1810] mb-1">Email</h3>
             <p>
-              <a href="mailto:ajejey@gmail.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold text-lg">
-                ajejey@gmail.com
+              <a href="mailto:hello@herdgamesonline.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold text-lg">
+                hello@herdgamesonline.com
               </a>
             </p>
             <p className="mt-2 text-base">

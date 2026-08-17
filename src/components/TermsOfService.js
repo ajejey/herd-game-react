@@ -135,7 +135,7 @@ const TermsOfService = () => {
           <H2>12. Contact Us</H2>
           <p>
             If you have any questions about these Terms, please contact us at:{' '}
-            <a href="mailto:ajejey@gmail.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">ajejey@gmail.com</a>
+            <a href="mailto:hello@herdgamesonline.com" className="text-[#E84A8B] hover:text-[#C73B73] font-semibold">hello@herdgamesonline.com</a>
           </p>
         </div>
 

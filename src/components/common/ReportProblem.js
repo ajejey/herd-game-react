@@ -27,7 +27,10 @@ import { copyText } from '../../lib/shareSheet';
 
 const BACKEND_URL =
   process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
-const CONTACT = 'ajejey@gmail.com';
+// A domain address, not a personal one. Help contexts go to support@, general
+// and legal ones to hello@ — both are aliases on the same mailbox, so this is
+// presentation and transferability rather than extra inboxes to watch.
+const CONTACT = 'support@herdgamesonline.com';
 
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 
