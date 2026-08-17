@@ -123,6 +123,10 @@ const GameRoom = () => {
       dispatch({ type: 'NEXT_ROUND', payload });
     });
 
+    socket.on('pink_cow_moved', (payload) => {
+      dispatch({ type: 'PINK_COW_MOVED', payload });
+    });
+
     socket.on('error', ({ message }) => {
       alert(message);
     });
@@ -134,6 +138,7 @@ const GameRoom = () => {
       socket.off('round_completed');
       socket.off('game_completed');
       socket.off('next_round');
+      socket.off('pink_cow_moved');
       socket.off('error');
     };
   }, [socket, dispatch]);
@@ -153,6 +158,16 @@ const GameRoom = () => {
       answer: answer.trim()
     });
     setHasAnswered(true);
+  };
+
+  // Hand the cow to somebody, or to nobody. The server does the authorising and
+  // re-runs the win check, because moving it off a player on 8 points is what
+  // ends the game.
+  const handleMoveCow = (playerId) => {
+    socket.emit('move_pink_cow', {
+      gameId: gameState.gameId,
+      playerId: playerId || null,
+    });
   };
 
   const handleLeaveGame = () => {
@@ -232,6 +247,46 @@ const GameRoom = () => {
       </div>
     );
   };
+
+  /*
+    One row of names; tap one to give them the cow, or "Nobody" to take it off
+    the table. Shown to the host only — everyone else gets the sentence that
+    explains what they are waiting for, which is the same principle as naming
+    the host in the lobby rather than saying "waiting for players".
+  */
+  const renderCowPicker = () => (
+    <div className="flex flex-wrap justify-center gap-2">
+      {(gameState.players || []).map((p) => {
+        const holds = String(gameState.pinkCowHolder || '') === String(p._id);
+        return (
+          <button
+            key={p._id}
+            onClick={() => handleMoveCow(p._id)}
+            aria-pressed={holds}
+            className={`px-3 py-2 rounded-full text-base border transition-colors ${
+              holds
+                ? 'bg-pink-100 border-pink-400 text-pink-800 font-semibold'
+                : 'bg-white border-gray-300 text-gray-700 hover:border-pink-400 hover:bg-pink-50'
+            }`}
+          >
+            {holds && <span className="mr-1">🐄</span>}
+            {p.username}
+          </button>
+        );
+      })}
+      <button
+        onClick={() => handleMoveCow(null)}
+        aria-pressed={!gameState.pinkCowHolder}
+        className={`px-3 py-2 rounded-full text-base border transition-colors ${
+          !gameState.pinkCowHolder
+            ? 'bg-gray-200 border-gray-400 text-gray-800 font-semibold'
+            : 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50'
+        }`}
+      >
+        Nobody
+      </button>
+    </div>
+  );
 
   const renderGameContent = () => {
     // Naming the host turns "nothing is happening" into "we are waiting for
@@ -349,6 +404,24 @@ const GameRoom = () => {
         : (rr.majorityAnswer ? [rr.majorityAnswer] : []);
       const scored = new Set((rr.scoringPlayers || []).map(String));
 
+      /*
+        The game is over except it cannot end.
+
+        You win on 8 points AND not holding the cow, and the cow only moves on
+        a round with exactly one odd answer. So a leader who takes the cow at 8
+        is stuck there until such a round happens, which in an agreeable group
+        may be never — room RK6J7L played 34 rounds in this state.
+
+        Nothing on screen said so. The host saw an ordinary Next Round button
+        and no reason to press anything else, and the player on 8 just kept not
+        winning. Say it outright, to everyone, and put the fix next to it.
+      */
+      const cowBlocked = gameState.gameStatus === 'in-progress'
+        ? (gameState.players || []).find(
+            (p) => String(p._id) === String(gameState.pinkCowHolder || '') && (p.score || 0) >= 8
+          )
+        : null;
+
       return (
         <div className="space-y-6">
           <div className="text-center space-y-2">
@@ -375,6 +448,30 @@ const GameRoom = () => {
             </div>
           </div>
 
+          {cowBlocked && (
+            <div className="border-2 border-pink-300 bg-pink-50 rounded-xl p-4 space-y-3 text-center">
+              <p className="text-lg text-pink-900">
+                <span className="font-semibold">{cowBlocked.username}</span> has{' '}
+                {cowBlocked.score} points and is holding the pink cow 🐄, so the game
+                can't end.
+              </p>
+              {gameState.isHost ? (
+                <>
+                  <p className="text-base text-pink-800">
+                    Pass the cow to someone else and {cowBlocked.username} wins.
+                  </p>
+                  {renderCowPicker()}
+                </>
+              ) : (
+                <p className="text-base text-pink-800">
+                  {hostName
+                    ? `${hostName} can move the cow to end it, or keep playing until someone gives the only odd answer.`
+                    : 'The host can move the cow to end it, or keep playing until someone gives the only odd answer.'}
+                </p>
+              )}
+            </div>
+          )}
+
           <AdSlot
             key={`round-ad-${gameState.currentRound}`}
             slot={ROUND_AD_SLOT}
@@ -388,17 +485,32 @@ const GameRoom = () => {
               <div className="flex justify-end">
                 <button
                   onClick={() => setShowAdjust(s => !s)}
-                  className="text-sm text-gray-400 hover:text-purple-600 underline-offset-2 hover:underline transition-colors"
-                  title="Manually adjust scores for typos or synonyms"
+                  className="text-base text-gray-500 hover:text-purple-600 underline-offset-2 hover:underline transition-colors"
+                  title="Adjust scores for typos or synonyms, or move the pink cow"
                 >
-                  {showAdjust ? 'Hide score adjustments' : 'Dispute scores?'}
+                  {/* The old label was "Dispute scores?", which gave no hint
+                      that the cow lives in here too. */}
+                  {showAdjust ? 'Hide host controls' : 'Fix scores or move the cow'}
                 </button>
               </div>
             )}
             {showAdjust && gameState.isHost && gameState.gameStatus === 'in-progress' && (
-              <p className="text-sm text-gray-500 italic">
-                Tap a player's <span className="text-green-700 font-medium">+</span> to award a point (typo of the herd) or <span className="text-red-700 font-medium">−</span> to remove one. Pink cow movement is unaffected.
-              </p>
+              <div className="space-y-3 border border-gray-200 rounded-xl p-3 bg-gray-50">
+                <p className="text-base text-gray-600">
+                  Tap a player's <span className="text-green-700 font-medium">+</span> to award a point (a typo of the herd answer) or <span className="text-red-700 font-medium">−</span> to remove one.
+                </p>
+                {/* Only one picker on screen. When the game is cow-locked the
+                    callout above is already showing this, and two identical
+                    rows of names is a question about which one is the real one. */}
+                {!cowBlocked && (
+                  <div className="space-y-2">
+                    <p className="text-base text-gray-600">
+                      Pink cow 🐄 — it moves on its own to whoever gives the only odd answer, but you can hand it to anyone.
+                    </p>
+                    {renderCowPicker()}
+                  </div>
+                )}
+              </div>
             )}
             <div className="grid gap-3">
               {gameState.roundResults.allAnswers.map((answer, index) => {
@@ -407,11 +519,14 @@ const GameRoom = () => {
                 const scoreChange = isInHerd ? '+1' : '0';
                 
                 return (
-                  <div key={index} className="flex justify-between items-center p-2 bg-white rounded-md shadow-sm mb-2">
-                    <div className="flex items-center space-x-2">
-                      <span className="font-medium">{answer.username}</span>
+                  <div key={index} className="flex flex-wrap justify-between items-center gap-x-3 gap-y-2 p-2 bg-white rounded-md shadow-sm mb-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="font-medium truncate">{answer.username}</span>
                       {gameState.pinkCowHolder === answer.playerId && <span title="Pink Cow Holder">🐄</span>}
-                      <span className={`text-base px-2 py-1 rounded-full ${
+                      {/* Without whitespace-nowrap "In Herd" wraps to two lines
+                          inside a rounded-full pill, which renders as a green
+                          circle with the words stacked in it. */}
+                      <span className={`text-base px-2 py-1 rounded-full whitespace-nowrap shrink-0 ${
                         herds.length
                           ? isInHerd ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
                           : 'bg-yellow-200 text-yellow-800'
@@ -419,9 +534,11 @@ const GameRoom = () => {
                         {herds.length ? (isInHerd ? 'In Herd' : 'Unique') : 'No match'}
                       </span>
                     </div>
-                    <div className="flex items-center space-x-4">
-                      <span className="text-gray-600">"{answer.answer || ''}"</span>
-                      <span className="text-base">{player?.score || 0} ({scoreChange})</span>
+                    <div className="flex items-center gap-3 ml-auto">
+                      {/* Not truncated — the answer is the thing people came to
+                          this screen to read. It wraps instead. */}
+                      <span className="text-gray-600 break-words">"{answer.answer || ''}"</span>
+                      <span className="text-base whitespace-nowrap">{player?.score || 0} ({scoreChange})</span>
                       {showAdjust && gameState.isHost && gameState.gameStatus === 'in-progress' && (
                         <span className="flex items-center ml-2 border border-gray-200 rounded-full overflow-hidden bg-gray-50">
                           <button

@@ -394,9 +394,12 @@ const Home = () => {
     setIsJoining(true);
     const socket = connect();
     socket.emit('join_game', { username: name, roomCode: code });
-    socket.once('game_joined', ({ gameId, playerId }) => {
+    // isHost is forwarded, not assumed. The host can arrive down this path too
+    // — a second tab, the invite link, a cleared localStorage — and dropping
+    // the flag here left them without the Start button in their own room.
+    socket.once('game_joined', ({ gameId, playerId, isHost }) => {
       saveGameSession(gameId, code, playerId, name);
-      dispatch({ type: 'GAME_JOINED', payload: { gameId, playerId } });
+      dispatch({ type: 'GAME_JOINED', payload: { gameId, playerId, isHost } });
       navigate(`/game/${code}`);
     });
     socket.once('error', ({ message }) => {
@@ -985,7 +988,7 @@ const Home = () => {
 
             {/* Suggest-a-game card */}
             <a
-              href="mailto:ajejey@gmail.com?subject=New%20game%20idea%20for%20Herd"
+              href="mailto:hello@herdgamesonline.com?subject=New%20game%20idea%20for%20Herd"
               className="game-card relative rounded-3xl border-4 border-dashed border-[#FFD56B] bg-[#FFFBE8] p-5 overflow-hidden block group"
             >
               <div className="flex items-start gap-4">
