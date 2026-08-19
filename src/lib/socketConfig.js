@@ -58,7 +58,14 @@ export function attachConnectOutcome(socket, label = '') {
     if (timer || reportedFail) return;
     timer = setTimeout(() => {
       timer = null;
-      if (socket.connected || reportedFail) return;
+      /*
+        `socket.active` is false once the client has stopped trying — which
+        includes the component unmounting and disconnecting the socket. Without
+        this check, someone who simply navigated away mid-connect is reported 25
+        seconds later as a failure they never experienced, and the one number
+        this whole change exists to make trustworthy gets quietly poisoned.
+      */
+      if (socket.connected || reportedFail || socket.active === false) return;
       reportedFail = true;
       reportError('socket_failed', lastMessage, {
         info: `ns=${label} transport=${transport()} attempts=${attempts} afterMs=${Date.now() - firstErrorAt}`,
