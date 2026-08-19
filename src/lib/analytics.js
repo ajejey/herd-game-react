@@ -45,7 +45,21 @@ import { getAnonId } from './anonId';
 // visible in any browser's dev tools — this is not a secret. The secret one is
 // the personal API key (phx_...), which must never appear in this repo.
 const KEY = 'phc_o374bcJyfmVxh5jfq88ubyvZENBdmiJEyroAAYs53mSt';
-const HOST = 'https://us.i.posthog.com';
+/*
+  Our own subdomain, not us.i.posthog.com — a PostHog-managed reverse proxy
+  (CNAME to Cloudflare, TLS handled by them). Ad blockers maintain lists of
+  known analytics hostnames and drop requests to them; routing through our own
+  domain recovers 10-30% of events that would otherwise never arrive.
+
+  Set up BEFORE the first deploy on purpose. Adding it later would have raised
+  event capture by that same 10-30% overnight, retention would have appeared to
+  improve, and we would have credited whatever we happened to ship that week.
+  The baseline has to start clean.
+
+  Verified 19 Aug 2026: POST /i/v0/e/ returns 200 {"status":"Ok"} through the
+  proxy, identical to the direct host.
+*/
+const HOST = 'https://e.herdgamesonline.com';
 
 let ph = null;          // the loaded SDK, once the dynamic import resolves
 let enabled = null;     // null = not yet decided, false = permanently off
@@ -135,6 +149,14 @@ export function initAnalytics() {
         const sdk = mod.default || mod;
         sdk.init(KEY, {
           api_host: HOST,
+          /*
+            Pins PostHog's default behaviours to a dated set, so a future SDK
+            release cannot quietly change how we capture underneath us. Same
+            reasoning as setting maskAllInputs explicitly below: anything this
+            file depends on should be stated, not inherited. Every option we set
+            explicitly still wins over these.
+          */
+          defaults: '2026-05-30',
           autocapture: false,              // see (3)
           capture_pageview: false,         // SPA — sent manually on route change
           capture_pageleave: true,         // needed for honest session duration
