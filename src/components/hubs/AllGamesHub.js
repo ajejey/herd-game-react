@@ -72,6 +72,13 @@ export default function AllGamesHub() {
 
         <GameSection eyebrow="Solo" accent="#E84A8B" title={MODES.solo.label} tagline={MODES.solo.tagline} games={byMode('solo')} moreHref="/solo-games" moreLabel="solo games" />
         <GameSection eyebrow="Daily" accent="#3D8B5A" title={MODES.daily.label} tagline={MODES.daily.tagline} games={byMode('daily')} />
+
+        {/* Between sections, not inside a card grid — an ad dropped into the
+            grid would break the columns. This page is ~1,080 words and its only
+            ad used to sit at 95% depth, below where almost anyone scrolls.
+            Re-check with e2e/ad-position-audit.js after changing the sections. */}
+        <AdSlot className="my-10" />
+
         <GameSection eyebrow="Party" accent="#8E5CF7" title={MODES.party.label} tagline={MODES.party.tagline} games={byMode('party')} />
         <GameSection eyebrow="For teams" accent="#1F7A8C" title={MODES.work.label} tagline={MODES.work.tagline} games={byMode('work')} moreHref="/office-games" moreLabel="work guides" />
 

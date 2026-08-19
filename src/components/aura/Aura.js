@@ -109,6 +109,12 @@ export default function Aura() {
             Your aura can shift with your mood, so come back daily to see today's color and grow your <strong>streak</strong>. Share your aura card and find out what your friends are. Love quick daily games? Pair it with <Link to="/daily" className="text-[#7A4FB5] font-semibold underline">Daily Herd</Link>, <Link to="/trivia" className="text-[#7A4FB5] font-semibold underline">Daily Trivia</Link> and <Link to="/connections" className="text-[#7A4FB5] font-semibold underline">Huddle</Link>.
           </p>
 
+          {/* Sits between the intro copy and the colour list, at roughly half
+              the page. The first version of this was below the FAQ at 97% depth,
+              which almost nobody scrolls to — an ad that far down fills rarely
+              and cheaply. Measured with e2e/ad-position-audit.js. */}
+          <AdSlot className="my-8" />
+
           <h2 style={soft} className="text-2xl font-bold text-[#3A3350] mt-6 mb-3">Aura colors and their meanings</h2>
           <ul className="grid grid-cols-1 gap-2 mb-4">
             {Object.values(AURA_COLORS).map((c) => (
@@ -129,13 +135,6 @@ export default function Aura() {
             ))}
           </div>
         </div>
-
-        {/* Always rendered, unlike the one on the reveal card. Mediavine's
-            script parses for content hints when the page loads; a hint that
-            only appears once React swaps in the reveal may never be seen. This
-            page is not on MeadowLayout, so the hint is the only placement it
-            gets. Kept below the SEO copy so it is nowhere near the reveal ad. */}
-        <div className="mt-10"><AdSlot /></div>
       </div>
     </div>
   );

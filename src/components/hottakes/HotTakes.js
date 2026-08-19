@@ -78,6 +78,12 @@ export default function HotTakes() {
           <p className="mb-3">Daily Hot Takes is a free <strong>this-or-that opinion game</strong>. Each day you get a fresh set of spicy takes, like big party or small gathering, call or text, plan it out or go with the flow. Pick a side on each, reveal your <strong>opinion archetype</strong> (Maximalist, Minimalist, Romantic, Pragmatist, Rebel or Connector), and see the <strong>crowd split</strong> on every question, so you know whether you are with the majority or the spicy minority. No signup, no download, and a new set drops every day.</p>
           <p className="mb-3">The more often your takes go against the crowd, the spicier your score. Come back daily to keep your <strong>streak</strong> and share your archetype. Like quick daily games? Pair it with <Link to="/aura" className="font-semibold underline" style={{ color: THEME.hot }}>Daily Aura</Link>, <Link to="/daily" className="font-semibold underline" style={{ color: THEME.hot }}>Daily Herd</Link> and <Link to="/trivia" className="font-semibold underline" style={{ color: THEME.hot }}>Daily Trivia</Link>.</p>
 
+          {/* Sits between the intro copy and the FAQ, at roughly half the page.
+              The first version of this was below the FAQ at 87% depth, which
+              almost nobody scrolls to — an ad that far down fills rarely and
+              cheaply. Measured with e2e/ad-position-audit.js. */}
+          <AdSlot className="my-8" />
+
           <h2 style={HEAVY} className="text-2xl mt-6 mb-3">Frequently asked questions</h2>
           <div className="space-y-3">
             {FAQS.map(({ q, a }, i) => (
@@ -85,13 +91,6 @@ export default function HotTakes() {
             ))}
           </div>
         </div>
-
-        {/* Always rendered, unlike the one on the reveal card. Mediavine's
-            script parses for content hints when the page loads; a hint that
-            only appears once React swaps in the reveal may never be seen. This
-            page is not on MeadowLayout, so the hint is the only placement it
-            gets. Kept below the SEO copy so it is nowhere near the reveal ad. */}
-        <div className="mt-10"><AdSlot /></div>
       </div>
     </div>
   );

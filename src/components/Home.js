@@ -618,6 +618,12 @@ const Home = () => {
           moreLabel="solo games"
         />
 
+        {/* Between the solo strip and the game hub. The homepage's other two
+            hints sit at 73% and 92% depth — fine as secondary placements, but
+            nothing was above the halfway mark on a ~1,050-word page. Measured
+            with e2e/ad-position-audit.js; re-run it if these sections move. */}
+        <AdSlot className="my-10" />
+
         {/* ─── GAME HUB ────────────────────────────────────────────────── */}
         <section className="mb-10">
           <div className="text-center mb-6">

@@ -91,16 +91,22 @@ export default function SoloGamesHub() {
 
         {/* Every game is still linked from this page, so nothing changes for
             search — this is purely about not presenting a wall of cards. */}
-        {groups.map((g) => (
-          <div key={g.id} id={g.id} className="scroll-mt-24">
-            <GameSection
-              eyebrow={g.eyebrow}
-              accent={g.accent}
-              title={g.title}
-              tagline={g.tagline}
-              games={g.games}
-            />
-          </div>
+        {groups.map((g, i) => (
+          <React.Fragment key={g.id}>
+            <div id={g.id} className="scroll-mt-24">
+              <GameSection
+                eyebrow={g.eyebrow}
+                accent={g.accent}
+                title={g.title}
+                tagline={g.tagline}
+                games={g.games}
+              />
+            </div>
+            {/* Between groups, never inside a card grid. This page is ~1,048
+                words and its only ad used to sit at 87% depth, below where
+                almost anyone scrolls. Re-check with e2e/ad-position-audit.js. */}
+            {i === 0 && <AdSlot className="my-10" />}
+          </React.Fragment>
         ))}
 
         <GameSection
