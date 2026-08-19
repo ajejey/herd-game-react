@@ -70,7 +70,7 @@ export default function SubPageLayout({ slug, title, description, h1, keywords, 
             </section>
           )}
 
-          <div className="mt-10 max-h-[300px] overflow-hidden">
+          <div className="mt-10">
             <AdSlot slot="5698170537" />
           </div>
 

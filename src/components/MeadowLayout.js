@@ -65,7 +65,33 @@ const MeadowLayout = ({ children, maxWidth = 'max-w-4xl' }) => {
       <Navigation />
 
       <div className={`relative container mx-auto px-4 pt-24 pb-12 ${maxWidth}`}>
-        {children}
+        {/* Mediavine's ad script only ever places ads inside the one element
+            matching the `content_selector` configured on their side. Ours is
+            ".max-w-3xl.mx-auto.mt-16" — three Tailwind utilities — and on
+            18 Aug 2026 that selector matched nothing on any of 14 live routes.
+            The script had been loading since 11 Aug, finding no container, and
+            serving nothing: 0 sessions and $0.00 RPM recorded on their side.
+
+            So the three classes are present here purely to BE that selector.
+            The inline style cancels their visual effect immediately, which is
+            why this div has no layout of its own — className drives the
+            querySelector match, inline style wins over the class for painting.
+            (Inline rather than Tailwind's `!` prefix so it cannot depend on the
+            Tailwind major version.)
+
+            `mv-content` is the stable, style-free hook we want Mediavine to
+            switch the selector to. It is deliberately not used by any CSS, so
+            no future restyle can silently zero out ad revenue the way this
+            just did. Once they repoint at it, the presentational trio and this
+            inline style can both be deleted.
+
+            scripts/mediavine-selector-check.js asserts this keeps matching. */}
+        <div
+          className="mv-content max-w-3xl mx-auto mt-16"
+          style={{ maxWidth: 'none', marginTop: 0 }}
+        >
+          {children}
+        </div>
 
         <footer className="text-center mt-10 text-[#6B4226] text-base">
           <p style={fredoka} className="font-semibold">Made with 🐄 in the meadow.</p>

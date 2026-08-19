@@ -58,7 +58,7 @@ export default function RevealPhase({ game }) {
       </div>
 
       {/* Ad — reveal screen, high attention */}
-      <div className="mb-4 max-h-[280px] overflow-hidden">
+      <div className="mb-4">
         <AdSlot slot="5698170537" />
       </div>
 

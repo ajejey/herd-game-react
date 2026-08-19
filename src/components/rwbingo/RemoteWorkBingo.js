@@ -196,7 +196,7 @@ export default function RemoteWorkBingo() {
         </div>
         <p className="text-center text-sm text-[#8B6347] mt-2">Tip: drop the “challenge” link in your Teams/Zoom chat so everyone plays the same card.</p>
 
-        <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
+        <div className="mt-8"><AdSlot slot="5698170537" /></div>
       </div>
 
       {/* SEO / explainer */}

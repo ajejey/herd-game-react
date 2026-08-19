@@ -71,7 +71,7 @@ const Blog = () => {
         </div>
 
         {/* Ad — bottom of blog list */}
-        <div className="mt-8 max-h-[300px] overflow-hidden">
+        <div className="mt-8">
           <AdSlot slot="5698170537" />
         </div>
 

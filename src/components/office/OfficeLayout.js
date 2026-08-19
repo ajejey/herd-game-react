@@ -109,7 +109,7 @@ export default function OfficeLayout({ slug = '', title, description, h1, keywor
             </section>
           )}
 
-          <div className="mt-10 max-h-[300px] overflow-hidden"><AdSlot slot="5969633275" /></div>
+          <div className="mt-10"><AdSlot slot="5969633275" /></div>
         </article>
 
         <WaitlistCTA source={slug || 'office-games'} />

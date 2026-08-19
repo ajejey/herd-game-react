@@ -35,14 +35,15 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "node scripts/prerender.js",
+    "postbuild": "node scripts/prerender.js && node scripts/mediavine-selector-check.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "assets:trace": "node scripts/trace-emoji.js",
     "assets": "node scripts/render-assets.js && npx @capacitor/assets generate --android",
     "cap:sync": "npm run build && npx cap sync android",
     "android:apk": "npm run cap:sync && node scripts/android.js assembleDebug",
-    "android:bundle": "npm run cap:sync && node scripts/android.js bundleRelease"
+    "android:bundle": "npm run cap:sync && node scripts/android.js bundleRelease",
+    "check:ads": "node scripts/mediavine-selector-check.js"
   },
   "prerender": {
     "routes": [

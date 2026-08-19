@@ -158,7 +158,7 @@ export default function CloverHome() {
         </div>
       </div>
 
-      <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
+      <div className="mt-8"><AdSlot slot="5698170537" /></div>
     </MeadowLayout>
   );
 }

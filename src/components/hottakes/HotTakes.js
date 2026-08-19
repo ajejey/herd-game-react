@@ -85,6 +85,13 @@ export default function HotTakes() {
             ))}
           </div>
         </div>
+
+        {/* Always rendered, unlike the one on the reveal card. Mediavine's
+            script parses for content hints when the page loads; a hint that
+            only appears once React swaps in the reveal may never be seen. This
+            page is not on MeadowLayout, so the hint is the only placement it
+            gets. Kept below the SEO copy so it is nowhere near the reveal ad. */}
+        <div className="mt-10"><AdSlot /></div>
       </div>
     </div>
   );
@@ -246,7 +253,7 @@ function Reveal({ day, result, streak }) {
 
       <div className="mt-6 text-left max-w-sm mx-auto"><DailyChecklist exclude="daily-hot-takes" /></div>
 
-      <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
+      <div className="mt-8"><AdSlot slot="5698170537" /></div>
 
       <div className="mt-8 pt-6 border-t" style={{ borderColor: '#EFE4DA' }}>
         <h2 style={HEAVY} className="text-xl mb-3">More daily games</h2>

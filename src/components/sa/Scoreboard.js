@@ -35,7 +35,7 @@ export default function Scoreboard({ state, myId, onLeave }) {
       </div>
 
       {/* Ad — game-over scoreboard, high attention */}
-      <div className="mb-4 max-h-[300px] overflow-hidden">
+      <div className="mb-4">
         <AdSlot slot="9390003532" />
       </div>
 

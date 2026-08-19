@@ -1213,7 +1213,7 @@ const Home = () => {
         </div>
 
         {/* Ad — between play card and how-to-play */}
-        <div className="mb-10 max-h-[300px] overflow-hidden">
+        <div className="mb-10">
           <AdSlot slot="5969633275" />
         </div>
 
@@ -1320,7 +1320,7 @@ const Home = () => {
         </div>
 
         {/* Ad — between How to Play and Featured Articles */}
-        <div className="mb-10 max-h-[300px] overflow-hidden">
+        <div className="mb-10">
           <AdSlot slot="5698170537" />
         </div>
 

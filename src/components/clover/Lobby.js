@@ -87,7 +87,7 @@ export default function Lobby({ game }) {
         <p className="text-center text-[#8B6347] text-base py-2">You're in! Waiting for the host to start the game…</p>
       )}
 
-      <div className="mt-6 max-h-[300px] overflow-hidden"><AdSlot slot="5969633275" /></div>
+      <div className="mt-6"><AdSlot slot="5969633275" /></div>
     </div>
   );
 }

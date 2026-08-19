@@ -353,7 +353,7 @@ export default function SayAnythingHome() {
         </div>
 
         {/* Ad — pre-game browsing */}
-        <div className="mt-6 max-h-[280px] overflow-hidden">
+        <div className="mt-6">
           <AdSlot slot="5969633275" />
         </div>
 

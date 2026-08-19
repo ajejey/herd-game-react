@@ -153,7 +153,7 @@ export default function SpectrumHome() {
         </div>
       </div>
 
-      <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5969633275" /></div>
+      <div className="mt-8"><AdSlot slot="5969633275" /></div>
     </MeadowLayout>
   );
 }

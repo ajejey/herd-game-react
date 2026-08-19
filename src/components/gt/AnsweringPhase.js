@@ -40,7 +40,7 @@ export default function AnsweringPhase({ game }) {
           </p>
 
           {/* Ad — player is waiting */}
-          <div className="mt-6 max-h-[280px] overflow-hidden">
+          <div className="mt-6">
             <AdSlot slot="5698170537" />
           </div>
 

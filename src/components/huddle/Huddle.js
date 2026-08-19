@@ -256,7 +256,7 @@ function HuddleGame({ day, today, isArchive }) {
 
             <div className="mt-6 text-left max-w-sm mx-auto"><DailyChecklist exclude="huddle" /></div>
 
-            <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
+            <div className="mt-8"><AdSlot slot="5698170537" /></div>
 
             {/* cross-promotion — the hub "play one, try another" loop */}
             <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8]">

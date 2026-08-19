@@ -26,7 +26,7 @@ export default function AnsweringPhase({ game }) {
           </p>
           <p className="text-[#8B6347] text-base">Waiting for everyone to answer…</p>
           {/* Ad — judge is passively waiting */}
-          <div className="mt-6 max-h-[280px] overflow-hidden">
+          <div className="mt-6">
             <AdSlot slot="5698170537" />
           </div>
 

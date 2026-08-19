@@ -82,7 +82,7 @@ const BlogPostShell = ({ slug, title, description, h1, datePublished, dateModifi
         {children}
 
         {/* Ad — end of article, before footer nav */}
-        <div className="mt-10 max-h-[300px] overflow-hidden">
+        <div className="mt-10">
           <AdSlot slot="5698170537" />
         </div>
 

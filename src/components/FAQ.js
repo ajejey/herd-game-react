@@ -172,7 +172,7 @@ const FAQ = () => {
         </div>
 
         {/* Ad — bottom of FAQ */}
-        <div className="mt-6 max-h-[300px] overflow-hidden">
+        <div className="mt-6">
           <AdSlot slot="5698170537" />
         </div>
 

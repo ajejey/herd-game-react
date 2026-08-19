@@ -366,7 +366,7 @@ function ResultView({ dayNumber, result, streak }) {
 
           <div className="mt-6 text-left max-w-sm mx-auto"><DailyChecklist exclude="daily-herd" /></div>
 
-          <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
+          <div className="mt-8"><AdSlot slot="5698170537" /></div>
 
           <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8]">
             <h2 style={fredokaStyle} className="text-xl font-bold text-[#2D1810] mb-3">Want more? Play with friends</h2>

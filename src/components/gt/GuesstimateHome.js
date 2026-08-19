@@ -205,7 +205,7 @@ export default function GuesstimateHome() {
         </div>
 
         {/* Ad — pre-game */}
-        <div className="mt-6 max-h-[280px] overflow-hidden">
+        <div className="mt-6">
           <AdSlot slot="5969633275" />
         </div>
 

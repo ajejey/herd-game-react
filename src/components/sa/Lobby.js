@@ -91,7 +91,7 @@ export default function Lobby({ game }) {
       )}
 
       {/* Ad — lobby is the longest waiting moment */}
-      <div className="mt-6 max-h-[300px] overflow-hidden">
+      <div className="mt-6">
         <AdSlot slot="5969633275" />
       </div>
     </div>

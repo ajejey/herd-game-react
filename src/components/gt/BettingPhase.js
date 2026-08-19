@@ -49,7 +49,7 @@ export default function BettingPhase({ game }) {
       )}
 
       {/* Ad — betting / waiting */}
-      <div className="mb-4 max-h-[280px] overflow-hidden">
+      <div className="mb-4">
         <AdSlot slot="5698170537" />
       </div>
 

@@ -75,7 +75,7 @@ export default function TopicsHub() {
       <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-3">Or pick a topic</h2>
       <TopicGrid />
 
-      <div className="mt-8 max-h-[300px] overflow-hidden"><AdSlot slot="5698170537" /></div>
+      <div className="mt-8"><AdSlot slot="5698170537" /></div>
 
       <div className="max-w-2xl mx-auto mt-10 text-[#4A2D1B] leading-relaxed">
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">Free trivia quizzes for every kind of player</h2>

@@ -60,7 +60,7 @@ export default function JudgingPhase({ game }) {
       </div>
 
       {/* Ad — non-judges are waiting passively */}
-      <div className="mt-6 max-h-[280px] overflow-hidden">
+      <div className="mt-6">
         <AdSlot slot="5698170537" />
       </div>
     </div>
