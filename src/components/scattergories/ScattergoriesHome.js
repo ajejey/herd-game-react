@@ -143,6 +143,11 @@ export default function ScattergoriesHome() {
           Scattergories is a fast, funny word game: each round you get a <strong>random letter</strong> and a list of <strong>categories</strong> — "an animal", "a movie", "something in the kitchen" — and a timer. Write an answer starting with the letter for every category before the clock runs out. The twist that makes it hilarious: you only score for answers <strong>no one else wrote</strong>, so you're racing to be both fast <em>and</em> original. It plays in the browser with <strong>no download and no signup</strong> — just share a room code.
         </p>
 
+        {/* Mid-copy. The page's other hint sits at ~90% depth, which almost
+            nobody scrolls to. Automatic placement is not a substitute here — it
+            yields one ad at the bottom on this site. */}
+        <AdSlot className="my-8" />
+
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">How to play</h2>
         <ol className="list-decimal pl-5 mb-3 space-y-1">
           <li><strong>Create a room</strong> and share the 4-letter code or link with your friends.</li>

@@ -129,6 +129,13 @@ export default function Trivia() {
           Come back daily to build your <strong>streak</strong>, and replay past days any time you want more than one quiz. Like quick daily brain games? Pair it with the solo <Link to="/daily" className="text-[#E84A8B] font-semibold underline">Daily Herd</Link> and <Link to="/connections" className="text-[#E84A8B] font-semibold underline">Huddle</Link>, or play with friends in <Link to="/guesstimate" className="text-[#E84A8B] font-semibold underline">Guesstimate</Link>, <Link to="/say-anything" className="text-[#E84A8B] font-semibold underline">Say Anything</Link>, and <Link to="/clover" className="text-[#E84A8B] font-semibold underline">Clover Clues</Link>.
         </p>
 
+        {/* This page ran hint-free for a day, relying on Mediavine's automatic
+            placement through the content container. It produced exactly one ad,
+            at the very bottom — their walker cannot find a stream of block
+            siblings in a React tree, which their own docs warn about for page
+            builders. Explicit hints are the mechanism on this site. */}
+        <AdSlot className="my-8" />
+
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Trivia by topic</h2>
         <p className="mb-3">Prefer a specific subject? Play a quick quiz on any of these — fresh questions every time, or browse the <Link to="/trivia-games" className="text-[#E84A8B] font-semibold underline">full list of trivia games</Link>:</p>
         <div className="mb-4"><TopicGrid /></div>

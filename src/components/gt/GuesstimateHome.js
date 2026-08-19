@@ -244,6 +244,10 @@ export default function GuesstimateHome() {
           </p>
         </section>
 
+        {/* Second placement. This page is ~915 words and its existing hint sits
+            high at ~16%, so there is room for one more without crowding. */}
+        <AdSlot className="my-10" />
+
         <section>
           <h2 style={fredokaStyle} className="text-2xl md:text-3xl font-bold text-[#2D1810] mb-3">
             Free alternative to Wits &amp; Wagers

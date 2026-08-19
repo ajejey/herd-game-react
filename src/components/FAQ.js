@@ -92,6 +92,10 @@ const FAQ = () => {
           </div>
         </div>
 
+        {/* Between the first and second question groups. The page's other hint
+            is at ~94% depth, below where nearly anyone scrolls. */}
+        <AdSlot className="my-8" />
+
         {/* Gameplay */}
         <div className="mb-10">
           <h2 style={fredokaStyle} className="text-2xl md:text-3xl font-bold text-[#E84A8B] mb-5">Gameplay Questions</h2>

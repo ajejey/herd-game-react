@@ -51,6 +51,11 @@ const Blog = () => {
           </Link>
         </div>
 
+        {/* Above the card grid rather than inside it — an ad dropped into a
+            two-column grid breaks the columns. Moved here from below the list,
+            where it sat at ~90% depth and was seen by almost nobody. */}
+        <AdSlot className="my-8" />
+
         <div className="grid md:grid-cols-2 gap-7">
           {blogPosts.map((post, i) => {
             const t = cardThemes[i % cardThemes.length];
@@ -70,10 +75,6 @@ const Blog = () => {
           })}
         </div>
 
-        {/* Ad — bottom of blog list */}
-        <div className="mt-8">
-          <AdSlot slot="5698170537" />
-        </div>
 
         <GrassStrip className="absolute bottom-0 left-0 right-0 w-full h-5 -mb-[2px]" />
       </div>

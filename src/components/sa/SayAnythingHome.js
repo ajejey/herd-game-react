@@ -398,6 +398,10 @@ export default function SayAnythingHome() {
           </p>
         </section>
 
+        {/* Second placement. This page is ~1,090 words — long enough for two
+            without crowding, and the existing hint sits high at ~14%. */}
+        <AdSlot className="my-10" />
+
         {/* Player count */}
         <section>
           <h2 style={fredokaStyle} className="text-2xl md:text-3xl font-bold text-[#2D1810] mb-3">

@@ -95,6 +95,11 @@ export default function OfficeLayout({ slug = '', title, description, h1, keywor
 
           <div className="of-prose text-[#4A2D1B] text-base md:text-lg leading-relaxed">{children}</div>
 
+          {/* Between the article body and the FAQ. Shared by every /office-games
+              page, so one placement here covers the whole corporate lane — where
+              the existing hint sat at ~82% depth and was rarely seen. */}
+          <AdSlot className="my-10" />
+
           {faqs.length > 0 && (
             <section className="mt-10 pt-8 border-t-2 border-[#FFE8C8]">
               <h2 style={fredokaStyle} className="text-2xl md:text-3xl font-bold text-[#2D1810] mb-4">Frequently asked questions</h2>

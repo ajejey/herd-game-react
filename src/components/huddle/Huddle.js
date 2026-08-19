@@ -131,6 +131,10 @@ export default function Huddle() {
           The twist is that some words look like they fit more than one group — spotting the trap is the fun. Solve all four groups to win, then share your spoiler-free colour grid and keep your daily streak alive.
         </p>
 
+        {/* Mid-copy. Automatic placement gives this site one ad at the page
+            bottom, so every page states its own positions. */}
+        <AdSlot className="my-8" />
+
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-2">Free, unlimited, no login</h2>
         <p className="mb-3">
           A brand-new Huddle drops every day, and unlike the New York Times Connections you can also replay <strong>past puzzles unlimited</strong> — no subscription, no signup, no download. Missed a day? After finishing, hit <em>Play another puzzle</em> to get a random earlier one.

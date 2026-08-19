@@ -175,6 +175,11 @@ export default function TeamTriviaHome() {
           Because everyone answers on their own screen, it scales from a handful of teammates to a big all-hands — the host controls the pace, so a team of 5 and a company of 50 both play smoothly. It’s the same one-device-each format that makes apps like Kahoot popular for work, but instant and free in the browser.
         </p>
 
+        {/* Mid-copy. The page's other hint sits at ~94% depth. This is also our
+            highest-value corporate landing page, so an unseen ad here is the
+            most expensive one on the site. */}
+        <AdSlot className="my-8" />
+
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">How to host a team trivia game in 2 minutes</h2>
         <ol className="list-decimal pl-5 mb-3 space-y-1">
           <li><strong>Create a room</strong> — click Create, enter your name, and you’ll get a 4-letter room code.</li>
