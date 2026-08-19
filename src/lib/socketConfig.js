@@ -24,17 +24,27 @@ import { reportError } from './reportError';
   Reading that log led to exactly the wrong conclusion twice, because a recovered
   blip and a person who never connected looked the same.
 
-  Now each socket reports at most two things, once each:
+  Now each socket reports at most one of two things:
 
-    socket_recovered  it failed, then connected. Attempts and elapsed ms. This is
-                      the denominator — without it a drop in failures is
-                      indistinguishable from a drop in traffic.
+    socket_recovered  it blipped and was connected again inside GIVE_UP_MS.
+                      Attempts and elapsed ms. This is the denominator — without
+                      it, a fall in failures cannot be told apart from a fall in
+                      traffic.
     socket_failed     still not connected GIVE_UP_MS after the first error. This
-                      is the number that costs us finished games, and the only
-                      one worth acting on.
+                      is the number that costs finished games.
 
-  Both are capped per socket instance, so a two-hour game on a flaky train
-  contributes one event, not two hundred.
+  They are mutually exclusive. Once a socket has reported failed it will not
+  also report recovered, even if it connects a minute later — because by then
+  the game is lost anyway. In a party game where four people are staring at a
+  lobby, twenty-five seconds of nothing IS the failure, and counting it as a
+  recovery would flatter the number in exactly the direction that hides the
+  problem.
+
+  COUNTS ARE SESSIONS, NOT SOCKETS. reportError dedupes per page-session on
+  type+message, so a session that opens three sockets and fails the same way on
+  all three reports once. That is deliberate and it is the granularity we
+  actually want: the question is how many PEOPLE could not get in, not how many
+  connection objects were unhappy.
 */
 const GIVE_UP_MS = 25000; // past SOCKET_OPTS.timeout (20s) + a reconnect delay
 
@@ -75,7 +85,8 @@ export function attachConnectOutcome(socket, label = '') {
 
   const onConnect = () => {
     if (timer) { clearTimeout(timer); timer = null; }
-    if (attempts > 0 && !reportedRecover) {
+    // Never both. See the note above on why a late connect is still a failure.
+    if (attempts > 0 && !reportedRecover && !reportedFail) {
       reportedRecover = true;
       reportError('socket_recovered', lastMessage || 'recovered', {
         info: `ns=${label} transport=${transport()} attempts=${attempts} afterMs=${Date.now() - firstErrorAt}`,
