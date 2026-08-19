@@ -25,6 +25,12 @@ import MeadowLayout, { GrassStrip, fredokaStyle } from './MeadowLayout';
       NEITHER Google Analytics NOR any advertising runs in the app.
     - pingEvent.js, reportError.js and useGameStats.js are NOT guarded, so those
       do run there.
+    - lib/analytics.js (PostHog) is guarded on hostname OR Capacitor native, so
+      unlike gtag it DOES run in the app. This is the one place where the app's
+      footprint is not smaller than the website's, which is why section 6 states
+      it outright instead of leaving a reader to infer it from silence. It also
+      means the Play Data safety form must declare product analytics and session
+      replay for the app, not only for the site.
   Re-check those guards before changing this section.
 */
 
@@ -52,7 +58,7 @@ const PrivacyPolicy = () => {
         </div>
 
         <div className="text-[#4A2D1B] leading-relaxed">
-          <p className="text-lg">Last updated: 5 August 2026</p>
+          <p className="text-lg">Last updated: 19 August 2026</p>
 
           <p className="mt-3">
             Herd Game (&ldquo;we&rdquo;, &ldquo;us&rdquo;) operates <strong className="text-[#2D1810]">herdgamesonline.com</strong>{' '}
@@ -68,10 +74,16 @@ const PrivacyPolicy = () => {
             <li>No signup, no account and no password is required to play any game, on the site or in the app.</li>
             <li>Your high scores and streaks are saved <strong className="text-[#2D1810]">on your own device</strong>, not on our servers.</li>
             <li>We record anonymous &ldquo;a game was finished&rdquo; events so we know which games people enjoy.</li>
-            <li>On the website we use analytics and advertising partners, described in section 5, who set cookies.</li>
+            <li>We use analytics and advertising partners, described in section 5. Our advertising partner sets cookies; our analytics partner uses local storage rather than cookies.</li>
             <li>
               <strong className="text-[#2D1810]">The Android app shows no advertising and runs no Google Analytics.</strong>{' '}
-              It collects less than the website does — section 6.
+              It does use PostHog for product analytics, including session replay when you create or join a
+              multiplayer room — section 6.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">If you create or join a multiplayer room, we record that visit</strong>{' '}
+              — the pages, clicks and scrolling — so we can see where people get stuck starting a game. Text you
+              type is masked. We do not record general browsing. Section 5.
             </li>
             <li>You can clear everything we store on your device at any time by clearing your browser data, or by clearing the app&rsquo;s storage.</li>
           </ul>
@@ -123,11 +135,10 @@ const PrivacyPolicy = () => {
             or switch to another device or browser.
           </p>
 
-          <H2>5. Advertising, analytics and other third parties (website only)</H2>
+          <H2>5. Advertising, analytics and other third parties</H2>
           <p>
-            <strong className="text-[#2D1810]">Everything in this section applies to the website only.</strong> None of
-            these partners are active inside the Android app: it serves no advertising and does not run Google
-            Analytics. See section 6.
+            <strong className="text-[#2D1810]">Advertising applies to the website only.</strong> The Android app serves no
+            advertising and does not run Google Analytics. It does run PostHog, described below. See section 6.
           </p>
           <p className="mt-2">We work with the following third parties. Each has its own privacy policy, linked below.</p>
           <ul className="list-disc pl-6 mt-2 mb-4 space-y-2">
@@ -144,6 +155,19 @@ const PrivacyPolicy = () => {
               pages and games people use, in aggregate. See{' '}
               <A href="https://policies.google.com/privacy">Google&rsquo;s Privacy Policy</A> and{' '}
               <A href="https://tools.google.com/dlpage/gaoptout">Google&rsquo;s opt-out browser add-on</A>.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">PostHog (product analytics and session replay).</strong> We use PostHog to
+              understand how games are actually used &mdash; which are played, whether people come back, and where they
+              get stuck. It stores a random identifier in your browser&rsquo;s local storage; it sets no cookies, and that
+              identifier is not linked to your name or email.
+              <br />
+              <strong className="text-[#2D1810]">Session replay:</strong> if you create or join a multiplayer room, PostHog
+              records a reconstruction of that visit &mdash; the pages, clicks and scrolling &mdash; so we can see where
+              people get stuck trying to start a game. We turn recording on only for that flow, not for general browsing.
+              Text you type into input boxes is masked and is not captured. Recordings are deleted automatically after a
+              short retention period. This runs in the Android app as well as on the website. See the{' '}
+              <A href="https://posthog.com/privacy">PostHog Privacy Policy</A>.
             </li>
             <li>
               <strong className="text-[#2D1810]">Hosting and infrastructure providers</strong>, who process requests to
@@ -169,6 +193,12 @@ const PrivacyPolicy = () => {
             <li>
               <strong className="text-[#2D1810]">No Google Analytics.</strong> For the same reason, Google Analytics does
               not run in the app.
+            </li>
+            <li>
+              <strong className="text-[#2D1810]">PostHog does run in the app.</strong> This is the one item in this section
+              that is not a reduction, so it is stated plainly rather than left to be inferred. The app uses PostHog for
+              the same purpose as the website &mdash; understanding which games are played and where people get stuck &mdash;
+              including session replay when you create or join a multiplayer room. Text you type is masked. See section 5.
             </li>
             <li>
               <strong className="text-[#2D1810]">Daily reminders are scheduled by your own phone.</strong> If you turn on

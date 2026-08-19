@@ -60,9 +60,48 @@ function automated() {
   }
 }
 
+/*
+  Deliberate local override, for smoke-testing the integration before a deploy.
+
+  Open any page with ?hg_analytics_debug=1 once and the flag sticks in
+  localStorage; ?hg_analytics_debug=0 clears it. Events then flow from a dev
+  build, stamped surface:'dev' so a single filter excludes every one of them
+  from any insight.
+
+  It deliberately does NOT override the automation check above. A flag that let
+  Playwright through would be a loaded gun pointed at the retention numbers —
+  the e2e suite plays dozens of complete games, and that data arriving under
+  real-looking person profiles is precisely the corruption this guard exists to
+  prevent. A human in a real browser can opt in; a robot cannot, ever.
+*/
+const DEBUG_KEY = 'hg_analytics_debug';
+
+function debugOptIn() {
+  try {
+    const q = new URLSearchParams(window.location.search).get(DEBUG_KEY);
+    if (q === '1') localStorage.setItem(DEBUG_KEY, '1');
+    if (q === '0') localStorage.removeItem(DEBUG_KEY);
+    return localStorage.getItem(DEBUG_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function surface() {
+  try {
+    if (Capacitor.isNativePlatform()) return 'android-app';
+    const h = window.location.hostname;
+    if (h === 'herdgamesonline.com' || h === 'www.herdgamesonline.com') return 'web';
+    return 'dev';
+  } catch {
+    return 'dev';
+  }
+}
+
 function shouldRun() {
   try {
-    if (automated()) return false;
+    if (automated()) return false;          // never overridable, see above
+    if (debugOptIn()) return true;
     if (Capacitor.isNativePlatform()) return true;
     const h = window.location.hostname;
     return h === 'herdgamesonline.com' || h === 'www.herdgamesonline.com';
@@ -100,15 +139,31 @@ export function initAnalytics() {
           capture_pageview: false,         // SPA — sent manually on route change
           capture_pageleave: true,         // needed for honest session duration
           disable_session_recording: true, // see (5)
+          /*
+            Set explicitly, not left to the library default. PrivacyPolicy.js
+            tells visitors that text they type into input boxes is masked and
+            not captured — a claim in a legal document must be guaranteed by
+            our configuration, not by a default that a future SDK release could
+            change without us noticing.
+
+            Answers and display names still appear in a recording once they are
+            on screen, which is correct and not a leak: they were already shown
+            to everyone in the room. What is masked is the act of typing.
+          */
+          session_recording: {
+            maskAllInputs: true,
+            maskInputOptions: { password: true, email: true, text: true },
+          },
           persistence: 'localStorage',     // we set no cookies
           // Everyone gets a person profile keyed on hg_anon, which is what
           // makes retention cohorts possible. Without persons there is no D1/D7.
           person_profiles: 'always',
           loaded: (loaded) => {
             try {
-              loaded.identify(getAnonId(), {
-                surface: Capacitor.isNativePlatform() ? 'android-app' : 'web',
-              });
+              loaded.identify(getAnonId(), { surface: surface() });
+              // Stamped on every event too, not just the person, so insights
+              // can exclude dev traffic without touching person properties.
+              loaded.register({ surface: surface() });
             } catch { /* never throw */ }
           },
         });
