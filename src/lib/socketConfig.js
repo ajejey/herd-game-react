@@ -10,6 +10,82 @@
   reconnect if we've dropped.
 */
 
+import { reportError } from './reportError';
+
+/*
+  Report the OUTCOME of connecting, not every attempt.
+
+  Every hook used to call reportError on each `connect_error`. Socket.IO retries
+  forever by design, so one phone with a suspended tab produced a stream of
+  identical errors and a genuine lockout produced the same stream — the two were
+  indistinguishable in the data. About 1,100 errors a month, none of which could
+  answer the only question that matters: did this person get into their game?
+
+  Reading that log led to exactly the wrong conclusion twice, because a recovered
+  blip and a person who never connected looked the same.
+
+  Now each socket reports at most two things, once each:
+
+    socket_recovered  it failed, then connected. Attempts and elapsed ms. This is
+                      the denominator — without it a drop in failures is
+                      indistinguishable from a drop in traffic.
+    socket_failed     still not connected GIVE_UP_MS after the first error. This
+                      is the number that costs us finished games, and the only
+                      one worth acting on.
+
+  Both are capped per socket instance, so a two-hour game on a flaky train
+  contributes one event, not two hundred.
+*/
+const GIVE_UP_MS = 25000; // past SOCKET_OPTS.timeout (20s) + a reconnect delay
+
+export function attachConnectOutcome(socket, label = '') {
+  if (!socket) return () => {};
+
+  let attempts = 0;
+  let lastMessage = '';
+  let reportedFail = false;
+  let reportedRecover = false;
+  let timer = null;
+  let firstErrorAt = 0;
+
+  const transport = () => socket.io?.engine?.transport?.name || '?';
+
+  const onError = (err) => {
+    attempts += 1;
+    lastMessage = err?.message || 'connect_error';
+    if (!firstErrorAt) firstErrorAt = Date.now();
+
+    if (timer || reportedFail) return;
+    timer = setTimeout(() => {
+      timer = null;
+      if (socket.connected || reportedFail) return;
+      reportedFail = true;
+      reportError('socket_failed', lastMessage, {
+        info: `ns=${label} transport=${transport()} attempts=${attempts} afterMs=${Date.now() - firstErrorAt}`,
+      });
+    }, GIVE_UP_MS);
+  };
+
+  const onConnect = () => {
+    if (timer) { clearTimeout(timer); timer = null; }
+    if (attempts > 0 && !reportedRecover) {
+      reportedRecover = true;
+      reportError('socket_recovered', lastMessage || 'recovered', {
+        info: `ns=${label} transport=${transport()} attempts=${attempts} afterMs=${Date.now() - firstErrorAt}`,
+      });
+    }
+  };
+
+  socket.on('connect_error', onError);
+  socket.on('connect', onConnect);
+
+  return () => {
+    if (timer) clearTimeout(timer);
+    socket.off('connect_error', onError);
+    socket.off('connect', onConnect);
+  };
+}
+
 // Standard robust options for every namespace.
 // polling-first so strict proxies/firewalls/ISPs that block the wss:// upgrade
 // still connect (WebSocket-only = hard failure for those users), then upgrade.

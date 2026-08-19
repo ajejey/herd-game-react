@@ -1,7 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
-import { reportError } from '../lib/reportError';
-import { SOCKET_OPTS, attachConnectivityReconnect } from '../lib/socketConfig';
+import { SOCKET_OPTS, attachConnectivityReconnect, attachConnectOutcome } from '../lib/socketConfig';
 
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:3001';
 
@@ -46,13 +45,13 @@ export const SocketProvider = ({ children }) => {
     const newSocket = io(SOCKET_URL, SOCKET_OPTS);
     socketRef.current = newSocket;
 
+    // One outcome per socket, not one error per retry. See lib/socketConfig.js.
+    attachConnectOutcome(newSocket, 'herd');
+
     newSocket.on('connect', () => setConnected(true));
 
     newSocket.on('connect_error', (error) => {
       setConnected(false);
-      reportError('socket_connect', error?.message || 'connect_error', {
-        info: `ns=herd transport=${newSocket.io?.engine?.transport?.name || '?'}`,
-      });
     });
 
     newSocket.on('disconnect', () => setConnected(false));

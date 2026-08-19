@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
-import { reportError } from '../lib/reportError';
-import { attachConnectivityReconnect } from '../lib/socketConfig';
+import { attachConnectivityReconnect, attachConnectOutcome } from '../lib/socketConfig';
 
 const BACKEND_URL = process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 const NAMESPACE = '/chameleon';
@@ -37,6 +36,9 @@ export function useChameleon() {
       reconnectionDelayMax: 8000,
       timeout: 10000,
     });
+
+    // One outcome per socket, not one error per retry. See lib/socketConfig.js.
+    attachConnectOutcome(socket, NAMESPACE);
     socketRef.current = socket;
 
     socket.on('connect', () => {
@@ -50,7 +52,6 @@ export function useChameleon() {
     socket.on('connect_error', (err) => {
       setConnected(false);
       setErrorWithAutoClear('Cannot reach server. Retrying…');
-      reportError('socket_connect', err?.message || 'connect_error', { info: `ns=${NAMESPACE} transport=${socket.io?.engine?.transport?.name || '?'}` });
     });
     socket.on('joined', ({ playerId, rejoinToken, roomCode: rc, state: s }) => {
       setMyId(playerId); setRoomCode(rc); setState(s); setError(null);
