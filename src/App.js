@@ -40,6 +40,7 @@ import CustomPack from './components/custom/CustomPack';
 import SoloGamesHub from './components/hubs/SoloGamesHub';
 import AllGamesHub from './components/hubs/AllGamesHub';
 import ScrollToTop from './components/ScrollToTop';
+import PageviewTracker from './components/PageviewTracker';
 import RouteErrorBoundary from './components/ErrorBoundary';
 import OfficeGamesHub from './components/office/OfficeGamesHub';
 import OfficeTeams from './components/office/TeamsGamesPage';
@@ -123,6 +124,7 @@ function App() {
       <GameProvider>
         <Router>
           <ScrollToTop />
+          <PageviewTracker />
           <div className="min-h-screen bg-gray-50">
             <RouteErrorBoundary>
             <Routes>

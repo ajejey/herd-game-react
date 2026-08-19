@@ -13,25 +13,12 @@
 */
 
 import { recordDailyPlay } from './dailyProgress';
+import { getAnonId } from './anonId';
+import { track } from './analytics';
 
 const BACKEND_URL =
   process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 const ENDPOINT = `${BACKEND_URL}/api/daily-event`;
-
-const ANON_KEY = 'hg_anon'; // shared anonymous id across daily games
-
-function getAnonId() {
-  try {
-    let id = localStorage.getItem(ANON_KEY);
-    if (!id) {
-      id = 'a_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
-      localStorage.setItem(ANON_KEY, id);
-    }
-    return id;
-  } catch {
-    return 'a_anon';
-  }
-}
 
 /**
  * Ping a daily-game completion.
@@ -53,6 +40,17 @@ export function pingDailyComplete(game, fields = {}) {
       anonId: getAnonId(),
     };
     if (!payload.game) return;
+
+    // Same moment, second destination. Putting it here rather than in the 29
+    // calling hooks means every daily game reports to PostHog for free, and a
+    // new game gets it by using pingDailyComplete like all the others do.
+    track('daily_completed', {
+      game: payload.game,
+      day: payload.day,
+      score: payload.score,
+      total: payload.total,
+      won: payload.won,
+    });
 
     const body = JSON.stringify(payload);
     if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {

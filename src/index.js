@@ -5,12 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { installGlobalErrorReporting } from './lib/reportError';
 import { initNativeApp } from './lib/nativeApp';
+import { initAnalytics } from './lib/analytics';
 
 // Capture uncaught JS errors + unhandled promise rejections (fire-and-forget).
 installGlobalErrorReporting();
 
 // Status bar, Android back button, splash dismiss. No-op in the browser.
 initNativeApp();
+
+// Product analytics. No-op anywhere that is not the live site or the Android
+// app — dev servers and the Playwright suite must never reach the data we
+// steer retention by. See lib/analytics.js.
+initAnalytics();
 
 const rootElement = document.getElementById('root');
 const app = (

@@ -5,6 +5,7 @@ import { useGame } from '../context/GameContext';
 import { Helmet } from 'react-helmet';
 import Navigation from './Navigation';
 import AdSlot from './AdSlot';
+import { track, startFunnelRecording } from '../lib/analytics';
 import RemotePlayNotice from './common/RemotePlayNotice';
 import usePackFromUrl from '../lib/usePackFromUrl';
 
@@ -358,13 +359,25 @@ const Home = () => {
     // A custom pack is optional and best-effort: if the code is wrong or the
     // pack has expired the server falls back to the built-in questions rather
     // than refusing to make the room. Nobody should be stuck at a party.
+    /*
+      The join funnel is instrumented at every branch, and replay starts here.
+
+      This flow produced 67 rooms that never completed and not one bug report —
+      the failure mode of a party game is that people give up and leave, which
+      is silent by construction. An attempt that never reaches 'game_created'
+      is now a countable event with a reason attached.
+    */
+    track('room_create_attempt', { hasPack: !!packCode });
+    startFunnelRecording('create_room');
     socket.emit('create_game', { username, packCode: packCode || undefined });
     socket.once('game_created', ({ gameId, roomCode, playerId }) => {
+      track('room_created', { hasPack: !!packCode });
       saveGameSession(gameId, roomCode, playerId, username);
       dispatch({ type: 'GAME_CREATED', payload: { gameId, roomCode, playerId } });
       navigate(`/game/${roomCode}`);
     });
     socket.once('error', ({ message }) => {
+      track('room_create_failed', { reason: String(message || 'unknown').slice(0, 80) });
       setIsJoining(false);
       setJoinError(message || 'Could not create a game.');
     });
@@ -393,16 +406,22 @@ const Home = () => {
     setRoomCode(code);
     setIsJoining(true);
     const socket = connect();
+    track('room_join_attempt', { codeLength: code.length });
+    startFunnelRecording('join_room');
     socket.emit('join_game', { username: name, roomCode: code });
     // isHost is forwarded, not assumed. The host can arrive down this path too
     // — a second tab, the invite link, a cleared localStorage — and dropping
     // the flag here left them without the Start button in their own room.
     socket.once('game_joined', ({ gameId, playerId, isHost }) => {
+      track('room_joined', { isHost: !!isHost });
       saveGameSession(gameId, code, playerId, name);
       dispatch({ type: 'GAME_JOINED', payload: { gameId, playerId, isHost } });
       navigate(`/game/${code}`);
     });
     socket.once('error', ({ message }) => {
+      // The reason matters more than the count. "Game not found" after a code
+      // was normalised is a different problem from a room that is full.
+      track('room_join_failed', { reason: String(message || 'unknown').slice(0, 80) });
       setIsJoining(false);
       setJoinError(message || 'Could not join that game.');
     });
