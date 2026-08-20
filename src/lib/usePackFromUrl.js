@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { cleanPackCode } from './packCode';
 
 /*
   Read ?pack=CODE from the URL and look it up.
@@ -25,9 +26,9 @@ export default function usePackFromUrl(search) {
 
   useEffect(() => {
     let live = true;
-    const code = (new URLSearchParams(query || '').get('pack') || '')
-      .toUpperCase()
-      .replace(/[^A-Z0-9]/g, '');
+    // Shared with the pack page and the backend. Hyphens are part of the
+    // format now, so a local copy that strips them breaks every named pack.
+    const code = cleanPackCode(new URLSearchParams(query || '').get('pack'));
     if (!code) { setPackCode(''); setPackInfo(null); return undefined; }
 
     setPackCode(code);

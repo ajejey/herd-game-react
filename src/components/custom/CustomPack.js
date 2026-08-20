@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { FiCheck, FiCopy, FiArrowRight, FiEdit3 } from 'react-icons/fi';
 import Navigation from '../Navigation';
 import { copyText } from '../../lib/shareSheet';
+import { cleanPackCode } from '../../lib/packCode';
 
 /*
   Write your own questions, get a pack code.
@@ -183,6 +184,20 @@ const PLAY_PATHS = {
 };
 const playPath = (p) => `${PLAY_PATHS[p.game] || '/'}?pack=${p.packCode}`;
 
+/*
+  How long the ROOM code is for each game — the code players type, which is not
+  this one. Herd is the original game and uses six characters; every game on the
+  newer engine uses four letters. Getting this wrong on screen is what caused
+  the confusion in the first place, so it is stated per game rather than guessed.
+*/
+const ROOM_CODE_LEN = {
+  herd: 6,
+  teamtrivia: 4,
+  sayanything: 4,
+  wyr: 4,
+  scattergories: 4,
+};
+
 export default function CustomPack() {
   const [game, setGame] = useState('herd');
   const [title, setTitle] = useState('');
@@ -200,7 +215,7 @@ export default function CustomPack() {
   useEffect(() => { setMyPacks(readMyPacks()); }, [pack]);
 
   const openCode = async (raw) => {
-    const code = String(raw || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const code = cleanPackCode(raw);
     if (code.length < 4) { setLookupState('error'); setFound(null); return; }
     setLookupState('loading'); setFound(null);
     try {
@@ -564,9 +579,38 @@ export default function CustomPack() {
             <p style={QUICKSAND} className="text-lg">
               {pack.title ? `“${pack.title}” · ` : ''}{pack.count} questions
             </p>
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mx-auto mt-3 max-w-md">
-              Write this down. Anyone with the code can start a game using your questions, on any device —
-              there is no account to log into.
+
+            {/*
+              The single most important thing on this screen, and it used to be
+              missing entirely.
+
+              A Community Coordinator wrote five packs for a work event, then
+              emailed to ask why the codes were six characters when Scattergories
+              rooms are four letters. The old copy here said "anyone with the code
+              can start a game using your questions", which reads as "this is the
+              code your players type". It is not. Two different codes, two
+              different lengths, and nothing on screen drew the line.
+
+              So the line is drawn, before anything else on the page.
+            */}
+            <div
+              style={{ borderColor: THEME.border, background: '#FFFDF6' }}
+              className="mx-auto mt-5 max-w-md rounded-2xl border-2 p-4 text-left"
+            >
+              <p style={{ ...QUICKSAND, color: THEME.ink }} className="text-base">
+                <strong>This code is for you, not your players.</strong> It opens your questions
+                whenever you want to run them again.
+              </p>
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2 text-base">
+                Your players never type this. When you start a game you get a separate{' '}
+                <strong>{ROOM_CODE_LEN[pack.game] === 6 ? 'six-character' : 'four-letter'} room code</strong>
+                {' '}— that is the one to put on the screen for everyone else.
+              </p>
+            </div>
+
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="mx-auto mt-4 max-w-md">
+              Keep the code, or bookmark the link below. Either one brings your questions back on
+              any device — there is no account to log into.
             </p>
 
             <div className="mx-auto mt-7 grid max-w-sm gap-3">
