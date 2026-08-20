@@ -1,6 +1,12 @@
 /*
-  One definition of what a pack code looks like, shared by everything that
+  One definition of what a pack ID looks like, shared by everything that
   accepts one.
+
+  The FILE and the FIELD stay `packCode` on purpose. On screen it is a "pack ID"
+  — because the site already has room CODES and two different things sharing
+  that word is what sent a real host to our inbox unable to tell them apart. But
+  `packCode` is in the database, in every `?pack=` link ever shared, and in the
+  API; renaming it would break every ID already issued to buy nothing.
 
   It used to live in two places — the pack page's lookup and usePackFromUrl —
   and both did `.toUpperCase().replace(/[^A-Z0-9]/g, '')`, which strips hyphens.
@@ -25,8 +31,8 @@ export function cleanPackCode(raw) {
 }
 
 /*
-  Room codes and pack codes are different things and people mix them up — in
-  both directions. Someone pasted a six-character pack code into a four-letter
+  Room codes and pack IDs are different things and people mix them up — in
+  both directions. Someone pasted a six-character pack ID into a four-letter
   room box and it was silently truncated; someone else typed a four-letter room
   code where six were expected. Neither got told what was wrong.
 
@@ -38,10 +44,10 @@ export function describeRoomCodeMistake(raw, expectedLength) {
   if (!code) return null;
 
   if (code.includes('-') || code.length > 6) {
-    return 'That looks like a pack code, not a room code. Pack codes open your own questions — start a game with your pack first, and the room code for your players appears once the game exists.';
+    return 'That looks like a pack ID, not a room code. A pack ID opens your own questions — start a game with your pack first, and the room code for your players appears once the game exists.';
   }
   if (code.length > expectedLength) {
-    return `Room codes for this game are ${expectedLength} letters. A ${code.length}-character code is either a pack code or from a different game.`;
+    return `Room codes for this game are ${expectedLength} letters. A ${code.length}-character one is either a pack ID or from a different game.`;
   }
   if (code.length < expectedLength) {
     return `Room codes for this game are ${expectedLength} letters — that one is ${code.length}.`;

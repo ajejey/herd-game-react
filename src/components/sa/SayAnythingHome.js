@@ -296,13 +296,13 @@ export default function SayAnythingHome() {
             <p className="font-bold text-[#2D6E45]">
               Using your questions{packInfo.title ? ` — “${packInfo.title}”` : ''}
             </p>
-            <p className="text-base text-[#3D8B5A]">{packInfo.count} custom · pack {packInfo.packCode}</p>
+            <p className="text-base text-[#3D8B5A]">{packInfo.count} custom · pack ID {packInfo.packCode}</p>
           </div>
         )}
         {tab === 'create' && packInfo && packInfo.error && (
           <div data-testid="pack-banner-error" className="mb-3 rounded-2xl border-2 border-[#D0463B] bg-[#FDECEA] p-3 text-center">
             <p className="text-base font-bold text-[#B03A30]">
-              We couldn’t find that pack code — this game will use our built-in questions.
+              We couldn’t find that pack ID — this game will use our built-in questions.
             </p>
           </div>
         )}

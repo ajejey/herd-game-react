@@ -1142,14 +1142,14 @@ const Home = () => {
                 Using your questions{packInfo.title ? ` — “${packInfo.title}”` : ''}
               </p>
               <p className="text-base text-[#3D8B5A]">
-                {packInfo.count} custom questions · pack {packInfo.packCode}
+                {packInfo.count} custom questions · pack ID {packInfo.packCode}
               </p>
             </div>
           )}
           {activeTab !== 'join' && packInfo && packInfo.error && (
             <div data-testid="pack-banner-error" className="mb-4 rounded-2xl border-2 border-[#D0463B] bg-[#FDECEA] p-3 text-center">
               <p className="text-base font-bold text-[#B03A30]">
-                We couldn’t find that pack code — this game will use our built-in questions.
+                We couldn’t find that pack ID — this game will use our built-in questions.
               </p>
             </div>
           )}

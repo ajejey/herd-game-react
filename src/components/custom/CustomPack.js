@@ -8,11 +8,11 @@ import { copyText } from '../../lib/shareSheet';
 import { cleanPackCode } from '../../lib/packCode';
 
 /*
-  Write your own questions, get a pack code.
+  Write your own questions, get a pack ID.
 
   Built because two hosts wrote in on the same day asking for exactly this — one
   for a family party, one for a classroom icebreaker. Deliberately no account:
-  the pack code is a bearer token like the room code, which gives reuse ("run it
+  the pack ID is a bearer token like the room code, which gives reuse ("run it
   again next term") and cross-device ("write it on a laptop, play from a phone")
   without a signup. See CUSTOM_PACKS_PLAN.md.
 
@@ -122,11 +122,11 @@ const SCHEMA = {
   applicationCategory: 'GameApplication',
   operatingSystem: 'Any (Web)',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  description: 'Write your own questions for Herd Mentality and play them with your group. Free, no signup — you get a pack code to share and reuse.',
+  description: 'Write your own questions for Herd Mentality and play them with your group. Free, no signup — you get a pack ID to share and reuse.',
 };
 
 const FAQS = [
-  { q: 'Do I need an account?', a: 'No. You get a pack code, like a room code. Keep the code and you can play the same questions again any time, on any device.' },
+  { q: 'Do I need an account?', a: 'No. You get a pack ID — named after your pack, so you can tell them apart. Keep it and you can play the same questions again any time, on any device. It is not the room code your players type; that appears once you start a game.' },
   { q: 'How many questions do I need?', a: `At least ${MIN}, and up to 60. A game usually runs through 8 to 12, so around 15 gives a comfortable session without repeats.` },
   { q: 'Can I paste a list I already have?', a: 'Yes. Put one question per line and paste it in. Numbering like "1." or bullets like "-" are stripped automatically, as are blank lines and duplicates.' },
   { q: 'Who can see my questions?', a: 'Only people you give the code to. Packs are not listed, searchable or browsable anywhere on the site.' },
@@ -150,7 +150,7 @@ function anonId() {
 /*
   The packs this device has made.
 
-  Without accounts the pack code is the only key, so "write it down" was the
+  Without accounts the pack ID is the only key, so "write it down" was the
   entire reuse story — which is a trap, not a feature. A teacher coming back
   next term will not have kept a six-character code on a sticky note. So the
   browser remembers every pack made here, which gives them a library on the
@@ -190,6 +190,36 @@ const playPath = (p) => `${PLAY_PATHS[p.game] || '/'}?pack=${p.packCode}`;
   newer engine uses four letters. Getting this wrong on screen is what caused
   the confusion in the first place, so it is stated per game rather than guessed.
 */
+// Must equal MAX_SLUG in backend/src/models/CustomPack.js.
+const MAX_SLUG_PREVIEW = 24;
+
+/*
+  Mirrors slugifyTitle in backend/src/models/CustomPack.js, for the live preview
+  under the name field. Deliberately a preview and not a promise: the server
+  issues the real ID, adds the random suffix, and resolves any collision. If the
+  two ever drift, the preview is slightly wrong for a moment — which is a far
+  cheaper failure than the client trying to own ID allocation.
+*/
+function previewSlug(title) {
+  const base = String(title || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toUpperCase()
+    .replace(/&/g, ' AND ')
+    .replace(/[^A-Z0-9]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  if (!base) return 'YOUR-PACK';
+  if (base.length <= MAX_SLUG_PREVIEW) return base;
+
+  // Same word-boundary truncation the server uses, not an approximation of it.
+  const cut = base.slice(0, MAX_SLUG_PREVIEW + 1);
+  const lastBreak = cut.lastIndexOf('-');
+  const trimmed = lastBreak > 0 ? cut.slice(0, lastBreak) : base.slice(0, MAX_SLUG_PREVIEW);
+  return trimmed.replace(/-$/, '');
+}
+
 const ROOM_CODE_LEN = {
   herd: 6,
   teamtrivia: 4,
@@ -305,7 +335,7 @@ export default function CustomPack() {
     <div style={{ background: THEME.bg, color: THEME.ink, minHeight: '100vh' }}>
       <Helmet>
         <title>Custom Questions for Herd Mentality — Free, No Signup</title>
-        <meta name="description" content="Write your own questions for Herd Mentality and play them with your family, friends or class. Free, no signup — you get a pack code to share and reuse." />
+        <meta name="description" content="Write your own questions for Herd Mentality and play them with your family, friends or class. Free, no signup — you get a pack ID named after your pack, to share and reuse." />
         <meta name="keywords" content="custom questions, herd mentality custom, make your own party game, classroom icebreaker questions, custom trivia questions, family party game" />
         <link rel="canonical" href={CANONICAL} />
         <meta property="og:title" content="Custom Questions for Herd Mentality" />
@@ -326,7 +356,7 @@ export default function CustomPack() {
               <h1 style={FREDOKA} className="text-3xl font-bold leading-tight md:text-4xl">Write your own questions</h1>
               <p style={QUICKSAND} className="mx-auto mt-3 max-w-xl text-base md:text-lg">
                 Play Herd Mentality with questions about your own family, class or team.
-                No signup — you get a code you can share and reuse.
+                Create a PACK and reuse it anytime with your PACK ID. 
               </p>
             </div>
 
@@ -341,7 +371,7 @@ export default function CustomPack() {
                   value={lookup}
                   onChange={(e) => { setLookup(e.target.value.toUpperCase()); setLookupState('idle'); }}
                   onKeyDown={(e) => { if (e.key === 'Enter') openCode(lookup); }}
-                  placeholder="PACK CODE"
+                  placeholder="PACK ID"
                   maxLength={8}
                   style={{ ...FREDOKA, borderColor: THEME.border, background: THEME.bg, letterSpacing: '0.12em' }}
                   className="min-w-0 flex-1 rounded-xl border-2 px-4 py-3 font-bold uppercase outline-none"
@@ -442,9 +472,23 @@ export default function CustomPack() {
                 })}
               </div>
 
+              {/*
+                No longer labelled optional, and the hint says why.
+
+                The name now BECOMES the pack ID — "Letter S" gives
+                LETTER-S-K7X, and skipping it gives QXUME5. The host who wrote
+                in had five packs and left two of them untitled, which is a good
+                part of why she could not tell them apart. It is still not
+                enforced: blocking someone over a field they can fill in later
+                is friction, and the fallback works. But nobody should skip it
+                without knowing what they are giving up.
+              */}
               <label style={QUICKSAND} className="mt-5 block text-base font-bold" htmlFor="pack-title">
-                Give it a name <span style={{ color: THEME.mut }}>(optional)</span>
+                Give it a name
               </label>
+              <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-0.5 text-base">
+                This becomes its ID, so you can tell your packs apart later.
+              </p>
               <input
                 id="pack-title"
                 data-testid="pack-title"
@@ -452,9 +496,20 @@ export default function CustomPack() {
                 onChange={(e) => setTitle(e.target.value)}
                 maxLength={60}
                 placeholder="Dad's birthday quiz"
+                aria-describedby="pack-title-preview"
                 style={{ ...QUICKSAND, borderColor: THEME.border, background: THEME.bg }}
                 className="mt-1 w-full rounded-xl border-2 px-4 py-3 font-bold outline-none"
               />
+              {/*
+                Show the ID forming as they type. The whole change is that the
+                ID means something now, and the cheapest way to prove that is to
+                let someone watch their own words become it.
+              */}
+              <p id="pack-title-preview" style={{ ...QUICKSAND, color: THEME.mut }} className="mt-1 text-base">
+                {title.trim()
+                  ? <>Its ID will be <strong style={{ color: THEME.green }}>{previewSlug(title)}-•••</strong></>
+                  : 'Without a name it gets a random ID like QXUME5, which is harder to recognise later.'}
+              </p>
 
               <label style={QUICKSAND} className="mt-5 block text-base font-bold" htmlFor="pack-questions">
                 Your questions
@@ -572,7 +627,7 @@ export default function CustomPack() {
 
         {state === 'done' && pack && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">Your pack code</p>
+            <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">Your pack ID</p>
             {/*
               Sized to the code, not to a fixed guess.
 
@@ -620,7 +675,7 @@ export default function CustomPack() {
               className="mx-auto mt-5 max-w-md rounded-2xl border-2 p-4 text-left"
             >
               <p style={{ ...QUICKSAND, color: THEME.ink }} className="text-base">
-                <strong>This code is for you, not your players.</strong> It opens your questions
+                <strong>This ID is for you, not your players.</strong> It opens your questions
                 whenever you want to run them again.
               </p>
               <p style={{ ...QUICKSAND, color: THEME.mut }} className="mt-2 text-base">
@@ -631,7 +686,7 @@ export default function CustomPack() {
             </div>
 
             <p style={{ ...QUICKSAND, color: THEME.mut }} className="mx-auto mt-4 max-w-md">
-              Keep the code, or bookmark the link below. Either one brings your questions back on
+              Keep the ID, or bookmark the link below. Either one brings your questions back on
               any device — there is no account to log into.
             </p>
 
@@ -650,7 +705,7 @@ export default function CustomPack() {
                   style={{ ...QUICKSAND, borderColor: THEME.green, color: THEME.green }}
                   className="flex items-center justify-center gap-2 rounded-2xl border-2 py-3 font-bold"
                 >
-                  {copied === 'code' ? <><FiCheck aria-hidden="true" /> Copied</> : <><FiCopy aria-hidden="true" /> Copy code</>}
+                  {copied === 'code' ? <><FiCheck aria-hidden="true" /> Copied</> : <><FiCopy aria-hidden="true" /> Copy ID</>}
                 </button>
                 <button
                   onClick={() => doCopy('link', shareUrl)}
@@ -680,7 +735,7 @@ export default function CustomPack() {
           </p>
           <p style={{ color: THEME.mut }} className="mb-6">
             Write at least {MIN} questions, one per line — paste a list you already have if you like. You get a
-            pack code back. Anyone who starts a game with that code plays your questions instead of ours, and
+            pack ID back. Anyone who starts a game with that ID plays your questions instead of ours, and
             everything else about the game works exactly as normal: share a room code, everyone plays on their
             own phone, no downloads and no accounts.
           </p>
