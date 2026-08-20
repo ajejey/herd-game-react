@@ -113,7 +113,7 @@ export default function CloverHome() {
           <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your name" maxLength={20}
             className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
           {tab === 'join' && (
-            <input value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="Room code (4 letters)" maxLength={12}
+            <input value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="Room code (4 letters)" maxLength={32}
               className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8] tracking-widest font-mono" />
           )}
           <button type="submit" disabled={!connected} style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}

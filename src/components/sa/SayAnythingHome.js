@@ -334,7 +334,7 @@ export default function SayAnythingHome() {
                   value={code}
                   onChange={e => setCode(e.target.value.toUpperCase().replace(/[^A-Z]/g, ''))}
                   placeholder="Room code (4 letters)"
-                  maxLength={12}
+                  maxLength={32}
                   className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] focus:outline-none text-[#2D1810] bg-[#FFFDF8] uppercase tracking-widest text-center text-xl font-bold"
                 />
               </div>

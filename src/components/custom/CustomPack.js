@@ -573,7 +573,29 @@ export default function CustomPack() {
         {state === 'done' && pack && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center">
             <p style={{ ...QUICKSAND, color: THEME.mut }} className="text-base uppercase tracking-widest">Your pack code</p>
-            <p data-testid="pack-code" style={{ ...FREDOKA, color: THEME.pink, letterSpacing: '0.15em' }} className="my-2 text-5xl font-bold md:text-6xl">
+            {/*
+              Sized to the code, not to a fixed guess.
+
+              text-5xl with 0.15em tracking was right for QXUME5 — six characters
+              on one line, unmistakable. A named code like
+              CISS-DIVISION-LETTER-S-H6M at that size wraps onto four lines and
+              swamps the screen, which reads as something having gone wrong at
+              the exact moment we are trying to reassure someone that it has not.
+            */}
+            <p
+              data-testid="pack-code"
+              style={{
+                ...FREDOKA,
+                color: THEME.pink,
+                letterSpacing: pack.packCode.length > 10 ? '0.02em' : '0.15em',
+                overflowWrap: 'anywhere',
+              }}
+              className={`my-2 font-bold ${
+                pack.packCode.length > 18 ? 'text-2xl md:text-3xl'
+                  : pack.packCode.length > 10 ? 'text-3xl md:text-4xl'
+                  : 'text-5xl md:text-6xl'
+              }`}
+            >
               {pack.packCode}
             </p>
             <p style={QUICKSAND} className="text-lg">
