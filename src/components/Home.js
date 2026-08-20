@@ -14,6 +14,8 @@ import { Sheep } from './daily/HerdCritters';
 import { GameSection } from './common/GameCard';
 import { byMode } from '../data/games';
 import ReportProblem from './common/ReportProblem';
+import JoinCodeHelp from './JoinCodeHelp';
+import { sanitizeCodeInput } from '../lib/packCode';
 
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
@@ -1177,12 +1179,23 @@ const Home = () => {
                 <input
                   type="text"
                   value={roomCode}
-                  onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
-                  className={inputCls + ' tracking-[0.2em] uppercase font-semibold'}
+                  onChange={(e) => setRoomCode(sanitizeCodeInput(e.target.value))}
+                  /* The wide tracking was sized for six characters. A named
+                     pack ID is up to 28, and at 0.2em it scrolls off the left
+                     of the field while you are still trying to read it — so the
+                     spacing only applies while the value is still code-sized. */
+                  className={
+                    inputCls +
+                    (roomCode.length > 8 ? ' text-sm' : ' tracking-[0.2em]') +
+                    ' uppercase font-semibold'
+                  }
                   placeholder="6-LETTER CODE"
                   required
                 />
               </div>
+            )}
+            {activeTab === 'join' && (
+              <JoinCodeHelp code={roomCode} expectedLength={6} onUsePack={() => setActiveTab('create')} />
             )}
 
             {joinError && (

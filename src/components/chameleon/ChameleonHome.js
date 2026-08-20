@@ -4,6 +4,8 @@ import { Helmet } from 'react-helmet';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import { useChameleon } from '../../hooks/useChameleon';
 import AdSlot from '../AdSlot';
+import JoinCodeHelp from '../JoinCodeHelp';
+import { sanitizeCodeInput } from '../../lib/packCode';
 
 const CANONICAL = 'https://herdgamesonline.com/chameleon';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -102,8 +104,11 @@ export default function ChameleonHome() {
           <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your name" maxLength={20}
             className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8]" />
           {tab === 'join' && (
-            <input value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="Room code (4 letters)" maxLength={32}
-              className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8] tracking-widest font-mono" />
+            <input value={code} onChange={(e) => setCode(sanitizeCodeInput(e.target.value))} placeholder="Room code (4 letters)" maxLength={32}
+              className={`w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none text-[#2D1810] bg-[#FFFDF8] font-mono ${code.length > 8 ? 'text-sm' : 'tracking-widest'}`} />
+          )}
+          {tab === 'join' && (
+            <JoinCodeHelp code={code} onUsePack={() => setTab('create')} />
           )}
           <button type="submit" disabled={!connected} style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
             className="w-full py-3 rounded-xl text-white font-bold text-lg disabled:opacity-50">

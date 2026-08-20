@@ -7,6 +7,8 @@ import { useSayAnything } from '../../hooks/useSayAnything';
 import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
 import RemotePlayNotice from '../common/RemotePlayNotice';
+import JoinCodeHelp from '../JoinCodeHelp';
+import { sanitizeCodeInput } from '../../lib/packCode';
 
 const CANONICAL_URL = 'https://herdgamesonline.com/say-anything';
 const OG_IMAGE = 'https://herdgamesonline.com/og-say-anything.png';
@@ -332,12 +334,15 @@ export default function SayAnythingHome() {
                 <input
                   type="text"
                   value={code}
-                  onChange={e => setCode(e.target.value.toUpperCase().replace(/[^A-Z]/g, ''))}
+                  onChange={e => setCode(sanitizeCodeInput(e.target.value))}
                   placeholder="Room code (4 letters)"
                   maxLength={32}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] focus:outline-none text-[#2D1810] bg-[#FFFDF8] uppercase tracking-widest text-center text-xl font-bold"
+                  className={`w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] focus:outline-none text-[#2D1810] bg-[#FFFDF8] uppercase text-center font-bold ${code.length > 8 ? 'text-sm' : 'tracking-widest text-xl'}`}
                 />
               </div>
+            )}
+            {tab === 'join' && (
+              <JoinCodeHelp code={code} onUsePack={() => setTab('create')} />
             )}
             <button
               type="submit"

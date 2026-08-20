@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { FiCheck, FiCopy, FiArrowRight, FiEdit3 } from 'react-icons/fi';
 import Navigation from '../Navigation';
 import { copyText } from '../../lib/shareSheet';
-import { cleanPackCode } from '../../lib/packCode';
+import { cleanPackCode, packPlayPath } from '../../lib/packCode';
 
 /*
   Write your own questions, get a pack ID.
@@ -175,14 +175,9 @@ function rememberPack(p) {
 }
 
 // Each game lives at its own address, so a pack has to open the right one.
-const PLAY_PATHS = {
-  herd: '/',
-  teamtrivia: '/team-trivia',
-  sayanything: '/say-anything',
-  wyr: '/would-you-rather',
-  scattergories: '/scattergories',
-};
-const playPath = (p) => `${PLAY_PATHS[p.game] || '/'}?pack=${p.packCode}`;
+/* The map lives in lib/packCode.js because the join boxes need it too — a
+   host who pastes a pack ID into the wrong game gets sent to the right one. */
+const playPath = (p) => packPlayPath(p);
 
 /*
   How long the ROOM code is for each game — the code players type, which is not
