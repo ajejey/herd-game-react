@@ -121,3 +121,26 @@ export function packPlayPath(pack) {
   const dest = PACK_GAMES[pack && pack.game];
   return `${dest ? dest.path : '/'}?pack=${encodeURIComponent((pack && pack.packCode) || '')}`;
 }
+
+/*
+  What shape a code was, as one word, for analytics.
+
+  Every failed join currently reports the same thing — "Game not found" — which
+  is the server telling the truth and telling us nothing. That one string covers
+  a pack ID in the wrong box, a typo, a room that expired, a host who left, and
+  a code from a different game entirely, and we cannot tell which without
+  knowing what the person actually typed.
+
+  Recording the shape rather than the code itself keeps the person's own text
+  out of analytics while still splitting "Game not found" into causes we can act
+  on: a wave of 'pack-id' is a UX problem, a wave of 'room-code' is rooms
+  expiring or hosts leaving, and those want completely different fixes.
+*/
+export function codeShape(raw, expectedLength) {
+  const code = cleanPackCode(raw);
+  if (!code) return 'empty';
+  if (code.includes('-')) return 'pack-id';
+  if (code.length > expectedLength) return 'too-long';
+  if (code.length < expectedLength) return 'too-short';
+  return 'room-code';
+}

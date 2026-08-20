@@ -6,6 +6,7 @@ import { useClover } from '../../hooks/useClover';
 import AdSlot from '../AdSlot';
 import RemotePlayNotice from '../common/RemotePlayNotice';
 import JoinCodeHelp from '../JoinCodeHelp';
+import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 
 const CANONICAL = 'https://herdgamesonline.com/clover';
@@ -63,6 +64,7 @@ const FAQ_SCHEMA = {
 export default function CloverHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useClover();
+  const funnel = useJoinFunnel({ game: 'clover', roomCode, error });
   const [tab, setTab] = useState('create');
   const [username, setUsername] = useState('');
   const [code, setCode] = useState('');
@@ -71,8 +73,8 @@ export default function CloverHome() {
     if (state && roomCode) navigate(`/clover/room/${roomCode}`);
   }, [state, roomCode, navigate]);
 
-  function handleCreate(e) { e.preventDefault(); if (username.trim()) createGame(username); }
-  function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) joinGame(code, username); }
+  function handleCreate(e) { e.preventDefault(); if (username.trim()) { funnel.attemptCreate({ hasPack: false }); createGame(username); } }
+  function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) { funnel.attemptJoin(code); joinGame(code, username); } }
 
   return (
     <MeadowLayout maxWidth="max-w-2xl">

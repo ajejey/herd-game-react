@@ -8,6 +8,7 @@ import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
 import RemotePlayNotice from '../common/RemotePlayNotice';
 import JoinCodeHelp from '../JoinCodeHelp';
+import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 
 const CANONICAL_URL = 'https://herdgamesonline.com/say-anything';
@@ -205,6 +206,7 @@ function FaqItem({ q, a, defaultOpen = false }) {
 export default function SayAnythingHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useSayAnything();
+  const funnel = useJoinFunnel({ game: 'sayanything', roomCode, error });
   const { packCode, packInfo } = usePackFromUrl();
 
   const [tab, setTab] = useState('create');
@@ -218,13 +220,13 @@ export default function SayAnythingHome() {
   function handleCreate(e) {
     e.preventDefault();
     if (!username.trim()) return;
-    createGame(username, packCode ? { packCode } : {});
+    funnel.attemptCreate({ hasPack: !!packCode }); createGame(username, packCode ? { packCode } : {});
   }
 
   function handleJoin(e) {
     e.preventDefault();
     if (!username.trim() || !code.trim()) return;
-    joinGame(code, username);
+    funnel.attemptJoin(code); joinGame(code, username);
   }
 
   return (

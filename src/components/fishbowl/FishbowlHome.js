@@ -5,6 +5,7 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import { useFishbowl } from '../../hooks/useFishbowl';
 import AdSlot from '../AdSlot';
 import JoinCodeHelp from '../JoinCodeHelp';
+import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 
 const CANONICAL = 'https://herdgamesonline.com/fishbowl';
@@ -53,14 +54,15 @@ const FAQ_SCHEMA = { '@context': 'https://schema.org', '@type': 'FAQPage', mainE
 export default function FishbowlHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useFishbowl();
+  const funnel = useJoinFunnel({ game: 'fishbowl', roomCode, error });
   const [tab, setTab] = useState('create');
   const [username, setUsername] = useState('');
   const [code, setCode] = useState('');
 
   useEffect(() => { if (state && roomCode) navigate(`/fishbowl/room/${roomCode}`); }, [state, roomCode, navigate]);
 
-  function handleCreate(e) { e.preventDefault(); if (username.trim()) createGame(username); }
-  function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) joinGame(code, username); }
+  function handleCreate(e) { e.preventDefault(); if (username.trim()) { funnel.attemptCreate({ hasPack: false }); createGame(username); } }
+  function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) { funnel.attemptJoin(code); joinGame(code, username); } }
 
   return (
     <MeadowLayout maxWidth="max-w-2xl">

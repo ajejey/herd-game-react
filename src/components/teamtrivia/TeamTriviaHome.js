@@ -7,6 +7,7 @@ import { useTeamTrivia } from '../../hooks/useTeamTrivia';
 import AdSlot from '../AdSlot';
 import WaitlistCTA from '../office/WaitlistCTA';
 import JoinCodeHelp from '../JoinCodeHelp';
+import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 
 const CANONICAL = 'https://herdgamesonline.com/team-trivia';
@@ -64,6 +65,7 @@ export default function TeamTriviaHome() {
   const navigate = useNavigate();
   const location = useLocation();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useTeamTrivia();
+  const funnel = useJoinFunnel({ game: 'teamtrivia', roomCode, error });
 
   // Custom question pack from a shared link (see CUSTOM_PACKS_PLAN.md). The
   // host is shown what will be played BEFORE the room exists, so a mistyped
@@ -81,8 +83,8 @@ export default function TeamTriviaHome() {
     if (state && roomCode) navigate(`/team-trivia/room/${roomCode}`);
   }, [state, roomCode, navigate]);
 
-  function handleCreate(e) { e.preventDefault(); if (username.trim()) createGame(username, packCode ? { packCode } : {}); }
-  function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) joinGame(code, username); }
+  function handleCreate(e) { e.preventDefault(); if (username.trim()) { funnel.attemptCreate({ hasPack: !!packCode }); createGame(username, packCode ? { packCode } : {}); } }
+  function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) { funnel.attemptJoin(code); joinGame(code, username); } }
 
   return (
     <MeadowLayout maxWidth="max-w-2xl">

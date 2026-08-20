@@ -15,7 +15,7 @@ import { GameSection } from './common/GameCard';
 import { byMode } from '../data/games';
 import ReportProblem from './common/ReportProblem';
 import JoinCodeHelp from './JoinCodeHelp';
-import { sanitizeCodeInput } from '../lib/packCode';
+import { sanitizeCodeInput, codeShape } from '../lib/packCode';
 
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
@@ -369,17 +369,17 @@ const Home = () => {
       is silent by construction. An attempt that never reaches 'game_created'
       is now a countable event with a reason attached.
     */
-    track('room_create_attempt', { hasPack: !!packCode });
+    track('room_create_attempt', { game: 'herd', hasPack: !!packCode });
     startFunnelRecording('create_room');
     socket.emit('create_game', { username, packCode: packCode || undefined });
     socket.once('game_created', ({ gameId, roomCode, playerId }) => {
-      track('room_created', { hasPack: !!packCode });
+      track('room_created', { game: 'herd', hasPack: !!packCode });
       saveGameSession(gameId, roomCode, playerId, username);
       dispatch({ type: 'GAME_CREATED', payload: { gameId, roomCode, playerId } });
       navigate(`/game/${roomCode}`);
     });
     socket.once('error', ({ message }) => {
-      track('room_create_failed', { reason: String(message || 'unknown').slice(0, 80) });
+      track('room_create_failed', { game: 'herd', reason: String(message || 'unknown').slice(0, 80) });
       setIsJoining(false);
       setJoinError(message || 'Could not create a game.');
     });
@@ -408,14 +408,14 @@ const Home = () => {
     setRoomCode(code);
     setIsJoining(true);
     const socket = connect();
-    track('room_join_attempt', { codeLength: code.length });
+    track('room_join_attempt', { game: 'herd', codeLength: code.length, codeShape: codeShape(code, 6) });
     startFunnelRecording('join_room');
     socket.emit('join_game', { username: name, roomCode: code });
     // isHost is forwarded, not assumed. The host can arrive down this path too
     // — a second tab, the invite link, a cleared localStorage — and dropping
     // the flag here left them without the Start button in their own room.
     socket.once('game_joined', ({ gameId, playerId, isHost }) => {
-      track('room_joined', { isHost: !!isHost });
+      track('room_joined', { game: 'herd', isHost: !!isHost });
       saveGameSession(gameId, code, playerId, name);
       dispatch({ type: 'GAME_JOINED', payload: { gameId, playerId, isHost } });
       navigate(`/game/${code}`);
@@ -423,7 +423,7 @@ const Home = () => {
     socket.once('error', ({ message }) => {
       // The reason matters more than the count. "Game not found" after a code
       // was normalised is a different problem from a room that is full.
-      track('room_join_failed', { reason: String(message || 'unknown').slice(0, 80) });
+      track('room_join_failed', { game: 'herd', reason: String(message || 'unknown').slice(0, 80), codeLength: code.length, codeShape: codeShape(code, 6) });
       setIsJoining(false);
       setJoinError(message || 'Could not join that game.');
     });

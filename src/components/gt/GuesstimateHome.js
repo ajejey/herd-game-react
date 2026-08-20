@@ -7,6 +7,7 @@ import HowToPlay from './HowToPlay';
 import AdSlot from '../AdSlot';
 import RemotePlayNotice from '../common/RemotePlayNotice';
 import JoinCodeHelp from '../JoinCodeHelp';
+import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 
 const CANONICAL_URL = 'https://herdgamesonline.com/guesstimate';
@@ -110,6 +111,7 @@ function FaqItem({ q, a, defaultOpen = false }) {
 export default function GuesstimateHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useGuesstimate();
+  const funnel = useJoinFunnel({ game: 'guesstimate', roomCode, error });
 
   const [tab, setTab] = useState('create');
   const [username, setUsername] = useState('');
@@ -119,8 +121,8 @@ export default function GuesstimateHome() {
     if (state && roomCode) navigate(`/guesstimate/room/${roomCode}`);
   }, [state, roomCode, navigate]);
 
-  function handleCreate(e) { e.preventDefault(); if (!username.trim()) return; createGame(username); }
-  function handleJoin(e) { e.preventDefault(); if (!username.trim() || !code.trim()) return; joinGame(code, username); }
+  function handleCreate(e) { e.preventDefault(); if (!username.trim()) return; funnel.attemptCreate({ hasPack: false }); createGame(username); }
+  function handleJoin(e) { e.preventDefault(); if (!username.trim() || !code.trim()) return; funnel.attemptJoin(code); joinGame(code, username); }
 
   return (
     <MeadowLayout>
