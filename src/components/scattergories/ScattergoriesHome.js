@@ -165,7 +165,7 @@ export default function ScattergoriesHome() {
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Great for game nights and remote teams</h2>
         <p className="mb-3">
-          Because everyone plays on their own device, Scattergories is a perfect <Link to="/office-games">team game</Link> and remote icebreaker — it works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call, and scales from 2 friends to a big all-hands. Want more group games? Try <Link to="/team-trivia">Team Trivia</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/spectrum">Spectrum</Link>, <Link to="/chameleon">Chameleon</Link>, and <Link to="/guesstimate">Guesstimate</Link>, or a quick solo round of <Link to="/trivia">Daily Trivia</Link>.
+          Because everyone plays on their own device, Scattergories is a perfect <Link to="/office-games">team game</Link> and remote icebreaker — it works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call, and scales from 2 friends to a big all-hands. Want more group games? Try <Link to="/team-trivia">Team Trivia</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/spectrum">Spectrum</Link>, <Link to="/chameleon">Chameleon</Link>, and <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/guesstimate">Guesstimate</Link>, or a quick solo round of <Link to="/trivia">Daily Trivia</Link>.
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>

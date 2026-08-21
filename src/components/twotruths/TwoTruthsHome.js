@@ -126,7 +126,7 @@ export default function TwoTruthsHome() {
           Two Truths and a Lie is the timeless get-to-know-you game. Everyone writes <strong>three statements</strong> about themselves — two true and one a lie — then, one person at a time, the group tries to <strong>guess the lie</strong>. Spot someone’s lie to score, and earn points for every person your own lie fools. It runs entirely in the browser: no download, no signup, just a 4-letter room code.
         </p>
         <p className="mb-3">
-          It’s a brilliant <Link to="/office-games/virtual-icebreaker-games-for-meetings">icebreaker for meetings</Link> and a fun party game — everyone joins from their own device, so it’s great on a <Link to="/office-games/games-to-play-on-microsoft-teams">Teams</Link> or Zoom call. More group games: <Link to="/chameleon">Chameleon</Link>, <Link to="/spectrum">Spectrum</Link>, <Link to="/say-anything">Say Anything</Link>, and <Link to="/team-trivia">Team Trivia</Link>.
+          It’s a brilliant <Link to="/office-games/virtual-icebreaker-games-for-meetings">icebreaker for meetings</Link> and a fun party game — everyone joins from their own device, so it’s great on a <Link to="/office-games/games-to-play-on-microsoft-teams">Teams</Link> or Zoom call. More group games: <Link to="/chameleon">Chameleon</Link>, <Link to="/spectrum">Spectrum</Link>, <Link to="/say-anything">Say Anything</Link>, and <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/team-trivia">Team Trivia</Link>.
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>

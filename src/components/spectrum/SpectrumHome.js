@@ -146,7 +146,7 @@ export default function SpectrumHome() {
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">A great party &amp; team game</h2>
         <p className="mb-3">
-          Spectrum is quick to learn, plays in 10–15 minutes, and gets funnier with a group — perfect for a games night or as an <Link to="/office-games">office team game</Link>. Because everyone joins from their own device, it works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Discord call. More group games: <Link to="/chameleon">Chameleon</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/team-trivia">Team Trivia</Link>, <Link to="/guesstimate">Guesstimate</Link>, or browse <Link to="/trivia-games">trivia games by topic</Link>.
+          Spectrum is quick to learn, plays in 10–15 minutes, and gets funnier with a group — perfect for a games night or as an <Link to="/office-games">office team game</Link>. Because everyone joins from their own device, it works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Discord call. More group games: <Link to="/chameleon">Chameleon</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/team-trivia">Team Trivia</Link>, <Link to="/guesstimate">Guesstimate</Link>, or browse <Link to="/trivia-games">trivia games by topic</Link>.
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>

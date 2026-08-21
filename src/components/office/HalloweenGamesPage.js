@@ -58,7 +58,7 @@ export default function HalloweenGamesPage() {
       <ol>
         <li><strong>0–10 min: warm up.</strong> Open with <Link to="/would-you-rather">Would You Rather</Link> while people arrive — spooky dilemmas set the tone with zero explaining.</li>
         <li><strong>10–25 min: the quiz.</strong> Run <Link to="/halloween-trivia">Halloween Trivia</Link>, or host a live <Link to="/team-trivia">Team Trivia</Link> round for a bigger group.</li>
-        <li><strong>25–40 min: the loud one.</strong> <Link to="/chameleon">Chameleon</Link> for suspicion and accusations, or <Link to="/taboo">Taboo</Link> for shouting. End on a high.</li>
+        <li><strong>25–40 min: the loud one.</strong> <Link to="/chameleon">Chameleon</Link> for suspicion and accusations, or <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/taboo">Taboo</Link> for shouting. End on a high.</li>
       </ol>
 
       <h2>Making it feel spooky without the effort</h2>

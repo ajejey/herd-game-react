@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiAlertCircle, FiX, FiCheck, FiCopy } from 'react-icons/fi';
 import { getRecentErrors } from '../../lib/reportError';
 import { copyText } from '../../lib/shareSheet';
+import { track } from '../../lib/analytics';
 
 /*
   "Report a problem" — an in-app form that posts to /api/feedback, plus our
@@ -34,6 +35,35 @@ const CONTACT = 'support@herdgamesonline.com';
 
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 
+/*
+  The same sheet, in two voices.
+
+  A "suggest a game" card used to be a mailto: link on the homepage. It opened
+  whatever the OS thinks the default mail client is — for a lot of desktop
+  visitors, nothing visible at all — and nothing measured it, so after months
+  there was no evidence anyone had ever used it. Meanwhile a real suggestion
+  ("Manually moving the cow would be a good feature") arrived through THIS form,
+  which works and is read.
+
+  So the card now opens this, and the only difference is the words.
+*/
+const VOICE = {
+  problem: {
+    title: 'Report a problem',
+    prompt: 'What went wrong? Even one line helps. We attach the page and game automatically, so no need to describe your device.',
+    placeholder: 'e.g. The buzz button did nothing when my team said a forbidden word',
+    sent: 'Sent. That genuinely helps — thank you.',
+    submit: 'Send report',
+  },
+  suggestion: {
+    title: 'What should we build?',
+    prompt: 'A game you love that is missing here, or something you wish one of ours did. One line is plenty.',
+    placeholder: 'e.g. A version of Codenames, or let the host pick the timer length',
+    sent: 'Got it — thank you. Every one of these gets read.',
+    submit: 'Send idea',
+  },
+};
+
 function context() {
   let path = '';
   try { path = window.location.pathname || ''; } catch { /* ignore */ }
@@ -47,12 +77,23 @@ function context() {
   return { page: path.slice(0, 300), game: (m && m[1]) || '', roomCode: (m && m[2]) || '', platform };
 }
 
-export default function ReportProblem({ compact = false }) {
+export default function ReportProblem({ compact = false, variant = 'problem', children }) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
   const [state, setState] = useState('idle'); // idle | sending | sent | error
   const [copied, setCopied] = useState(false);
+  const voice = VOICE[variant] || VOICE.problem;
+
+  /*
+    One event on open, so the card can be judged on evidence rather than on
+    whether it looks nice. Autocapture is off, so without this there is no click
+    data at all — which is exactly how the mailto: version survived unread.
+  */
+  function openSheet() {
+    track('feedback_open', { variant, page: (context() || {}).page });
+    setOpen(true);
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -71,6 +112,7 @@ export default function ReportProblem({ compact = false }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: message.trim(),
+          kind: variant,
           email: email.trim(),
           ...context(),
           recentErrors: typeof getRecentErrors === 'function' ? getRecentErrors() : [],
@@ -88,9 +130,20 @@ export default function ReportProblem({ compact = false }) {
 
   return (
     <>
+      {/*
+        A caller can supply its own trigger. The homepage suggest-a-game card
+        is a whole card, not a pill, and wrapping it here keeps ONE sheet, one
+        endpoint and one tracking event rather than a second half-built copy of
+        all three — which is how the mailto: version came to exist.
+      */}
+      {children ? (
+        <button type="button" onClick={openSheet} className="block w-full text-left">
+          {children}
+        </button>
+      ) : (
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={openSheet}
         aria-label="Report a problem"
         style={fredoka}
         className={
@@ -107,6 +160,7 @@ export default function ReportProblem({ compact = false }) {
         <FiAlertCircle className="text-[#E84A8B]" size={18} />
         Report a problem
       </button>
+      )}
 
       <AnimatePresence>
         {open && (
@@ -126,7 +180,7 @@ export default function ReportProblem({ compact = false }) {
             >
               <div className="flex items-start justify-between gap-3 mb-3">
                 <h2 style={fredoka} className="text-xl font-bold text-[#2D1810]">
-                  {state === 'sent' ? 'Thank you' : 'Report a problem'}
+                  {state === 'sent' ? 'Thank you' : voice.title}
                 </h2>
                 <button type="button" onClick={() => setOpen(false)} aria-label="Close"
                   className="p-1 text-[#8B6347] hover:text-[#2D1810]"><FiX size={20} /></button>
@@ -134,14 +188,13 @@ export default function ReportProblem({ compact = false }) {
 
               {state === 'sent' ? (
                 <p className="text-[#4A2D1B] flex items-center gap-2">
-                  <FiCheck className="text-[#3D8B5A]" /> Sent. That genuinely helps &mdash; thank you.
+                  <FiCheck className="text-[#3D8B5A]" /> {voice.sent}
                 </p>
               ) : (
                 <>
                   <form onSubmit={submit}>
                     <p className="text-base text-[#4A2D1B] mb-3">
-                      What went wrong? Even one line helps. We attach the page and game
-                      automatically, so no need to describe your device.
+                      {voice.prompt}
                     </p>
                     <textarea
                       value={message}
@@ -149,7 +202,7 @@ export default function ReportProblem({ compact = false }) {
                       rows={4}
                       maxLength={2000}
                       autoFocus
-                      placeholder="e.g. The buzz button did nothing when my team said a forbidden word"
+                      placeholder={voice.placeholder}
                       className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#E84A8B] outline-none text-[#2D1810] bg-white resize-none"
                     />
                     <label className="block mt-3">
@@ -176,7 +229,7 @@ export default function ReportProblem({ compact = false }) {
                       style={{ background: '#E84A8B', ...fredoka }}
                       className="mt-4 w-full py-3 rounded-2xl text-white font-bold text-lg disabled:opacity-40"
                     >
-                      {state === 'sending' ? 'Sending…' : 'Send report'}
+                      {state === 'sending' ? 'Sending…' : voice.submit}
                     </button>
                   </form>
 

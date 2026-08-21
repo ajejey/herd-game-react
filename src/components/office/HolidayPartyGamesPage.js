@@ -65,7 +65,7 @@ export default function HolidayPartyGamesPage() {
       <ol>
         <li><strong>0–10 min: let people arrive.</strong> Open with <Link to="/would-you-rather">Would You Rather</Link> — it needs no explanation, so latecomers can join mid-flow without missing anything.</li>
         <li><strong>10–30 min: the main event.</strong> Run <Link to="/christmas-trivia">Christmas Trivia</Link> or host a live <Link to="/team-trivia">Team Trivia</Link> round. This is where the competition and the group chat really kick in.</li>
-        <li><strong>30–45 min: something loud.</strong> <Link to="/taboo">Taboo</Link> or <Link to="/scattergories">Scattergories</Link> to lift the energy after a quieter quiz.</li>
+        <li><strong>30–45 min: something loud.</strong> <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/taboo">Taboo</Link> or <Link to="/scattergories">Scattergories</Link> to lift the energy after a quieter quiz.</li>
         <li><strong>45–60 min: wind down.</strong> Stop while people still want another round, and leave the call open for anyone who wants to keep chatting.</li>
       </ol>
 

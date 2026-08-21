@@ -13,6 +13,9 @@ import { Sheep } from './daily/HerdCritters';
 
 import { GameSection } from './common/GameCard';
 import { byMode } from '../data/games';
+import GameSearch from './common/GameSearch';
+import { FiZap } from 'react-icons/fi';
+import CavemanArt from './cavemanclues/CavemanArt';
 import ReportProblem from './common/ReportProblem';
 import JoinCodeHelp from './JoinCodeHelp';
 import { sanitizeCodeInput, codeShape } from '../lib/packCode';
@@ -554,6 +557,16 @@ const Home = () => {
           </div>
         </header>
 
+        {/*
+          Search, directly under the header and above every row.
+
+          More people arrive here directly than from Google — 360 against 208
+          over 48 hours, measured 21 Aug 2026. Someone who typed the address in
+          came for a game they can already name, and until this existed the only
+          way to find it was to scroll four sections. See NEXT_MULTIPLAYER_GAMES.md §2.
+        */}
+        <GameSearch className="mb-10" />
+
         {/* Daily games — solo, no friends needed. The come-back-every-day habit loop. */}
         <section className="mb-10">
           <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
@@ -1013,26 +1026,68 @@ const Home = () => {
               </div>
             </Link>
 
-            {/* Suggest-a-game card */}
-            <a
-              href="mailto:hello@herdgamesonline.com?subject=New%20game%20idea%20for%20Herd"
-              className="game-card relative rounded-3xl border-4 border-dashed border-[#FFD56B] bg-[#FFFBE8] p-5 overflow-hidden block group"
+            {/* Caveman Clues */}
+            <Link
+              to="/caveman-clues"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#C2703D] p-5 overflow-hidden block group"
             >
+              <div className="ribbon bg-[#C2703D] text-white">✨ New</div>
               <div className="flex items-start gap-4">
-                <div className="game-card-mascot shrink-0 text-5xl md:text-6xl select-none" aria-hidden="true">💡</div>
+                {/* The real mascot, head-cropped. The whole figure at this
+                    size is an unreadable smudge; the portrait still reads. */}
+                <CavemanArt variant="head" className="game-card-mascot shrink-0 w-[76px] md:w-[88px]" />
                 <div className="flex-1 min-w-0">
                   <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
-                    Got a game?
+                    Caveman Clues
                   </h3>
                   <p className="text-base text-[#6B4226] mt-1">
-                    Tell us what to build next. We're listening.
+                    Describe the word using only short words. One big word costs you a point.
                   </p>
-                  <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold text-base">
-                    Suggest a game <span className="transition-transform group-hover:translate-x-1">→</span>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#C2703D] text-white px-3 py-1 text-sm font-bold">👥 3+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#C2703D] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
+
+            {/*
+              Suggest-a-game card.
+
+              Was a mailto: link. That opened whatever the OS thinks the default
+              mail client is — for many desktop visitors, nothing visible at all
+              — and nothing measured it, so after months there was no evidence
+              anyone had ever used it. Meanwhile a real suggestion ("Manually
+              moving the cow would be a good feature") arrived through the
+              report form, which works and is read.
+
+              Now it opens that same form, in its suggestion voice, and fires
+              one event so the card can be judged on evidence rather than on
+              whether it looks nice.
+            */}
+            <ReportProblem variant="suggestion">
+              <div className="game-card relative rounded-3xl border-4 border-dashed border-[#FFD56B] bg-[#FFFBE8] p-5 overflow-hidden group h-full">
+                <div className="flex items-start gap-4">
+                  <div className="game-card-mascot shrink-0 text-[#E8A33D]" aria-hidden="true">
+                    <FiZap size={44} strokeWidth={2.5} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                      Got a game?
+                    </h3>
+                    <p className="text-base text-[#6B4226] mt-1">
+                      Tell us what to build next. We're listening.
+                    </p>
+                    <div className="mt-3 inline-flex items-center gap-1 text-[#E84A8B] font-semibold text-base">
+                      Suggest a game <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ReportProblem>
 
           </div>
         </section>

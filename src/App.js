@@ -58,6 +58,8 @@ import SpectrumHome from './components/spectrum/SpectrumHome';
 import SpectrumRoom from './components/spectrum/SpectrumRoom';
 import ScattergoriesHome from './components/scattergories/ScattergoriesHome';
 import ScattergoriesRoom from './components/scattergories/ScattergoriesRoom';
+import CavemanCluesHome from './components/cavemanclues/CavemanCluesHome';
+import CavemanCluesRoom from './components/cavemanclues/CavemanCluesRoom';
 import WouldYouRatherHome from './components/wyr/WouldYouRatherHome';
 import WouldYouRatherRoom from './components/wyr/WouldYouRatherRoom';
 import FishbowlHome from './components/fishbowl/FishbowlHome';
@@ -181,6 +183,8 @@ function App() {
               <Route path="/spectrum/room/:roomCode" element={<SpectrumRoom />} />
               <Route path="/scattergories" element={<ScattergoriesHome />} />
               <Route path="/scattergories/room/:roomCode" element={<ScattergoriesRoom />} />
+              <Route path="/caveman-clues" element={<CavemanCluesHome />} />
+              <Route path="/caveman-clues/room/:roomCode" element={<CavemanCluesRoom />} />
               <Route path="/would-you-rather" element={<WouldYouRatherHome />} />
               <Route path="/would-you-rather/room/:roomCode" element={<WouldYouRatherRoom />} />
               <Route path="/fishbowl" element={<FishbowlHome />} />

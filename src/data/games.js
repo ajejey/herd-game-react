@@ -266,6 +266,12 @@ export const GAMES = [
     tags: ['word', 'categories'],
   },
   {
+    id: 'cavemanclues', name: 'Caveman Clues', slug: '/caveman-clues', mode: 'party',
+    blurb: 'Describe the word using only short words. One big word costs you.',
+    players: '3-20', minutes: '10', accent: '#C2703D', Icon: FiFeather,
+    tags: ['word', 'guessing'],
+  },
+  {
     id: 'chameleon', name: 'Chameleon', slug: '/chameleon', mode: 'party',
     blurb: 'Everyone knows the secret word. Except one of you.',
     players: '3-12', minutes: '10', accent: '#4C9F70', Icon: FiEyeOff,
@@ -391,6 +397,41 @@ export const soloGrouped = () => {
   }
   return out;
 };
+
+/*
+  What people call a game when it is not what we called it.
+
+  Search logs on any games site are dominated by the thing a game is LIKE, not
+  its name — nobody types "Guesstimate", they type "wits and wagers" or
+  "jackbox". Without this the hub search fails exactly the visitor who already
+  knows what they want, which is the visitor most likely to play.
+
+  This is a DATA fix, not an algorithm one, and it is deliberately incomplete.
+  `game_search` events record every query that returned nothing; that list is
+  the backlog for this map. Add from evidence, not from guessing.
+
+  Rules: lowercase, no punctuation, and never an alias that would sensibly
+  belong to a different game on this site.
+*/
+export const SEARCH_ALIASES = {
+  guesstimate:    ['wits and wagers', 'betting trivia', 'price is right'],
+  cavemanclues:   ['poetry for neanderthals', 'caveman', 'one syllable', 'short words', 'neanderthal'],
+  spectrum:       ['wavelength', 'dial', 'slider'],
+  chameleon:      ['imposter', 'impostor', 'spyfall', 'who is the spy'],
+  clover:         ['so clover', 'clover cards'],
+  scattergories:  ['categories', 'boggle categories', 'letter game'],
+  taboo:          ['forbidden words', 'describe it'],
+  fishbowl:       ['salad bowl', 'celebrity', 'monikers', 'the hat game'],
+  'team-trivia':  ['kahoot', 'pub quiz', 'quiz night', 'trivia night'],
+  'say-anything': ['quiplash', 'jackbox', 'funniest answer'],
+  'two-truths':   ['two truths', 'icebreaker'],
+  'would-you-rather': ['would you rather', 'this or that'],
+  'daily-herd':   ['herd mentality', 'majority rules', 'family feud', 'feud'],
+  'daily-hot-takes': ['hot takes', 'opinions', 'controversial'],
+};
+
+/* Flattened once, so the search does not rebuild it on every keystroke. */
+export const aliasesFor = (id) => SEARCH_ALIASES[id] || [];
 
 export const byMode = (mode) => GAMES.filter((g) => g.mode === mode);
 export const featuredByMode = (mode, n = 6) => byMode(mode).filter((g) => g.featured).slice(0, n);
