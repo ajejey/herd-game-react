@@ -16,6 +16,7 @@ import { byMode } from '../data/games';
 import GameSearch from './common/GameSearch';
 import { FiZap } from 'react-icons/fi';
 import CavemanArt from './cavemanclues/CavemanArt';
+import HueArt from './huematch/HueArt';
 import ReportProblem from './common/ReportProblem';
 import JoinCodeHelp from './JoinCodeHelp';
 import { sanitizeCodeInput, codeShape } from '../lib/packCode';
@@ -1020,6 +1021,33 @@ const Home = () => {
                     <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
                   </div>
                   <div className="mt-3 inline-flex items-center gap-1 text-[#2AA9A0] font-semibold">
+                    Play now <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Hue Match */}
+            <Link
+              to="/hue-match"
+              className="game-card relative bg-white rounded-3xl border-4 border-[#7B5EA7] p-5 overflow-hidden block group"
+            >
+              <div className="ribbon bg-[#7B5EA7] text-white">✨ New</div>
+              <div className="flex items-start gap-4">
+                {/* A slice of the real board, not an illustration of one. */}
+                <HueArt variant="mini" className="shrink-0 w-[76px] md:w-[88px] mt-1" />
+                <div className="flex-1 min-w-0">
+                  <h3 style={fredoka} className="text-2xl font-bold text-[#2D1810] leading-tight">
+                    Hue Match
+                  </h3>
+                  <p className="text-base text-[#6B4226] mt-1">
+                    Describe a colour in one word. Everyone taps where they think it is.
+                  </p>
+                  <div className="mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#7B5EA7] text-white px-3 py-1 text-sm font-bold">👥 3+ players</span>
+                    <span className="text-sm text-[#8B6347]">🎥 great on video calls</span>
+                  </div>
+                  <div className="mt-3 inline-flex items-center gap-1 text-[#7B5EA7] font-semibold">
                     Play now <span className="transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>

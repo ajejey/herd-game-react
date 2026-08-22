@@ -7,6 +7,7 @@ import AdSlot from '../AdSlot';
 import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
+import { canResumeRoom } from '../../lib/resumeRoom';
 
 const CANONICAL = 'https://herdgamesonline.com/chameleon';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -62,7 +63,7 @@ export default function ChameleonHome() {
   const [username, setUsername] = useState('');
   const [code, setCode] = useState('');
 
-  useEffect(() => { if (state && roomCode) navigate(`/chameleon/room/${roomCode}`); }, [state, roomCode, navigate]);
+  useEffect(() => { if (canResumeRoom(state) && roomCode) navigate(`/chameleon/room/${roomCode}`); }, [state, roomCode, navigate]);
 
   function handleCreate(e) { e.preventDefault(); if (username.trim()) { funnel.attemptCreate({ hasPack: false }); createGame(username); } }
   function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) { funnel.attemptJoin(code); joinGame(code, username); } }
@@ -126,7 +127,7 @@ export default function ChameleonHome() {
           Chameleon is a free online <a href="https://en.wikipedia.org/wiki/Social_deduction_game" target="_blank" rel="noopener noreferrer">social-deduction</a> word game. Everyone sees a grid of 16 words and a category, and all players but one — the hidden <strong>Chameleon</strong> — know which word is the secret answer. Each player gives a <strong>one-word clue</strong>; the Chameleon has to bluff without knowing the word. Then you all <strong>vote</strong> on who the imposter is. If you fancy yourself a fan of hidden-role games like Among Us or Werewolf, this is the quick browser version — 3+ players, no download.
         </p>
         <p className="mb-3">
-          It’s a brilliant <Link to="/office-games">team game</Link> and party game — everyone joins from their own device, so it works around a table or on a <Link to="/office-games/games-to-play-on-microsoft-teams">Teams</Link> or Zoom call. More group games: <Link to="/say-anything">Say Anything</Link>, <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/team-trivia">Team Trivia</Link>, <Link to="/guesstimate">Guesstimate</Link>, and <Link to="/clover">Clover Clues</Link>.
+          It’s a brilliant <Link to="/office-games">team game</Link> and party game — everyone joins from their own device, so it works around a table or on a <Link to="/office-games/games-to-play-on-microsoft-teams">Teams</Link> or Zoom call. More group games: <Link to="/say-anything">Say Anything</Link>, <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/hue-match">Hue Match</Link>, <Link to="/team-trivia">Team Trivia</Link>, <Link to="/guesstimate">Guesstimate</Link>, and <Link to="/clover">Clover Clues</Link>.
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>

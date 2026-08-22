@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { FiCheck, FiCopy, FiArrowRight, FiEdit3 } from 'react-icons/fi';
 import Navigation from '../Navigation';
 import { copyText } from '../../lib/shareSheet';
-import { cleanPackCode, packPlayPath } from '../../lib/packCode';
+import { cleanPackCode, packPlayPath, sanitizeCodeInput } from '../../lib/packCode';
 
 /*
   Write your own questions, get a pack ID.
@@ -364,12 +364,20 @@ export default function CustomPack() {
                 <input
                   data-testid="pack-lookup"
                   value={lookup}
-                  onChange={(e) => { setLookup(e.target.value.toUpperCase()); setLookupState('idle'); }}
+                  onChange={(e) => { setLookup(sanitizeCodeInput(e.target.value)); setLookupState('idle'); }}
                   onKeyDown={(e) => { if (e.key === 'Enter') openCode(lookup); }}
                   placeholder="PACK ID"
-                  maxLength={8}
-                  style={{ ...FREDOKA, borderColor: THEME.border, background: THEME.bg, letterSpacing: '0.12em' }}
-                  className="min-w-0 flex-1 rounded-xl border-2 px-4 py-3 font-bold uppercase outline-none"
+                  /*
+                    32, not 8. Pack IDs are built from the pack's NAME now —
+                    "TERM-1-ICEBREAKERS-33V" — and an 8-character cap silently
+                    truncated every one of them, so the box whose entire job is
+                    reopening a saved pack always answered "no pack with that
+                    code". The same cap bit every game's join field when IDs
+                    changed; this was the one that got missed.
+                  */
+                  maxLength={32}
+                  style={{ ...FREDOKA, borderColor: THEME.border, background: THEME.bg }}
+                  className={`min-w-0 flex-1 rounded-xl border-2 px-4 py-3 font-bold uppercase outline-none ${lookup.length > 12 ? 'text-sm' : 'tracking-[0.12em]'}`}
                 />
                 <button
                   onClick={() => openCode(lookup)}
@@ -382,7 +390,7 @@ export default function CustomPack() {
               </div>
               {lookupState === 'error' && (
                 <p role="alert" data-testid="pack-lookup-error" style={{ ...QUICKSAND, color: '#D0463B' }} className="mt-2 text-base font-bold">
-                  No pack with that code. Check for a typo — codes have no letter O or I.
+                  No pack with that ID. It is the ID you got when you saved the pack — something like TERM-1-ICEBREAKERS-33V — not a room code.
                 </p>
               )}
 

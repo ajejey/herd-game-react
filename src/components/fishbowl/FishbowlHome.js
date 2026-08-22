@@ -7,6 +7,7 @@ import AdSlot from '../AdSlot';
 import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
+import { canResumeRoom } from '../../lib/resumeRoom';
 
 const CANONICAL = 'https://herdgamesonline.com/fishbowl';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -59,7 +60,7 @@ export default function FishbowlHome() {
   const [username, setUsername] = useState('');
   const [code, setCode] = useState('');
 
-  useEffect(() => { if (state && roomCode) navigate(`/fishbowl/room/${roomCode}`); }, [state, roomCode, navigate]);
+  useEffect(() => { if (canResumeRoom(state) && roomCode) navigate(`/fishbowl/room/${roomCode}`); }, [state, roomCode, navigate]);
 
   function handleCreate(e) { e.preventDefault(); if (username.trim()) { funnel.attemptCreate({ hasPack: false }); createGame(username); } }
   function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) { funnel.attemptJoin(code); joinGame(code, username); } }
@@ -152,7 +153,7 @@ export default function FishbowlHome() {
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Perfect for video calls and team socials</h2>
         <p className="mb-3">
-          Because everyone plays from their own device while the describing and acting happen on camera, Fishbowl is a brilliant <Link to="/office-games">team game</Link> for a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call — and a party favourite in person too. More group games: <Link to="/taboo">Taboo</Link> (the closest cousin — describe without the forbidden words), <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/team-trivia">Team Trivia</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/scattergories">Scattergories</Link>, <Link to="/would-you-rather">Would You Rather</Link>, <Link to="/spectrum">Spectrum</Link> and <Link to="/chameleon">Chameleon</Link>.
+          Because everyone plays from their own device while the describing and acting happen on camera, Fishbowl is a brilliant <Link to="/office-games">team game</Link> for a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call — and a party favourite in person too. More group games: <Link to="/taboo">Taboo</Link> (the closest cousin — describe without the forbidden words), <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/hue-match">Hue Match</Link>, <Link to="/team-trivia">Team Trivia</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/scattergories">Scattergories</Link>, <Link to="/would-you-rather">Would You Rather</Link>, <Link to="/spectrum">Spectrum</Link> and <Link to="/chameleon">Chameleon</Link>.
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>

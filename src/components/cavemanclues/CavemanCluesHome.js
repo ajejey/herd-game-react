@@ -8,6 +8,8 @@ import CavemanArt from './CavemanArt';
 import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
+import { recentWords } from '../../lib/recentWords';
+import { canResumeRoom } from '../../lib/resumeRoom';
 
 const CANONICAL = 'https://herdgamesonline.com/caveman-clues';
 const OG = 'https://herdgamesonline.com/og-caveman-clues.png';
@@ -71,11 +73,22 @@ export default function CavemanCluesHome() {
   const [username, setUsername] = useState('');
   const [code, setCode] = useState('');
 
-  useEffect(() => { if (state && roomCode) navigate(`/caveman-clues/room/${roomCode}`); }, [state, roomCode, navigate]);
+  useEffect(() => { if (canResumeRoom(state) && roomCode) navigate(`/caveman-clues/room/${roomCode}`); }, [state, roomCode, navigate]);
 
   function handleCreate(e) {
     e.preventDefault();
-    if (username.trim()) { funnel.attemptCreate({ hasPack: false }); createGame(username); }
+    /* `exclude` is what this browser has already been dealt, so the server can
+       put those words at the back of the deck — see lib/recentWords.js. A host
+       who plays every week otherwise sees a repeat in most games.
+
+       It sits above the pair below rather than between them, because
+       funnel-check.js requires attemptCreate and createGame to be adjacent:
+       anything wedged in there is somewhere a future edit could make one of
+       them conditional and quietly stop the funnel counting. */
+    if (username.trim()) {
+      funnel.attemptCreate({ hasPack: false });
+      createGame(username, { exclude: recentWords('cavemanclues') });
+    }
   }
   function handleJoin(e) {
     e.preventDefault();
@@ -175,7 +188,7 @@ export default function CavemanCluesHome() {
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Great for game nights and remote teams</h2>
         <p className="mb-3">
-          Everyone plays on their own phone, so it works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call and scales from three friends to a big group. Want more? Try <Link to="/taboo">Taboo</Link>, <Link to="/scattergories">Scattergories</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/chameleon">Chameleon</Link> and <Link to="/spectrum">Spectrum</Link>, or a quick solo round of <Link to="/trivia">Daily Trivia</Link>.
+          Everyone plays on their own phone, so it works on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call and scales from three friends to a big group. Want more? Try <Link to="/hue-match">Hue Match</Link>, <Link to="/taboo">Taboo</Link>, <Link to="/scattergories">Scattergories</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/chameleon">Chameleon</Link> and <Link to="/spectrum">Spectrum</Link>, or a quick solo round of <Link to="/trivia">Daily Trivia</Link>.
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>

@@ -1,17 +1,27 @@
+/*
+  Hue Match socket hook.
+
+  Deliberately the same shape as every other engine game's hook — same session
+  key pattern, same reconnect handling, same polling-first transport list. The
+  engine treats all thirteen the same way, so a hook that is subtly different is
+  a hook that will be subtly broken on the one path nobody re-tests.
+
+  See BUILDING_A_GAME.md for what each part is doing and why.
+*/
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
 import { attachConnectivityReconnect, attachConnectOutcome } from '../lib/socketConfig';
 import { shouldRejoinSession, isForCurrentRoom } from '../lib/roomSession';
 
 const BACKEND_URL = process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
-const NAMESPACE = '/taboo';
-const SESSION_KEY = 'taboo_session';
+const NAMESPACE = '/huematch';
+const SESSION_KEY = 'huematch_session';
 
 function loadSession() { try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch { return null; } }
 function saveSession(d) { localStorage.setItem(SESSION_KEY, JSON.stringify(d)); }
 function clearSession() { localStorage.removeItem(SESSION_KEY); }
 
-export function useTaboo() {
+export function useHueMatch() {
   const socketRef = useRef(null);
   /* The room this client is actually in, as a REF and not state: the socket
      handlers below are registered once and would otherwise close over the
@@ -79,6 +89,7 @@ export function useTaboo() {
   const joinGame = useCallback((rc, username) => { setError(null); setRoomNotFound(false); socketRef.current?.emit('join_game', { roomCode: rc.toUpperCase().trim(), username: username.trim() }); }, []);
   const startGame = useCallback(() => { if (roomCode) socketRef.current?.emit('start_game', { roomCode }); }, [roomCode]);
   const sendAction = useCallback((action, payload = {}) => { if (roomCode && action) socketRef.current?.emit('game_action', { roomCode, action, payload }); }, [roomCode]);
+  const kickPlayer = useCallback((playerId) => { if (roomCode && playerId) socketRef.current?.emit('kick_player', { roomCode, playerId }); }, [roomCode]);
   const leaveGame = useCallback(() => { clearSession(); setMyId(null); setRoomCode(null); roomCodeRef.current = null; setState(null); setKicked(false); socketRef.current?.disconnect(); socketRef.current?.connect(); }, []);
 
   const me = state?.players?.find((p) => p.id === myId) ?? null;
@@ -86,7 +97,7 @@ export function useTaboo() {
 
   return {
     connected, state, myId, roomCode, error, kicked, roomNotFound, me, isHost,
-    createGame, joinGame, startGame, sendAction, leaveGame,
+    createGame, joinGame, startGame, sendAction, kickPlayer, leaveGame,
     clearError: () => setError(null),
   };
 }

@@ -20,7 +20,7 @@ import {
   FiEdit3, FiTarget, FiHexagon, FiEyeOff, FiSliders, FiType,
   FiShuffle, FiMessageSquare, FiSlash, FiUsers, FiBriefcase, FiClock, FiFilm,
   FiAward, FiCheckSquare, FiLayers, FiKey, FiMousePointer, FiHash,
-  FiSquare, FiCrosshair, FiBookOpen, FiFlag, FiAlignLeft, FiCpu, FiCompass,
+  FiSquare, FiCrosshair, FiBookOpen, FiFlag, FiAlignLeft, FiCpu, FiCompass, FiDroplet,
 } from 'react-icons/fi';
 
 export const MODES = {
@@ -272,6 +272,12 @@ export const GAMES = [
     tags: ['word', 'guessing'],
   },
   {
+    id: 'huematch', name: 'Hue Match', slug: '/hue-match', mode: 'party',
+    blurb: 'Describe a colour in one word. Everyone taps where they think it is.',
+    players: '3-20', minutes: '10', accent: '#7B5EA7', Icon: FiDroplet,
+    tags: ['colour', 'guessing'],
+  },
+  {
     id: 'chameleon', name: 'Chameleon', slug: '/chameleon', mode: 'party',
     blurb: 'Everyone knows the secret word. Except one of you.',
     players: '3-12', minutes: '10', accent: '#4C9F70', Icon: FiEyeOff,
@@ -416,6 +422,7 @@ export const soloGrouped = () => {
 export const SEARCH_ALIASES = {
   guesstimate:    ['wits and wagers', 'betting trivia', 'price is right'],
   cavemanclues:   ['poetry for neanderthals', 'caveman', 'one syllable', 'short words', 'neanderthal'],
+  huematch:       ['hues and cues', 'colour game', 'color game', 'guess the colour', 'guess the color', 'shades'],
   spectrum:       ['wavelength', 'dial', 'slider'],
   chameleon:      ['imposter', 'impostor', 'spyfall', 'who is the spy'],
   clover:         ['so clover', 'clover cards'],

@@ -44,6 +44,7 @@
     "cap:sync": "npm run build && npx cap sync android",
     "android:apk": "npm run cap:sync && node scripts/android.js assembleDebug",
     "android:bundle": "npm run cap:sync && node scripts/android.js bundleRelease",
+    "check:lint": "eslint src --ext .js --max-warnings 0",
     "check:ads": "node scripts/mediavine-selector-check.js"
   },
   "prerender": {
@@ -82,6 +83,7 @@
       "/trivia-games",
       "/scattergories",
       "/caveman-clues",
+      "/hue-match",
       "/would-you-rather",
       "/fishbowl",
       "/taboo",

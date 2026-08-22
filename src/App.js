@@ -60,6 +60,8 @@ import ScattergoriesHome from './components/scattergories/ScattergoriesHome';
 import ScattergoriesRoom from './components/scattergories/ScattergoriesRoom';
 import CavemanCluesHome from './components/cavemanclues/CavemanCluesHome';
 import CavemanCluesRoom from './components/cavemanclues/CavemanCluesRoom';
+import HueMatchHome from './components/huematch/HueMatchHome';
+import HueMatchRoom from './components/huematch/HueMatchRoom';
 import WouldYouRatherHome from './components/wyr/WouldYouRatherHome';
 import WouldYouRatherRoom from './components/wyr/WouldYouRatherRoom';
 import FishbowlHome from './components/fishbowl/FishbowlHome';
@@ -185,6 +187,8 @@ function App() {
               <Route path="/scattergories/room/:roomCode" element={<ScattergoriesRoom />} />
               <Route path="/caveman-clues" element={<CavemanCluesHome />} />
               <Route path="/caveman-clues/room/:roomCode" element={<CavemanCluesRoom />} />
+              <Route path="/hue-match" element={<HueMatchHome />} />
+              <Route path="/hue-match/room/:roomCode" element={<HueMatchRoom />} />
               <Route path="/would-you-rather" element={<WouldYouRatherHome />} />
               <Route path="/would-you-rather/room/:roomCode" element={<WouldYouRatherRoom />} />
               <Route path="/fishbowl" element={<FishbowlHome />} />

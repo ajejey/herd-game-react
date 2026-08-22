@@ -8,6 +8,7 @@ import RemotePlayNotice from '../common/RemotePlayNotice';
 import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
+import { canResumeRoom } from '../../lib/resumeRoom';
 
 const CANONICAL = 'https://herdgamesonline.com/clover';
 const OG = 'https://herdgamesonline.com/og-clover.png';
@@ -70,7 +71,7 @@ export default function CloverHome() {
   const [code, setCode] = useState('');
 
   useEffect(() => {
-    if (state && roomCode) navigate(`/clover/room/${roomCode}`);
+    if (canResumeRoom(state) && roomCode) navigate(`/clover/room/${roomCode}`);
   }, [state, roomCode, navigate]);
 
   function handleCreate(e) { e.preventDefault(); if (username.trim()) { funnel.attemptCreate({ hasPack: false }); createGame(username); } }

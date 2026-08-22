@@ -10,6 +10,7 @@ import RemotePlayNotice from '../common/RemotePlayNotice';
 import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
+import { canResumeRoom } from '../../lib/resumeRoom';
 
 const CANONICAL_URL = 'https://herdgamesonline.com/say-anything';
 const OG_IMAGE = 'https://herdgamesonline.com/og-say-anything.png';
@@ -214,7 +215,7 @@ export default function SayAnythingHome() {
   const [code, setCode] = useState('');
 
   React.useEffect(() => {
-    if (state && roomCode) navigate(`/say-anything/room/${roomCode}`);
+    if (canResumeRoom(state) && roomCode) navigate(`/say-anything/room/${roomCode}`);
   }, [state, roomCode, navigate]);
 
   function handleCreate(e) {

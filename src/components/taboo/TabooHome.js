@@ -6,6 +6,7 @@ import { useTaboo } from '../../hooks/useTaboo';
 import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
+import { canResumeRoom } from '../../lib/resumeRoom';
 
 const CANONICAL = 'https://herdgamesonline.com/taboo';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -58,7 +59,7 @@ export default function TabooHome() {
   const [username, setUsername] = useState('');
   const [code, setCode] = useState('');
 
-  useEffect(() => { if (state && roomCode) navigate(`/taboo/room/${roomCode}`); }, [state, roomCode, navigate]);
+  useEffect(() => { if (canResumeRoom(state) && roomCode) navigate(`/taboo/room/${roomCode}`); }, [state, roomCode, navigate]);
 
   function handleCreate(e) { e.preventDefault(); if (username.trim()) { funnel.attemptCreate({ hasPack: false }); createGame(username); } }
   function handleJoin(e) { e.preventDefault(); if (username.trim() && code.trim()) { funnel.attemptJoin(code); joinGame(code, username); } }
@@ -148,7 +149,7 @@ export default function TabooHome() {
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Great on a video call</h2>
         <p className="mb-3">
-          Because only the describer sees the card and everyone joins from their own phone, Taboo works brilliantly on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call, and it’s a favourite <Link to="/office-games">office game</Link> for team socials. More group games: <Link to="/fishbowl">Fishbowl</Link>, <Link to="/scattergories">Scattergories</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/chameleon">Chameleon</Link>, <Link to="/would-you-rather">Would You Rather</Link> and <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/team-trivia">Team Trivia</Link>.
+          Because only the describer sees the card and everyone joins from their own phone, Taboo works brilliantly on a <Link to="/office-games/games-to-play-on-microsoft-teams">Microsoft Teams</Link>, Zoom or Google Meet call, and it’s a favourite <Link to="/office-games">office game</Link> for team socials. More group games: <Link to="/fishbowl">Fishbowl</Link>, <Link to="/scattergories">Scattergories</Link>, <Link to="/say-anything">Say Anything</Link>, <Link to="/chameleon">Chameleon</Link>, <Link to="/would-you-rather">Would You Rather</Link> and <Link to="/caveman-clues">Caveman Clues</Link>, <Link to="/hue-match">Hue Match</Link>, <Link to="/team-trivia">Team Trivia</Link>.
         </p>
 
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">Frequently asked questions</h2>

@@ -9,6 +9,7 @@ import RemotePlayNotice from '../common/RemotePlayNotice';
 import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
+import { canResumeRoom } from '../../lib/resumeRoom';
 
 const CANONICAL_URL = 'https://herdgamesonline.com/guesstimate';
 const OG_IMAGE = 'https://herdgamesonline.com/og-guesstimate.png';
@@ -118,7 +119,7 @@ export default function GuesstimateHome() {
   const [code, setCode] = useState('');
 
   React.useEffect(() => {
-    if (state && roomCode) navigate(`/guesstimate/room/${roomCode}`);
+    if (canResumeRoom(state) && roomCode) navigate(`/guesstimate/room/${roomCode}`);
   }, [state, roomCode, navigate]);
 
   function handleCreate(e) { e.preventDefault(); if (!username.trim()) return; funnel.attemptCreate({ hasPack: false }); createGame(username); }

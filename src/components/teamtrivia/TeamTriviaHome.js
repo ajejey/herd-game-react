@@ -9,6 +9,7 @@ import WaitlistCTA from '../office/WaitlistCTA';
 import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
+import { canResumeRoom } from '../../lib/resumeRoom';
 
 const CANONICAL = 'https://herdgamesonline.com/team-trivia';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -80,7 +81,7 @@ export default function TeamTriviaHome() {
   const [code, setCode] = useState('');
 
   useEffect(() => {
-    if (state && roomCode) navigate(`/team-trivia/room/${roomCode}`);
+    if (canResumeRoom(state) && roomCode) navigate(`/team-trivia/room/${roomCode}`);
   }, [state, roomCode, navigate]);
 
   function handleCreate(e) { e.preventDefault(); if (username.trim()) { funnel.attemptCreate({ hasPack: !!packCode }); createGame(username, packCode ? { packCode } : {}); } }

@@ -5,6 +5,7 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useCavemanClues } from '../../hooks/useCavemanClues';
 import { tokenizeClue, illegalWords } from '../../lib/syllables';
+import { rememberWord } from '../../lib/recentWords';
 
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
@@ -100,6 +101,17 @@ export default function CavemanCluesRoom() {
     no data to the payload; it only makes the payload inspectable.
   */
   useEffect(() => { window.__ccState = state ?? null; }, [state]);
+
+  /*
+    Remember every word this browser has been shown, so the next game this
+    person hosts deals the ones they have not had. Recorded at the REVEAL,
+    which is the moment the word becomes public — recording it any earlier
+    would write the answer into localStorage while a guesser could still read
+    it out of their own dev tools.
+  */
+  useEffect(() => {
+    if (state?.phase === 'reveal' && state.word) rememberWord('cavemanclues', state.word);
+  }, [state?.phase, state?.word]);
 
   const phase = state?.phase;
   const turn = state?.turn;
