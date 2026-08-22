@@ -20,9 +20,9 @@ const SCHEMA = {
     {
       '@type': 'VideoGame',
       name: 'Hue Match',
-      alternateName: ['Hue Match Online', 'Colour Guessing Game', 'Color Clue Game', 'Hues and Cues Online'],
+      alternateName: ['Hue Match Online', 'Color Guessing Game', 'Color Clue Game', 'Hues and Cues Online'],
       url: CANONICAL,
-      description: 'Free online colour guessing party game. One player sees a secret colour and gives a one-word cue; everyone else taps where they think it is on a board of 126 colours. Play in the browser, no download, no signup.',
+      description: 'Free online color guessing party game. One player sees a secret color and gives a one-word cue; everyone else taps where they think it is on a board of 126 colors. Play in the browser, no download, no signup.',
       image: OG,
       genre: ['Party', 'Family', 'Casual'],
       gamePlatform: ['Web browser'],
@@ -40,20 +40,20 @@ const HOWTO_SCHEMA = {
   name: 'How to play Hue Match online',
   step: [
     { '@type': 'HowToStep', name: 'Create a room', text: 'One player creates a room and shares the 4-letter code with friends.' },
-    { '@type': 'HowToStep', name: 'One player gets a colour', text: 'Each round one player secretly sees one square on the colour board.' },
-    { '@type': 'HowToStep', name: 'Give a one-word cue', text: 'They type a single word that the colour reminds them of. No colour names and no board positions.' },
-    { '@type': 'HowToStep', name: 'Everyone taps a square', text: 'Each player taps the colour they think it is. Tap again to move it, then lock it in.' },
+    { '@type': 'HowToStep', name: 'One player gets a color', text: 'Each round one player secretly sees one square on the color board.' },
+    { '@type': 'HowToStep', name: 'Give a one-word cue', text: 'They type a single word that the color reminds them of. No color names and no board positions.' },
+    { '@type': 'HowToStep', name: 'Everyone taps a square', text: 'Each player taps the color they think it is. Tap again to move it, then lock it in.' },
     { '@type': 'HowToStep', name: 'A two-word cue, then reveal', text: 'The cue giver adds a two-word cue and everyone guesses again. Closer squares score more.' },
   ],
 };
 const FAQS = [
-  { q: 'What is Hue Match?', a: 'A free online colour guessing party game. One player secretly sees a single colour on a board of 126 and has to describe it in one word — not a colour name, just what it reminds them of. Everyone else taps where they think it is. Then a two-word cue and a second guess.' },
+  { q: 'What is Hue Match?', a: 'A free online color guessing party game. One player secretly sees a single color on a board of 126 and has to describe it in one word — not a color name, just what it reminds them of. Everyone else taps where they think it is. Then a two-word cue and a second guess.' },
   { q: 'Is it free?', a: 'Completely free, with no download and no signup. Create a room, share the four-letter code, and play. Everyone uses their own phone.' },
   { q: 'How does scoring work?', a: 'You score 3 for the exact square, 2 for any square touching it, and 1 for the ring after that. Two guesses per round, so 6 is a perfect round. The cue giver scores a point for every close guess they cause, capped so a big room does not hand them the game.' },
-  { q: 'Why can I not say "blue"?', a: 'Because it is the answer, not a cue. The game refuses colour names and board positions before anyone sees them, so nobody loses a round to it. Everything else is fair game — "rust", "coffee", "jade" and "seasick" all work, and the good cues are usually the strange ones.' },
+  { q: 'Why can I not say "blue"?', a: 'Because it is the answer, not a cue. The game refuses color names and board positions before anyone sees them, so nobody loses a round to it. Everything else is fair game — "rust", "coffee", "jade" and "seasick" all work, and the good cues are usually the strange ones.' },
   { q: 'How many people can play?', a: 'Three at minimum, since someone has to give the cues while at least two guess, and up to twenty. It plays well with big groups because everyone guesses at the same time — nobody waits their turn.' },
   { q: 'Can you play it on Zoom or Teams?', a: 'Yes. Everyone joins from their own device with the room code while you stay on the call, so it works on Zoom, Microsoft Teams, Google Meet or any video chat.' },
-  { q: 'Is this Hues and Cues?', a: 'It is our own free browser version of that kind of colour-cue game. Nothing to buy, nothing to print, and the board is on everyone’s own phone rather than passed around a table.' },
+  { q: 'Is this Hues and Cues?', a: 'It is our own free browser version of that kind of color-cue game. Nothing to buy, nothing to print, and the board is on everyone’s own phone rather than passed around a table.' },
 ];
 const BREADCRUMB_SCHEMA = {
   '@context': 'https://schema.org',
@@ -88,17 +88,17 @@ export default function HueMatchHome() {
   return (
     <MeadowLayout maxWidth="max-w-2xl">
       <Helmet>
-        <title>Hue Match — Free Online Colour Guessing Party Game</title>
-        <meta name="description" content="One player sees a secret colour and gives a one-word cue. Everyone else taps where they think it is. Free online party game, multiplayer in the browser, no download and no signup." />
+        <title>Hue Match — Free Online Color Guessing Party Game</title>
+        <meta name="description" content="Free online color guessing game. One player sees a secret color and gives a one-word cue — everyone else taps where they think it is. No download, no signup." />
         <link rel="canonical" href={CANONICAL} />
-        <meta name="keywords" content="hue match, colour guessing game online, color party game, hues and cues online free, guess the colour game, party games with friends online" />
-        <meta property="og:title" content="Hue Match — Free Online Colour Guessing Game" />
-        <meta property="og:description" content="Describe a colour in one word. Everyone taps where they think it is. Free, no download, play with friends in the browser." />
+        <meta name="keywords" content="hue match, color guessing game online, color party game, hues and cues online free, guess the color game, party games with friends online" />
+        <meta property="og:title" content="Hue Match — Free Online Color Guessing Game" />
+        <meta property="og:description" content="Describe a color in one word. Everyone taps where they think it is. Free, no download, play with friends in the browser." />
         <meta property="og:url" content={CANONICAL} />
         <meta property="og:image" content={OG} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Hue Match — Free Online Colour Guessing Game" />
+        <meta name="twitter:title" content="Hue Match — Free Online Color Guessing Game" />
         <meta name="twitter:image" content={OG} />
         <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
         <script type="application/ld+json">{JSON.stringify(HOWTO_SCHEMA)}</script>
@@ -112,7 +112,7 @@ export default function HueMatchHome() {
         <HueArt className="mx-auto mb-3 max-w-[260px] sm:max-w-[320px]" />
         <h1 style={fredokaStyle} className="text-4xl md:text-5xl font-bold text-[#2D1810]">Hue Match</h1>
         <p className="text-[#4A2D1B] text-lg mt-1">
-          Describe a colour in one word. Everyone taps where they think it is.
+          Describe a color in one word. Everyone taps where they think it is.
         </p>
       </div>
 
@@ -148,9 +148,9 @@ export default function HueMatchHome() {
 
       {/* SEO content */}
       <div className="max-w-2xl mx-auto mt-10 text-[#4A2D1B] leading-relaxed">
-        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">The colour guessing game where you can’t name the colour</h2>
+        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mb-2">The color guessing game where you can’t name the color</h2>
         <p className="mb-3">
-          One player secretly sees a single square on a board of 126 colours and has to describe it in <strong>one word</strong>. Not "blue" — that is the answer. <strong>Seasick</strong>. <strong>Rust</strong>. <strong>Grandma</strong>. Everyone else taps the square they think it is. Then a <strong>two-word</strong> cue, a second guess, and the reveal shows exactly how close everybody got.
+          One player secretly sees a single square on a board of 126 colors and has to describe it in <strong>one word</strong>. Not "blue" — that is the answer. <strong>Seasick</strong>. <strong>Rust</strong>. <strong>Grandma</strong>. Everyone else taps the square they think it is. Then a <strong>two-word</strong> cue, a second guess, and the reveal shows exactly how close everybody got.
         </p>
         <p className="mb-3">
           It is a game about the words people reach for when the obvious word is gone, and the arguments afterwards — "how is <em>that</em> ‘coffee’?" — are the point.
@@ -162,7 +162,7 @@ export default function HueMatchHome() {
         <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] mt-6 mb-3">How to play</h2>
         <ol className="list-decimal pl-5 mb-3 space-y-1">
           <li><strong>Create a room</strong> and share the 4-letter code with your friends.</li>
-          <li><strong>One player gets a colour</strong> and types a one-word cue.</li>
+          <li><strong>One player gets a color</strong> and types a one-word cue.</li>
           <li><strong>Everyone taps a square.</strong> Tap again to move it — nothing counts until you lock it in.</li>
           <li><strong>A two-word cue</strong> follows, then everyone guesses once more.</li>
           <li><strong>Score:</strong> 3 for the exact square, 2 for touching it, 1 for the next ring. The cue giver scores for every close guess they caused.</li>

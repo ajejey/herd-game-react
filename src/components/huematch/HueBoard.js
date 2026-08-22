@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { COLS, ROWS, colourAt, labelOf } from '../../lib/hueGrid';
 
 /*
-  The colour board.
+  The color board.
 
   THE ONE HARD PROBLEM HERE IS TOUCH. A cell is about 25px on a 390px phone,
   which is below the 44px anyone would recommend for a tap target — and this is
@@ -22,8 +22,8 @@ import { COLS, ROWS, colourAt, labelOf } from '../../lib/hueGrid';
   for a grid and the nudge the paragraph above promises. Enter or Space places.
 
   Rendered from the SAME grid module the server scores with, under a byte-for-
-  byte drift guard, because a board that paints one colour while the server
-  scores another has no symptom except players insisting the colours are wrong.
+  byte drift guard, because a board that paints one color while the server
+  scores another has no symptom except players insisting the colors are wrong.
 */
 
 const INK = '#2D1810';
@@ -94,14 +94,14 @@ function HueBoard({
               The first version faded everything beyond ring 2 to 45% opacity.
               It made the rings obvious and it made the reveal — the one moment
               in the game when everybody is looking at the board — a screen of
-              washed-out pastels, on a game whose entire subject is colour. The
+              washed-out pastels, on a game whose entire subject is color. The
               white veils were then invisible against the fade, so it lost both
               things at once.
 
-              Now: full-strength colour everywhere, a heavy ink ring on the
+              Now: full-strength color everywhere, a heavy ink ring on the
               target, and white inner borders that get thinner as they get
-              further out. Distance reads from the borders; the colours stay
-              the colours.
+              further out. Distance reads from the borders; the colors stay
+              the colors.
             */
             boxShadow: isTarget
               ? `inset 0 0 0 3px ${INK}, 0 0 0 1px rgba(255,255,255,.9)`
@@ -133,7 +133,7 @@ function HueBoard({
         className="grid gap-[2px] select-none"
         style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
         role="group"
-        aria-label={disabled ? 'Colour board' : 'Colour board — arrow keys move your marker'}
+        aria-label={disabled ? 'Color board' : 'Color board — arrow keys move your marker'}
         onKeyDown={onKeyDown}
       >
         {cells}

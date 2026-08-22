@@ -24,7 +24,7 @@ const TARGET = { col: 9, row: 3 };
 
   The hub card gives this 76px. Fourteen columns in 76px is a 5px cell — a
   smudge, the same mistake the caveman's full figure made at card size. A slice
-  keeps the cells big enough to read as colours, which is the whole point of the
+  keeps the cells big enough to read as colors, which is the whole point of the
   picture.
 */
 const MINI = { cols: 6, rows: 4, col0: 7, row0: 2 };

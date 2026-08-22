@@ -188,7 +188,7 @@ export default function HueMatchRoom() {
           <div className="mt-4 rounded-2xl border-2 p-3 text-left" style={{ background: '#FFF6E9', borderColor: AMBER, color: '#6B4226' }}>
             <p className="font-bold">How it works</p>
             <p className="text-base mt-1">
-              One of you secretly gets a colour and gives a <strong>one-word</strong> cue.
+              One of you secretly gets a color and gives a <strong>one-word</strong> cue.
               Everyone taps where they think it is. Then a <strong>two-word</strong> cue and a
               second guess. Closer is worth more.
             </p>
@@ -238,7 +238,7 @@ export default function HueMatchRoom() {
       <MeadowLayout maxWidth="max-w-lg">
         <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 text-center">
           <p className="text-sm font-semibold text-[#8B6347]">Round {state.turnNumber} of {state.totalTurns}</p>
-          <p className="text-base font-semibold text-[#8B6347] mt-1">The colour was</p>
+          <p className="text-base font-semibold text-[#8B6347] mt-1">The color was</p>
           <div className="mx-auto my-2 h-14 w-24 rounded-xl" style={{ background: last.targetHex, boxShadow: `inset 0 0 0 3px ${INK}` }} />
           <p style={fredokaStyle} className="text-2xl font-bold text-[#2D1810]">{last.targetLabel}</p>
           <p className="text-[#4A2D1B] mt-1">
@@ -280,7 +280,7 @@ export default function HueMatchRoom() {
         </p>
 
         {/*
-          The giver's secret colour, laid out sideways rather than stacked.
+          The giver's secret color, laid out sideways rather than stacked.
 
           Stacked it was ~120px tall and pushed the cue box past the middle of a
           390x844 phone — the one thing this player is here to do, below the
@@ -289,7 +289,7 @@ export default function HueMatchRoom() {
         {isGiver && turn?.targetHex && (
           <div className="mb-3 flex items-center gap-3 rounded-2xl border-2 px-3 py-2" style={{ background: '#EAF6EE', borderColor: GREEN }}>
             <div className="h-9 w-14 shrink-0 rounded-lg" style={{ background: turn.targetHex, boxShadow: `inset 0 0 0 3px ${INK}` }} />
-            <p className="text-base font-semibold text-[#2D6E45]">Your colour — it is marked on the board too</p>
+            <p className="text-base font-semibold text-[#2D6E45]">Your color — it is marked on the board too</p>
           </div>
         )}
 
@@ -325,7 +325,7 @@ export default function HueMatchRoom() {
             <p className="mt-1 text-sm font-semibold" style={{ color: typedWords === wantWords ? '#2D6E45' : '#8B6347' }}>
               {wantWords === 1 ? 'One word' : 'Two words'}
               {typedWords > 0 && typedWords !== wantWords ? ` — you have ${typedWords}` : ''}
-              . No colour names, no board positions.
+              . No color names, no board positions.
             </p>
             {turn?.rejected && (
               <p className="mt-1 text-base font-bold" style={{ color: '#B03A30' }}>{turn.rejected.message}</p>
@@ -374,7 +374,7 @@ export default function HueMatchRoom() {
                 {!iLocked && ' — tap again to move it.'}
               </p>
             ) : (
-              <p className="text-center text-base text-[#6B4226]">Tap the colour you think it is.</p>
+              <p className="text-center text-base text-[#6B4226]">Tap the color you think it is.</p>
             )}
             <button
               type="button"
