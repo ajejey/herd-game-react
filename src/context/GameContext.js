@@ -77,7 +77,11 @@ const gameReducer = (state, action) => {
         gameId: action.payload.gameId,
         roomCode: action.payload.roomCode,
         playerId: action.payload.playerId,
-        isHost: true
+        isHost: true,
+        // The host is in the room. Nothing else tells us that until a second
+        // player arrives, so the lobby counted zero people and asked for one
+        // friend too many.
+        players: action.payload.players || state.players
       };
     
     /*

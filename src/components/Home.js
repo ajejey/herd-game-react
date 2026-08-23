@@ -376,10 +376,20 @@ const Home = () => {
     track('room_create_attempt', { game: 'herd', hasPack: !!packCode });
     startFunnelRecording('create_room');
     socket.emit('create_game', { username, packCode: packCode || undefined });
-    socket.once('game_created', ({ gameId, roomCode, playerId }) => {
+    /*
+      Forward the whole payload — the same rule as game_joined below.
+
+      Rebuilding a literal out of three keys is how the host came to be missing
+      from their own lobby: create_game also returns the host's player row, and
+      nothing else supplies one until a SECOND player arrives, so the first
+      screen of the game the site is named after said "Invite 2 more friends to
+      start" to somebody who needed one, over "In the room (0)".
+    */
+    socket.once('game_created', (payload) => {
+      const { gameId, roomCode, playerId } = payload;
       track('room_created', { game: 'herd', hasPack: !!packCode });
       saveGameSession(gameId, roomCode, playerId, username);
-      dispatch({ type: 'GAME_CREATED', payload: { gameId, roomCode, playerId } });
+      dispatch({ type: 'GAME_CREATED', payload });
       navigate(`/game/${roomCode}`);
     });
     socket.once('error', ({ message }) => {
