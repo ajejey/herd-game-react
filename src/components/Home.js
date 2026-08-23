@@ -418,10 +418,26 @@ const Home = () => {
     // isHost is forwarded, not assumed. The host can arrive down this path too
     // — a second tab, the invite link, a cleared localStorage — and dropping
     // the flag here left them without the Start button in their own room.
-    socket.once('game_joined', ({ gameId, playerId, isHost }) => {
+    /*
+      Forward the WHOLE payload, not three fields of it.
+
+      join_game answers with the full room state — gameStatus, the current
+      question, who we are waiting for, whether this player has already
+      answered. Picking three keys out of it meant `gameStatus` arrived
+      undefined and fell back to 'waiting', so anyone joining a game already in
+      progress was parked on the lobby screen for the rest of it: the room
+      screen tests the lobby branch first, so no round_completed or next_round
+      could ever move them off it, while the server counted them present and
+      everybody else's screen read "Waiting for Bea…" by name.
+
+      Mid-game joining is a feature, and this got more reachable when a stranger
+      opening /game/CODE started being sent here with the code prefilled.
+    */
+    socket.once('game_joined', (payload) => {
+      const { gameId, playerId, isHost } = payload;
       track('room_joined', { game: 'herd', isHost: !!isHost });
       saveGameSession(gameId, code, playerId, name);
-      dispatch({ type: 'GAME_JOINED', payload: { gameId, playerId, isHost } });
+      dispatch({ type: 'GAME_JOINED', payload });
       navigate(`/game/${code}`);
     });
     socket.once('error', ({ message }) => {

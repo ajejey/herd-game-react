@@ -1,15 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import Confetti from 'react-confetti';
+import { FiCheck, FiEye, FiSkipForward, FiSliders, FiAlertCircle, FiX } from 'react-icons/fi';
+import MeadowLayout, { fredokaStyle } from './MeadowLayout';
+import LobbyInvite from './common/LobbyInvite';
+import AdSlot from './AdSlot';
+import { PinkCowIcon, Rosette, HerdIcon } from './herd/HerdArt';
 import { useLiveSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
-import Confetti from 'react-confetti';
-import AdSlot from './AdSlot';
-import ReportProblem from './common/ReportProblem';
-import { share as shareSheet, copyText } from '../lib/shareSheet';
+
+/*
+  ───────────────────────────────────────────────────────────────────────────
+  The original Herd Mentality room.
+
+  Two things were wrong with this screen, and they were the same thing wearing
+  different clothes: IT NEVER SAID WHAT WAS HAPPENING.
+
+  Room S1DQVW, 21 Aug 2026. Three players filed three reports in twenty-six
+  seconds — "Someone d / Isn't answer", "Host is bad", "No work" — while looking
+  at the words "Waiting for other players…" and nothing else. No name, no clock,
+  no button. Half of every report the site received that week came from this one
+  game, and the room could not be rescued by anybody in it.
+
+  The server half of that is fixed in backend/src/index.js (maybeCompleteRound
+  and friends). This file is the other half, and the rule it is built on:
+
+    EVERY WAITING SCREEN MUST ANSWER THREE QUESTIONS —
+      what are we waiting for, WHO are we waiting for, and what can I do about
+      it? A screen that answers fewer than three is a room that dies quietly.
+
+  The second thing: this was the only room on the site with no design. Every
+  other game runs inside MeadowLayout — cream, clouds, Fredoka, the cow palette.
+  The game the site is NAMED after was grey Tailwind defaults and emoji. It now
+  uses the same shell as its thirteen younger siblings.
+  ───────────────────────────────────────────────────────────────────────────
+*/
+
+const PINK = '#E84A8B';
+const GREEN = '#3D8B5A';
+const AMBER = '#F0C070';
+const INK = '#2D1810';
+const MUTED = '#8B6347';
 
 const ROUND_AD_SLOT = '5698170537';
 const LOBBY_AD_SLOT = '5969633275';
 const GAMEOVER_AD_SLOT = '9390003532';
+
+const WIN_SCORE = 8;
 
 /*
   Quote and list the tied herds properly.
@@ -25,111 +62,257 @@ function listHerds(herds) {
   return `${quoted.slice(0, -1).join(', ')} and ${quoted[quoted.length - 1]}`;
 }
 
+/* "Bea", "Bea and Sam", "Bea, Sam and Ali" — never "2 players". */
+function listNames(names) {
+  if (!names.length) return '';
+  if (names.length === 1) return names[0];
+  if (names.length <= 3) return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
+  return `${names.slice(0, 2).join(', ')} and ${names.length - 2} others`;
+}
+
+const card = 'bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 sm:p-6';
+
+/* ── Small pieces ─────────────────────────────────────────────────────────── */
+
+/*
+  Errors used to be `alert(message)`.
+
+  A modal alert blocks the whole page, cannot be styled, says "localhost says"
+  on some browsers, and — in the Android WebView — can wedge the app entirely.
+  It also arrives with no idea which of the fifteen things you just did caused
+  it. This says the thing, in the room's own voice, and gets out of the way.
+*/
+function Toast({ text, tone = 'bad', onClose }) {
+  if (!text) return null;
+  const bad = tone === 'bad';
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className="fixed inset-x-3 bottom-4 z-50 mx-auto max-w-md rounded-2xl border-2 px-4 py-3 shadow-lg flex items-start gap-2"
+      style={{
+        background: bad ? '#FFF1EF' : '#EAF6EE',
+        borderColor: bad ? '#E7A79F' : GREEN,
+        color: bad ? '#8A2F26' : '#245C3C',
+      }}
+    >
+      <FiAlertCircle className="mt-0.5 shrink-0" />
+      <span className="text-base flex-1">{text}</span>
+      <button type="button" onClick={onClose} aria-label="Dismiss" className="p-1 opacity-70 hover:opacity-100">
+        <FiX />
+      </button>
+    </div>
+  );
+}
+
+/*
+  The scoreboard, on every screen.
+
+  It used to be a desktop-only sidebar, so on a phone — which is nearly all of
+  this game's traffic — you could play a whole game without ever seeing anyone's
+  score, including your own. The target is shown next to it because "first to 8"
+  is not written down anywhere else in the room.
+*/
+function Scores({ players, pinkCowHolder, myId }) {
+  const sorted = [...(players || [])].sort((a, b) => (b.score || 0) - (a.score || 0));
+  if (!sorted.length) return null;
+  return (
+    <div className="mt-5">
+      <p className="text-sm font-semibold mb-1.5" style={{ color: MUTED }}>
+        Scores &mdash; first to {WIN_SCORE} without the cow wins
+      </p>
+      <div className="space-y-1.5">
+        {sorted.map((p, i) => {
+          const me = String(p._id) === String(myId);
+          const hasCow = String(pinkCowHolder || '') === String(p._id);
+          return (
+            <div
+              key={p._id}
+              className={`flex items-center justify-between gap-2 px-3 py-2 rounded-xl ${me ? 'bg-[#FFE8C8]' : 'bg-[#FFF6E9]'}`}
+            >
+              <span className="flex items-center gap-1.5 min-w-0">
+                <span className="text-sm w-4 shrink-0" style={{ color: MUTED }}>{i + 1}.</span>
+                <span
+                  className={`font-semibold truncate ${p.isConnected === false ? 'opacity-45' : ''}`}
+                  style={{ color: INK }}
+                >
+                  {p.username}{me ? ' (you)' : ''}
+                </span>
+                {hasCow && <PinkCowIcon size={18} title="Holding the pink cow" />}
+                {p.isConnected === false && (
+                  <span className="text-sm shrink-0" style={{ color: MUTED }}>away</span>
+                )}
+              </span>
+              <span className="font-bold shrink-0" style={{ color: GREEN }}>{p.score || 0}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* One row of names; tap one to give them the cow, or "Nobody" to take it off
+   the table. The server does the authorising and re-runs the win check, because
+   moving it off a player on 8 points is what ends the game. */
+function CowPicker({ players, pinkCowHolder, onMove }) {
+  return (
+    <div className="flex flex-wrap justify-center gap-2">
+      {(players || []).map((p) => {
+        const holds = String(pinkCowHolder || '') === String(p._id);
+        return (
+          <button
+            key={p._id}
+            type="button"
+            onClick={() => onMove(p._id)}
+            aria-pressed={holds}
+            className={`px-3 py-2 rounded-full text-base border-2 font-semibold transition-colors flex items-center gap-1 ${
+              holds ? 'bg-[#FFE0E8] border-[#E84A8B] text-[#8A2F55]' : 'bg-white border-[#FFE8C8] text-[#4A2D1B] hover:border-[#E84A8B]'
+            }`}
+          >
+            {holds && <PinkCowIcon size={16} />}
+            {p.username}
+          </button>
+        );
+      })}
+      <button
+        type="button"
+        onClick={() => onMove(null)}
+        aria-pressed={!pinkCowHolder}
+        className={`px-3 py-2 rounded-full text-base border-2 font-semibold transition-colors ${
+          !pinkCowHolder ? 'bg-[#FFF6E9] border-[#F0C070] text-[#6B4226]' : 'bg-white border-[#FFE8C8] text-[#4A2D1B] hover:border-[#F0C070]'
+        }`}
+      >
+        Nobody
+      </button>
+    </div>
+  );
+}
+
+/* ── The room ─────────────────────────────────────────────────────────────── */
+
 const GameRoom = () => {
-  const [hasAnswered, setHasAnswered] = useState(false);
   const [answer, setAnswer] = useState('');
+  const [myAnswer, setMyAnswer] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [isCopied, setIsCopied] = useState(false);
-  const [linkCopied, setLinkCopied] = useState(false);
+  const [slowLoad, setSlowLoad] = useState(false);
   const [showAdjust, setShowAdjust] = useState(false);
+  const [toast, setToast] = useState(null);
+  const [now, setNow] = useState(Date.now());
+  const [win, setWin] = useState({ w: 1024, h: 768 });
   const { roomCode } = useParams();
   const navigate = useNavigate();
-  const { socket } = useLiveSocket();
+  const { socket, connected } = useLiveSocket();
   const { gameState, dispatch } = useGame();
+
+  const lastSendRef = useRef({});
+
+  /* A clock for the two deadlines, and a window size for the confetti. */
+  useEffect(() => {
+    const onResize = () => setWin({ w: window.innerWidth, h: window.innerHeight });
+    onResize();
+    window.addEventListener('resize', onResize);
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => { window.removeEventListener('resize', onResize); clearInterval(t); };
+  }, []);
+
+  /*
+    A deliberate test seam, matching every engine game (TESTING.md §5.3). e2e
+    asserts what the SERVER sent this browser rather than what this browser drew
+    — the two disagreeing is precisely how the old "2 of 2 answered" screen came
+    to sit on top of a round that had already been scored.
+  */
+  useEffect(() => { window.__herdState = gameState ?? null; }, [gameState]);
 
   // Handle initial connection and reconnection
   useEffect(() => {
     if (!socket) return;
 
-    const attemptReconnection = () => {
-      const savedSession = localStorage.getItem('gameSession');
-      if (savedSession) {
-        const session = JSON.parse(savedSession);
-        if (session.roomCode === roomCode) {
-          socket.emit('reconnect_game', session);
-        } else {
-          navigate('/');
-        }
-      } else {
-        navigate('/');
-      }
-    };
+    if (gameState.gameId) { setIsLoading(false); return; }
 
-    if (!gameState.gameId) {
-      attemptReconnection();
-    } else {
-      setIsLoading(false);
+    const savedSession = (() => {
+      try { return JSON.parse(localStorage.getItem('gameSession') || 'null'); } catch { return null; }
+    })();
+
+    if (savedSession && savedSession.roomCode === roomCode) {
+      socket.emit('reconnect_game', savedSession);
+      return;
     }
+
+    /*
+      A stranger opening this URL.
+
+      /game/CODE is the one room URL on the site with no join form behind it, so
+      this used to be navigate('/') — a friend who was sent the room link landed
+      on the home page with no code, no explanation and no idea they had been
+      moved. /?join=CODE is the same home page with the join form open and the
+      code already in it.
+    */
+    navigate(`/?join=${encodeURIComponent(roomCode || '')}`, { replace: true });
   }, [socket, gameState.gameId, roomCode, navigate]);
+
+  /* Never spin forever with nothing to press. */
+  useEffect(() => {
+    if (!isLoading) return undefined;
+    const t = setTimeout(() => setSlowLoad(true), 6000);
+    return () => clearTimeout(t);
+  }, [isLoading]);
 
   // Socket event listeners
   useEffect(() => {
-    if (!socket) return;
+    if (!socket) return undefined;
 
-    socket.on('game_rejoined', (gameState) => {
-      dispatch({
-        type: 'GAME_REJOINED',
-        payload: gameState
-      });
+    socket.on('game_rejoined', (payload) => {
+      dispatch({ type: 'GAME_REJOINED', payload });
+      setMyAnswer(payload?.gameState?.myAnswer || '');
       setIsLoading(false);
     });
 
-    socket.on('reconnect_failed', ({ reason }) => {
-      console.error('Reconnection failed:', reason);
-      navigate('/');
+    socket.on('reconnect_failed', () => {
+      // Same reasoning as above: send them somewhere they can actually get back
+      // in from, rather than to a home page that has forgotten the room.
+      navigate(`/?join=${encodeURIComponent(roomCode || '')}`, { replace: true });
     });
 
     return () => {
       socket.off('game_rejoined');
       socket.off('reconnect_failed');
     };
-  }, [socket, dispatch, navigate]);
+  }, [socket, dispatch, navigate, roomCode]);
 
   useEffect(() => {
-    if (!socket) return;
+    if (!socket) return undefined;
 
-    // get username from local storage
-    // const username = localStorage.getItem('username');
-    // if (username) {
-    //   socket.emit('join_game', { username, roomCode });
-    // }
-
-    socket.on('players_updated', ({ players }) => {
-      dispatch({ type: 'PLAYERS_UPDATED', payload: { players } });
-    });
-
-    socket.on('game_started', (payload) => {
-      dispatch({ type: 'GAME_STARTED', payload });
-    });
-
-    socket.on('player_answered', (payload) => {
-      dispatch({ type: 'PLAYER_ANSWERED', payload });
-    });
-
+    socket.on('players_updated', ({ players }) => dispatch({ type: 'PLAYERS_UPDATED', payload: { players } }));
+    socket.on('game_started', (payload) => dispatch({ type: 'GAME_STARTED', payload }));
+    socket.on('player_answered', (payload) => dispatch({ type: 'PLAYER_ANSWERED', payload }));
     socket.on('round_completed', (payload) => {
       dispatch({ type: 'ROUND_COMPLETED', payload });
-      setHasAnswered(false);
       setAnswer('');
+      setMyAnswer('');
     });
-
-    socket.on('game_completed', ({ winner }) => {
-      dispatch({
-        type: 'GAME_COMPLETED',
-        payload: { winner }
-      });
-    });
-
+    socket.on('game_completed', ({ winner }) => dispatch({ type: 'GAME_COMPLETED', payload: { winner } }));
     socket.on('next_round', (payload) => {
       dispatch({ type: 'NEXT_ROUND', payload });
+      setAnswer('');
+      setMyAnswer('');
+      if (payload?.skipped) setToast({ text: 'Question skipped — here is a new one.', tone: 'good' });
+    });
+    socket.on('pink_cow_moved', (payload) => dispatch({ type: 'PINK_COW_MOVED', payload }));
+
+    /*
+      The server refusing an answer is usually not the player's fault, and used
+      to be reported to them as "Failed to submit answer" — the same words for
+      "you already answered this one" as for a real breakage.
+    */
+    socket.on('answer_rejected', ({ reason }) => {
+      dispatch({ type: 'ANSWER_REJECTED', payload: { reason } });
+      setToast(reason === 'already-answered'
+        ? { text: 'You had already answered this round — your first answer counts.', tone: 'good' }
+        : { text: 'That round finished while you were typing. Here come the results.', tone: 'good' });
     });
 
-    socket.on('pink_cow_moved', (payload) => {
-      dispatch({ type: 'PINK_COW_MOVED', payload });
-    });
-
-    socket.on('error', ({ message }) => {
-      alert(message);
-    });
+    socket.on('error', ({ message }) => setToast({ text: message, tone: 'bad' }));
 
     return () => {
       socket.off('players_updated');
@@ -139,195 +322,237 @@ const GameRoom = () => {
       socket.off('game_completed');
       socket.off('next_round');
       socket.off('pink_cow_moved');
+      socket.off('answer_rejected');
       socket.off('error');
     };
   }, [socket, dispatch]);
 
-  const handleStartGame = () => {
-    socket.emit('start_game', { gameId: gameState.gameId });
-  };
+  useEffect(() => {
+    if (!toast) return undefined;
+    const t = setTimeout(() => setToast(null), 5000);
+    return () => clearTimeout(t);
+  }, [toast]);
 
-  const handleSubmitAnswer = () => {
-    if (!answer.trim()) {
-      alert('Please enter an answer');
-      return;
+  // Reset the host panel whenever the round changes
+  useEffect(() => { setShowAdjust(false); }, [gameState.currentRound, gameState.roundResults]);
+
+  useEffect(() => {
+    if (gameState.gameStatus === 'completed') localStorage.removeItem('gameSession');
+  }, [gameState.gameStatus]);
+
+  /*
+    Swallow a double-tap, and NOTHING else.
+
+    This started life throttling on the event name alone, and that is wrong in a
+    way that only shows up in a quick group: when a round resolved fast, the
+    next round's answer landed inside 400ms of the previous round's answer, the
+    throttle ate it, and the player was left with their text still in the box, a
+    button that did nothing and no message at all. e2e/herd-game.spec.js caught
+    it on round two of a normal game — a round that had taken 230ms.
+
+    So the key is the whole intent: the action, the round it belongs to and what
+    it carries. Two identical taps 400ms apart are one tap; anything else is a
+    different thing the player meant to do and goes through.
+
+    Host score edits are exempt: tapping "+" twice to award two points is a real
+    thing hosts do, and losing one of those silently is worse than sending one
+    twice — which they can see, and undo with the "−" right next to it.
+  */
+  const UNTHROTTLED = ['adjust_score'];
+  const send = (event, payload = {}) => {
+    if (!socket) return false;
+    if (!UNTHROTTLED.includes(event)) {
+      const key = `${event}:${gameState.currentRound}:${JSON.stringify(payload)}`;
+      const t = Date.now();
+      if (t - (lastSendRef.current[key] || 0) < 400) return false;
+      lastSendRef.current[key] = t;
     }
-
-    socket.emit('submit_answer', {
-      gameId: gameState.gameId,
-      answer: answer.trim()
-    });
-    setHasAnswered(true);
+    socket.emit(event, { gameId: gameState.gameId, ...payload });
+    return true;
   };
 
-  // Hand the cow to somebody, or to nobody. The server does the authorising and
-  // re-runs the win check, because moving it off a player on 8 points is what
-  // ends the game.
-  const handleMoveCow = (playerId) => {
-    socket.emit('move_pink_cow', {
-      gameId: gameState.gameId,
-      playerId: playerId || null,
-    });
+  const handleSubmitAnswer = (e) => {
+    if (e) e.preventDefault();
+    const text = answer.trim();
+    if (!text) return;
+    // Only remember it as "mine" if it actually went. Showing someone their
+    // answer back when it never left the phone is the worst of both.
+    if (send('submit_answer', { answer: text })) setMyAnswer(text);
   };
 
   const handleLeaveGame = () => {
-    localStorage.removeItem('gameSession');
-    socket.emit('leave_game', { gameId: gameState.gameId });
+    try { localStorage.removeItem('gameSession'); } catch { /* private mode */ }
+    if (socket) socket.emit('leave_game', { gameId: gameState.gameId });
     dispatch({ type: 'RESET_GAME' });
     navigate('/');
   };
 
-  const handleCopyRoomCode = () => {
-    // navigator.clipboard is unreliable in the Android WebView and rejects
-    // silently, which showed "Copied!" for something never copied.
-    copyText(roomCode).then((ok) => {
-      if (!ok) return;
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    });
-  };
-
-  // One-tap invite: a clickable link that drops friends onto the Join form with
-  // the code prefilled.
-  //
-  // navigator.share does NOT exist in an Android WebView, so the old code here
-  // fell straight through to a clipboard copy and the app's main game could
-  // never open a share sheet. shareSheet() uses the native Android intent there
-  // and the Web Share API in a browser, and is not async so the web call still
-  // happens inside the click's user activation.
-  const inviteUrl = `${window.location.origin}/?join=${roomCode}`;
-  const handleShareInvite = () => {
-    const shareText = `Join my Herd Mentality game! Room code ${roomCode}`;
-    shareSheet({
-      title: 'Herd Mentality',
-      text: shareText,
-      url: inviteUrl,
-      dialogTitle: 'Invite friends to your game',
-    }).then((res) => {
-      if (res.via !== 'clipboard') return;
-      setLinkCopied(true);
-      setTimeout(() => setLinkCopied(false), 2000);
-    });
-  };
-
-  const renderPlayerList = () => {
-    if (!gameState.players) return null;
-    
-    return (
-      <div className="space-y-2">
-        <h2 className="text-xl font-semibold">Players</h2>
-        <div className="space-y-2">
-          {gameState.players.map((player) => (
-            <div
-              key={player._id}
-              className="flex justify-between items-center p-2 bg-white rounded-md shadow-sm"
-            >
-              <div className="flex items-center space-x-2">
-                <span>{player.username}</span>
-                {player.isHost && (
-                  <span className="px-2 py-0.5 text-sm bg-blue-100 text-blue-800 rounded-full">
-                    Host
-                  </span>
-                )}
-                {gameState.pinkCowHolder === player._id && (
-                  <span className="px-2 py-0.5 text-sm bg-pink-100 text-pink-800 rounded-full">
-                    🐄
-                  </span>
-                )}
-                {!player.isConnected && (
-                  <span className="px-2 py-0.5 text-sm bg-red-100 text-red-800 rounded-full">
-                    Disconnected
-                  </span>
-                )}
-              </div>
-              <span className="text-gray-600">{player.score || 0} points</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
+  /* ── Derived facts every screen needs ─────────────────────────────────── */
+  const players = gameState.players || [];
+  const livePlayers = players.filter((p) => p.isConnected !== false);
+  const host = players.find((p) => p.isHost);
+  const hostName = host?.username || '';
   /*
-    One row of names; tap one to give them the cow, or "Nobody" to take it off
-    the table. Shown to the host only — everyone else gets the sentence that
-    explains what they are waiting for, which is the same principle as naming
-    the host in the lobby rather than saying "waiting for players".
+    `!host` counts too. The server's mayActAsHost hands the room its own
+    authority when there is no host record at all — a removed player, an old
+    room — but this read `!!host && ...`, so the client hid every button the
+    server would have accepted. That is a stranded room created by the two
+    halves disagreeing, which is the same shape as the bug all of this is for.
+
+    The `players.length > 0` guard is the other side of it: an EMPTY list is not
+    a missing host, it is a list that has not arrived. A joiner used to be able
+    to miss its own players_updated broadcast while still navigating, and would
+    then render "<blank> has dropped out" and hand itself the host's buttons.
   */
-  const renderCowPicker = () => (
-    <div className="flex flex-wrap justify-center gap-2">
-      {(gameState.players || []).map((p) => {
-        const holds = String(gameState.pinkCowHolder || '') === String(p._id);
-        return (
-          <button
-            key={p._id}
-            onClick={() => handleMoveCow(p._id)}
-            aria-pressed={holds}
-            className={`px-3 py-2 rounded-full text-base border transition-colors ${
-              holds
-                ? 'bg-pink-100 border-pink-400 text-pink-800 font-semibold'
-                : 'bg-white border-gray-300 text-gray-700 hover:border-pink-400 hover:bg-pink-50'
-            }`}
-          >
-            {holds && <span className="mr-1">🐄</span>}
-            {p.username}
-          </button>
-        );
-      })}
-      <button
-        onClick={() => handleMoveCow(null)}
-        aria-pressed={!gameState.pinkCowHolder}
-        className={`px-3 py-2 rounded-full text-base border transition-colors ${
-          !gameState.pinkCowHolder
-            ? 'bg-gray-200 border-gray-400 text-gray-800 font-semibold'
-            : 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50'
-        }`}
-      >
-        Nobody
-      </button>
-    </div>
-  );
+  const hostGone = players.length > 0 && (!host || host.isConnected === false);
+  const myId = gameState.playerId;
 
-  const renderGameContent = () => {
-    // Naming the host turns "nothing is happening" into "we are waiting for
-    // Sam" — the difference between a room that quietly dies and one where
-    // somebody nudges the person holding the button.
-    const hostName = (gameState.players || []).find((p) => p.isHost)?.username || '';
+  // The host's authority falls to the room when the host is not in it — the
+  // same rule the server applies, mirrored here so the buttons match reality.
+  const iCanHost = gameState.isHost || hostGone;
 
-    if (gameState.gameStatus === 'waiting') {
-      return (
-        <div className="space-y-4 text-center">
-          <div className="flex flex-col items-center space-y-3">
-            <p className="text-lg font-medium">Room Code:</p>
-            <div className="flex items-center space-x-2">
-              <div className="bg-white px-4 py-2 rounded-lg font-mono text-xl border border-gray-200">
-                {roomCode}
-              </div>
+  const waitingFor = gameState.waitingFor || [];
+  const waitingNames = waitingFor.map((w) => w.username);
+  const iAmAwaited = waitingFor.some((w) => String(w.id) === String(myId));
+  // For the button label only. A host who has not answered yet was being
+  // offered "Reveal without Ann" — Ann being them.
+  const othersAwaited = waitingFor
+    .filter((w) => String(w.id) !== String(myId))
+    .map((w) => w.username);
+
+  const answerWindowPassed = gameState.roundEndsAt ? now >= gameState.roundEndsAt : false;
+  const secondsToReveal = gameState.roundEndsAt
+    ? Math.max(0, Math.ceil((gameState.roundEndsAt - now) / 1000))
+    : 0;
+  const unlockAt = gameState.resultsAt ? gameState.resultsAt + (gameState.unlockAfterMs || 60000) : 0;
+  const nextRoundUnlocked = unlockAt > 0 && now >= unlockAt;
+  const secondsToUnlock = unlockAt > 0 ? Math.max(0, Math.ceil((unlockAt - now) / 1000)) : 0;
+
+  /* ── Loading ───────────────────────────────────────────────────────────── */
+  if (isLoading) {
+    return (
+      <MeadowLayout maxWidth="max-w-md">
+        <div className={`${card} text-center`}>
+          <div className="flex justify-center mb-3"><HerdIcon size={72} /></div>
+          <h1 style={fredokaStyle} className="text-2xl font-bold" >{connected ? 'Finding your game…' : 'Reaching the meadow…'}</h1>
+          <p className="mt-2 text-base" style={{ color: '#4A2D1B' }}>
+            Room <span className="font-mono font-bold tracking-widest">{roomCode}</span>
+          </p>
+          {slowLoad && (
+            <div className="mt-4 rounded-2xl border-2 p-3" style={{ background: '#FFF6E9', borderColor: AMBER }}>
+              <p className="text-base" style={{ color: '#6B4226' }}>
+                This is taking longer than it should. Your connection may have dropped.
+              </p>
               <button
-                onClick={handleCopyRoomCode}
-                className="p-2 text-purple-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg transition-colors flex items-center space-x-1"
-                title="Copy room code"
+                type="button"
+                onClick={() => window.location.reload()}
+                className="mt-2 w-full rounded-xl border-2 bg-white py-2 font-bold"
+                style={{ borderColor: PINK, color: PINK, ...fredokaStyle }}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                {isCopied && <span className="text-base">Copied!</span>}
+                Try again
               </button>
+              <Link to="/" className="mt-2 block text-base underline" style={{ color: MUTED }}>
+                or go back to the meadow
+              </Link>
             </div>
+          )}
+        </div>
+      </MeadowLayout>
+    );
+  }
+
+  /* ── Game over ─────────────────────────────────────────────────────────── */
+  /*
+    Also covers rejoining a game that finished while you were away. That used to
+    fall through to the answer box for a round that no longer existed, because
+    the only test was `gameState.winner` and a reconnect never carries one.
+  */
+  const finished = !!gameState.winner || gameState.gameStatus === 'completed';
+  if (finished) {
+    const ranked = [...players].sort((a, b) => (b.score || 0) - (a.score || 0));
+    const champion = gameState.winner || ranked[0] || null;
+    const iWon = champion && String(champion._id) === String(myId);
+
+    return (
+      <MeadowLayout maxWidth="max-w-lg">
+        {iWon && <Confetti width={win.w} height={win.h} numberOfPieces={220} recycle={false} />}
+        <div className={`${card} text-center`}>
+          <div className="flex justify-center"><Rosette size={80} /></div>
+          <h1 style={fredokaStyle} className="text-3xl font-bold mt-2" >
+            {iWon ? 'You win!' : champion ? `${champion.username} wins` : 'Game over'}
+          </h1>
+          {champion && (
+            <p className="mt-1 text-lg" style={{ color: '#4A2D1B' }}>
+              with <span className="font-bold" style={{ color: GREEN }}>{champion.score}</span> points
+            </p>
+          )}
+
+          <Scores players={players} pinkCowHolder={gameState.pinkCowHolder} myId={myId} />
+
+          <AdSlot slot={GAMEOVER_AD_SLOT} format="auto" className="my-4" />
+
+          <button
+            type="button"
+            onClick={handleLeaveGame}
+            style={{ background: PINK, ...fredokaStyle }}
+            className="mt-2 w-full py-3.5 rounded-2xl text-white font-bold text-lg"
+          >
+            Play again &rarr;
+          </button>
+          <Link to="/" className="mt-3 inline-block text-base underline" style={{ color: MUTED }}>
+            Back to all games
+          </Link>
+        </div>
+        <Toast {...(toast || {})} onClose={() => setToast(null)} />
+      </MeadowLayout>
+    );
+  }
+
+  /* ── Lobby ─────────────────────────────────────────────────────────────── */
+  if (gameState.gameStatus === 'waiting') {
+    const enough = livePlayers.length >= 2;
+    return (
+      <MeadowLayout maxWidth="max-w-lg">
+        <div className={card}>
+          <h1 style={fredokaStyle} className="text-3xl font-bold text-center mb-1">Herd Mentality</h1>
+          <p className="text-center text-base mb-4" style={{ color: MUTED }}>Think like the herd, not like yourself.</p>
+
+          <LobbyInvite
+            gamePath="game"
+            roomCode={roomCode}
+            gameName="Herd Mentality"
+            playerCount={livePlayers.length}
+            minPlayers={2}
+            inviteUrl={`${window.location.origin}/?join=${roomCode}`}
+          />
+
+          <div className="mt-4 rounded-2xl border-2 p-3.5" style={{ background: '#FFF6E9', borderColor: AMBER, color: '#6B4226' }}>
+            <p className="font-bold" style={fredokaStyle}>How it works</p>
+            <p className="text-base mt-1 leading-relaxed">
+              Everyone answers the same question. Score a point if your answer matches
+              most of the herd. Give the <strong>only</strong> odd answer and you are landed
+              with the pink cow &mdash; and you cannot win while you are holding it.
+              First to {WIN_SCORE} takes it.
+            </p>
           </div>
 
-          {/* Primary invite action — one tap to bring friends in (the create→start
-              drop-off was driven by the manual code-copy handoff). */}
-          <button
-            onClick={handleShareInvite}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold shadow-md transition-colors"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-            {linkCopied ? 'Invite link copied!' : 'Invite friends'}
-          </button>
-          <p className="text-sm text-gray-500">Shares a link that opens straight to this room — friends just enter their name.</p>
+          <div className="mt-4">
+            <p className="text-sm font-semibold mb-1.5" style={{ color: MUTED }}>
+              In the room ({livePlayers.length})
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {players.map((p) => (
+                <span
+                  key={p._id}
+                  className={`px-3 py-1.5 rounded-full text-base font-semibold ${
+                    p.isConnected === false ? 'bg-gray-100 text-gray-400' : 'bg-[#FFE8C8] text-[#2D1810]'
+                  }`}
+                >
+                  {p.username}{p.isHost ? ' · host' : ''}{String(p._id) === String(myId) ? ' (you)' : ''}
+                </span>
+              ))}
+            </div>
+          </div>
 
           {/*
             Say WHO everyone is waiting for.
@@ -343,406 +568,489 @@ const GameRoom = () => {
             931 of 2,733 rooms in the last 30 days were created and never
             started. This is the cheapest thing that could move that number.
           */}
-          {gameState.isHost ? (
-            <p className="text-gray-700 font-medium">
-              {gameState.players.length < 2
-                ? 'Share the code above — you need one more player to start.'
-                : "Everyone in? You're the host, so it's your call to start."}
-            </p>
-          ) : (
-            <p className="text-gray-700 font-medium">
-              {hostName ? `Waiting for ${hostName} to start the game…` : 'Waiting for the host to start the game…'}
-            </p>
-          )}
-          {gameState.isHost && (
-            <button
-              className="btn btn-primary"
-              onClick={handleStartGame}
-              disabled={gameState.players.length < 2}
-            >
-              {gameState.players.length < 2 ? 'Need at least 2 players' : 'Start Game'}
-            </button>
-          )}
-          <AdSlot slot={LOBBY_AD_SLOT} format="auto" className="my-2" />
-
-          <div className="mt-4">
-            <p className="text-base text-gray-500 mb-2">Players in room:</p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {gameState.players.map((player) => (
-                <div
-                  key={player._id}
-                  className="bg-purple-50 px-3 py-1 rounded-full text-purple-700 text-base"
-                >
-                  {player.username} {player._id === gameState.hostId && '(Host)'}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    if (gameState.roundResults) {
-      /*
-        Who scored is read from `scoringPlayers` — the server's own list of
-        player IDs — not by comparing text.
-
-        The old check was `answer.answer.toLowerCase() === majorityAnswer.toLowerCase()`,
-        which compares what the player TYPED against the NORMALISED herd answer.
-        Normalisation strips plurals and punctuation, so anyone who typed
-        "Chips" when the herd answer was "chip" was shown "Unique" and "0"
-        while the server had already given them the point. The badge disagreed
-        with the score, on the one screen where players check whether they
-        matched.
-
-        `majorityAnswers` is new; older payloads only have `majorityAnswer`, so
-        fall back to it rather than showing nothing to a client mid-deploy.
-      */
-      const rr = gameState.roundResults;
-      const herds = rr.majorityAnswers?.length
-        ? rr.majorityAnswers
-        : (rr.majorityAnswer ? [rr.majorityAnswer] : []);
-      const scored = new Set((rr.scoringPlayers || []).map(String));
-
-      /*
-        The game is over except it cannot end.
-
-        You win on 8 points AND not holding the cow, and the cow only moves on
-        a round with exactly one odd answer. So a leader who takes the cow at 8
-        is stuck there until such a round happens, which in an agreeable group
-        may be never — room RK6J7L played 34 rounds in this state.
-
-        Nothing on screen said so. The host saw an ordinary Next Round button
-        and no reason to press anything else, and the player on 8 just kept not
-        winning. Say it outright, to everyone, and put the fix next to it.
-      */
-      const cowBlocked = gameState.gameStatus === 'in-progress'
-        ? (gameState.players || []).find(
-            (p) => String(p._id) === String(gameState.pinkCowHolder || '') && (p.score || 0) >= 8
-          )
-        : null;
-
-      return (
-        <div className="space-y-6">
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl font-semibold">Round {gameState.currentRound} Results</h2>
-            <p className="text-lg text-gray-600">Question: "{gameState.currentQuestion}"</p>
-            {/* A tie between two or more herds is not "no result" — everyone in
-                a tied herd scores. Saying "no majority answer" while quietly
-                awarding points would be the same confusion from the other side. */}
-            <div className="inline-block px-4 py-2 bg-green-100 rounded-lg">
-              <p className="text-lg">
-                {herds.length === 1 ? (
-                  <>
-                    Majority Answer: <span className="font-bold text-green-700">{herds[0]}</span>
-                  </>
-                ) : herds.length > 1 ? (
-                  <>
-                    It's a tie — <span className="font-bold text-green-700">{listHerds(herds)}</span>{' '}
-                    {herds.length === 2 ? 'both score' : 'all score'}
-                  </>
-                ) : (
-                  <span className="text-yellow-700">Everyone said something different — no points this round</span>
-                )}
+          <div className="mt-5">
+            {hostGone && !gameState.isHost && (
+              <p className="mb-2 text-base font-semibold rounded-2xl border-2 px-3 py-2"
+                 style={{ background: '#FFF6E9', borderColor: AMBER, color: '#6B4226' }}>
+                {hostName} has dropped out &mdash; anyone can start now.
               </p>
-            </div>
+            )}
+            {iCanHost ? (
+              <>
+                <p className="text-center font-semibold mb-2" style={{ color: '#4A2D1B' }}>
+                  {enough ? 'Everyone in? It is your call to start.' : 'You need one more player to start.'}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => send('start_game')}
+                  disabled={!enough}
+                  style={{ background: GREEN, ...fredokaStyle }}
+                  className="w-full py-3.5 rounded-2xl text-white font-bold text-lg disabled:opacity-40"
+                >
+                  {enough ? 'Start game →' : 'Need 1 more player'}
+                </button>
+              </>
+            ) : (
+              <p className="text-center font-semibold" style={{ color: '#4A2D1B' }}>
+                {hostName ? `Waiting for ${hostName} to start the game…` : 'Waiting for the host to start the game…'}
+              </p>
+            )}
+          </div>
+
+          <AdSlot slot={LOBBY_AD_SLOT} format="auto" className="my-4" />
+
+          <button type="button" onClick={handleLeaveGame} className="mt-1 block mx-auto text-base" style={{ color: MUTED }}>
+            Leave room
+          </button>
+        </div>
+        <Toast {...(toast || {})} onClose={() => setToast(null)} />
+      </MeadowLayout>
+    );
+  }
+
+  /* ── Results ───────────────────────────────────────────────────────────── */
+  if (gameState.roundResults) {
+    /*
+      Who scored is read from `scoringPlayers` — the server's own list of player
+      IDs — not by comparing text. The old check compared what the player TYPED
+      against the NORMALISED herd answer, so anyone who typed "Chips" when the
+      herd answer was "chip" was shown "Unique" and "0" while the server had
+      already given them the point.
+    */
+    const rr = gameState.roundResults;
+    /*
+      `majorityLabels` is the herd as somebody in this room actually spelled it;
+      `majorityAnswers` is the normalised key it is counted under. Printing the
+      key put "The herd said cheesesandwich" on the biggest text on the page.
+      Fall back through both, because a client can be mid-deploy against a
+      server that has not sent labels yet.
+    */
+    const herds = rr.majorityLabels?.length
+      ? rr.majorityLabels
+      : (rr.majorityAnswers?.length ? rr.majorityAnswers : (rr.majorityAnswer ? [rr.majorityAnswer] : []));
+    const scored = new Set((rr.scoringPlayers || []).map(String));
+    const allAnswers = rr.allAnswers || [];
+    // Who sat this one out. Their absence from the list below otherwise reads
+    // as the game having lost their answer.
+    const answeredIds = new Set(allAnswers.map((a) => String(a.playerId)));
+    const missed = players.filter((p) => !answeredIds.has(String(p._id)));
+
+    /*
+      The game is over except it cannot end.
+
+      You win on 8 points AND not holding the cow, and the cow only moves on a
+      round with exactly one odd answer. So a leader who takes the cow at 8 is
+      stuck there until such a round happens, which in an agreeable group may be
+      never — room RK6J7L played 34 rounds in this state.
+    */
+    const cowBlocked = gameState.gameStatus === 'in-progress'
+      ? players.find((p) => String(p._id) === String(gameState.pinkCowHolder || '') && (p.score || 0) >= WIN_SCORE)
+      : null;
+
+    const canAdvance = iCanHost || nextRoundUnlocked;
+
+    return (
+      <MeadowLayout maxWidth="max-w-lg">
+        <div className={card}>
+          <p className="text-sm font-semibold text-center" style={{ color: MUTED }}>Round {gameState.currentRound}</p>
+          <p className="text-lg text-center mt-1 leading-snug" style={{ color: '#4A2D1B' }}>
+            &ldquo;{gameState.currentQuestion}&rdquo;
+          </p>
+
+          {/* A tie between two or more herds is not "no result" — everyone in a
+              tied herd scores. Saying "no majority answer" while quietly
+              awarding points would be the same confusion from the other side. */}
+          <div className="mt-3 rounded-2xl border-2 p-4 text-center"
+               style={herds.length
+                 ? { background: '#EAF6EE', borderColor: GREEN }
+                 : { background: '#FFF6E9', borderColor: AMBER }}>
+            {herds.length === 1 ? (
+              <>
+                <p className="text-base font-semibold" style={{ color: '#2D6E45' }}>The herd said</p>
+                <p style={fredokaStyle} className="text-3xl font-bold break-words" >{herds[0]}</p>
+              </>
+            ) : herds.length > 1 ? (
+              <p className="text-lg" style={{ color: '#2D6E45' }}>
+                It&rsquo;s a tie &mdash; <span className="font-bold">{listHerds(herds)}</span>{' '}
+                {herds.length === 2 ? 'both score' : 'all score'}
+              </p>
+            ) : allAnswers.length === 0 ? (
+              <p className="text-lg font-semibold" style={{ color: '#6B4226' }}>
+                Nobody answered this one &mdash; no points.
+              </p>
+            ) : (
+              <p className="text-lg font-semibold" style={{ color: '#6B4226' }}>
+                Everyone said something different &mdash; no points this round.
+              </p>
+            )}
           </div>
 
           {cowBlocked && (
-            <div className="border-2 border-pink-300 bg-pink-50 rounded-xl p-4 space-y-3 text-center">
-              <p className="text-lg text-pink-900">
-                <span className="font-semibold">{cowBlocked.username}</span> has{' '}
-                {cowBlocked.score} points and is holding the pink cow 🐄, so the game
-                can't end.
+            <div className="mt-4 rounded-2xl border-2 p-4 space-y-3 text-center"
+                 style={{ background: '#FFF1F5', borderColor: PINK }}>
+              <div className="flex justify-center"><PinkCowIcon size={40} /></div>
+              <p className="text-lg" style={{ color: '#8A2F55' }}>
+                <span className="font-bold">{cowBlocked.username}</span> has {cowBlocked.score} points and is
+                holding the pink cow, so the game can&rsquo;t end.
               </p>
-              {gameState.isHost ? (
+              {iCanHost ? (
                 <>
-                  <p className="text-base text-pink-800">
+                  <p className="text-base" style={{ color: '#8A2F55' }}>
                     Pass the cow to someone else and {cowBlocked.username} wins.
                   </p>
-                  {renderCowPicker()}
+                  <CowPicker players={players} pinkCowHolder={gameState.pinkCowHolder}
+                             onMove={(id) => send('move_pink_cow', { playerId: id || null })} />
                 </>
               ) : (
-                <p className="text-base text-pink-800">
-                  {hostName
-                    ? `${hostName} can move the cow to end it, or keep playing until someone gives the only odd answer.`
-                    : 'The host can move the cow to end it, or keep playing until someone gives the only odd answer.'}
+                <p className="text-base" style={{ color: '#8A2F55' }}>
+                  {hostName ? `${hostName} can move the cow to end it` : 'The host can move the cow to end it'},
+                  {' '}or keep playing until someone gives the only odd answer.
                 </p>
               )}
             </div>
           )}
 
-          <AdSlot
-            key={`round-ad-${gameState.currentRound}`}
-            slot={ROUND_AD_SLOT}
-            format="auto"
-            className="my-2"
-          />
+          <AdSlot key={`round-ad-${gameState.currentRound}`} slot={ROUND_AD_SLOT} format="auto" className="my-4" />
 
-          <div className="space-y-3">
-            <h3 className="text-lg font-medium">Player Answers:</h3>
-            {gameState.isHost && gameState.gameStatus === 'in-progress' && (
-              <div className="flex justify-end">
+          <div className="mt-4">
+            {/* Stacked, not side by side: at 390px the heading wrapped to two
+                lines and the host link wrapped to two lines and they collided
+                into a four-line tangle. */}
+            <div className="mb-2">
+              <h2 style={fredokaStyle} className="text-lg font-bold">What everyone said</h2>
+              {iCanHost && gameState.gameStatus === 'in-progress' && (
                 <button
-                  onClick={() => setShowAdjust(s => !s)}
-                  className="text-base text-gray-500 hover:text-purple-600 underline-offset-2 hover:underline transition-colors"
-                  title="Adjust scores for typos or synonyms, or move the pink cow"
+                  type="button"
+                  onClick={() => setShowAdjust((s) => !s)}
+                  className="mt-0.5 inline-flex items-center gap-1 text-base hover:underline"
+                  style={{ color: MUTED }}
                 >
-                  {/* The old label was "Dispute scores?", which gave no hint
-                      that the cow lives in here too. */}
+                  <FiSliders size={15} />
                   {showAdjust ? 'Hide host controls' : 'Fix scores or move the cow'}
                 </button>
-              </div>
-            )}
-            {showAdjust && gameState.isHost && gameState.gameStatus === 'in-progress' && (
-              <div className="space-y-3 border border-gray-200 rounded-xl p-3 bg-gray-50">
-                <p className="text-base text-gray-600">
-                  Tap a player's <span className="text-green-700 font-medium">+</span> to award a point (a typo of the herd answer) or <span className="text-red-700 font-medium">−</span> to remove one.
+              )}
+            </div>
+
+            {showAdjust && iCanHost && gameState.gameStatus === 'in-progress' && (
+              <div className="mb-3 space-y-3 rounded-2xl border-2 p-3" style={{ background: '#FFF6E9', borderColor: AMBER }}>
+                <p className="text-base" style={{ color: '#6B4226' }}>
+                  Tap a player&rsquo;s <span className="font-bold" style={{ color: GREEN }}>+</span> to award a point
+                  (a typo of the herd answer) or <span className="font-bold" style={{ color: '#B03A30' }}>&minus;</span> to remove one.
                 </p>
                 {/* Only one picker on screen. When the game is cow-locked the
-                    callout above is already showing this, and two identical
-                    rows of names is a question about which one is the real one. */}
+                    callout above is already showing this, and two identical rows
+                    of names is a question about which one is the real one. */}
                 {!cowBlocked && (
-                  <div className="space-y-2">
-                    <p className="text-base text-gray-600">
-                      Pink cow 🐄 — it moves on its own to whoever gives the only odd answer, but you can hand it to anyone.
+                  <>
+                    <p className="text-base" style={{ color: '#6B4226' }}>
+                      The pink cow moves on its own to whoever gives the only odd answer &mdash; but you can hand it to anyone.
                     </p>
-                    {renderCowPicker()}
-                  </div>
+                    <CowPicker players={players} pinkCowHolder={gameState.pinkCowHolder}
+                               onMove={(id) => send('move_pink_cow', { playerId: id || null })} />
+                  </>
                 )}
               </div>
             )}
-            <div className="grid gap-3">
-              {gameState.roundResults.allAnswers.map((answer, index) => {
-                const player = gameState.players.find(p => p._id === answer.playerId);
-                const isInHerd = scored.has(String(answer.playerId));
-                const scoreChange = isInHerd ? '+1' : '0';
-                
+
+            <div className="space-y-2">
+              {allAnswers.map((a, i) => {
+                const player = players.find((p) => String(p._id) === String(a.playerId));
+                const inHerd = scored.has(String(a.playerId));
                 return (
-                  <div key={index} className="flex flex-wrap justify-between items-center gap-x-3 gap-y-2 p-2 bg-white rounded-md shadow-sm mb-2">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="font-medium truncate">{answer.username}</span>
-                      {gameState.pinkCowHolder === answer.playerId && <span title="Pink Cow Holder">🐄</span>}
-                      {/* Without whitespace-nowrap "In Herd" wraps to two lines
-                          inside a rounded-full pill, which renders as a green
-                          circle with the words stacked in it. */}
-                      <span className={`text-base px-2 py-1 rounded-full whitespace-nowrap shrink-0 ${
-                        herds.length
-                          ? isInHerd ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
-                          : 'bg-yellow-200 text-yellow-800'
-                      }`}>
-                        {herds.length ? (isInHerd ? 'In Herd' : 'Unique') : 'No match'}
+                  <div key={i} className="rounded-2xl px-3 py-2.5" style={{ background: inHerd ? '#EAF6EE' : '#FFF6E9' }}>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="flex items-center gap-1.5 min-w-0">
+                        <span className="font-semibold truncate" style={{ color: INK }}>{a.username}</span>
+                        {String(gameState.pinkCowHolder) === String(a.playerId) && <PinkCowIcon size={16} />}
+                      </span>
+                      <span className="flex items-center gap-2 shrink-0">
+                        <span
+                          className="text-sm px-2 py-0.5 rounded-full font-semibold whitespace-nowrap"
+                          style={herds.length
+                            ? (inHerd ? { background: '#CFEBDA', color: '#245C3C' } : { background: '#FFE0E8', color: '#8A2F55' })
+                            : { background: '#FFE8C8', color: '#6B4226' }}
+                        >
+                          {herds.length ? (inHerd ? 'In the herd +1' : 'Odd one out') : 'No match'}
+                        </span>
+                        <span className="text-base font-bold tabular-nums" style={{ color: MUTED }}>
+                          {player?.score ?? 0}
+                        </span>
+                        {showAdjust && iCanHost && gameState.gameStatus === 'in-progress' && (
+                          <span className="flex items-center rounded-full overflow-hidden border-2 border-[#FFE8C8] bg-white">
+                            <button
+                              type="button"
+                              onClick={() => send('adjust_score', { playerId: a.playerId, delta: -1 })}
+                              className="w-8 h-7 flex items-center justify-center text-lg font-bold leading-none"
+                              style={{ color: '#B03A30' }}
+                              aria-label={`Remove a point from ${a.username}`}
+                            >
+                              &minus;
+                            </button>
+                            <span className="w-px h-5 bg-[#FFE8C8]" />
+                            <button
+                              type="button"
+                              onClick={() => send('adjust_score', { playerId: a.playerId, delta: 1 })}
+                              className="w-8 h-7 flex items-center justify-center text-lg font-bold leading-none"
+                              style={{ color: GREEN }}
+                              aria-label={`Award a point to ${a.username}`}
+                            >
+                              +
+                            </button>
+                          </span>
+                        )}
                       </span>
                     </div>
-                    <div className="flex items-center gap-3 ml-auto">
-                      {/* Not truncated — the answer is the thing people came to
-                          this screen to read. It wraps instead. */}
-                      <span className="text-gray-600 break-words">"{answer.answer || ''}"</span>
-                      <span className="text-base whitespace-nowrap">{player?.score || 0} ({scoreChange})</span>
-                      {showAdjust && gameState.isHost && gameState.gameStatus === 'in-progress' && (
-                        <span className="flex items-center ml-2 border border-gray-200 rounded-full overflow-hidden bg-gray-50">
-                          <button
-                            onClick={() => socket.emit('adjust_score', { gameId: gameState.gameId, playerId: answer.playerId, delta: -1 })}
-                            className="w-8 h-7 flex items-center justify-center text-red-600 hover:bg-red-50 text-lg font-semibold leading-none"
-                            title="Remove a point"
-                            aria-label="Remove a point"
-                          >
-                            −
-                          </button>
-                          <span className="w-px h-5 bg-gray-200" />
-                          <button
-                            onClick={() => socket.emit('adjust_score', { gameId: gameState.gameId, playerId: answer.playerId, delta: 1 })}
-                            className="w-8 h-7 flex items-center justify-center text-green-600 hover:bg-green-50 text-lg font-semibold leading-none"
-                            title="Award a point"
-                            aria-label="Award a point"
-                          >
-                            +
-                          </button>
-                        </span>
-                      )}
-                    </div>
+                    {/* Not truncated — the answer is the thing people came to
+                        this screen to read. It wraps instead. */}
+                    <p className="mt-0.5 break-words" style={{ color: '#4A2D1B' }}>&ldquo;{a.answer || ''}&rdquo;</p>
                   </div>
                 );
               })}
-            </div>
-          </div>
 
-          {/* Same omission as the lobby: the host got a button and everyone
-              else got silence, so "How to go to next round" was a fair
-              question with no answer anywhere on the screen. */}
-          {gameState.gameStatus === 'in-progress' && (
-            <div className="text-center mt-6">
-              {gameState.isHost ? (
-                <button
-                  onClick={() => socket.emit('next_round', { gameId: gameState.gameId })}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Start Next Round
-                </button>
-              ) : (
-                <p className="text-gray-700 font-medium">
-                  {hostName ? `Waiting for ${hostName} to start the next round…` : 'Waiting for the host to start the next round…'}
+              {missed.length > 0 && (
+                <p className="pt-1 text-base" style={{ color: MUTED }}>
+                  {listNames(missed.map((p) => p.username))}
+                  {missed.length === 1 ? ' didn’t answer this one.' : ' didn’t answer this one.'}
                 </p>
               )}
             </div>
-          )}
-        </div>
-      );
-    }
-
-    return (
-      <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-center">
-          Round {gameState.currentRound}
-        </h2>
-        <p className="text-lg text-center">{gameState.currentQuestion}</p>
-        
-        <div className="w-full bg-gray-200 rounded-full h-2">
-          <div
-            className="bg-blue-600 h-2 rounded-full transition-all duration-500"
-            style={{
-              width: `${(gameState.playersAnswered / gameState.players.length) * 100}%`
-            }}
-          />
-        </div>
-        <p className="text-center">
-          {gameState.playersAnswered} of {gameState.players.length} players answered
-        </p>
-        
-        {!hasAnswered ? (
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              className="input flex-1"
-              placeholder="Your answer..."
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-            />
-            <button
-              className="btn btn-primary whitespace-nowrap"
-              onClick={handleSubmitAnswer}
-            >
-              Submit
-            </button>
           </div>
-        ) : (
-          <p className="text-center">Waiting for other players...</p>
-        )}
-      </div>
-    );
-  };
 
-  useEffect(() => {
-    // Reset the adjust-scores panel whenever the round changes
-    setShowAdjust(false);
-  }, [gameState.currentRound, gameState.roundResults]);
-
-  useEffect(() => {
-    // Clean up session when game completes
-    if (gameState.gameStatus === 'completed') {
-      localStorage.removeItem('gameSession');
-    }
-  }, [gameState.gameStatus]);
-
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-10">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Joining Game...</h1>
-          <p>Please wait while we connect you to the game.</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (gameState.winner) {
-    // Sort players by score in descending order
-    const sortedPlayers = [...gameState.players].sort((a, b) => b.score - a.score);
-
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-500 to-purple-600 flex items-center justify-center">
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          recycle={true}
-          numberOfPieces={200}
-        />
-        <div className="bg-white rounded-lg shadow-2xl p-8 m-4 max-w-sm w-full space-y-8 relative z-10">
-          <div className="text-center space-y-4">
-            <div className="text-6xl mb-4">🏆</div>
-            <h1 className="text-4xl font-bold text-gray-800">Game Over!</h1>
-            <div className="py-4">
-              <p className="text-xl font-semibold text-purple-600">
-                Congratulations!
-              </p>
-              <p className="text-2xl font-bold text-gray-800 mt-2">
-                {gameState.winner.username}
-              </p>
-              <p className="text-lg text-gray-600 mt-1">
-                wins with <span className="font-bold text-purple-600">{gameState.winner.score}</span> points!
-              </p>
-            </div>
-
-            <AdSlot slot={GAMEOVER_AD_SLOT} format="auto" className="my-2" />
-
-            {/* Final Scoreboard */}
-            <div className="mt-6 border-t border-gray-200 pt-6">
-              <h2 className="text-lg font-semibold text-gray-800 mb-4">Final Scores</h2>
-              <div className="space-y-2">
-                {sortedPlayers.map((player, index) => (
-                  <div 
-                    key={player._id}
-                    className={`flex justify-between items-center p-2 rounded ${
-                      player._id === gameState.winner._id ? 'bg-purple-100' : 'bg-gray-50'
-                    }`}
+          {/*
+            Same omission as the lobby: the host got a button and everyone else
+            got silence, so "How to go to next round" was a fair question with no
+            answer anywhere on the screen. Now everyone gets the button — the
+            host at once, the room after a minute — and the people who cannot
+            press it yet are told when they will be able to.
+          */}
+          {gameState.gameStatus === 'in-progress' && (
+            <div className="mt-5">
+              {canAdvance ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => send('next_round')}
+                    style={{ background: GREEN, ...fredokaStyle }}
+                    className="w-full py-3.5 rounded-2xl text-white font-bold text-lg"
                   >
-                    <div className="flex items-center space-x-2">
-                      <span className="text-gray-600">{index + 1}.</span>
-                      <span className={player._id === gameState.winner._id ? 'font-semibold' : ''}>
-                        {player.username}
-                      </span>
-                      {gameState.pinkCowHolder === player._id && (
-                        <span className="text-base">🐄</span>
-                      )}
-                    </div>
-                    <span className="font-semibold">
-                      {player.score} pts
-                    </span>
-                  </div>
-                ))}
-              </div>
+                    Next question &rarr;
+                  </button>
+                  {!gameState.isHost && (
+                    <p className="mt-2 text-center text-sm" style={{ color: MUTED }}>
+                      {hostGone
+                        ? `${hostName} has dropped out, so anyone can move it on.`
+                        : 'Everyone has waited long enough — anyone can move it on.'}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <div className="text-center">
+                  <p className="font-semibold" style={{ color: '#4A2D1B' }}>
+                    {hostName ? `Waiting for ${hostName} to start the next round…` : 'Waiting for the host…'}
+                  </p>
+                  {secondsToUnlock > 0 && (
+                    <p className="mt-1 text-sm" style={{ color: MUTED }}>
+                      You can start it yourself in {secondsToUnlock}s.
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
+          )}
 
-            <button
-              onClick={handleLeaveGame}
-              className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 text-white rounded-lg font-semibold shadow-lg hover:from-purple-700 hover:to-blue-600 transform hover:scale-105 transition-all duration-200"
-            >
-              Back to Home
-            </button>
-          </div>
+          <Scores players={players} pinkCowHolder={gameState.pinkCowHolder} myId={myId} />
+          <button type="button" onClick={handleLeaveGame} className="mt-4 block mx-auto text-base" style={{ color: MUTED }}>
+            Leave game
+          </button>
         </div>
-      </div>
+        <Toast {...(toast || {})} onClose={() => setToast(null)} />
+      </MeadowLayout>
     );
   }
+
+  /* ── Answering ─────────────────────────────────────────────────────────── */
+  /*
+    The screen from the incident. Everything below the answer box is new: who we
+    are waiting for by name, and a way past them that does not require the
+    person we are waiting for to come back.
+  */
+  const answeredCount = gameState.playersAnswered || 0;
+  const totalCount = gameState.totalPlayers || livePlayers.length || 1;
+  const canRevealNow = answeredCount > 0 && (iCanHost || answerWindowPassed);
+  const canSkip = iCanHost || answerWindowPassed;
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          {renderPlayerList()}
+    <MeadowLayout maxWidth="max-w-lg">
+      <div className={card}>
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-semibold" style={{ color: MUTED }}>Round {gameState.currentRound}</span>
+          <span className="text-sm font-semibold" style={{ color: MUTED }}>
+            {answeredCount} of {totalCount} answered
+          </span>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          {renderGameContent()}
-        </div>
-      </div>
 
-      {/* GameRoom does not use MeadowLayout, so it did not inherit the footer's
-          report link — the original Herd Mentality room was the one place a
-          stuck player had no way to tell us. */}
-      <div className="mt-6 text-center">
-        <ReportProblem />
+        <div className="w-full bg-[#FFE8C8] rounded-full h-2 overflow-hidden">
+          <div
+            className="h-2 rounded-full transition-all duration-500"
+            style={{ width: `${Math.min(100, (answeredCount / Math.max(1, totalCount)) * 100)}%`, background: GREEN }}
+          />
+        </div>
+
+        <div className="mt-4 rounded-2xl border-2 p-4 text-center" style={{ background: '#FFF6E9', borderColor: AMBER }}>
+          <p className="text-sm font-semibold" style={{ color: MUTED }}>Answer like the herd</p>
+          <p style={fredokaStyle} className="text-2xl font-bold mt-1 leading-snug break-words" >
+            {gameState.currentQuestion}
+          </p>
+        </div>
+
+        {!gameState.hasAnswered ? (
+          <form onSubmit={handleSubmitAnswer} className="mt-4">
+            <input
+              type="text"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              placeholder="Your answer…"
+              maxLength={80}
+              autoComplete="off"
+              aria-label="Your answer"
+              className="w-full px-4 py-3 rounded-xl border-2 border-[#FFE8C8] focus:border-[#3D8B5A] outline-none bg-[#FFFDF8]"
+              style={{ color: INK }}
+            />
+            <p className="mt-1 text-sm" style={{ color: MUTED }}>
+              A word or two. Everyone&rsquo;s answers stay hidden until the round ends.
+            </p>
+            <button
+              type="submit"
+              disabled={!answer.trim()}
+              style={{ background: PINK, ...fredokaStyle }}
+              className="mt-2 w-full py-3.5 rounded-2xl text-white font-bold text-lg disabled:opacity-40"
+            >
+              Lock in my answer
+            </button>
+          </form>
+        ) : (
+          <div className="mt-4 rounded-2xl border-2 p-4 text-center" style={{ background: '#EAF6EE', borderColor: GREEN }}>
+            <p className="inline-flex items-center gap-1.5 text-base font-semibold" style={{ color: '#245C3C' }}>
+              <FiCheck /> Your answer is in
+            </p>
+            {/* Showing it back matters: this used to replace the answer with the
+                word "Waiting", so by the time the results came up nobody could
+                remember what they had put. */}
+            {myAnswer && (
+              <p style={fredokaStyle} className="text-2xl font-bold mt-1 break-words" >&ldquo;{myAnswer}&rdquo;</p>
+            )}
+          </div>
+        )}
+
+        {/*
+          WHO. The whole point.
+
+          "Waiting for other players…" was the entire previous content of this
+          region, and it is what room S1DQVW stared at while three of its players
+          wrote in. A name turns a dead screen into something a room can act on:
+          somebody shouts across the table, or presses the button below.
+        */}
+        <div className="mt-4" role="status" aria-live="polite">
+          {waitingFor.length === 0 ? (
+            // Only true when the last answer really has landed. Saying it while
+            // nobody has answered would be a lie told at exactly the moment the
+            // player most needs the truth.
+            <p className="text-center font-semibold" style={{ color: '#4A2D1B' }}>
+              {answeredCount > 0 ? 'That’s everyone — scoring the round…' : 'Getting the round ready…'}
+            </p>
+          ) : (
+            <>
+              <p className="text-center font-semibold" style={{ color: '#4A2D1B' }}>
+                {iAmAwaited && waitingFor.length === 1
+                  ? 'Everyone is waiting for you.'
+                  : `Waiting for ${listNames(waitingNames)}…`}
+              </p>
+              {/*
+                The third question — "what can I do about it?" — answered for
+                the person who cannot do anything yet. Without this line a
+                non-host reads a name, finds no button, and is back to staring
+                at a screen that will not change. Now they know who can move it
+                and exactly when it stops being only that person's call.
+              */}
+              {!iAmAwaited && !iCanHost && !answerWindowPassed && secondsToReveal > 0 && (
+                <p className="mt-1 text-center text-sm" style={{ color: MUTED }}>
+                  {hostName ? `${hostName} can reveal without them` : 'The host can reveal early'}
+                  {' '}&mdash; or anyone can in {secondsToReveal}s.
+                </p>
+              )}
+              <div className="mt-2 flex flex-wrap justify-center gap-1.5">
+                {livePlayers.map((p) => {
+                  const done = !waitingFor.some((w) => String(w.id) === String(p._id));
+                  return (
+                    <span
+                      key={p._id}
+                      className="px-2.5 py-1 rounded-full text-sm font-semibold inline-flex items-center gap-1"
+                      style={done ? { background: '#CFEBDA', color: '#245C3C' } : { background: '#FFF6E9', color: MUTED }}
+                    >
+                      {done && <FiCheck size={12} />}
+                      {p.username}
+                    </span>
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </div>
+
+        {/*
+          The way out.
+
+          The host can always cut a round short once there is something to show.
+          Once the answer window has passed ANYONE can, because the person who
+          has wandered off is very often the host — that was literally the second
+          of the three reports from room S1DQVW ("Host is bad").
+        */}
+        {waitingFor.length > 0 && (canRevealNow || canSkip) && (
+          <div className="mt-4 rounded-2xl border-2 p-3" style={{ background: '#FFF6E9', borderColor: AMBER }}>
+            {!iCanHost && answerWindowPassed && (
+              <p className="text-sm mb-2" style={{ color: '#6B4226' }}>
+                {hostName ? `${hostName} hasn't moved this on` : 'Nobody has moved this on'} &mdash; so now anyone can.
+              </p>
+            )}
+            {canRevealNow && (
+              <button
+                type="button"
+                onClick={() => send('reveal_now')}
+                className="w-full rounded-xl border-2 bg-white py-2.5 font-bold inline-flex items-center justify-center gap-2"
+                style={{ borderColor: PINK, color: PINK, ...fredokaStyle }}
+              >
+                <FiEye />
+                {othersAwaited.length ? `Reveal without ${listNames(othersAwaited)}` : 'Reveal the answers now'}
+              </button>
+            )}
+            {canSkip && (
+              <button
+                type="button"
+                onClick={() => send('skip_question')}
+                className="mt-2 w-full inline-flex items-center justify-center gap-1.5 text-base"
+                style={{ color: MUTED }}
+              >
+                <FiSkipForward size={15} />
+                Skip this question instead
+              </button>
+            )}
+          </div>
+        )}
+
+        {hostGone && (
+          <p className="mt-3 text-center text-sm" style={{ color: MUTED }}>
+            {hostName} has dropped out. You can carry on without them.
+          </p>
+        )}
+
+        <Scores players={players} pinkCowHolder={gameState.pinkCowHolder} myId={myId} />
+
+        <button type="button" onClick={handleLeaveGame} className="mt-4 block mx-auto text-base" style={{ color: MUTED }}>
+          Leave game
+        </button>
       </div>
-    </div>
+      <Toast {...(toast || {})} onClose={() => setToast(null)} />
+    </MeadowLayout>
   );
 };
 

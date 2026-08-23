@@ -25,11 +25,17 @@ export default function LobbyInvite({
   playerCount = 1,
   minPlayers = 2,
   accent = '#E84A8B',
+  // Override for a game whose room URL is not /<gamePath>/room/<code>. The
+  // original Herd Mentality room lives at /game/<code> and, unlike every engine
+  // game, that route cannot take a first-time visitor — it has no join form, so
+  // a stranger who opens it is bounced to the home page. Its invites go to
+  // /?join=<code>, which does have one.
+  inviteUrl = null,
 }) {
   const [copied, setCopied] = useState(false);
   const [codeCopied, setCodeCopied] = useState(false);
 
-  const url = `https://herdgamesonline.com/${gamePath}/room/${roomCode}`;
+  const url = inviteUrl || `https://herdgamesonline.com/${gamePath}/room/${roomCode}`;
   const needed = Math.max(0, minPlayers - playerCount);
   const ready = needed === 0;
 
