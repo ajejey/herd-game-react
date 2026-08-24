@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useSpectrum } from '../../hooks/useSpectrum';
+import { nameOf } from '../../lib/playerName';
 
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
@@ -125,11 +126,11 @@ export default function SpectrumRoom() {
 
   const phase = state.phase;
   const amGiver = round?.youAreClueGiver;
-  const giverName = players.find((p) => p.id === round?.clueGiverId)?.username;
+  const giverName = nameOf(players, round?.clueGiverId);
   const myGuessed = round?.guesses?.find((g) => g.playerId === myId);
   const finished = state.status === 'finished';
   const iWon = finished && state.winner?.id === myId;
-  const resultGuesses = phase === 'result' ? round.result?.scored?.map((g) => ({ ...g, username: players.find((p) => p.id === g.playerId)?.username })) : [];
+  const resultGuesses = phase === 'result' ? round.result?.scored?.map((g) => ({ ...g, username: nameOf(players, g.playerId) })) : [];
 
   return (
     <MeadowLayout maxWidth="max-w-xl">

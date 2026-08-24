@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useTwoTruths } from '../../hooks/useTwoTruths';
+import { nameOf, DEPARTED } from '../../lib/playerName';
 
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
@@ -100,7 +101,7 @@ export default function TwoTruthsRoom() {
   const phase = state.phase;
   const finished = state.status === 'finished';
   const current = state.current;
-  const subjectName = current ? players.find((p) => p.id === current.subjectId)?.username : null;
+  const subjectName = nameOf(players, current?.subjectId);
   const amSubject = current?.youAreSubject;
   const myGuess = current?.guesses?.find((g) => g.voterId === myId);
   const iWon = finished && state.winner?.id === myId;
@@ -158,7 +159,12 @@ export default function TwoTruthsRoom() {
     <MeadowLayout maxWidth="max-w-xl">
       <div className="bg-white rounded-3xl border-4 border-[#FFE8C8] p-5 md:p-7">
         <p className="text-center text-base text-[#8B6347] mb-1">Player {state.subjectIndex + 1} of {state.subjects.length}</p>
-        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] text-center mb-1">{subjectName}’s statements</h2>
+        {/* The possessive is the one place the fallback cannot just be dropped
+            in — "Someone who left’s statements" reads badly enough to look
+            like a different bug — so this heading says it the other way. */}
+        <h2 style={fredokaStyle} className="text-2xl font-bold text-[#2D1810] text-center mb-1">
+          {subjectName === DEPARTED ? 'Statements from someone who left' : `${subjectName}’s statements`}
+        </h2>
         <p className="text-center text-[#4A2D1B] mb-4">
           {phase === 'reveal' ? 'Here’s the lie…' : amSubject ? 'The group is guessing your lie…' : 'Which one is the lie?'}
         </p>

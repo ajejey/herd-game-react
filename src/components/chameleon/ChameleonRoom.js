@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useChameleon } from '../../hooks/useChameleon';
+import { nameOf } from '../../lib/playerName';
 
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
@@ -126,7 +127,7 @@ export default function ChameleonRoom() {
   const myClue = round?.clues?.find((c) => c.playerId === myId);
   const myVote = round?.votes?.find((v) => v.voterId === myId);
   const result = round?.result;
-  const chameleonName = round?.chameleonId ? players.find((p) => p.id === round.chameleonId)?.username : null;
+  const chameleonName = nameOf(players, round?.chameleonId);
   const iWon = finished && state.winner?.id === myId;
 
   return (
@@ -210,7 +211,7 @@ export default function ChameleonRoom() {
               {result?.reason === 'caught' && `🎉 The players win!`}
             </h2>
             <p className="text-[#4A2D1B] mt-1">
-              The Chameleon was <strong>{chameleonName}</strong>. The word was <strong>{round.words[round.secretIndex]}</strong>.
+              The Chameleon was <strong>{chameleonName}</strong>. The word was <strong>{round?.words?.[round.secretIndex] || 'never revealed'}</strong>.
             </p>
             <Leaderboard players={players} myId={myId} />
             {finished ? (

@@ -572,7 +572,7 @@ const GameRoom = () => {
             {hostGone && !gameState.isHost && (
               <p className="mb-2 text-base font-semibold rounded-2xl border-2 px-3 py-2"
                  style={{ background: '#FFF6E9', borderColor: AMBER, color: '#6B4226' }}>
-                {hostName} has dropped out &mdash; anyone can start now.
+                {hostName || 'The host'} has dropped out &mdash; anyone can start now.
               </p>
             )}
             {iCanHost ? (
@@ -838,7 +838,7 @@ const GameRoom = () => {
                   {!gameState.isHost && (
                     <p className="mt-2 text-center text-sm" style={{ color: MUTED }}>
                       {hostGone
-                        ? `${hostName} has dropped out, so anyone can move it on.`
+                        ? `${hostName || 'The host'} has dropped out, so anyone can move it on.`
                         : 'Everyone has waited long enough — anyone can move it on.'}
                     </p>
                   )}
@@ -1039,7 +1039,7 @@ const GameRoom = () => {
 
         {hostGone && (
           <p className="mt-3 text-center text-sm" style={{ color: MUTED }}>
-            {hostName} has dropped out. You can carry on without them.
+            {hostName || 'The host'} has dropped out. You can carry on without them.
           </p>
         )}
 
