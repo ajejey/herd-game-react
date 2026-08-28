@@ -5,6 +5,7 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useTwoTruths } from '../../hooks/useTwoTruths';
 import { nameOf, DEPARTED } from '../../lib/playerName';
+import PlayAgain from '../common/PlayAgain';
 
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
@@ -27,7 +28,7 @@ function Leaderboard({ players, myId }) {
 export default function TwoTruthsRoom() {
   const { roomCode: codeParam } = useParams();
   const game = useTwoTruths();
-  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, leaveGame } = game;
+  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, playAgain, leaveGame } = game;
   const [name, setName] = useState('');
   const [stmts, setStmts] = useState(['', '', '']);
   const [lie, setLie] = useState(0);
@@ -146,8 +147,8 @@ export default function TwoTruthsRoom() {
           <h2 style={fredokaStyle} className="text-3xl font-bold text-[#2D1810]">🏆 {state.winner?.username} wins!</h2>
           <p className="text-[#4A2D1B] mt-1">Final scores</p>
           <Leaderboard players={players} myId={myId} />
-          <Link to="/two-truths-and-a-lie" onClick={leaveGame} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
-            className="mt-5 inline-block px-6 py-3 rounded-2xl text-white font-bold">New game</Link>
+          <PlayAgain players={players} hostId={state.hostId} isHost={isHost}
+                  onPlayAgain={playAgain} onLeave={leaveGame} backTo="/two-truths-and-a-lie" />
         </div>
       </MeadowLayout>
     );

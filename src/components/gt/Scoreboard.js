@@ -2,8 +2,9 @@ import React from 'react';
 import { fredokaStyle } from '../MeadowLayout';
 import { TrophyIcon } from './icons/Icons';
 import AdSlot from '../AdSlot';
+import PlayAgain from '../common/PlayAgain';
 
-export default function Scoreboard({ state, myId, onLeave }) {
+export default function Scoreboard({ state, myId, onLeave, onPlayAgain, isHost }) {
   const sorted = [...state.players].sort((a, b) => b.score - a.score);
   const winner = state.winner ?? sorted[0];
 
@@ -40,13 +41,8 @@ export default function Scoreboard({ state, myId, onLeave }) {
         <AdSlot slot="9390003532" />
       </div>
 
-      <button
-        onClick={onLeave}
-        className="w-full py-4 rounded-2xl font-bold text-white text-xl"
-        style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
-      >
-        Play again
-      </button>
+      <PlayAgain players={state.players || []} hostId={state.hostId} isHost={isHost}
+        onPlayAgain={onPlayAgain} onLeave={onLeave} backTo="/" className="text-center" />
     </div>
   );
 }

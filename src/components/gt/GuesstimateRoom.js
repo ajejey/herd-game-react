@@ -14,7 +14,7 @@ export default function GuesstimateRoom() {
   const { roomCode: urlCode } = useParams();
   const navigate = useNavigate();
   const game = useGuesstimate();
-  const { state, myId, roomCode, connected, kicked, roomNotFound, error, joinGame, leaveGame } = game;
+  const { state, isHost, myId, roomCode, connected, kicked, roomNotFound, error, joinGame, playAgain, leaveGame } = game;
   const [showHelp, setShowHelp] = React.useState(false);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function GuesstimateRoom() {
   if (state.status === 'finished') {
     return (
       <MeadowLayout>
-        <Scoreboard state={state} myId={myId} onLeave={() => { leaveGame(); navigate('/guesstimate'); }} />
+        <Scoreboard state={state} myId={myId} isHost={isHost} onPlayAgain={playAgain} onLeave={() => { leaveGame(); navigate('/guesstimate'); }} />
       </MeadowLayout>
     );
   }

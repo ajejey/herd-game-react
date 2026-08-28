@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useScattergories } from '../../hooks/useScattergories';
+import PlayAgain from '../common/PlayAgain';
 
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
@@ -28,7 +29,7 @@ function Leaderboard({ players, myId, gained }) {
 export default function ScattergoriesRoom() {
   const { roomCode: codeParam } = useParams();
   const game = useScattergories();
-  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, leaveGame } = game;
+  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, playAgain, leaveGame } = game;
   const [name, setName] = useState('');
   const [answers, setAnswers] = useState([]);
   const [now, setNow] = useState(Date.now());
@@ -257,8 +258,8 @@ export default function ScattergoriesRoom() {
             {finished ? (
               <div className="mt-5 text-center">
                 <h3 style={fredokaStyle} className="text-xl font-bold text-[#2D1810]">🏆 {state.winner?.username} wins!</h3>
-                <Link to="/scattergories" onClick={leaveGame} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
-                  className="mt-3 inline-block px-6 py-3 rounded-2xl text-white font-bold">New game</Link>
+                <PlayAgain players={players} hostId={state.hostId} isHost={isHost}
+                  onPlayAgain={playAgain} onLeave={leaveGame} backTo="/scattergories" />
               </div>
             ) : isHost ? (
               <div className="text-center"><button onClick={() => sendAction('next_round')} style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}

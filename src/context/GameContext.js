@@ -197,6 +197,34 @@ const gameReducer = (state, action) => {
         winner: action.payload.winner
       };
 
+    /*
+      The same room, a second game. Everything the last game left behind has to
+      go — a stale winner keeps the game-over screen up, a stale roundResults
+      shows last game's herd, and a leftover hasAnswered locks the player out of
+      round one. RESET_GAME cannot be reused here: it returns initialState,
+      which drops roomCode and playerId and would eject everyone from the room
+      this action exists to keep them in.
+    */
+    case 'GAME_REPLAYED':
+      return {
+        ...state,
+        gameStatus: 'waiting',
+        players: action.payload.players,
+        currentRound: 0,
+        currentQuestion: null,
+        roundResults: null,
+        winner: null,
+        hasAnswered: false,
+        myAnswer: '',
+        roundEndsAt: null,
+        resultsAt: null,
+        waitingFor: [],
+        totalPlayers: (action.payload.players || []).length,
+        playersAnswered: 0,
+        pinkCowHolder: null,
+        error: null
+      };
+
     case 'RESET_GAME':
       return initialState;
 

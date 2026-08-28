@@ -5,7 +5,8 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useHueMatch } from '../../hooks/useHueMatch';
 import HueBoard from './HueBoard';
-import { colourAt, labelOf } from '../../lib/hueGrid';
+import { colourAt, labelOf } from '../../lib/hueGrid';
+import PlayAgain from '../common/PlayAgain';
 
 const PINK = '#E84A8B';
 /* Matches GRACE_SEC on the server. A phone whose clock is a second fast must
@@ -34,7 +35,7 @@ function Scores({ players, scores, myId }) {
 export default function HueMatchRoom() {
   const { roomCode: codeParam } = useParams();
   const game = useHueMatch();
-  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, leaveGame } = game;
+  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, playAgain, leaveGame } = game;
 
   const [name, setName] = useState('');
   const [cue, setCue] = useState('');
@@ -219,8 +220,8 @@ export default function HueMatchRoom() {
           </h1>
           {tie && <p className="text-[#4A2D1B] mt-1">{state.tiedWinners.map(nameById).join(' and ')} finished level.</p>}
           <Scores players={players} scores={state.scores} myId={myId} />
-          <Link to="/hue-match" className="mt-5 inline-block font-bold underline" style={{ color: PINK }}>Play again</Link>
-          <button onClick={leaveGame} className="mt-3 block mx-auto text-base text-[#8B6347]">Leave room</button>
+          <PlayAgain players={players} hostId={state.hostId} isHost={isHost}
+            onPlayAgain={playAgain} onLeave={leaveGame} backTo="/hue-match" />
         </div>
       </MeadowLayout>
     );

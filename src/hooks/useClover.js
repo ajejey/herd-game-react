@@ -104,6 +104,11 @@ export function useClover() {
     socketRef.current?.emit('start_game', { roomCode });
   }, [roomCode]);
 
+  const playAgain = useCallback(() => {
+    if (!roomCode) return;
+    socketRef.current?.emit('play_again', { roomCode });
+  }, [roomCode]);
+
   const sendAction = useCallback((action, payload = {}) => {
     if (!roomCode || !action) return;
     socketRef.current?.emit('game_action', { roomCode, action, payload });
@@ -126,7 +131,7 @@ export function useClover() {
 
   return {
     connected, state, myId, roomCode, error, kicked, roomNotFound, me, isHost,
-    createGame, joinGame, startGame, sendAction, kickPlayer, leaveGame,
+    createGame, joinGame, startGame, playAgain, sendAction, kickPlayer, leaveGame,
     clearError: () => setError(null),
   };
 }

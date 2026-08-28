@@ -6,12 +6,13 @@ import { useClover } from '../../hooks/useClover';
 import Lobby from './Lobby';
 import WritePhase from './WritePhase';
 import ResolvePhase from './ResolvePhase';
+import PlayAgain from '../common/PlayAgain';
 
 export default function CloverRoom() {
   const { roomCode: urlCode } = useParams();
   const navigate = useNavigate();
   const game = useClover();
-  const { state, roomCode, connected, kicked, roomNotFound, error, joinGame, leaveGame } = game;
+  const { state, isHost, myId, roomCode, connected, kicked, roomNotFound, error, joinGame, playAgain, leaveGame } = game;
 
   useEffect(() => {
     if (roomNotFound) {
@@ -35,7 +36,7 @@ export default function CloverRoom() {
   if (!state) return <Centered title="Loading…" />;
 
   if (state.status === 'finished') {
-    return <MeadowLayout><Finished state={state} onLeave={() => { leaveGame(); navigate('/clover'); }} /></MeadowLayout>;
+    return <MeadowLayout><Finished state={state} myId={myId} isHost={isHost} onPlayAgain={playAgain} onLeave={() => { leaveGame(); navigate('/clover'); }} /></MeadowLayout>;
   }
 
   if (state.status === 'lobby' || state.status == null) {
@@ -63,7 +64,7 @@ export default function CloverRoom() {
   );
 }
 
-function Finished({ state, onLeave }) {
+function Finished({ state, onLeave, onPlayAgain, isHost, myId }) {
   const players = state.players || [];
   const total = state.totalScore || 0;
   const max = players.length * 6;
@@ -85,11 +86,8 @@ function Finished({ state, onLeave }) {
       <p style={fredokaStyle} className="text-xl text-[#3D8B5A] font-bold mt-1">{rating}</p>
       <p className="text-[#4A2D1B] mt-2">You rebuilt {players.length} clovers together. That's the whole point — one team, one score.</p>
 
-      <button onClick={onLeave}
-        style={{ background: '#E84A8B', fontFamily: 'Fredoka, sans-serif' }}
-        className="mt-6 px-8 py-3 rounded-2xl text-white font-bold text-lg hover:scale-105 transition-transform">
-        Play again →
-      </button>
+      <PlayAgain players={state.players || []} hostId={state.hostId} isHost={isHost}
+        onPlayAgain={onPlayAgain} onLeave={onLeave} backTo="/" className="text-center" />
 
       <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8]">
         <h2 style={fredokaStyle} className="text-lg font-bold text-[#2D1810] mb-3">More games in the herd</h2>

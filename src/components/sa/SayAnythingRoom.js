@@ -17,7 +17,7 @@ export default function SayAnythingRoom() {
   const { roomCode: urlCode } = useParams();
   const navigate = useNavigate();
   const game = useSayAnything();
-  const { state, myId, roomCode, connected, kicked, roomNotFound, error, joinGame, leaveGame } = game;
+  const { state, isHost, myId, roomCode, connected, kicked, roomNotFound, error, joinGame, playAgain, leaveGame } = game;
   const [showHelp, setShowHelp] = React.useState(false);
 
   // Stale URL — game cleaned up. Bounce to lobby.
@@ -87,7 +87,7 @@ export default function SayAnythingRoom() {
   if (status === 'finished') {
     return (
       <MeadowLayout>
-        <Scoreboard state={state} myId={myId} onLeave={() => { leaveGame(); navigate('/say-anything'); }} />
+        <Scoreboard state={state} myId={myId} isHost={isHost} onPlayAgain={playAgain} onLeave={() => { leaveGame(); navigate('/say-anything'); }} />
       </MeadowLayout>
     );
   }

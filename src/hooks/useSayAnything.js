@@ -149,6 +149,11 @@ export function useSayAnything() {
     socketRef.current?.emit('start_game', { roomCode });
   }, [roomCode]);
 
+  const playAgain = useCallback(() => {
+    if (!roomCode) return;
+    socketRef.current?.emit('play_again', { roomCode });
+  }, [roomCode]);
+
   const sendAction = useCallback((action, payload = {}) => {
     if (!roomCode || !action) return;
     socketRef.current?.emit('game_action', { roomCode, action, payload });
@@ -190,7 +195,7 @@ export function useSayAnything() {
     judge,
     createGame,
     joinGame,
-    startGame,
+    startGame, playAgain,
     sendAction,
     kickPlayer,
     leaveGame,

@@ -285,6 +285,7 @@ const GameRoom = () => {
 
     socket.on('players_updated', ({ players }) => dispatch({ type: 'PLAYERS_UPDATED', payload: { players } }));
     socket.on('game_started', (payload) => dispatch({ type: 'GAME_STARTED', payload }));
+    socket.on('game_replayed', (payload) => dispatch({ type: 'GAME_REPLAYED', payload }));
     socket.on('player_answered', (payload) => dispatch({ type: 'PLAYER_ANSWERED', payload }));
     socket.on('round_completed', (payload) => {
       dispatch({ type: 'ROUND_COMPLETED', payload });
@@ -320,6 +321,7 @@ const GameRoom = () => {
       socket.off('player_answered');
       socket.off('round_completed');
       socket.off('game_completed');
+      socket.off('game_replayed');
       socket.off('next_round');
       socket.off('pink_cow_moved');
       socket.off('answer_rejected');
@@ -491,15 +493,37 @@ const GameRoom = () => {
 
           <AdSlot slot={GAMEOVER_AD_SLOT} format="auto" className="my-4" />
 
-          <button
-            type="button"
-            onClick={handleLeaveGame}
-            style={{ background: PINK, ...fredokaStyle }}
-            className="mt-2 w-full py-3.5 rounded-2xl text-white font-bold text-lg"
-          >
-            Play again &rarr;
+          {/*
+            "Play again" used to call handleLeaveGame: it left the room and put
+            you on the hub to make a new one with a new code, while everyone
+            else sat here on the scoreboard. The room now resets in place —
+            same code, same people, scores back to zero — and leaving is the
+            link underneath, where it belongs.
+
+            Shown to whoever may press it. iCanHost is already this room's
+            answer to that (the host, or anyone once the host has gone), and the
+            server applies the same rule, so a stale client cannot reset a room
+            it should not. Everyone else is told what is about to happen rather
+            than left looking at a button that would only error.
+          */}
+          {iCanHost ? (
+            <button
+              type="button"
+              onClick={() => send('play_again')}
+              style={{ background: PINK, ...fredokaStyle }}
+              className="mt-2 w-full py-3.5 rounded-2xl text-white font-bold text-lg"
+            >
+              Play again &rarr;
+            </button>
+          ) : (
+            <p className="mt-2 text-base font-semibold" style={{ color: MUTED }}>
+              Waiting for the host to start another game&hellip;
+            </p>
+          )}
+          <button type="button" onClick={handleLeaveGame} className="mt-3 block mx-auto text-base underline" style={{ color: MUTED }}>
+            Leave room
           </button>
-          <Link to="/" className="mt-3 inline-block text-base underline" style={{ color: MUTED }}>
+          <Link to="/" className="mt-2 inline-block text-base underline" style={{ color: MUTED }}>
             Back to all games
           </Link>
         </div>

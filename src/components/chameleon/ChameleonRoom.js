@@ -5,6 +5,7 @@ import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useChameleon } from '../../hooks/useChameleon';
 import { nameOf } from '../../lib/playerName';
+import PlayAgain from '../common/PlayAgain';
 
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
@@ -48,7 +49,7 @@ function Leaderboard({ players, myId }) {
 export default function ChameleonRoom() {
   const { roomCode: codeParam } = useParams();
   const game = useChameleon();
-  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, leaveGame } = game;
+  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, playAgain, leaveGame } = game;
   const [name, setName] = useState('');
   const [clue, setClue] = useState('');
   const [win, setWin] = useState({ w: 1024, h: 768 });
@@ -217,8 +218,8 @@ export default function ChameleonRoom() {
             {finished ? (
               <div className="mt-5">
                 <h3 style={fredokaStyle} className="text-xl font-bold text-[#2D1810]">🏆 {state.winner?.username} wins!</h3>
-                <Link to="/chameleon" onClick={leaveGame} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
-                  className="mt-3 inline-block px-6 py-3 rounded-2xl text-white font-bold">New game</Link>
+                <PlayAgain players={players} hostId={state.hostId} isHost={isHost}
+                  onPlayAgain={playAgain} onLeave={leaveGame} backTo="/chameleon" />
               </div>
             ) : isHost ? (
               <button onClick={() => sendAction('next_round')} style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}

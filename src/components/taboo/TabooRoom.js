@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useTaboo } from '../../hooks/useTaboo';
+import PlayAgain from '../common/PlayAgain';
 
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
@@ -55,7 +56,7 @@ function TabooCard({ card, compact = false }) {
 export default function TabooRoom() {
   const { roomCode: codeParam } = useParams();
   const game = useTaboo();
-  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, leaveGame } = game;
+  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, playAgain, leaveGame } = game;
   const [name, setName] = useState('');
   const [now, setNow] = useState(Date.now());
   const [win, setWin] = useState({ w: 1024, h: 768 });
@@ -196,8 +197,8 @@ export default function TabooRoom() {
               {state.coop ? `🎉 You got ${scores.A} together!` : state.winner ? `🏆 Team ${state.winner} wins!` : "It’s a tie! 🤝"}
             </h2>
             {!state.coop && <p className="text-[#4A2D1B] mt-1">Team A {scores.A} — {scores.B} Team B</p>}
-            <Link to="/taboo" onClick={leaveGame} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
-              className="mt-4 inline-block px-6 py-3 rounded-2xl text-white font-bold">New game</Link>
+            <PlayAgain players={players} hostId={state.hostId} isHost={isHost}
+                  onPlayAgain={playAgain} onLeave={leaveGame} backTo="/taboo" />
           </div>
         ) : turn ? (
           amGiver ? (

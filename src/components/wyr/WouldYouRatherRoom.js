@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 import MeadowLayout, { fredokaStyle } from '../MeadowLayout';
 import LobbyInvite from '../common/LobbyInvite';
 import { useWouldYouRather } from '../../hooks/useWouldYouRather';
+import PlayAgain from '../common/PlayAgain';
 
 const PINK = '#E84A8B';
 const GREEN = '#3D8B5A';
@@ -26,7 +27,7 @@ function Leaderboard({ players, myId }) {
 export default function WouldYouRatherRoom() {
   const { roomCode: codeParam } = useParams();
   const game = useWouldYouRather();
-  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, leaveGame } = game;
+  const { connected, state, myId, error, kicked, roomNotFound, isHost, joinGame, startGame, sendAction, playAgain, leaveGame } = game;
   const [name, setName] = useState('');
   const [win, setWin] = useState({ w: 1024, h: 768 });
 
@@ -182,8 +183,8 @@ export default function WouldYouRatherRoom() {
             {finished ? (
               <div className="mt-5 text-center">
                 <h3 style={fredokaStyle} className="text-xl font-bold text-[#2D1810]">🏆 {state.winner?.username} thinks most like the herd!</h3>
-                <Link to="/would-you-rather" onClick={leaveGame} style={{ background: GREEN, fontFamily: 'Fredoka, sans-serif' }}
-                  className="mt-3 inline-block px-6 py-3 rounded-2xl text-white font-bold">New game</Link>
+                <PlayAgain players={players} hostId={state.hostId} isHost={isHost}
+                  onPlayAgain={playAgain} onLeave={leaveGame} backTo="/would-you-rather" />
               </div>
             ) : isHost ? (
               <div className="text-center"><button onClick={() => sendAction('next_round')} style={{ background: PINK, fontFamily: 'Fredoka, sans-serif' }}

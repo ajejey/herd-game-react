@@ -88,6 +88,8 @@ export function useHueMatch() {
   const createGame = useCallback((username, settings = {}) => { clearSession(); setError(null); socketRef.current?.emit('create_game', { username: username.trim(), settings }); }, []);
   const joinGame = useCallback((rc, username) => { setError(null); setRoomNotFound(false); socketRef.current?.emit('join_game', { roomCode: rc.toUpperCase().trim(), username: username.trim() }); }, []);
   const startGame = useCallback(() => { if (roomCode) socketRef.current?.emit('start_game', { roomCode }); }, [roomCode]);
+
+  const playAgain = useCallback(() => { if (roomCode) socketRef.current?.emit('play_again', { roomCode }); }, [roomCode]);
   const sendAction = useCallback((action, payload = {}) => { if (roomCode && action) socketRef.current?.emit('game_action', { roomCode, action, payload }); }, [roomCode]);
   const kickPlayer = useCallback((playerId) => { if (roomCode && playerId) socketRef.current?.emit('kick_player', { roomCode, playerId }); }, [roomCode]);
   const leaveGame = useCallback(() => { clearSession(); setMyId(null); setRoomCode(null); roomCodeRef.current = null; setState(null); setKicked(false); socketRef.current?.disconnect(); socketRef.current?.connect(); }, []);
@@ -97,7 +99,7 @@ export function useHueMatch() {
 
   return {
     connected, state, myId, roomCode, error, kicked, roomNotFound, me, isHost,
-    createGame, joinGame, startGame, sendAction, kickPlayer, leaveGame,
+    createGame, joinGame, startGame, playAgain, sendAction, kickPlayer, leaveGame,
     clearError: () => setError(null),
   };
 }
