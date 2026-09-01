@@ -87,7 +87,7 @@ export default function SayAnythingRoom() {
   if (status === 'finished') {
     return (
       <MeadowLayout>
-        <Scoreboard state={state} myId={myId} isHost={isHost} onPlayAgain={playAgain} onLeave={() => { leaveGame(); navigate('/say-anything'); }} />
+        <Scoreboard state={state} myId={myId} isHost={isHost} onPlayAgain={playAgain} onLeave={leaveGame} backTo="/say-anything" />
       </MeadowLayout>
     );
   }

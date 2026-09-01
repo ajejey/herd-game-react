@@ -8,6 +8,7 @@ import AdSlot from './AdSlot';
 import { PinkCowIcon, Rosette, HerdIcon } from './herd/HerdArt';
 import { useLiveSocket } from '../context/SocketContext';
 import { useGame } from '../context/GameContext';
+import { readGameSession, clearGameSession } from '../lib/gameSession';
 
 /*
   ───────────────────────────────────────────────────────────────────────────
@@ -231,7 +232,7 @@ const GameRoom = () => {
     if (gameState.gameId) { setIsLoading(false); return; }
 
     const savedSession = (() => {
-      try { return JSON.parse(localStorage.getItem('gameSession') || 'null'); } catch { return null; }
+      return readGameSession();   // null once it ages out — see lib/gameSession.js
     })();
 
     if (savedSession && savedSession.roomCode === roomCode) {
@@ -338,9 +339,22 @@ const GameRoom = () => {
   // Reset the host panel whenever the round changes
   useEffect(() => { setShowAdjust(false); }, [gameState.currentRound, gameState.roundResults]);
 
-  useEffect(() => {
-    if (gameState.gameStatus === 'completed') localStorage.removeItem('gameSession');
-  }, [gameState.gameStatus]);
+  /*
+    The saved session is NOT thrown away when a game finishes any more.
+
+    That was right when `completed` was the end of the room's life. Since play
+    again, the same room reopens on the same code with the same people — and
+    every client had already deleted the thing it reconnects with. A player who
+    refreshed, or whose phone reloaded the tab, during game two hit the
+    savedSession lookup above, found nothing, and was redirected to
+    /?join=CODE to retype their name to get back into a room they had never
+    left.
+
+    Nothing is leaked by keeping it: handleLeaveGame clears it the moment
+    somebody actually leaves, and a session pointing at a room the server has
+    since cleaned up fails safely — reconnect_game answers `reconnect_failed`
+    and the client sends them to the join screen.
+  */
 
   /*
     Swallow a double-tap, and NOTHING else.
@@ -383,7 +397,7 @@ const GameRoom = () => {
   };
 
   const handleLeaveGame = () => {
-    try { localStorage.removeItem('gameSession'); } catch { /* private mode */ }
+    clearGameSession();
     if (socket) socket.emit('leave_game', { gameId: gameState.gameId });
     dispatch({ type: 'RESET_GAME' });
     navigate('/');

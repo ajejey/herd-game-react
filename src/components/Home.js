@@ -20,6 +20,7 @@ import HueArt from './huematch/HueArt';
 import ReportProblem from './common/ReportProblem';
 import JoinCodeHelp from './JoinCodeHelp';
 import { sanitizeCodeInput, codeShape } from '../lib/packCode';
+import { readGameSession, saveGameSession, clearGameSession } from '../lib/gameSession';
 
 const fredoka = { fontFamily: "'Fredoka', system-ui, sans-serif" };
 const quicksand = { fontFamily: "'Quicksand', system-ui, sans-serif" };
@@ -305,9 +306,10 @@ const Home = () => {
   }, [location.search]);
 
   useEffect(() => {
-    const session = localStorage.getItem('gameSession');
-    if (session) {
-      const parsedSession = JSON.parse(session);
+    /* A stale session must not advertise a room that is over — see
+       lib/gameSession.js. readGameSession returns null once it ages out. */
+    const parsedSession = readGameSession();
+    if (parsedSession) {
       setSavedSession(parsedSession);
       setShowReconnect(true);
       setUsername(parsedSession.username || '');
@@ -315,9 +317,9 @@ const Home = () => {
     }
   }, []);
 
-  const saveGameSession = (gameId, roomCode, playerId, username) => {
-    localStorage.setItem('gameSession', JSON.stringify({ gameId, roomCode, playerId, username }));
-  };
+  /* Stamped with savedAt by the helper, so it can age out. */
+  const saveSession = (gameId, roomCode, playerId, username) =>
+    saveGameSession({ gameId, roomCode, playerId, username });
 
   const handleReconnect = () => {
     if (!savedSession) return;
@@ -328,7 +330,7 @@ const Home = () => {
       navigate(`/game/${savedSession.roomCode}`);
     });
     socket.once('reconnect_failed', ({ reason }) => {
-      localStorage.removeItem('gameSession');
+      clearGameSession();
       setShowReconnect(false);
       setSavedSession(null);
       alert(`Couldn't rejoin game: ${reason}`);
@@ -388,7 +390,7 @@ const Home = () => {
     socket.once('game_created', (payload) => {
       const { gameId, roomCode, playerId } = payload;
       track('room_created', { game: 'herd', hasPack: !!packCode });
-      saveGameSession(gameId, roomCode, playerId, username);
+      saveSession(gameId, roomCode, playerId, username);
       dispatch({ type: 'GAME_CREATED', payload });
       navigate(`/game/${roomCode}`);
     });
@@ -446,7 +448,7 @@ const Home = () => {
     socket.once('game_joined', (payload) => {
       const { gameId, playerId, isHost } = payload;
       track('room_joined', { game: 'herd', isHost: !!isHost });
-      saveGameSession(gameId, code, playerId, name);
+      saveSession(gameId, code, playerId, name);
       dispatch({ type: 'GAME_JOINED', payload });
       navigate(`/game/${code}`);
     });
@@ -1223,7 +1225,7 @@ const Home = () => {
                 </button>
                 <button
                   onClick={() => {
-                    localStorage.removeItem('gameSession');
+                    clearGameSession();
                     setShowReconnect(false);
                     setSavedSession(null);
                   }}

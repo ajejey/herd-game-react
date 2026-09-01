@@ -36,7 +36,7 @@ export default function CloverRoom() {
   if (!state) return <Centered title="Loading…" />;
 
   if (state.status === 'finished') {
-    return <MeadowLayout><Finished state={state} myId={myId} isHost={isHost} onPlayAgain={playAgain} onLeave={() => { leaveGame(); navigate('/clover'); }} /></MeadowLayout>;
+    return <MeadowLayout><Finished state={state} myId={myId} isHost={isHost} onPlayAgain={playAgain} onLeave={leaveGame} backTo="/clover" /></MeadowLayout>;
   }
 
   if (state.status === 'lobby' || state.status == null) {
@@ -64,7 +64,7 @@ export default function CloverRoom() {
   );
 }
 
-function Finished({ state, onLeave, onPlayAgain, isHost, myId }) {
+function Finished({ state, onLeave, onPlayAgain, isHost, myId, backTo }) {
   const players = state.players || [];
   const total = state.totalScore || 0;
   const max = players.length * 6;
@@ -87,7 +87,7 @@ function Finished({ state, onLeave, onPlayAgain, isHost, myId }) {
       <p className="text-[#4A2D1B] mt-2">You rebuilt {players.length} clovers together. That's the whole point — one team, one score.</p>
 
       <PlayAgain players={state.players || []} hostId={state.hostId} isHost={isHost}
-        onPlayAgain={onPlayAgain} onLeave={onLeave} backTo="/" className="text-center" />
+        onPlayAgain={onPlayAgain} onLeave={onLeave} backTo={backTo || "/"} className="text-center" />
 
       <div className="mt-8 pt-6 border-t-2 border-[#FFE8C8]">
         <h2 style={fredokaStyle} className="text-lg font-bold text-[#2D1810] mb-3">More games in the herd</h2>

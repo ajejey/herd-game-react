@@ -78,7 +78,7 @@ export default function GuesstimateRoom() {
   if (state.status === 'finished') {
     return (
       <MeadowLayout>
-        <Scoreboard state={state} myId={myId} isHost={isHost} onPlayAgain={playAgain} onLeave={() => { leaveGame(); navigate('/guesstimate'); }} />
+        <Scoreboard state={state} myId={myId} isHost={isHost} onPlayAgain={playAgain} onLeave={leaveGame} backTo="/guesstimate" />
       </MeadowLayout>
     );
   }

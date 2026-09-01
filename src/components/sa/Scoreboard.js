@@ -3,7 +3,7 @@ import { fredokaStyle } from '../MeadowLayout';
 import AdSlot from '../AdSlot';
 import PlayAgain from '../common/PlayAgain';
 
-export default function Scoreboard({ state, myId, onLeave, onPlayAgain, isHost }) {
+export default function Scoreboard({ state, myId, onLeave, onPlayAgain, isHost, backTo }) {
   const sorted = [...state.players].sort((a, b) => b.score - a.score);
   const winner = state.winner ?? sorted[0];
 
@@ -41,7 +41,7 @@ export default function Scoreboard({ state, myId, onLeave, onPlayAgain, isHost }
       </div>
 
       <PlayAgain players={state.players || []} hostId={state.hostId} isHost={isHost}
-        onPlayAgain={onPlayAgain} onLeave={onLeave} backTo="/" className="text-center" />
+        onPlayAgain={onPlayAgain} onLeave={onLeave} backTo={backTo || "/"} className="text-center" />
     </div>
   );
 }
