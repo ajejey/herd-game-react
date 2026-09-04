@@ -57,6 +57,19 @@ const PAD = {
   result: { bg: THEME.bgAlt, title: '', sub: '' },
 };
 
+/*
+  A round can be void for three different reasons and the player deserves to
+  know which. "Too early" for a tap before the signal is obvious. The other two
+  are not, and getting them wrong is what made this feel broken: someone
+  drumming on the pad was shown "20ms", believed the game was nonsense, and told
+  a friend. Naming the reason turns a bug report into an understood rule.
+*/
+const EARLY_COPY = {
+  early: { title: 'Too early', sub: 'Tap to try that round again' },
+  tooFast: { title: 'Too fast to be real', sub: 'Nobody reacts in under a tenth of a second — tap to retry' },
+  drumming: { title: 'You were already tapping', sub: 'Let go and wait for green, then tap — tap to retry' },
+};
+
 export default function ReactionTime() {
   const g = useReactionTime();
   const [copied, setCopied] = useState(false);
@@ -67,7 +80,9 @@ export default function ReactionTime() {
     if (res === 'copied') { setCopied(true); setTimeout(() => setCopied(false), 2000); }
   };
 
-  const padState = PAD[g.status];
+  const padState = g.status === 'early'
+    ? { ...PAD.early, ...(EARLY_COPY[g.earlyReason] || EARLY_COPY.early) }
+    : PAD[g.status];
   const active = ['waiting', 'go', 'early', 'result'].includes(g.status);
 
   return (

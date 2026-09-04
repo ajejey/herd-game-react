@@ -10,6 +10,7 @@ import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 import { canResumeRoom } from '../../lib/resumeRoom';
+import { codeFromUrl, initialTab } from '../../lib/joinFromUrl';
 
 const CANONICAL_URL = 'https://herdgamesonline.com/guesstimate';
 const OG_IMAGE = 'https://herdgamesonline.com/og-guesstimate.png';
@@ -114,9 +115,11 @@ export default function GuesstimateHome() {
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useGuesstimate();
   const funnel = useJoinFunnel({ game: 'guesstimate', roomCode, error });
 
-  const [tab, setTab] = useState('create');
+  /* ?join=CODE opens straight on the join tab with the code filled in —
+     see lib/joinFromUrl.js for why. */
+  const [tab, setTab] = useState(initialTab);
   const [username, setUsername] = useState('');
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(codeFromUrl);
 
   React.useEffect(() => {
     if (canResumeRoom(state) && roomCode) navigate(`/guesstimate/room/${roomCode}`);

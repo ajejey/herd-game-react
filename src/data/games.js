@@ -433,7 +433,17 @@ export const SEARCH_ALIASES = {
   'say-anything': ['quiplash', 'jackbox', 'funniest answer'],
   'two-truths':   ['two truths', 'icebreaker'],
   'would-you-rather': ['would you rather', 'this or that'],
-  'daily-herd':   ['herd mentality', 'majority rules', 'family feud', 'feud'],
+  /*
+    "heard" is in here because people spell it that way. Search logging for
+    Sep 2026 caught "heard" and "heard game" returning NOTHING — on a site
+    called Herd Games, to somebody who had almost certainly been told the name
+    out loud and typed what they heard. Worse, "hea" and "hear" were matching
+    guess-the-year, so the partial typing led somewhere wrong before the full
+    word led nowhere at all. There is no downside: nothing else here is called
+    anything like it.
+  */
+  'daily-herd':   ['herd mentality', 'majority rules', 'family feud', 'feud',
+                   'heard', 'heard game', 'heard mentality', 'herd game', 'herdgame'],
   'daily-hot-takes': ['hot takes', 'opinions', 'controversial'],
 };
 

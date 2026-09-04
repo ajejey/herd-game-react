@@ -118,9 +118,33 @@ function phraseScore(game, tokens) {
   return hits ? best - 250 + hits * 10 : 0;   // always below a whole-phrase match
 }
 
+/*
+  ── Somebody pasting a room code into the search box ────────────────────────
+
+  27% of everything typed into this box in Sep 2026 was a room code, not a game
+  name. QCGJ, THBZ, LNQP, HRAL and 3QB19F were all verified as live rooms at the
+  moment they were typed. Those people had been sent a code, could not find the
+  field it goes in, used the only box on the page that looked like one, and were
+  told "nothing found" — one field away from a game with friends already waiting
+  in it. It was the single largest category of failed search on the site.
+
+  So a code-shaped query asks the server which game it belongs to. The server
+  already knows: every room records its namespace, and gameDirectory turns that
+  into a name and a path. See backend/src/findRoom.js.
+
+  Shaped as a QUESTION, not a guess. The lookup runs only for something that
+  looks like a code, only after typing settles, and a miss changes nothing — the
+  normal "nothing found" state still shows, so a genuine search for a short word
+  is never hijacked by a failed room lookup.
+*/
+const CODE_SHAPE = /^[a-z0-9]{4,6}$/;
+const API = process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
+
 export default function GameSearch({ className = '' }) {
   const navigate = useNavigate();
   const [q, setQ] = useState('');
+  /* null = not asked or not found. { code, game, path } = go here. */
+  const [room, setRoom] = useState(null);
   const [active, setActive] = useState(0);
   const [focused, setFocused] = useState(false);
   const inputRef = useRef(null);
@@ -150,6 +174,38 @@ export default function GameSearch({ className = '' }) {
 
   // Keep the highlighted row in range when the result list changes under it.
   useEffect(() => { setActive(0); }, [query]);
+
+  /*
+    Ask whether a code-shaped query is a real room.
+
+    Debounced past the typing, and aborted when the query moves on, so
+    backspacing through "SCATTERGORIES" cannot leave a stale answer from an
+    earlier prefix on screen. Any failure is silent: this is an extra offer, and
+    a lookup that errors should leave the search exactly as it was.
+  */
+  useEffect(() => {
+    const compact = query.replace(/\s+/g, '');
+    if (!CODE_SHAPE.test(compact)) { setRoom(null); return undefined; }
+
+    /*
+      Clear FIRST. Aborting the request does not un-render the previous answer:
+      typing HRAL then HRAL5 left "Join this Clover room · HRAL" on screen for
+      the debounce plus a round trip, and a click in that window went to a room
+      the person had already stopped asking for. The abort cancels the fetch,
+      not the state.
+    */
+    setRoom(null);
+
+    const ctrl = new AbortController();
+    const t = setTimeout(() => {
+      fetch(`${API}/api/find-room/${encodeURIComponent(compact.toUpperCase())}`, { signal: ctrl.signal })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => setRoom(d && d.path ? d : null))
+        .catch(() => { /* offline, aborted, or no such room — say nothing */ });
+    }, 350);
+
+    return () => { clearTimeout(t); ctrl.abort(); };
+  }, [query]);
 
   /*
     Record what people look for, once they have stopped typing.
@@ -205,9 +261,19 @@ export default function GameSearch({ className = '' }) {
 
   function onKeyDown(e) {
     if (!results.length) {
+      /*
+        A room code scores 0 against every game, so `results` is empty while the
+        room row is the ONLY thing on screen. Returning here made that row
+        mouse-only — the person this whole feature exists for pastes a code,
+        presses Enter, and nothing happens.
+      */
+      if (e.key === 'Enter' && room) { e.preventDefault(); goToRoom(); return; }
       if (e.key === 'Escape') setQ('');
       return;
     }
+    /* With games listed too, the room row is still the first thing offered, so
+       Enter on the top row means the room. */
+    if (e.key === 'Enter' && room && active === 0) { e.preventDefault(); goToRoom(); return; }
     if (e.key === 'ArrowDown') { e.preventDefault(); setActive((i) => (i + 1) % results.length); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setActive((i) => (i - 1 + results.length) % results.length); }
     else if (e.key === 'Enter') { e.preventDefault(); go(results[active]); }
@@ -230,7 +296,23 @@ export default function GameSearch({ className = '' }) {
   }
 
   const tooShort = query.length > 0 && query.length < 2;
-  const nothing = query.length >= 2 && results.length === 0;
+  const nothing = query.length >= 2 && results.length === 0 && !room;
+
+  /*
+    Take them to the game's landing page with the code in the URL, not straight
+    into the room. They still have to pick a name, and the host may not have
+    started yet — the join screen is where both of those already work. `?join=`
+    is read by the join box so the code is filled in for them; even if that
+    prefill were ever dropped, they land on the right game with the code still
+    in their clipboard, which is the whole problem solved.
+  */
+  function goToRoom() {
+    if (!room) return;
+    track('game_search_room_code', { q: query.slice(0, 12), game: room.game, live: !!room.live });
+    setQ('');
+    setRoom(null);
+    navigate(room.direct ? room.path : `${room.path}?join=${encodeURIComponent(room.code)}`);
+  }
 
   return (
     <div className={`mx-auto w-full max-w-xl ${className}`} data-testid="game-search">
@@ -254,7 +336,7 @@ export default function GameSearch({ className = '' }) {
           /* Not type="search" — iOS Safari draws its own clear button inside
              it, at a different size, and we already have one. */
           role="combobox"
-          aria-expanded={results.length > 0}
+          aria-expanded={results.length > 0 || !!room}
           aria-controls="game-search-results"
           aria-label="Search games"
           autoComplete="off"
@@ -276,12 +358,49 @@ export default function GameSearch({ className = '' }) {
         )}
       </div>
 
-      {(results.length > 0 || nothing || tooShort) && (
+      {(results.length > 0 || nothing || tooShort || room) && (
         <div className="mt-2 overflow-hidden rounded-2xl border-2 border-[#FFE8C8] bg-white shadow-[0_18px_40px_-24px_rgba(45,24,16,0.4)]">
           {tooShort && (
             <p style={quicksand} className="px-4 py-3 text-[15px] text-[#8B6347]">
               Keep typing…
             </p>
+          )}
+
+          {room && (
+            /*
+              Above the game results, because someone holding a code is not
+              browsing — they are trying to get somewhere specific and everything
+              else on this list is noise to them.
+            */
+            <button
+              type="button"
+              onClick={goToRoom}
+              data-testid="search-room-hit"
+              className="flex w-full items-center gap-3 border-b-2 border-[#FFE8C8] px-4 py-3 text-left hover:bg-[#FFF8E7]"
+            >
+              <span
+                style={{ ...fredoka, background: '#3D8B5A' }}
+                className="shrink-0 rounded-lg px-2.5 py-1 text-sm font-bold tracking-widest text-white"
+              >
+                {room.code}
+              </span>
+              <span className="min-w-0">
+                <span style={fredoka} className="block font-bold text-[#2D1810]">
+                  Join this {room.game} room →
+                </span>
+                <span style={quicksand} className="block text-[15px] text-[#6B4226]">
+                  {/*
+                    Only claim someone is waiting when the room is actually live.
+                    A code from a game that finished on Tuesday still resolves
+                    from the snapshot, and telling that person their friends are
+                    waiting is a small lie that costs trust for no gain.
+                  */}
+                  {room.live
+                    ? 'That looks like a room code, and it is — someone is waiting for you.'
+                    : `That is a ${room.game} room code. Open it here and put it in.`}
+                </span>
+              </span>
+            </button>
           )}
 
           {nothing && (

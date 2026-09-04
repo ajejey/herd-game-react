@@ -10,6 +10,7 @@ import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 import { recentWords } from '../../lib/recentWords';
 import { canResumeRoom } from '../../lib/resumeRoom';
+import { codeFromUrl, initialTab } from '../../lib/joinFromUrl';
 
 const CANONICAL = 'https://herdgamesonline.com/caveman-clues';
 const OG = 'https://herdgamesonline.com/og-caveman-clues.png';
@@ -69,9 +70,11 @@ export default function CavemanCluesHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useCavemanClues();
   const funnel = useJoinFunnel({ game: 'cavemanclues', roomCode, error });
-  const [tab, setTab] = useState('create');
+  /* ?join=CODE opens straight on the join tab with the code filled in —
+     see lib/joinFromUrl.js for why. */
+  const [tab, setTab] = useState(initialTab);
   const [username, setUsername] = useState('');
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(codeFromUrl);
 
   useEffect(() => { if (canResumeRoom(state) && roomCode) navigate(`/caveman-clues/room/${roomCode}`); }, [state, roomCode, navigate]);
 

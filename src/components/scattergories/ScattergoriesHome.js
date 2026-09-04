@@ -9,6 +9,7 @@ import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 import { canResumeRoom } from '../../lib/resumeRoom';
+import { codeFromUrl, initialTab } from '../../lib/joinFromUrl';
 
 const CANONICAL = 'https://herdgamesonline.com/scattergories';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -59,9 +60,11 @@ export default function ScattergoriesHome() {
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useScattergories();
   const funnel = useJoinFunnel({ game: 'scattergories', roomCode, error });
   const { packCode, packInfo } = usePackFromUrl();
-  const [tab, setTab] = useState('create');
+  /* ?join=CODE opens straight on the join tab with the code filled in —
+     see lib/joinFromUrl.js for why. */
+  const [tab, setTab] = useState(initialTab);
   const [username, setUsername] = useState('');
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(codeFromUrl);
 
   useEffect(() => { if (canResumeRoom(state) && roomCode) navigate(`/scattergories/room/${roomCode}`); }, [state, roomCode, navigate]);
 

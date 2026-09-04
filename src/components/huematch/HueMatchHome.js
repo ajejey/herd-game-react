@@ -9,6 +9,7 @@ import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 import { canResumeRoom } from '../../lib/resumeRoom';
+import { codeFromUrl, initialTab } from '../../lib/joinFromUrl';
 
 const CANONICAL = 'https://herdgamesonline.com/hue-match';
 const OG = 'https://herdgamesonline.com/og-hue-match.png';
@@ -70,9 +71,11 @@ export default function HueMatchHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useHueMatch();
   const funnel = useJoinFunnel({ game: 'huematch', roomCode, error });
-  const [tab, setTab] = useState('create');
+  /* ?join=CODE opens straight on the join tab with the code filled in —
+     see lib/joinFromUrl.js for why. */
+  const [tab, setTab] = useState(initialTab);
   const [username, setUsername] = useState('');
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(codeFromUrl);
 
   useEffect(() => { if (canResumeRoom(state) && roomCode) navigate(`/hue-match/room/${roomCode}`); }, [state, roomCode, navigate]);
 

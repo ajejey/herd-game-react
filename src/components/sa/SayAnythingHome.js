@@ -11,6 +11,7 @@ import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 import { canResumeRoom } from '../../lib/resumeRoom';
+import { codeFromUrl, initialTab } from '../../lib/joinFromUrl';
 
 const CANONICAL_URL = 'https://herdgamesonline.com/say-anything';
 const OG_IMAGE = 'https://herdgamesonline.com/og-say-anything.png';
@@ -210,9 +211,11 @@ export default function SayAnythingHome() {
   const funnel = useJoinFunnel({ game: 'sayanything', roomCode, error });
   const { packCode, packInfo } = usePackFromUrl();
 
-  const [tab, setTab] = useState('create');
+  /* ?join=CODE opens straight on the join tab with the code filled in —
+     see lib/joinFromUrl.js for why. */
+  const [tab, setTab] = useState(initialTab);
   const [username, setUsername] = useState('');
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(codeFromUrl);
 
   React.useEffect(() => {
     if (canResumeRoom(state) && roomCode) navigate(`/say-anything/room/${roomCode}`);

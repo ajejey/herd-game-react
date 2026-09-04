@@ -8,6 +8,7 @@ import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 import { canResumeRoom } from '../../lib/resumeRoom';
+import { codeFromUrl, initialTab } from '../../lib/joinFromUrl';
 
 const CANONICAL = 'https://herdgamesonline.com/chameleon';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -59,9 +60,11 @@ export default function ChameleonHome() {
   const navigate = useNavigate();
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useChameleon();
   const funnel = useJoinFunnel({ game: 'chameleon', roomCode, error });
-  const [tab, setTab] = useState('create');
+  /* ?join=CODE opens straight on the join tab with the code filled in —
+     see lib/joinFromUrl.js for why. */
+  const [tab, setTab] = useState(initialTab);
   const [username, setUsername] = useState('');
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(codeFromUrl);
 
   useEffect(() => { if (canResumeRoom(state) && roomCode) navigate(`/chameleon/room/${roomCode}`); }, [state, roomCode, navigate]);
 

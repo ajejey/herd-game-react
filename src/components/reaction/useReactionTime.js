@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { pingDailyComplete } from '../../lib/pingEvent';
 import { sfx } from '../daily/sfx';
-import { ROUNDS, randomWait } from './reactionData';
+import { ROUNDS, randomWait, classifyTap } from './reactionData';
 
 /*
   Reaction Time — state machine.
@@ -34,6 +34,11 @@ export function useReactionTime() {
 
   const timerRef = useRef(null);
   const startedAtRef = useRef(0);
+  /* When the previous tap landed, whatever the state was at the time. This is
+     what tells a reaction apart from a tap that was already in flight. */
+  const lastTapRef = useRef(0);
+  /* Why the last round was void, so the pad can say which of the two it was. */
+  const [earlyReason, setEarlyReason] = useState('early');
 
   const clear = () => { if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null; } };
   useEffect(() => clear, []);
@@ -58,15 +63,38 @@ export function useReactionTime() {
 
   /** The single tap handler for the big pad. */
   const tap = useCallback(() => {
+    const now = performance.now();
+    const sincePrevTap = now - lastTapRef.current;
+    lastTapRef.current = now;
+
     if (status === 'waiting') {
       // Tapped before the signal — no time recorded, retry the same round.
       clear();
       sfx.miss();
+      setEarlyReason('early');
       setStatus('early');
       return;
     }
     if (status === 'go') {
-      const ms = Math.round(performance.now() - startedAtRef.current);
+      const ms = Math.round(now - startedAtRef.current);
+
+      /*
+        Not every tap after the signal is a reaction. Under the floor, nothing
+        human could have seen the change and responded. And a tap that arrives
+        hard on the heels of the previous one was already travelling before the
+        pad turned green — the player was drumming through the wait, which is
+        precisely the report that prompted this. Both are false starts, so both
+        void the round rather than banking a number the player knows is fake.
+      */
+      const verdict = classifyTap(ms, sincePrevTap);
+      if (verdict !== 'score') {
+        clear();
+        sfx.miss();
+        setEarlyReason(verdict);
+        setStatus('early');
+        return;
+      }
+
       setLast(ms);
       setTimes((t) => (t.length >= ROUNDS ? t : [...t, ms]));
       setStatus('result');
@@ -98,7 +126,7 @@ export function useReactionTime() {
   }, [status, average, times.length]);
 
   return {
-    status, times, last, average, best, isNewBest,
+    status, times, last, average, best, isNewBest, earlyReason,
     roundsTotal: ROUNDS, round: times.length,
     start, tap, playAgain: start,
   };

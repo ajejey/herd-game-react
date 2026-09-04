@@ -30,6 +30,10 @@ export const ROUNDS = 5;
 export const MIN_WAIT_MS = 1400;
 export const MAX_WAIT_MS = 4200;
 
+/* The rules live in lib/reactionRules.mjs so they can be tested without a
+   browser — see the note there for the report that produced them. */
+export { MIN_HUMAN_MS, ALREADY_TAPPING_MS, classifyTap } from '../../lib/reactionRules.mjs';
+
 /** A random hold, long enough that you cannot time it by rhythm. */
 export const randomWait = () => MIN_WAIT_MS + Math.random() * (MAX_WAIT_MS - MIN_WAIT_MS);
 

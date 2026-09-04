@@ -9,6 +9,7 @@ import JoinCodeHelp from '../JoinCodeHelp';
 import useJoinFunnel from '../../hooks/useJoinFunnel';
 import { sanitizeCodeInput } from '../../lib/packCode';
 import { canResumeRoom } from '../../lib/resumeRoom';
+import { codeFromUrl, initialTab } from '../../lib/joinFromUrl';
 
 const CANONICAL = 'https://herdgamesonline.com/would-you-rather';
 const OG = 'https://herdgamesonline.com/og-image.png';
@@ -57,9 +58,11 @@ export default function WouldYouRatherHome() {
   const { connected, error, createGame, joinGame, state, roomCode, clearError } = useWouldYouRather();
   const funnel = useJoinFunnel({ game: 'wyr', roomCode, error });
   const { packCode, packInfo } = usePackFromUrl();
-  const [tab, setTab] = useState('create');
+  /* ?join=CODE opens straight on the join tab with the code filled in —
+     see lib/joinFromUrl.js for why. */
+  const [tab, setTab] = useState(initialTab);
   const [username, setUsername] = useState('');
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(codeFromUrl);
 
   useEffect(() => { if (canResumeRoom(state) && roomCode) navigate(`/would-you-rather/room/${roomCode}`); }, [state, roomCode, navigate]);
 

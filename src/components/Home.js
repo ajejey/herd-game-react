@@ -309,12 +309,33 @@ const Home = () => {
     /* A stale session must not advertise a room that is over — see
        lib/gameSession.js. readGameSession returns null once it ages out. */
     const parsedSession = readGameSession();
-    if (parsedSession) {
-      setSavedSession(parsedSession);
-      setShowReconnect(true);
-      setUsername(parsedSession.username || '');
-      setRoomCode(parsedSession.roomCode || '');
-    }
+    if (!parsedSession) return;
+    setSavedSession(parsedSession);
+    setShowReconnect(true);
+    setUsername(parsedSession.username || '');
+
+    /*
+      AN INVITATION BEATS A MEMORY.
+
+      Both of these run on mount and both write roomCode, and this one is
+      declared second, so it used to win. Someone arriving on /?join=BBBBBB got
+      the Join tab opened with the code from their OWN last game in the field —
+      they would join the wrong room, or fail to join and have no idea why.
+
+      It was mostly hidden before: the session was deleted the moment a game
+      completed, so there was usually nothing here to overwrite with. Now that
+      the session survives for twelve hours (so a phone reloading a backgrounded
+      tab can rejoin), a code in the URL and a remembered code in storage is the
+      ordinary case rather than a rare one — and the search box's room-code
+      rescue sends people here with exactly that URL.
+
+      The offer to rejoin the old room stays; it is shown separately, and the
+      person can still take it. What must not happen is a code they were sent
+      being silently replaced by one they were not.
+    */
+    const invited = new URLSearchParams(location.search).get('join');
+    if (!invited) setRoomCode(parsedSession.roomCode || '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* Stamped with savedAt by the helper, so it can age out. */
