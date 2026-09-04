@@ -365,10 +365,6 @@ export default function GuesstimateHome() {
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🎉 New Year's Eve Party Games</h3>
               <p className="text-base text-[#8B6347]">For adults &amp; big groups — countdown trivia.</p>
             </Link></li>
-            <li><Link to="/guesstimate/drinking-party-games-online-free-for-adults" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
-              <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">🍻 Drinking Party Games</h3>
-              <p className="text-base text-[#8B6347]">Adult trivia drinking game, no app.</p>
-            </Link></li>
             <li><Link to="/guesstimate/family-reunion-games-for-adults-large-groups" className="block bg-white rounded-2xl border-2 border-[#FFE8C8] hover:border-[#E84A8B] p-4 transition-colors">
               <h3 style={fredokaStyle} className="text-[#2D1810] font-bold">👨‍👩‍👧‍👦 Family Reunion Games</h3>
               <p className="text-base text-[#8B6347]">Big multi-generational groups, all ages.</p>

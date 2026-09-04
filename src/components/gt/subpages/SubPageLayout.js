@@ -129,7 +129,6 @@ const ALL_GUIDES = [
   { slug: 'games-to-play-on-facetime-and-video-calls', title: 'Games for FaceTime & Video Calls', emoji: '📱' },
   { slug: 'classroom-trivia-games-no-materials-for-teachers', title: 'Classroom Games (No Materials)', emoji: '🏫' },
   { slug: 'new-years-eve-party-games-for-adults-large-groups', title: "New Year's Eve Party Games", emoji: '🎉' },
-  { slug: 'drinking-party-games-online-free-for-adults', title: 'Drinking Party Games', emoji: '🍻' },
   { slug: 'family-reunion-games-for-adults-large-groups', title: 'Family Reunion Games', emoji: '👨‍👩‍👧‍👦' },
 ];
 
