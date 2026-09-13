@@ -220,20 +220,46 @@ export default function GameSearch({ className = '' }) {
     box labelled "search 44 games", but there is no reason to carry more than
     the shape of the intent either.
   */
+  /*
+    A SEARCH THAT OFFERED A ROOM IS NOT A ZERO-RESULT SEARCH.
+
+    `zero` counted only GAME-NAME matches, so every rescued room code was still
+    filed as a failure. The consequence was not cosmetic: reviewing the search
+    log on 13 Sep 2026 showed QCGJ, 3QB19F, 8Y9TQ0 and friends all returning
+    "nothing found" and the room-code dead end was reported as still unfixed —
+    when in fact the rescue had shipped on 4 Sep and 25 people had clicked
+    through it. The metric was measuring the old world.
+
+    So `zero` now means what it says: this search offered the person nothing.
+    `rescued` separates the two ways a search can succeed, and `room_offered`
+    below records the OFFER, not just the click, so the rescue has a funnel
+    instead of a single number with no denominator.
+
+    One honest limit: the room lookup is debounced at 350ms and this logs at
+    900ms, so the answer is normally back in time — but a slow round trip can
+    still log `rescued: false` for a search that a moment later shows a room.
+    That direction is the safe one. It under-reports the fix rather than
+    inventing success, which is the mistake that produced this comment.
+  */
   useEffect(() => {
     if (query.length < 2) return undefined;
     const t = setTimeout(() => {
       if (loggedRef.current === query) return;
       loggedRef.current = query;
+      const rescued = !!room;
       track('game_search', {
         q: query.slice(0, 40),
         results: results.length,
-        zero: results.length === 0,
+        rescued,
+        zero: results.length === 0 && !rescued,
         top: results[0]?.id ?? null,
       });
+      if (rescued) {
+        track('game_search_room_offered', { q: query.slice(0, 12), game: room.game, live: !!room.live });
+      }
     }, 900);
     return () => clearTimeout(t);
-  }, [query, results]);
+  }, [query, results, room]);
 
   // Keep the highlighted row visible when arrowing past the fold.
   useEffect(() => {

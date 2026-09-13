@@ -485,8 +485,36 @@ const GameRoom = () => {
   */
   const finished = !!gameState.winner || gameState.gameStatus === 'completed';
   if (finished) {
-    const ranked = [...players].sort((a, b) => (b.score || 0) - (a.score || 0));
-    const champion = gameState.winner || ranked[0] || null;
+    /*
+      ── Everyone in the room must name the SAME winner ──────────────────────
+
+      Reported 10 Sep 2026: "two people tied and it showed a different winner
+      on different screens".
+
+      This sorted by score and took ranked[0]. Array.sort is stable, so a tie
+      resolved to the FIRST of the tied players in this client's list. The
+      server's findWinner reduced with `a.score > b.score`, which is false when
+      the scores are equal, so it resolved the same tie to the LAST. Opposite
+      ends of the same list.
+
+      It only showed up for some people because this line is a FALLBACK: a
+      connected player gets gameState.winner from the game_completed event and
+      sees the server's answer, while anyone who refreshed or reconnected got
+      no winner and fell through to here. Two players, one tie, two names.
+
+      Both halves are now closed. The server persists winnerId, so a
+      reconnecting player is TOLD who won rather than guessing (see
+      models/Game.js), and the ordering below applies the same total rule as
+      findWinner — highest score, then lowest id — so if this ever does run it
+      cannot disagree. Keep the two in step.
+    */
+    const byScoreThenId = (a, b) => (b.score || 0) - (a.score || 0)
+      || (String(a._id) < String(b._id) ? -1 : String(a._id) > String(b._id) ? 1 : 0);
+    const ranked = [...players].sort(byScoreThenId);
+    const namedWinner = gameState.winner
+      || (gameState.winnerId && players.find((p) => String(p._id) === String(gameState.winnerId)))
+      || null;
+    const champion = namedWinner || ranked[0] || null;
     const iWon = champion && String(champion._id) === String(myId);
 
     return (

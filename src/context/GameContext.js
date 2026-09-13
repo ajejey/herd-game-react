@@ -11,6 +11,7 @@ const initialState = {
   currentRound: 0,
   currentQuestion: '',
   gameStatus: 'waiting', // waiting, in-progress, completed
+  winnerId: null,        // set by the server when the game completes
   pinkCowHolder: null,
   roundResults: null,
   playersAnswered: 0,
@@ -101,6 +102,9 @@ const gameReducer = (state, action) => {
         currentRound: action.payload.currentRound ?? state.currentRound,
         currentQuestion: action.payload.currentQuestion ?? state.currentQuestion,
         gameStatus: action.payload.gameStatus || state.gameStatus,
+        // Who won, when joining a game that already finished. See
+        // GameRoom.js: without it the client named its own winner.
+        winnerId: action.payload.winnerId ?? state.winnerId,
         pinkCowHolder: action.payload.pinkCowHolder ?? state.pinkCowHolder,
         players: action.payload.players || state.players,
         roundResults: action.payload.roundResults ?? state.roundResults,
@@ -255,6 +259,9 @@ const gameReducer = (state, action) => {
         roomCode: action.payload.roomCode,
         isHost: !!action.payload.isHost,
         gameStatus: action.payload.gameState.gameStatus || 'in-progress',
+        // Survives the refresh that used to make this client disagree with
+        // everyone still connected about who had won.
+        winnerId: action.payload.gameState.winnerId ?? null,
         currentRound: action.payload.gameState.currentRound,
         currentQuestion: action.payload.gameState.currentQuestion,
         players: action.payload.gameState.players || [],
