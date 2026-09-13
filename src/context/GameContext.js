@@ -218,6 +218,9 @@ const gameReducer = (state, action) => {
         currentQuestion: null,
         roundResults: null,
         winner: null,
+        /* Cleared alongside `winner`, or a rematch carries the last game's
+           winnerId and the finished screen could name it. */
+        winnerId: null,
         hasAnswered: false,
         myAnswer: '',
         roundEndsAt: null,

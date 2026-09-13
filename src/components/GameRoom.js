@@ -504,13 +504,28 @@ const GameRoom = () => {
 
       Both halves are now closed. The server persists winnerId, so a
       reconnecting player is TOLD who won rather than guessing (see
-      models/Game.js), and the ordering below applies the same total rule as
-      findWinner — highest score, then lowest id — so if this ever does run it
-      cannot disagree. Keep the two in step.
+      models/Game.js), and the fallback below applies the same rule as
+      findWinner so that if it ever does run it cannot disagree.
+
+      THE RULE IS TWO PARTS, AND THE FIRST VERSION OF THIS FIX ONLY COPIED ONE.
+      findWinner filters by checkWinCondition BEFORE ranking — eight points AND
+      not holding the pink cow — then takes the highest. Sorting by score alone
+      reproduces the tiebreak but not the eligibility, and those come apart in
+      the exact situation the cow exists to create: Alice sits on 9 holding the
+      cow, the host moves it, Bob wins on 8. The server writes Bob. A client on
+      this fallback would sort Alice first and announce her, which is the same
+      bug again wearing the fix as a disguise.
+
+      That mattered immediately rather than theoretically: every game that
+      finished BEFORE this deploy has no winnerId in Mongo, so the fallback is
+      what those rooms get. Keep all three of eligibility, score and tiebreak in
+      step with backend/src/utils/gameLogic.js.
     */
+    const eligible = players.filter((p) => (p.score || 0) >= WIN_SCORE
+      && String(p._id) !== String(gameState.pinkCowHolder || ''));
     const byScoreThenId = (a, b) => (b.score || 0) - (a.score || 0)
       || (String(a._id) < String(b._id) ? -1 : String(a._id) > String(b._id) ? 1 : 0);
-    const ranked = [...players].sort(byScoreThenId);
+    const ranked = [...eligible].sort(byScoreThenId);
     const namedWinner = gameState.winner
       || (gameState.winnerId && players.find((p) => String(p._id) === String(gameState.winnerId)))
       || null;
